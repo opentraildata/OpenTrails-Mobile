@@ -1,0 +1,20 @@
+#map {
+  position: absolute;
+  top: 25px;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+
+#controls {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 9000;
+}
+
+#progress_modal {
+  position: absolute;
+  top: 30%;
+}

@@ -1,0 +1,5 @@
+.cordova
+plugins/*
+merges/*
+platforms/*
+.DS_Store

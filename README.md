@@ -1,0 +1,43 @@
+Trails Mobile
+=============
+
+Trails Mobile is a multi-device application that allows users of trails to cache trail information offline.
+
+## Installation
+
+In order to test this application, you'll have to have the PhoneGap command-line tools installed. If you don't have it installed, you can reference this [tutorial](http://phonegap.com/install/).
+
+Once you have PhoneGap up and running, clone the GitHub repo to a new PhoneGap application.
+
+```
+phonegap create trails-mobile
+cd trails-mobile
+rm -rf www
+git clone https://github.com/rclosner/trails-mobile www
+```
+
+Install plugins
+
+```
+phonegap plugin add org.apache.cordova.file-transfer
+phonegap plugin add org.apache.cordova.file
+phonegap plugin add org.apache.cordova.dialogs
+```
+
+Build platform
+
+```
+phonegap build ios
+phonegap install ios
+```
+
+## Usage
+
+TODO: Fill me in
+
+## Contribution
+
+  * Fork the project.
+  * Make your feature addition or bug fix.
+  * Commit, do not mess with Rakefile or version
+  * Send me a pull request. Bonus points for topic branches.
