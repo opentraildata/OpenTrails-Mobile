@@ -7,21 +7,12 @@ Trails Mobile is a multi-device application that allows users of trails to cache
 
 In order to test this application, you'll have to have the PhoneGap command-line tools installed. If you don't have it installed, you can reference this [tutorial](http://phonegap.com/install/).
 
-Once you have PhoneGap up and running, clone the GitHub repo to a new PhoneGap application.
+Once you have PhoneGap up and running, clone the GitHub repo to a new PhoneGap application and run the installation script.
 
 ```
-phonegap create trails-mobile
+git clone https://github.com/rclosner/trails-mobile trails-mobile
 cd trails-mobile
-rm -rf www
-git clone https://github.com/rclosner/trails-mobile www
-```
-
-Install plugins
-
-```
-phonegap plugin add org.apache.cordova.file-transfer
-phonegap plugin add org.apache.cordova.file
-phonegap plugin add org.apache.cordova.dialogs
+./bin/install
 ```
 
 Build platform
