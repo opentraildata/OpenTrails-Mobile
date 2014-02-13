@@ -8,6 +8,10 @@ var PATH   = process.cwd();
 var CONFIG = 'config.json';
 var DIRS   = ['plugins', 'platforms'];
 
+function onNotExist (err) {
+  console.log('Error: ' + err);
+}
+
 //
 // Make relevant directories
 //
@@ -18,7 +22,7 @@ for (var i = 0; i < DIRS.length; i++) {
   console.log(' * ' + DIRS[i]);
   fs.exists(path, function (exists) {
     if (!exists)  fs.mkdir(path);
-  });
+  }, onNotExist);
 }
 
 
@@ -38,4 +42,4 @@ fs.exists(configPath, function (exists) {
       }
     }
   }
-})
+}, onNotExist);
