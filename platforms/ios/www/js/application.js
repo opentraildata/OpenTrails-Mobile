@@ -4,7 +4,8 @@
 
   var module = ng.module('trails', [
     'trails.routes',
-    'trails.controllers'
+    'trails.controllers',
+    'trails.services'
   ]);
 
   var onDeviceReady = function () {

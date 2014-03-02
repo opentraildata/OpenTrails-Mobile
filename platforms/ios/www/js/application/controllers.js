@@ -31,14 +31,19 @@
 
     '$rootScope',
     '$scope',
+    'TrailHead',
 
-    function ($rootScope, $scope) {
+    function ($rootScope, $scope, TrailHead) {
 
       $scope.loading = false;
-      $scope.keywords = '';
+      $scope.results = TrailHead.all;
+
+      $scope.$watch('keywords', function (keywords) {
+        $scope.search(keywords);
+      });
 
       $scope.search = function (keywords) {
-        console.log('Searched for: ' + keywords);
+        $scope.results = TrailHead.search(keywords);
       }
 
     }

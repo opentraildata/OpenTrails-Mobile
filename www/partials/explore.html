@@ -10,41 +10,15 @@
 
   <div id="content" ng-hide="loading">
 
+    <div id="search-info" ng-if="keywords.length > 0">
+      <span>Found {{ results.length }} results for '{{keywords}}'</span>
+    </div>
+
     <div id="search-results">
 
-      <div class="search-result">
+      <div class="search-result" ng-repeat="result in results">
         <div class="search-result-header">
-          <h3>Brandywine Falls Trailhead</h3>
-          <small>3 Trails Directly Accesible From Here.</small>
-        </div>
-        <div class="search-result-body">
-          <p>The Towpath Trail</p>
-        </div>
-      </div>
-
-      <div class="search-result">
-        <div class="search-result-header">
-          <h3>Brandywine Falls Trailhead</h3>
-          <small>3 Trails Directly Accesible From Here.</small>
-        </div>
-        <div class="search-result-body">
-          <p>The Towpath Trail</p>
-        </div>
-      </div>
-
-      <div class="search-result">
-        <div class="search-result-header">
-          <h3>Brandywine Falls Trailhead</h3>
-          <small>3 Trails Directly Accesible From Here.</small>
-        </div>
-        <div class="search-result-body">
-          <p>The Towpath Trail</p>
-        </div>
-      </div>
-
-      <div class="search-result">
-        <div class="search-result-header">
-          <h3>Brandywine Falls Trailhead</h3>
+          <h3>{{result.get('name')}}</h3>
           <small>3 Trails Directly Accesible From Here.</small>
         </div>
         <div class="search-result-body">
