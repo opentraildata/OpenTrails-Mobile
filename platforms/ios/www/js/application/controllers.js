@@ -9,7 +9,6 @@
     '$rootScope',
 
     function ($rootScope) {
-      $rootScope.header = 'To The Trails'
       $rootScope.call = function (number) {
         confirm('Are you sure you would like to call "' + number + '"?');
       }
@@ -23,7 +22,7 @@
     '$scope',
 
     function ($rootScope, $scope) {
-      $rootScope.header = 'Home';
+      $scope.header = 'Home';
     }
 
   ]);
@@ -34,7 +33,7 @@
     '$scope',
 
     function ($rootScope, $scope) {
-      $rootScope.header = 'Explore';
+      $scope.header = 'Explore';
     }
 
   ]);
@@ -45,7 +44,7 @@
     '$scope',
 
     function ($rootScope, $scope) {
-      $rootScope.header = 'Info';
+      $scope.header = 'Info';
     }
 
   ]);

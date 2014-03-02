@@ -1,6 +1,6 @@
 'use strict';
 
-(function (ng) {
+(function (ng, fc) {
 
   var module = ng.module('trails', [
     'trails.routes',
@@ -13,4 +13,8 @@
 
   document.addEventListener('deviceready', onDeviceReady, false);
 
-})(angular);
+  window.addEventListener('load', function() {
+    fc.attach(document.body);
+  }, false);
+
+})(angular, FastClick);
