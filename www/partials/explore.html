@@ -11,8 +11,13 @@
   <div id="content" ng-hide="loading">
 
     <div id="search-info" ng-if="keywords.length > 0">
-      <span>Found {{ results.length }} results for '{{keywords}}'</span>
+      <span>Found {{ results.length }} Results For '{{keywords}}'</span>
     </div>
+
+    <div id="search-info" ng-if="!keywords || keywords.length === 0">
+      <span>Found {{ results.length }} Trails Near You</span>
+    </div>
+
 
     <div id="search-results">
 

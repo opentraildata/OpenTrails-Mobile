@@ -38,10 +38,14 @@
       window.TrailHead = TrailHead
 
       $scope.loading = false;
-      $scope.results = TrailHead.all;
+      $scope.results = [];
 
       $scope.$watch('keywords', function (keywords) {
-        $scope.search(keywords);
+        if (keywords) {
+          $scope.search(keywords);
+        } else {
+          $scope.results = TrailHead.all; 
+        }
       });
 
       $scope.search = function (keywords) {
