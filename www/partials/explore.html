@@ -1,10 +1,59 @@
 <div id="explore">
 
   <div id="header">
-    <div class="container">
-      <input type="search" value="" placeholder="Search" class="search-input">
-      <a href="#" class="search-cancel">Cancel</a>
+    <form id="search-form" ng-submit="search(keywords)">
+      <input id="search-input" type="search" ng-model="keywords" value="{{keywords}}" placeholder="Search" class="search-input">
+      <a href="#" id="search-cancel">Cancel</a>
+    </form>
+  </div>
+
+
+  <div id="content" ng-hide="loading">
+
+    <div id="search-results">
+
+      <div class="search-result">
+        <div class="search-result-header">
+          <h3>Brandywine Falls Trailhead</h3>
+          <small>3 Trails Directly Accesible From Here.</small>
+        </div>
+        <div class="search-result-body">
+          <p>The Towpath Trail</p>
+        </div>
+      </div>
+
+      <div class="search-result">
+        <div class="search-result-header">
+          <h3>Brandywine Falls Trailhead</h3>
+          <small>3 Trails Directly Accesible From Here.</small>
+        </div>
+        <div class="search-result-body">
+          <p>The Towpath Trail</p>
+        </div>
+      </div>
+
+      <div class="search-result">
+        <div class="search-result-header">
+          <h3>Brandywine Falls Trailhead</h3>
+          <small>3 Trails Directly Accesible From Here.</small>
+        </div>
+        <div class="search-result-body">
+          <p>The Towpath Trail</p>
+        </div>
+      </div>
+
+      <div class="search-result">
+        <div class="search-result-header">
+          <h3>Brandywine Falls Trailhead</h3>
+          <small>3 Trails Directly Accesible From Here.</small>
+        </div>
+        <div class="search-result-body">
+          <p>The Towpath Trail</p>
+        </div>
+      </div>
+
     </div>
+
   </div>
 
   <div id="footer">

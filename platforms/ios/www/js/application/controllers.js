@@ -33,7 +33,14 @@
     '$scope',
 
     function ($rootScope, $scope) {
-      $scope.header = 'Explore';
+
+      $scope.loading = false;
+      $scope.keywords = '';
+
+      $scope.search = function (keywords) {
+        console.log('Searched for: ' + keywords);
+      }
+
     }
 
   ]);
