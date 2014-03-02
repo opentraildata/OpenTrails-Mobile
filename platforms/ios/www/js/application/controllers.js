@@ -22,7 +22,50 @@
     '$scope',
 
     function ($rootScope, $scope) {
-      $scope.header = 'Home';
+
+      $scope.header = 'Metro Parks Serving Summit County';
+
+      var origin = [ 41.082020, -81.518506 ];
+
+      var map = L.map('map', {zoomControl: false});
+      map.setView(origin, 13);
+
+      var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {detectRetina: true});
+      layer.addTo(map);
+
+      var icon = L.icon({
+        iconUrl: 'img/location.png',
+        iconSize: [20,20]
+      })
+
+      var marker = L.marker(origin, {icon: icon}).addTo(map);
+      map.addLayer(marker);
+
+      marker.on('click', function () { map.setView(marker.getLatLng(), 16) })
+
+      var opacity = 1;
+      var fading = true;
+
+      setInterval(function () {
+
+        if (opacity < 0.7 && fading === true) {
+          fading = false;
+        }
+
+        if (opacity > 1 && fading === false) {
+          fading = true;
+        }
+
+        if (fading) {
+          opacity = opacity - 0.01; 
+        } else {
+          opacity = opacity + 0.02;
+        }
+
+        marker.setOpacity(opacity);
+
+      },40)
+
     }
 
   ]);
