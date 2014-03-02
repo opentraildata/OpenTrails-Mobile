@@ -35,6 +35,8 @@
 
     function ($rootScope, $scope, TrailHead) {
 
+      window.TrailHead = TrailHead
+
       $scope.loading = false;
       $scope.results = TrailHead.all;
 
@@ -57,6 +59,7 @@
 
     function ($rootScope, $scope) {
       $scope.header = 'Info';
+      $scope.active = 'events';
     }
 
   ]);

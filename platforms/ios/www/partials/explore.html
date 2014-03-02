@@ -3,7 +3,7 @@
   <div id="header">
     <form id="search-form" ng-submit="search(keywords)">
       <input id="search-input" type="search" ng-model="keywords" value="{{keywords}}" placeholder="Search" class="search-input">
-      <a href="#" id="search-cancel">Cancel</a>
+      <span href="#" id="search-cancel" ng-click="keywords = null">Cancel</span>
     </form>
   </div>
 
@@ -18,11 +18,11 @@
 
       <div class="search-result" ng-repeat="result in results">
         <div class="search-result-header">
-          <h3>{{result.get('name')}}</h3>
-          <small>3 Trails Directly Accesible From Here.</small>
+          <h3>{{ result.get('name') }}</h3>
+          <small>{{ result.trails.length }} Trails Directly Accesible From Here.</small>
         </div>
         <div class="search-result-body">
-          <p>The Towpath Trail</p>
+          <p ng-repeat="trail in result.trails">{{ trail.get('name') }}</p>
         </div>
       </div>
 

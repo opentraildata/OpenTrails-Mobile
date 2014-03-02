@@ -127,7 +127,7 @@ input {
 .button {
   .border-radius(50%);
   display: inline-block;
-  margin: auto;
+  margin: 0 7px;
   width: @button-width;
   height: @button-width;
   border: (@button-width / 11) solid @white-color;
@@ -135,27 +135,32 @@ input {
 
 .button-inner {
   .border-radius(50%);
-  width: @button-width * 0.8;
-  height: @button-width * 0.8;
-  margin: auto;
-  border: (@button-width / 11) solid @gray-color;
+  width: @button-width * 0.9;
+  height: @button-width * 0.9;
+  margin: 3.75px 0px 0px 4px;
+  border: 5 * 0.9 solid @gray-color;
 }
 
 .button a {
   color: @white-color;
   text-decoration: none;
 
-  &.active {
+  &.active, &:hover {
     .button-inner {
-      // On active
+      background-color: @white-color;
     } 
+
+    span {
+      color: @gray-color; 
+    }
   }
 }
 
 .button span {
   position: relative;
-  top: 40px;
+  top: 35px;
   left: 1px;
+  font-size: 11px;
 }
 
 #explore {
@@ -185,6 +190,7 @@ input {
     text-decoration: none;
     margin-top: 8px;
     margin-left: 10px;
+    cursor: pointer;
   }
 
   #search-info {
@@ -233,6 +239,34 @@ input {
         background-color: darken(@white-color, 10%);
       }
     }
+  }
+
+}
+
+#info {
+
+  #header {
+    .tab {
+      text-align: center;
+      width: 50%;
+      float: left;
+
+      &.active {
+        background-color: @white-color; 
+        color: @gray-color;
+      }
+    }
+  }
+
+  #notification-info {
+    width: 100%; 
+    height: 20px;
+    background-color: @gray-color;
+    border-top: 5px solid @white-color;
+    color: lighten(@gray-color, 30%);
+    padding: 15px 0;
+    font-size: 12px;
+    text-align: center;
   }
 
 }

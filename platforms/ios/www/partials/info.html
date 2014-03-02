@@ -1,29 +1,42 @@
-<div id="header">
-  <h4>{{header}}</h4>
-</div>
+<div id="info">
+  <div id="header">
+    <div class="tab" ng-class="{active: active == 'alerts'}" ng-click="active = 'alerts'">
+      <p>Alerts</p>
+    </div>
+    <div class="tab" ng-class="{active: active == 'events'}" ng-click="active = 'events'">
+      <p>Events</p>
+    </div>
+  </div>
 
-<div id="footer">
-  <div id="buttons">
-    <div class="button">
-      <a href="#/explore">
-        <div class="button-inner">
-          <span>Explore</span>
-        </div>
-      </a>
+  <div id="content">
+    <div id="notification-info">
+      <span>Alerts from Metro Parks, Serving Summit County</span>
     </div>
-    <div class="button">
-      <a href="#/info" class="active">
-        <div class="button-inner">
-          <span>Info</span>
-        </div>
-      </a>
-    </div>
-    <div class="button">
-      <a href="#" ng-click="call('1.800.555.5555')">
-        <div class="button-inner">
-          <span>Help</span>
-        </div>
-      </a>
+  </div>
+
+  <div id="footer">
+    <div id="buttons">
+      <div class="button">
+        <a href="#/explore">
+          <div class="button-inner">
+            <span>Explore</span>
+          </div>
+        </a>
+      </div>
+      <div class="button">
+        <a href="#/info" class="active">
+          <div class="button-inner">
+            <span>Info</span>
+          </div>
+        </a>
+      </div>
+      <div class="button">
+        <a href="#" ng-click="call('1.800.555.5555')">
+          <div class="button-inner">
+            <span>Help</span>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
