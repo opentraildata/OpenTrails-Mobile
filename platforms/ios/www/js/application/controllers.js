@@ -52,14 +52,19 @@
 
   ]);
 
-  module.controller('InfoCtrl', [
+  module.controller('NotificationsCtrl', [
 
     '$rootScope',
     '$scope',
+    'AlertNotification',
+    'EventNotification',
 
-    function ($rootScope, $scope) {
-      $scope.header = 'Info';
-      $scope.active = 'events';
+    function ($rootScope, $scope, AlertNotification, EventNotification) {
+
+      $scope.active = 'alerts';
+      $scope.events = EventNotification.all;
+      $scope.alerts = AlertNotification.all;
+
     }
 
   ]);

@@ -181,4 +181,110 @@
 
   ]);
 
+  module.factory('AlertNotification', [
+    function () {
+      var MOCK_DATA = [
+        { title: "Alert Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Alert Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Alert Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Alert Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Alert Headline Body Copy Lorem Ipsum Lorem Trailhead." }
+      ];
+
+      var AlertNotification = function () {
+        this.initialize.apply(this, arguments);
+      }
+
+      AlertNotification.prototype.defaults = {
+        title: null,
+        body: null,
+        source: null,
+        created_at: null
+      }
+
+      AlertNotification.prototype.initialize = function (attributes) {
+         attributes = attributes || {};
+
+        this.attributes = {};
+
+        for (var property in this.defaults) {
+          this.attributes[property] = attributes[property] || this.defaults[property];
+        }
+      }
+
+      AlertNotification.prototype.get = function (key) {
+        return this.attributes[key];
+      }
+
+      AlertNotification.prototype.set = function (obj) {
+        for (var property in obj) {
+          this.attributes[property] = obj[property];
+        }
+        return this;
+      }
+
+      AlertNotification.all = [];
+
+      for (var i = 0; i < MOCK_DATA.length; i++) {
+        AlertNotification.all.push( new AlertNotification(MOCK_DATA[i]) );
+      }
+
+      return AlertNotification;
+
+    }
+  ]);
+
+  module.factory('EventNotification', [
+    function () {
+
+      var MOCK_DATA = [
+        { title: "Event Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Event Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Event Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Event Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead." },
+        { title: "Event Headline Copy", created_at: "Saturday, October 21st at 1pm", source: "Metro Parks", body: "Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Assuming Headline Body Copy Lorem just mucking up the Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Body Copy Lorem Ipsum Lorem Trailhead Ipsum. Event Headline Body Copy Lorem Ipsum Lorem Trailhead." }
+      ];
+
+      var EventNotification = function () {
+        this.initialize.apply(this, arguments);
+      }
+
+      EventNotification.prototype.defaults = {
+        title: null,
+        body: null,
+        source: null,
+        created_at: null
+      }
+
+      EventNotification.prototype.initialize = function (attributes) {
+         attributes = attributes || {};
+
+        this.attributes = {};
+
+        for (var property in this.defaults) {
+          this.attributes[property] = attributes[property] || this.defaults[property];
+        }
+      }
+
+      EventNotification.prototype.get = function (key) {
+        return this.attributes[key];
+      }
+
+      EventNotification.prototype.set = function (obj) {
+        for (var property in obj) {
+          this.attributes[property] = obj[property];
+        }
+        return this;
+      }
+
+      EventNotification.all = [];
+
+      for (var i = 0; i < MOCK_DATA.length; i++) {
+        EventNotification.all.push( new EventNotification(MOCK_DATA[i]) );
+      }
+
+      return EventNotification;
+
+    }
+  ]);
+
 })(angular);

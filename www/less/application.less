@@ -36,6 +36,8 @@
 
 @white-color: #f6f6f6;
 @gray-color: #666666;
+@blue-color: #4A90E2;
+@red-color: #D0021B;
 
 @status-height: 25px;
 @header-height: 50px;
@@ -206,7 +208,7 @@ input {
   #search-results {
     width: 100%; 
     overflow-y: scroll;
-    height: 425px;
+    height: 340px;
   }
 
   .search-result-header {
@@ -243,7 +245,7 @@ input {
 
 }
 
-#info {
+#notifications {
 
   #header {
     .tab {
@@ -259,7 +261,7 @@ input {
     }
   }
 
-  #notification-info {
+  #notifications-info {
     width: 100%; 
     height: 20px;
     background-color: @gray-color;
@@ -268,6 +270,48 @@ input {
     padding: 15px 0;
     font-size: 12px;
     text-align: center;
+  }
+
+  .notification {
+    padding: 15px;
+    color: @gray-color;
+  }
+
+  .notification-header {
+    margin-bottom: 10px;
+  
+    h3 {
+      padding: 0; 
+      margin: 0;
+    } 
+
+    small {
+      font-size: 11px; 
+    }
+
+  }
+
+  .notification-body {
+    border-top: 1px solid @gray-color;
+    font-size: 11px; 
+  }
+
+  #events {
+    .notification {
+      border-top: 5px solid @blue-color; 
+    } 
+  }
+
+  #alerts {
+    .notification {
+      border-top: 5px solid @red-color; 
+    } 
+  }
+
+  #events, #alerts {
+    width: 100%;
+    height: 340px;
+    overflow-y: scroll;
   }
 
 }

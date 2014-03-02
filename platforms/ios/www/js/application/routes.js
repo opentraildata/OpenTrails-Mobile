@@ -20,9 +20,9 @@
         templateUrl: 'partials/explore.html'
       });
 
-      $routeProvider.when('/info', {
-        controller: 'InfoCtrl',
-        templateUrl: 'partials/info.html'
+      $routeProvider.when('/notifications', {
+        controller: 'NotificationsCtrl',
+        templateUrl: 'partials/notifications.html'
       });
 
       $routeProvider.otherwise({
