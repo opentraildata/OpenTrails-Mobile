@@ -35,17 +35,25 @@
 /** Variables **/
 
 @white-color: #f6f6f6;
-@gray-color: #666666;
+@gray-color: #242424;
 @blue-color: #4A90E2;
 @red-color: #D0021B;
+@green-color: #465C44;
+@light-gray-color: lighten(@gray-color, 50%);
 
 @status-height: 25px;
 @header-height: 50px;
-@footer-height: 100px;
-@button-width: 75px;
+@footer-height: 80px;
 
 @device-width: 320px;
 @device-height: 568px;
+
+@button-width: 50px;
+@button-height: 50px;
+
+@z-index-1: 1000;
+@z-index-2: 2000;
+@z-index-3: 3000;
 
 /** Styles **/
 
@@ -58,11 +66,7 @@ body {
   height: 100%;
 }
 
-input {
-  &:focus {
-    outline: none; 
-  }
-}
+/** Layout **/
 
 #main {
   width: 100%;
@@ -70,253 +74,316 @@ input {
 }
 
 #status {
-  .opacity(0.9);
   top: 0;
-  position: absolute;
+  position: fixed;
   height: @status-height;
   width: 100%;
   background-color: @gray-color;
   border-bottom: 1px solid lighten(@gray-color, 30%);
-  z-index: 99999;
+  z-index: @z-index-3;
 }
 
 #header {
-  .opacity(0.9);
-  position: absolute;
+  position: fixed;
   top: @status-height + 1;
   height: @header-height;
   width: 100%;
   background-color: @gray-color;
   color: @white-color;
   weight: 300;
-  text-align: center;
   overflow-y: hidden;
-  z-index: 99999;
-}
-
-#header h4 {
-  width: 200px;
-  margin: auto;
+  z-index: @z-index-3;
 }
 
 #content {
-  position: absolute;
+  position: fixed;
   top: @header-height + @status-height;
+  z-index: @z-index-3;
   width: 100%;
-}
-
-#map {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
+  height: @device-height - (@status-height + @header-height + @footer-height);
+  background-color: @white-color;
 }
 
 #footer {
-  .opacity(0.9);
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: @footer-height;
   width: 100%;
   background-color: @gray-color;
-  z-index: 99999;
-}
+  z-index: @z-index-3;
+  text-align: justify;
+  -ms-text-justify: distribute-all-lines;
+  text-justify: distribute-all-lines;
 
-#buttons {
-  text-align: center;
-  margin-top: 5px;
-}
-
-.button {
-  .border-radius(50%);
-  display: inline-block;
-  margin: 0 7px;
-  width: @button-width;
-  height: @button-width;
-  border: (@button-width / 11) solid @white-color;
-}
-
-.button-inner {
-  .border-radius(50%);
-  width: @button-width * 0.9;
-  height: @button-width * 0.9;
-  margin: 3.75px 0px 0px 4px;
-  border: 5 * 0.9 solid @gray-color;
-}
-
-.button a {
-  color: @white-color;
-  text-decoration: none;
-
-  &.active, &:hover {
-    .button-inner {
-      background-color: @white-color;
-    } 
-
-    span {
-      color: @gray-color; 
-    }
-  }
-}
-
-.button span {
-  position: relative;
-  top: 35px;
-  left: 1px;
-  font-size: 11px;
-}
-
-#explore {
-
-  #search-form {
-    margin: 8px; 
-  }
-
-  #search-input {
-    .border-radius(3px);
-    .transition(all .25s ease);
+  a {
+    text-decoration: none; 
     color: @gray-color;
-    border: 1px darken(@gray-color, 30%);
-    padding: 7px;
-    margin-left: 5px;
-    width: 50%;
-    float: left;
-
-    &:focus {
-      width: 70%; 
-    }
   }
 
-  #search-cancel {
-    float: left;
-    color: @white-color; 
-    text-decoration: none;
-    margin-top: 8px;
-    margin-left: 10px;
-    cursor: pointer;
+  .button {
+    padding: 20px;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    width: @button-width;
+    height: @button-height;
   }
 
-  #search-info {
+  .stretch {
     width: 100%; 
-    height: 20px;
-    background-color: @gray-color;
-    border-top: 5px solid @white-color;
-    color: lighten(@gray-color, 30%);
-    padding: 15px 15px;
-    font-size: 16px;
+    display: inline-block;
+    line-height: 0;
+    font-size: 0;
   }
 
-  #search-results {
-    width: 100%; 
-    overflow-y: scroll;
-    height: 340px;
-  }
-
-  .search-result-header {
-    background-color: darken(@gray-color, 10%);
-    color: @white-color;
-    padding: 10px;
-    border-bottom: 1px solid lighten(@gray-color, 10%);
-
-    h3 {
-      margin: 0; 
-    }
-
-    small {
-      color: darken(@white-color, 15%);
-      font-size: 11px;
+  .button-search {
+    margin-top: 5px;
+    img {
+      height: 30px; 
+      width: 40px;
     }
   }
 
-  .search-result-body {
-    background-color: @white-color; 
-    p {
-      border-bottom: 1px solid @gray-color; 
+  .button-map {
+    margin-top: 5px;
+    img {
+      height: 30px; 
+      width: 43px;
+    }
+  }
+
+  .button-info {
+    img {
+      height: 40px; 
+      width: 34px;
+    }
+  }
+
+  .button-layer {
+    img {
+      height: 40px; 
+      width: 50px;
+    }
+  }
+}
+
+/** Views **/
+
+#map-view {
+
+  #map-controls {
+    position: relative;
+    top: 25px;
+    width: 100%;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+    z-index: @z-index-3;
+
+    .control {
+      vertical-align: top;
+      display: inline-block;
+      *display: inline;
+      zoom: 1;
+      height: 50px; 
+      width: 50px;
+      padding: 20px;
+    }
+
+    img {
+      height: 50px; 
+      width: 50px;
+    }
+
+    .stretch {
+      width: 100%; 
+      display: inline-block;
+      line-height: 0;
+      font-size: 0;
+    }
+  }
+
+  #map-layers {
+    position: fixed;  
+    bottom: @footer-height;
+    width: 100%;
+    z-index: @z-index-1;
+    margin: 0;
+    padding: 0;
+    background-color: @white-color;
+    border-top: 1px solid @light-gray-color;
+    
+    .map-layer {
+      width: 100%; 
+      list-style-type: none;
+      border-bottom: 1px solid @light-gray-color;
       padding: 15px;
-      margin: 0;
-      color: darken(@gray-color, 10%);
-      font-size: 20px;
-      font-weight: 100;
-
-      &:hover {
-        background-color: darken(@white-color, 10%);
-      }
+      display: inline-block;
     }
+
+    .map-layer-name {
+      float: left;
+    }
+
+    .map-layer-visible {
+      float: right;
+      margin-right: 30px;
+    }
+
+  }
+
+  #map-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: @z-index-1;
   }
 
 }
 
-#notifications {
+#search-view {
 
   #header {
-    .tab {
-      text-align: center;
-      width: 50%;
-      float: left;
-      cursor: pointer;
-
-      &.active {
-        background-color: @white-color; 
-        color: @gray-color;
-      }
-    }
+  
   }
 
-  #notifications-info {
+ .search-form {
+    width: 100%;
+    height: 100%;
+  }
+
+  .search-input-container {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    padding: 10px 0;
+  }
+
+  .search-input-icon {
+    background: transparent url(../img/magnifying-glass.png) no-repeat right top;
+    background-size: 15px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    position: relative;
+    z-index: @z-index-3; 
+    display: block;
+    top: 8px;
+    left: 23px;
+  }
+
+  .search-input {
+    .border-radius(3px);
+    float: left; 
+    width: @device-width - 70px;
+    padding-left: 25px;
+    color: @gray-color;
+  }
+
+  .search-info {
     width: 100%; 
     height: 20px;
-    background-color: @gray-color;
-    border-top: 5px solid @white-color;
-    color: lighten(@gray-color, 30%);
-    padding: 15px 0;
-    font-size: 12px;
+    padding: 20px 0;
+    background-color: @green-color;
+    color: lighten(@gray-color, 50%);
+    font-size: 14px;
     text-align: center;
   }
 
-  .notification {
-    padding: 15px;
-    color: @gray-color;
+  .search-results {
+    width: 100%; 
+    overflow-y: scroll;
+    height: 340px;
+    margin-bottom: 30px;
   }
 
-  .notification-header {
-    margin-bottom: 10px;
-  
-    h3 {
-      padding: 0; 
-      margin: 0;
-    } 
+  .search-result {
+    .search-result-header-outer {
+      background-color: @white-color;
+      color: lighten(@gray-color, 50%);
+      font-size: 14px;
+      font-weight: 100;
+      padding: 5px 10px 0 10px;
 
-    small {
-      font-size: 11px; 
+      .search-result-header-inner {
+        border-bottom: 1px solid lighten(@gray-color, 60%);
+        padding: 10px 5px;
+        display: inline-block; 
+        width: 95%;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .name {
+        float: left; 
+      }
+
+      .distance {
+        float: right; 
+      }
+
     }
 
+    .search-result-body {
+      background-color: @white-color; 
+      h3 {
+        border-bottom: 1px solid @gray-color; 
+        padding: 15px;
+        margin: 0;
+        color: @gray-color;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+#notifications-view {
+
+  #content {
+    top: @status-height + 1;
   }
 
-  .notification-body {
-    border-top: 1px solid @gray-color;
-    font-size: 11px; 
+  #notifications-info {
+    background-color: @green-color;
+    text-align: center;
+    color: lighten(@gray-color, 50%);
+    font-size: 12px;
+
+    p {
+      margin: 0; 
+      padding: 10px;
+    }
   }
 
-  #events {
-    .notification {
-      border-top: 5px solid @blue-color; 
+  #notification-sources {
+    .source {
+      border-bottom: 1px solid @gray-color; 
+      display: inline-block;
+      width: 100%;
+
+      .col-left {
+        width: 40px; 
+        display: inline-block;
+      }
+
+      .col-right {
+        display: inline-block;
+
+        h3 {
+          font-size: 13px; 
+        }
+      }
     } 
-  }
-
-  #alerts {
-    .notification {
-      border-top: 5px solid @red-color; 
-    } 
-  }
-
-  #events, #alerts {
-    width: 100%;
-    height: 340px;
-    overflow-y: scroll;
   }
 
 }
+
+/** Device Specific Styles **/
 
 // iPhone 5 in Portrait and Landscape
 
@@ -341,28 +408,6 @@ and (orientation : landscape) {
 and (min-device-width : 320px) 
 and (max-device-width : 568px) 
 and (orientation : portrait) {
-
-  @status-height: 25px;
-  @header-height: 50px;
-  @footer-height: 100px;
-  @button-width: 75px;
-
-  #status {
-    height: @status-height;
-  }
-
-  #header {
-    height: @header-height;
-  }
-
-  #footer {
-    height: @footer-height;
-  }
-
-  .button {
-    width: @button-width; 
-    height: @button-width;
-  }
 
 }
 

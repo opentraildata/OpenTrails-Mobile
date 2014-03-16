@@ -10,19 +10,14 @@
 
     function ($routeProvider) {
 
-      $routeProvider.when('/', {
-        controller: 'HomeCtrl',
-        templateUrl: 'partials/home.html'
-      });
-
-      $routeProvider.when('/explore', {
-        controller: 'ExploreCtrl',
-        templateUrl: 'partials/explore.html'
+      $routeProvider.when('/search', {
+        controller: 'SearchCtrl',
+        templateUrl: 'views/search.html'
       });
 
       $routeProvider.when('/notifications', {
         controller: 'NotificationsCtrl',
-        templateUrl: 'partials/notifications.html'
+        templateUrl: 'views/notifications.html'
       });
 
       $routeProvider.otherwise({

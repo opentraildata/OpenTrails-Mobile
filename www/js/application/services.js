@@ -4,6 +4,105 @@
 
   var module = ng.module('trails.services', [ ]);
 
+  module.factory('Application', [
+
+    'Map',
+
+    function (Map) {
+
+      var Application = function () {
+        this.initialize.apply(this, arguments) 
+      } 
+
+      Application.prototype.initialize = function () {
+      }
+
+      return new Application();
+    } 
+
+  ]);
+
+  module.factory('Map', [
+
+    'TileLayer',
+
+    function (TileLayer) {
+
+      var Map = function () {
+        this.initialize.apply(this, arguments) 
+      } 
+
+      Map.prototype.DEFAULT_ZOOM  = 13;
+      Map.prototype.DEFAULT_ORIGIN = [ 41.082020, -81.518506 ];
+
+      Map.prototype.initialize = function () {
+        this.map = L.map(this.el, this.options); 
+        this.setView(this.DEFAULT_ORIGIN, this.DEFAULT_ZOOM);
+      }
+
+      Map.prototype.options = {
+        "zoomControl": false
+      }
+
+      Map.prototype.el = 'map-container';
+
+      Map.prototype.render = function (el) {
+        this.map = L.map(this.el) 
+      }
+
+      Map.prototype.setView = function (origin,zoom) {
+        this.map.setView(origin,zoom);
+        return this;
+      }
+
+      Map.TileLayer = TileLayer;
+
+      return Map;
+    } 
+  ]);
+
+  module.factory('TileLayer', [
+
+    function () {
+      
+      var TileLayer = function () {
+        this.initialize.apply(this, arguments);
+      }
+
+      TileLayer.DEFAULT = 'terrain';
+
+      TileLayer.INDEX = {
+        "terrain": {
+          "name": 'Terrain',
+          "id": 'terrain',
+          "url": 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        },
+        "satellite": {
+          "name": 'Satellite',
+          "id": 'satellite',
+          "url": 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        }
+      }
+
+      TileLayer.DEFAULT_OPTIONS = {
+        "detectRetina": true
+      }
+
+      TileLayer.prototype.initialize = function (type, options) {
+        this.options = tileLayer.DEFAULT_OPTIONS;
+        this.tileLayer = tileLayer.all[type];
+        this.layer = L.tileLayer(this.tileLayer.url, this.options);
+      }
+
+      TileLayer.prototype.addTo = function (map) {
+        this.layer.addTo(map);
+      }
+
+      return TileLayer;
+    }
+      
+  ]);
+
   module.factory('TrailHead', [
 
     'Trail',

@@ -1,0 +1,61 @@
+<div id="search-view" ng-show="searchVisible" ng-controller="SearchCtrl">
+
+  <div id="header">
+    <form class="search-form" ng-submit="search(keywords)">
+      <div class="search-input-container">
+        <span class="search-input-icon">&nbsp;</span>
+        <input class="search-input" type="search" ng-focus="console.log" ng-model="keywords" value="{{keywords}}" placeholder="Search">
+        <a href="#" ng-show="keywords.length > 0"ng-click="clear()">Clear</a>
+      </div>
+    </form>
+  </div>
+
+
+  <div id="content" ng-hide="loading">
+
+    <div class="search-info" ng-if="keywords.length > 0">
+      <span>Found {{ results.length }} Results For '{{keywords}}'</span>
+    </div>
+
+    <div class="search-info" ng-if="!keywords || keywords.length === 0">
+      <span>Found {{ results.length }} Trails Near You</span>
+    </div>
+
+
+    <div class="search-results">
+      <div class="search-result" ng-repeat="result in results">
+        <div class="search-result-header-outer">
+          <div class="search-result-header-inner">
+            <p class="name">{{ result.get('name') }}</p>
+            <p class="distance">1.2 miles away</p>
+          </div>
+        </div>
+        <div class="search-result-body">
+          <h3 ng-repeat="trail in result.trails">{{ trail.get('name') }}</h3>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="footer">
+    <a href="#/home">
+      <div class="button button-map">
+        <img src="img/map@2x.png"/>
+      </div>
+    </a>
+    <a href="#/notifications">
+      <div class="button button-info">
+        <img src="img/info@2x.png"/>
+      </div>
+    </a>
+    <a href="#/layer">
+      <div class="button button-layer">
+        <img src="img/map-stack@2x.png"/>
+      </div>
+    </a>
+    <span class="stretch"></span>
+  </div>
+
+</div>

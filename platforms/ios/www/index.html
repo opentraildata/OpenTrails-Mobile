@@ -10,11 +10,44 @@
       <link rel="stylesheet/less" type="text/css" href="less/application.less"/>
       <script type="text/javascript" src="js/lib/less/less.min.js"></script>
   </head>
+
   <body ng-controller='ApplicationCtrl'>
 
-    <div id="status"></div>
+    <div id="main">
+      <div id="status"></div>
 
-    <div id="main" ng-view>
+      <ng-include src="views.templates.map"></ng-include>
+      <ng-include src="views.templates.search"></ng-include>
+      <ng-include src="views.templates.notifications"></ng-include>
+
+      <div id="footer">
+        <a href="#" ng-click="views.render('map')">
+          <div class="button button-map">
+            <img src="img/map@2x.png"/>
+          </div>
+        </a>
+
+        <a href="#" ng-click="views.render('search')">
+          <div class="button button-search">
+            <img src="img/search@2x.png"/>
+          </div>
+        </a>
+
+        <a href="#" ng-click="views.render('notifications')">
+          <div class="button button-info">
+            <img src="img/info@2x.png"/>
+          </div>
+        </a>
+
+        <a href="#" ng-click="views.render('layers')">
+          <div class="button button-layer">
+            <img src="img/map-stack@2x.png"/>
+          </div>
+        </a>
+
+        <span class="stretch"></span>
+      </div>
+
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -28,4 +61,5 @@
     <script type="text/javascript" src="js/application.js"></script>
 
   </body>
+
 </html>

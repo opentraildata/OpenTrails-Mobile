@@ -7,78 +7,100 @@
   module.controller('ApplicationCtrl', [
 
     '$rootScope',
+    '$scope',
+    'Application',
 
-    function ($rootScope) {
-      $rootScope.call = function (number) {
-        confirm('Are you sure you would like to call "' + number + '"?');
+    function ($rootScope, $scope, Application) {
+
+      // Views
+
+      var views = {
+        current: 'map',
+
+        render: function (view) {
+          this.current = view;
+          if ($scope[view+'Visible']) {
+            $scope[view+'Visible'] = !$scope[view+'Visible'];
+            $scope.mapVisible = true;
+          } else {
+            this.reset();
+            $scope[view+'Visible'] = true
+          }
+        },
+
+        reset: function () {
+          $scope.mapVisible = false;      
+          $scope.searchVisible = false;
+          $scope.notificationsVisible = false;
+          $scope.layersVisible = false;
+        },
+
+        templates: {
+          "map": 'views/map.html',
+          "search": 'views/search.html',
+          "notifications": 'views/notifications.html'
+        }
+      }
+
+      $scope.views = views;
+
+      // Partials
+
+      var partials = {
+        "templates": {
+          "footer": 'partials/footer.html',
+          "layers": 'partials/layers.html'
+        }
+      }
+
+      $scope.partials = partials;
+
+    }
+
+  ]);
+
+  module.controller('MapCtrl', [
+
+    '$scope',
+    'Application',
+
+    function ($scope, Application, Map) {
+      $scope.recenter = function () {
+        console.log('Recenter map') 
       }
     }
-
+      
   ]);
 
-  module.controller('HomeCtrl', [
+  module.controller('MapLayersCtrl', [
 
-    '$rootScope',
     '$scope',
+    'Application',
+    'Map',
 
-    function ($rootScope, $scope) {
+    function ($scope, Application, Map) {
 
-      $scope.header = 'Metro Parks Serving Summit County';
+      $scope.layers = Map.TileLayer.INDEX;
 
-      var origin = [ 41.082020, -81.518506 ];
-
-      var map = L.map('map', {zoomControl: false});
-      map.setView(origin, 13);
-
-      var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {detectRetina: true});
-      layer.addTo(map);
-
-      var icon = L.icon({
-        iconUrl: 'img/location.png',
-        iconSize: [20,20]
-      })
-
-      var marker = L.marker(origin, {icon: icon}).addTo(map);
-      map.addLayer(marker);
-
-      marker.on('click', function () { map.setView(marker.getLatLng(), 16) })
-
-      var opacity = 1;
-      var fading = true;
-
-      setInterval(function () {
-
-        if (opacity < 0.7 && fading === true) {
-          fading = false;
-        }
-
-        if (opacity > 1 && fading === false) {
-          fading = true;
-        }
-
-        if (fading) {
-          opacity = opacity - 0.01; 
+      $scope.setLayer = function (layer) {
+        if (Application.map) {
+          console.log("Setting layer to: " + layer.name);
         } else {
-          opacity = opacity + 0.02;
+          throw "MapLayersCtrl: no map found" 
         }
-
-        marker.setOpacity(opacity);
-
-      },40)
+      }
 
     }
 
   ]);
 
-  module.controller('ExploreCtrl', [
+  module.controller('SearchCtrl', [
 
     '$rootScope',
     '$scope',
     'TrailHead',
 
     function ($rootScope, $scope, TrailHead) {
-
-      window.TrailHead = TrailHead
 
       $scope.loading = false;
       $scope.results = [];
@@ -103,14 +125,8 @@
 
     '$rootScope',
     '$scope',
-    'AlertNotification',
-    'EventNotification',
 
-    function ($rootScope, $scope, AlertNotification, EventNotification) {
-
-      $scope.active = 'alerts';
-      $scope.events = EventNotification.all;
-      $scope.alerts = AlertNotification.all;
+    function ($rootScope, $scope) {
 
     }
 

@@ -1,0 +1,16 @@
+<div id="map-view" ng-controller="MapCtrl">
+
+  <div id="map-controls">
+    <a href="#" class="control" ng-click="views.render('search');">
+      <img src="img/map-search@2x.png"/>
+    </a>
+    <a href="#" class="control" ng-click="recenter();">
+      <img src="img/map-location@2x.png"/>
+    </a>
+    <span class="stretch"></span>
+  </div>
+
+  <div id="map-container"></div>
+
+  <ng-include src="partials.templates.layers"></ng-include>
+</div>
