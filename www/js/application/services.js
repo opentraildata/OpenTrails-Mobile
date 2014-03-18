@@ -55,6 +55,10 @@
         return this;
       }
 
+      Map.prototype.addLayer = function (layer) {
+        layer.addTo(this.map);
+      }
+
       Map.TileLayer = TileLayer;
 
       return Map;
@@ -89,8 +93,9 @@
       }
 
       TileLayer.prototype.initialize = function (type, options) {
-        this.options = tileLayer.DEFAULT_OPTIONS;
-        this.tileLayer = tileLayer.all[type];
+        var tileLayer = TileLayer.INDEX[type]
+        this.options = TileLayer.DEFAULT_OPTIONS;
+        this.tileLayer = tileLayer;
         this.layer = L.tileLayer(this.tileLayer.url, this.options);
       }
 

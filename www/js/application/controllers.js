@@ -63,8 +63,13 @@
 
     '$scope',
     'Application',
+    'Map',
 
     function ($scope, Application, Map) {
+      $scope.map = new Map();
+      $scope.layer = new Map.TileLayer('terrain');
+      $scope.map.addLayer($scope.layer);
+
       $scope.recenter = function () {
         console.log('Recenter map') 
       }
