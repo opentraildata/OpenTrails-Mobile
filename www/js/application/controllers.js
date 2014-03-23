@@ -19,13 +19,26 @@
 
         render: function (view) {
           this.current = view;
-          if ($scope[view+'Visible']) {
-            $scope[view+'Visible'] = !$scope[view+'Visible'];
-            $scope.mapVisible = true;
-          } else {
-            this.reset();
-            $scope[view+'Visible'] = true
-          }
+
+          this.reset();
+
+          switch (view) {
+            case 'map':
+              $scope.mapVisible = true;
+              break;
+            case 'search':
+              $scope.searchVisible = true;
+              break;
+            case 'notifications':
+              $scope.notificationsVisible = true;
+              break;
+            case 'map-layers':
+              $scope.mapVisible = true;
+              $scope.mapLayersVisible = !$scope.mapLayersVisible;
+              break;
+            default:
+              return false;
+          };
         },
 
         reset: function () {
@@ -37,12 +50,14 @@
 
         templates: {
           "map": 'views/map.html',
+          "trail": 'views/trail.html',
           "search": 'views/search.html',
           "notifications": 'views/notifications.html'
         }
       }
 
       $scope.views = views;
+      $scope.views.render('map');
 
       // Partials
 
@@ -53,8 +68,8 @@
         }
       }
 
-      $scope.partials = partials;
 
+      $scope.partials = partials;
     }
 
   ]);
@@ -66,13 +81,17 @@
     'Map',
 
     function ($scope, Application, Map) {
-      $scope.map = new Map();
-      $scope.layer = new Map.TileLayer('terrain');
-      $scope.map.addLayer($scope.layer);
+      var map = Application.map;
 
       $scope.recenter = function () {
-        console.log('Recenter map') 
+        map.setView(map.DEFAULT_ORIGIN, map.DEFAULT_ZOOM);
       }
+
+      map.on('click', function () {
+        console.log('map clicked');
+      });
+
+      $scope.map = map;
     }
       
   ]);
@@ -84,47 +103,62 @@
     'Map',
 
     function ($scope, Application, Map) {
-
-      $scope.layers = Map.TileLayer.INDEX;
+      var map = Application.map;
 
       $scope.setLayer = function (layer) {
         if (Application.map) {
-          console.log("Setting layer to: " + layer.name);
+          map.setTileLayer(layer.id);
         } else {
           throw "MapLayersCtrl: no map found" 
         }
       }
 
+      $scope.layers = Map.TileLayer.ALL_LAYERS;
     }
 
   ]);
 
   module.controller('SearchCtrl', [
 
-    '$rootScope',
     '$scope',
-    'TrailHead',
+    'Application',
+    'Models',
 
-    function ($rootScope, $scope, TrailHead) {
+    function ($scope, Application, Models) {
 
       $scope.loading = false;
       $scope.results = [];
+
+      $scope.currentPosition = Application.currentPosition.position;
 
       $scope.$watch('keywords', function (keywords) {
         if (keywords) {
           $scope.search(keywords);
         } else {
-          $scope.results = TrailHead.all; 
+          $scope.results = []; 
         }
       });
 
       $scope.search = function (keywords) {
-        $scope.results = TrailHead.search(keywords);
+        $scope.results = [];
       }
 
     }
 
   ]);
+
+  module.controller('TrailsCtrl', [
+
+    '$scope',
+    'Application',
+    'Models',
+
+    function ($scope, Application, Models) {
+      window.Models = Models;
+    }
+
+  ]);
+
 
   module.controller('NotificationsCtrl', [
 

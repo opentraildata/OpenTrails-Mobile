@@ -16,7 +16,24 @@
     <div id="main">
       <div id="status"></div>
 
-      <ng-include src="views.templates.map"></ng-include>
+      <div id="map-view" ng-controller="MapCtrl">
+
+        <div id="map-controls">
+          <a href="#" class="control" ng-click="views.render('search');">
+            <img src="img/map-search@2x.png"/>
+          </a>
+          <a href="#" class="control" ng-click="recenter();">
+            <img src="img/map-location@2x.png"/>
+          </a>
+          <span class="stretch"></span>
+        </div>
+
+        <div id="map-container"></div>
+
+        <ng-include src="partials.templates.layers"></ng-include>
+      </div>
+
+      <ng-include src="views.templates.trail"></ng-include>
       <ng-include src="views.templates.search"></ng-include>
       <ng-include src="views.templates.notifications"></ng-include>
 
@@ -39,7 +56,7 @@
           </div>
         </a>
 
-        <a href="#" ng-click="views.render('layers')">
+        <a href="#" ng-click="views.render('map-layers')">
           <div class="button button-layer">
             <img src="img/map-stack@2x.png"/>
           </div>
