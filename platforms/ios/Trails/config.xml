@@ -19,15 +19,12 @@
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
-    <feature name="Geolocation">
-        <param name="ios-package" value="CDVLocation" />
-    </feature>
     <name>Trails</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+      Trails Mobile is a multi-device application that allows users of trails to cache trail information offline.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="ryanc@codeforamerica.org" href="http://codeforamerica.org">
+        Code for America
     </author>
     <content src="index.html" />
     <access origin="*" />
