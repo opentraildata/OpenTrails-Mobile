@@ -172,35 +172,33 @@ body {
 
 #map-view {
 
-  #map-controls {
-    position: relative;
-    top: 25px;
-    width: 100%;
-    text-align: justify;
-    -ms-text-justify: distribute-all-lines;
-    text-justify: distribute-all-lines;
+  #map-search {
+    position: relative; 
+    top: 40px;
+    left: 25px;
+    float: left;
     z-index: @z-index-3;
-
-    .control {
-      vertical-align: top;
-      display: inline-block;
-      *display: inline;
-      zoom: 1;
-      height: 50px; 
-      width: 50px;
-      padding: 20px;
-    }
+    height: 50px;
+    width: 50px;
 
     img {
       height: 50px; 
       width: 50px;
     }
+  }
 
-    .stretch {
-      width: 100%; 
-      display: inline-block;
-      line-height: 0;
-      font-size: 0;
+  #map-recenter {
+    position: relative; 
+    top: 40px;
+    right: 25px;
+    float: right;
+    z-index: @z-index-3;
+    height: 50px;
+    width: 50px;
+
+    img {
+      height: 50px; 
+      width: 50px;
     }
   }
 

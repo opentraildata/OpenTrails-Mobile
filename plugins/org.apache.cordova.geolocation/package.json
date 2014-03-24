@@ -1,0 +1,14 @@
+{
+    "version": "0.3.6",
+    "name": "org.apache.cordova.geolocation",
+    "cordova_name": "Geolocation",
+    "description": "Cordova Geolocation Plugin",
+    "license": "Apache 2.0",
+    "repo": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git",
+    "issue": "https://issues.apache.org/jira/browse/CB/component/12320638",
+    "keywords": [
+        "cordova",
+        "geolocation"
+    ],
+    "engines": []
+}

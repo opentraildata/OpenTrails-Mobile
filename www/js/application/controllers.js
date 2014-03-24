@@ -8,9 +8,8 @@
 
     '$rootScope',
     '$scope',
-    'Application',
 
-    function ($rootScope, $scope, Application) {
+    function ($rootScope, $scope) {
 
       // Views
 
@@ -77,21 +76,41 @@
   module.controller('MapCtrl', [
 
     '$scope',
-    'Application',
     'Map',
+    'CurrentPositionMarker',
 
-    function ($scope, Application, Map) {
-      var map = Application.map;
+    function ($scope, Map, CurrentPositionMarker) {
 
-      $scope.recenter = function () {
-        map.setView(map.DEFAULT_ORIGIN, map.DEFAULT_ZOOM);
+      var positionMarker = new CurrentPositionMarker({
+        position: Map.DEFAULT_ORIGIN,
+        options: {
+          clickable: false
+        }
+      });
+
+      positionMarker.addTo(Map);
+
+      var onGeolocationSuccess = function (position) {
+        $scope.currentPosition = position;
       }
 
-      map.on('click', function () {
+      var onGeolocationError = function () {
+        console.log('Error: Could not geolocate user');
+      }
+
+      var watchId = navigator.geolocation.watchPosition(
+        onGeolocationSuccess,
+        onGeolocationError
+      );
+
+      $scope.recenter = function () {
+        Map.setView(positionMarker.getPosition(), Map.DEFAULT_ZOOM);
+      }
+
+      Map.on('click', function () {
         console.log('map clicked');
       });
 
-      $scope.map = map;
     }
       
   ]);
@@ -99,21 +118,16 @@
   module.controller('MapLayersCtrl', [
 
     '$scope',
-    'Application',
     'Map',
+    'TileLayer',
 
-    function ($scope, Application, Map) {
-      var map = Application.map;
+    function ($scope, Map, TileLayer) {
 
       $scope.setLayer = function (layer) {
-        if (Application.map) {
-          map.setTileLayer(layer.id);
-        } else {
-          throw "MapLayersCtrl: no map found" 
-        }
+        Map.setTileLayer(layer.id);
       }
 
-      $scope.layers = Map.TileLayer.ALL_LAYERS;
+      $scope.layers = TileLayer.ALL_LAYERS;
     }
 
   ]);
@@ -121,15 +135,12 @@
   module.controller('SearchCtrl', [
 
     '$scope',
-    'Application',
     'Models',
 
-    function ($scope, Application, Models) {
+    function ($scope, Models) {
 
       $scope.loading = false;
       $scope.results = [];
-
-      $scope.currentPosition = Application.currentPosition.position;
 
       $scope.$watch('keywords', function (keywords) {
         if (keywords) {
@@ -140,7 +151,11 @@
       });
 
       $scope.search = function (keywords) {
-        $scope.results = [];
+        $scope.results = Models.Trail.query.where({
+          key: 'name',
+          evaluator: 'contains',
+          value: keywords
+        }).all();
       }
 
     }
@@ -150,11 +165,52 @@
   module.controller('TrailsCtrl', [
 
     '$scope',
-    'Application',
+    'Map',
     'Models',
+    'MapTrailLayer',
+    'MapTrailHeadMarker',
 
-    function ($scope, Application, Models) {
-      window.Models = Models;
+    function ($scope, Map, Models, MapTrailLayer, MapTrailHeadMarker) {
+
+      var renderTrails = function () {
+
+        Models.Trail.query.each(function (trail) {
+          renderTrail(trail)
+        }); 
+
+        Models.TrailHead.query.each(function (trailHead) {
+          renderTrailHead(trailHead)
+        }); 
+
+      }
+
+      var renderTrail = function (trail) {
+        var marker = new MapTrailLayer({ geojson: trail.toGeoJson() })
+
+        marker.addTo(Map);
+
+        return marker;
+      }
+
+      var renderTrailHead = function (trailHead) {
+        var marker = new MapTrailHeadMarker({ position: trailHead.toPosition().toArray() });
+
+        marker.addTo(Map);
+
+        marker.on('click', function () {
+          console.log(trailHead.get('name'));
+        });
+
+        return marker;
+      }
+
+      var renderMapData = function () {
+        renderTrails();
+      }
+
+      $scope.$watch(Models.loaded, function (loaded) {
+        if (loaded) renderMapData();
+      });
     }
 
   ]);

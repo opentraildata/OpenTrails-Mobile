@@ -6,87 +6,121 @@
   // UTILITIES
   //
 
-  var utils = {
-      
-    numToRad: function () {
-      return num * Math.PI / 180;                 
-    },
+  function Utils () { }
 
-    haversine: function (position1, position2) {
-      var lat1 = position1.get('latitude'),
-          lat2 = position2.get('latitude'),
-          lng1 = position1.get('longitude'),
-          lng2 = position2.get('longitude');
-
-      var dLat = utils.numToRad(lat2 - lat1),
-          dLng = utils.numToRad(lng2 - lng1);
-
-      var a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(utils.numToRad(lat1)) * Math.cos(utils.numToRad(lat2)) * Math.pow(Math.sin(dLng / 2), 2),
-          c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-      return (6372.8 * c) * 0.621371;
-    },
-
-    defaults: function(obj) {
-      ng.forEach(Array.prototype.slice.call(arguments, 1), function(source) {
-        if (source) {
-          for (var prop in source) {
-            if (obj[prop] === void 0) obj[prop] = source[prop];
-          }
-        }
-      });
-      return obj;
-    },
-
-    has: function (obj, key) {
-      return hasOwnProperty.call(obj, key); 
-    },
-
-    without: function (obj, keys) {
-      var result = {}; 
-      for (var key in obj) {
-        if (keys.indexOf(key) === -1) {
-          result[key] = obj[key]
-        }
-      }
-      return result;
-    },
-
-    map: function (arr, f) {
-      var results = []; 
-
-      ng.forEach(arr, function (item) {
-        results.push(f(item));
-      });
-
-      return results;
-    },
-
-    keys: function (obj) {
-      var keys = [];
-      for (var key in obj) {
-        keys.push(key);
-      }
-      return keys;
-    },
-
-    inherit: function(protoProps, staticProps) {
-      var parent = this;
-      var child;
-      if (protoProps && utils.has(protoProps, 'constructor')) {
-        child = protoProps.constructor;
-      } else {
-        child = function(){ return parent.apply(this, arguments); };
-      }
-      ng.extend(child, parent, staticProps);
-      var Surrogate = function(){ this.constructor = child; };
-      Surrogate.prototype = parent.prototype;
-      child.prototype = new Surrogate;
-      if (protoProps) ng.extend(child.prototype, protoProps);
-      child.__super__ = parent.prototype;
-      return child;
-    }
+  Utils.prototype.numToRad = function (num) {
+    return num * Math.PI / 180;                 
   }
+
+  Utils.prototype.haversine = function (position1, position2) {
+    var lat1 = position1.get('latitude'),
+        lat2 = position2.get('latitude'),
+        lng1 = position1.get('longitude'),
+        lng2 = position2.get('longitude');
+
+    var dLat = utils.numToRad(lat2 - lat1),
+        dLng = utils.numToRad(lng2 - lng1);
+
+    var a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(utils.numToRad(lat1)) * Math.cos(utils.numToRad(lat2)) * Math.pow(Math.sin(dLng / 2), 2),
+        c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return (6372.8 * c) * 0.621371;
+  }
+
+  Utils.prototype.defaults = function (obj) {
+     ng.forEach(Array.prototype.slice.call(arguments, 1), function(source) {
+      if (source) {
+        for (var prop in source) {
+          if (obj[prop] === void 0) obj[prop] = source[prop];
+        }
+      }
+    });
+    return obj;
+  }
+
+  Utils.prototype.has = function (obj,key) {
+    return hasOwnProperty.call(obj, key); 
+  }
+
+  Utils.prototype.without = function (obj, keys) {
+    var result = {}; 
+    for (var key in obj) {
+      if (keys.indexOf(key) === -1) {
+        result[key] = obj[key]
+      }
+    }
+    return result;
+  }
+
+  Utils.prototype.map = function (arr, f) {
+    var results = []; 
+
+    ng.forEach(arr, function (item) {
+      results.push(f(item));
+    });
+
+    return results;
+  }
+
+  Utils.prototype.keys = function (obj) {
+    var keys = [];
+    for (var key in obj) {
+      keys.push(key);
+    }
+    return keys;
+  }
+
+  Utils.prototype.inherit = function(protoProps, staticProps) {
+    var parent = this;
+    var child;
+    if (protoProps && utils.has(protoProps, 'constructor')) {
+      child = protoProps.constructor;
+    } else {
+      child = function(){ return parent.apply(this, arguments); };
+    }
+    ng.extend(child, parent, staticProps);
+    var Surrogate = function(){ this.constructor = child; };
+    Surrogate.prototype = parent.prototype;
+    child.prototype = new Surrogate;
+    if (protoProps) ng.extend(child.prototype, protoProps);
+    child.__super__ = parent.prototype;
+    return child;
+  }
+
+  var utils = new Utils();
+
+  //
+  // MODEL DEFINITION
+  //
+
+  function Model (attrs) {
+    this.attributes = {}
+    if ( ng.isObject(attrs) ) {
+      for (var key in this.defaults) {
+        this.attributes[key] = attrs[key] || this.defaults[key];
+      }
+    } else {
+      this.attributes = utils.defaults(this.attributes, this.defaults);
+    }
+    this.initialize.apply(this, arguments);
+  }
+
+  ng.extend(Model.prototype, {
+    initialize: ng.noop,
+    attributes: {},
+    set: function (attrs) {
+      for (var key in attrs) {
+        if ( utils.has(this.defaults, key) ) this.attributes[key] = attrs[key];
+      }
+      return attrs;
+    },
+    get: function (attr) {
+      return this.attributes[attr];
+    },
+  });
+
+  Model.inherit = utils.inherit;
+
 
   //
   // QUERY MODEL
@@ -253,38 +287,6 @@
   }
 
   //
-  // MODEL DEFINITION
-  //
-
-  function Model (attrs) {
-    this.attributes = {}
-    if ( ng.isObject(attrs) ) {
-      for (var key in this.defaults) {
-        this.attributes[key] = attrs[key] || this.defaults[key];
-      }
-    } else {
-      this.attributes = utils.defaults(this.attributes, this.defaults);
-    }
-    this.initialize.apply(this, arguments);
-  }
-
-  ng.extend(Model.prototype, {
-    initialize: ng.noop,
-    attributes: {},
-    set: function (attrs) {
-      for (var key in attrs) {
-        if ( utils.has(this.defaults, key) ) this.attributes[key] = attrs[key];
-      }
-      return attrs;
-    },
-    get: function (attr) {
-      return this.attributes[attr];
-    },
-  });
-
-  Model.inherit = utils.inherit;
-
-  //
   // ASSOCIATION MODEL
   //
 
@@ -339,7 +341,7 @@
     toQuery: function () {
      var foreign = this.get('foreign'),
          scope = this.get('scope');
-      return foreign.where(scope);
+      return foreign.query.where(scope);
     },
 
     perform: function (name, args) {
@@ -353,23 +355,21 @@
   // TRAIL MODEL
   //
 
-  var TRAIL_ATTRIBUTES = {
-    "id": null,
-    "name": null,
-    "segmentIds": null,
-    "descriptn": null,
-    "partOf": null
-  }
-
   var Trail = Model.inherit({
 
-    defaults: TRAIL_ATTRIBUTES,
+    defaults: {
+      "id": null,
+      "name": null,
+      "segmentIds": null,
+      "descriptn": null,
+      "partOf": null
+    },
 
     initialize: function () {
 
       this.trailSegments = new Association({
         primary: this,
-        foreign: TrailSegment.Query,
+        foreign: TrailSegment,
         scope: {
           key: 'id',
           evaluator: 'in',
@@ -379,7 +379,7 @@
 
       this.trailHeads = new Association({
         primary: this,
-        foreign: TrailHead.Query,
+        foreign: TrailHead,
         scope: {
           key: 'trailIds',
           evaluator: 'includes',
@@ -389,9 +389,9 @@
 
     },
 
-    toGeoJSON: function () {
+    toGeoJson: function () {
       var features = this.trailSegments.map(function (trailSegment) {
-        return trailSegment.toGeoJSON(); 
+        return trailSegment.toGeoJson(); 
       });
       return {
         "type": "FeatureCollection",
@@ -399,46 +399,47 @@
       }
     }
 
-  });
+  }, {
 
-  Trail.Query = new Query(Trail);
+    query: new Query(),
 
-  Trail.load = function (data) {
-    var results = [];
+    load: function (data) {
+      var results = [];
 
-    if (data.trails) {
-      ng.forEach(data.trails, function (trail) {
-        results.push( new Trail(trail) );
-      });
+      if (data.trails) {
+        ng.forEach(data.trails, function (trail) {
+          results.push( new Trail(trail) );
+        });
+      }
+
+      this.query.setCollection(results);
+      this.loaded = true;
     }
-
-    Trail.Query.setCollection(results);
-  }
+  
+  });
 
   //
   // TRAILHEAD MODEL
   //
 
-  var TRAILHEAD_ATTRIBUTES = {
-    "id": null,
-    "name": null,
-    "trailIds": null,
-    "stewardId": null,
-    "parkName": null,
-    "address": null,
-    "parking": null,
-    "kiosk": null,
-    "geometry": null
-  }
-
   var TrailHead = Model.inherit({
 
-    defaults: TRAILHEAD_ATTRIBUTES,
+    defaults: {
+      "id": null,
+      "name": null,
+      "trailIds": null,
+      "stewardId": null,
+      "parkName": null,
+      "address": null,
+      "parking": null,
+      "kiosk": null,
+      "geometry": null
+    },
 
     initialize: function () {
       this.trails = new Association({
         primary: this,
-        foreign: Trail.Query,
+        foreign: Trail,
         scope: {
           key: 'id',
           evaluator: 'in',
@@ -448,7 +449,7 @@
 
       this.stewards = new Association({
         primary: this,
-        foreign: Steward.Query,
+        foreign: Steward,
         scope: {
           key: 'id',
           evaluator: 'equals',
@@ -476,7 +477,7 @@
       return new Position({latitude: this.getLat(), longitude: this.getLng() });
     },
 
-    toGeoJSON: function () {
+    toGeoJson: function () {
       var properties = utils.without(this.attributes, ['geometry']);
       var geometry = this.get('geometry');
 
@@ -486,56 +487,53 @@
         "geometry": geometry
       } 
     }
-  });
+  }, {
 
-  TrailHead.Query = new Query();
+    query: new Query(),
 
-  TrailHead.loaded = false;
+    load: function (data) {
+      var results = [];
 
-  TrailHead.load = function (data) {
-    var results = [];
+      if (data.geojson && data.geojson.features) {
+        ng.forEach(data.geojson.features, function (feature) {
+          var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
+          if (attrs.type === 'TrailHead') {
+            results.push( new TrailHead(attrs) );
+          }
+        });
+      }
 
-    if (data.geojson && data.geojson.features) {
-      ng.forEach(data.geojson.features, function (feature) {
-        var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
-        if (attrs.type === 'TrailHead') {
-          results.push( new TrailHead(attrs) );
-        }
-      });
+      this.query.setCollection(results);
+      this.loaded = true;
     }
 
-    TrailHead.Query.setCollection(results);
-    TrailHead.loaded = true;
-  }
+  });
 
   //
   // TRAILSEGMENT MODEL
   //
 
-
-  var TRAILSEGMENT_ATTRIBUTES = {
-    "id": null,
-    "name": null,
-    "stewardId": null,
-    "highway": null,
-    "motorVehicles": null,
-    "foot": null,
-    "bicycle": null,
-    "horse": null,
-    "ski": null,
-    "wheelChair": null,
-    "osmTags": null,
-    "geometry": null
-  }
-
   var TrailSegment = Model.inherit({
 
-    defaults: TRAILSEGMENT_ATTRIBUTES,
+    defaults: {
+      "id": null,
+      "name": null,
+      "stewardId": null,
+      "highway": null,
+      "motorVehicles": null,
+      "foot": null,
+      "bicycle": null,
+      "horse": null,
+      "ski": null,
+      "wheelChair": null,
+      "osmTags": null,
+      "geometry": null
+    },
 
     initialize: function () {
       this.trails = new Association({
         primary: this,
-        foreign: Trail.Query,
+        foreign: Trail,
         scope: {
           key: 'trailSegmentIds',
           evaluator: 'includes',
@@ -544,7 +542,7 @@
       });
     },
 
-    toGeoJSON: function () {
+    toGeoJson: function () {
       var properties = utils.without(this.attributes, ['geometry']);
       var geometry = this.get('geometry');
 
@@ -555,48 +553,49 @@
       } 
     }
 
-  });
+  }, {
 
-  TrailSegment.Query = new Query();
+    query: new Query(),
 
-  TrailSegment.loaded = false;
+    load: function (data) {
+      var results = [];
 
-  TrailSegment.load = function (data) {
-    var results = [];
+      if (data.geojson && data.geojson.features) {
+        ng.forEach(data.geojson.features, function (feature) {
+          var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
+          if (attrs.type === 'TrailSegment') {
+            results.push( new TrailSegment(attrs) );
+          }
+        });
+      }
 
-    if (data.geojson && data.geojson.features) {
-      ng.forEach(data.geojson.features, function (feature) {
-        var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
-        if (attrs.type === 'TrailSegment') {
-          results.push( new TrailSegment(attrs) );
-        }
-      });
+      this.query.setCollection(results);
+      this.loaded = true;
     }
 
-    TrailSegment.Query.setCollection(results);
-    TrailSegment.loaded = true;
-  }
+  });
 
   //
   // STEWARD MODEL
   //
 
   var STEWARD_ATTRIBUTES = {
-    "id": null,
-    "name": null,
-    "url": null,
-    "phone": null,
-    "address": null
   }
 
   var Steward = Model.inherit({
 
-    defaults: STEWARD_ATTRIBUTES,
+    defaults: {
+      "id": null,
+      "name": null,
+      "url": null,
+      "phone": null,
+      "address": null
+    },
 
     initialize: function () {
       this.trailHeads = new Association({
         primary: this,
-        foreign: Steward.Query,
+        foreign: Steward,
         scope: {
           key: 'stewardId',
           evaluator: 'equals',
@@ -606,7 +605,7 @@
 
       this.notifications = new Association({
         primary: this,
-        foreign: Notification.Query,
+        foreign: Notification,
         scope: {
           key: 'stewardId',
           evaluator: 'equals',
@@ -615,66 +614,67 @@
       });
     }
 
-  });
+  }, {
 
-  Steward.Query = new Query();
+    query: new Query(),
 
-  Steward.loaded = false;
+    load: function (data) {
+      var results = [];
 
-  Steward.load = function (data) {
-    var results = [];
+      if (data.stewards) {
+        ng.forEach(data.stewards, function (steward) {
+          results.push( new Steward(steward) );
+        });
+      }
 
-    if (data.stewards) {
-      ng.forEach(data.stewards, function (steward) {
-        results.push( new Steward(steward) );
-      });
+      this.query.setCollection(results);
+      this.loaded = true;
     }
 
-    Steward.Query.setCollection(results);
-    Steward.loaded = true;
-  }
+  });
 
   //
   // NOTIFICATION MODEL
   //
 
-  var NOTIFICATION_ATTRIBUTES = {
-    "id": null,
-    "title": null,
-    "body": null,
-    "stewardId": null,
-    "type": null,
-    "createdAt": null,
-    "read": false
-  }
-
   var Notification = Model.inherit({
-    defaults: NOTIFICATION_ATTRIBUTES,
+    defaults: {
+      "id": null,
+      "title": null,
+      "body": null,
+      "stewardId": null,
+      "type": null,
+      "createdAt": null,
+      "read": false
+    },
+
     markAsRead: function () {
       this.set({ read: true });
       return this;
     },
+
     isRead: function () {
       return this.get('read')         
     }
-  });
 
-  Notification.Query = new Query();
+  }, {
 
-  Notification.loaded = false;
+    query: new Query(),
 
-  Notification.load = function (data) {
-    var results = [];
+    load: function (data) {
+      var results = [];
 
-    if (data.notifications) {
-      ng.forEach(data.notifications, function (notification) {
-        results.push( new Notification(notification) );
-      });
+      if (data.notifications) {
+        ng.forEach(data.notifications, function (notification) {
+          results.push( new Notification(notification) );
+        });
+      }
+
+      this.query.setCollection(results);
+      this.loaded = true;
     }
-
-    Notification.Query.setCollection(results);
-    Notification.loaded = true;
-  }
+  
+  });
 
   //
   // POSITION
@@ -686,38 +686,153 @@
   }
 
   var Position = Model.inherit({
+
     defaults: POSITION_ATTRIBUTES,
+
     distanceFrom: function (position) {
       return utils.haversine(this, position);
+    },
+
+    toArray: function () {
+      return [this.get('latitude'),this.get('longitude')]          
     }
+
   });
 
-  //
-  // TRAILLAYER MODEL
+  var MapLayer = Model.inherit({
 
-  var TrailLayer = Model.inherit({
     defaults: {
-      trail: null         
+      options: {}           
     },
+
     initialize: function () {
-      var trail = this.get("trail");
-
-      if (trail) {
-        var geojson = trail.toGeoJSON();
-      }
-
-      this.layer = L.geoJson(geojson, this.options)
+      this.layer = undefined;           
     },
 
-    options: {
-      style: {
-        color: '#a3a3a3'
-      }
+    on: function (e,f) {
+      this.layer.on(e, f);
+      return this;
+    },
+
+    off: function (e,f) {
+      this.layer.off(e, f);
+      return this;
+    },
+
+    trigger: function (e) {
+      this.layer.trigger(e);
+      return this;
+    },
+
+    bringToFront: function () {
+      this.layer.bringToFront();             
+      return this;
+    },
+
+    bringToBack: function () {
+      this.layer.bringToBack();             
+      return this;
     },
 
     addTo: function (map) {
       map.addLayer(this);
+      return this;
+    },
+
+    removeFrom: function (map) {
+      map.removeLayer(this);
+      return this;
     }
+
+  });
+
+  var MapGeoJsonLayer = MapLayer.inherit({
+
+    defaults: {
+      geojson: null,
+      options: {}
+    },
+
+    initialize: function () {
+      this.layer = L.geoJson(this.get('geojson'), this.get('options'));
+    }
+  
+  });
+
+  var MapTilesLayer = MapLayer.inherit({
+
+    defaults: {
+      urlTemplate: null,
+      options: {
+        "detectRetina": true
+      }
+    },
+
+    initialize: function () {
+      this.layer = L.tileLayer(this.get('url'), this.get('options'));
+    }
+
+  });
+
+  var MapMarker = MapLayer.inherit({
+
+    defaults: {
+      position: null,
+      options: {}
+    },
+
+    initialize: function () {
+      this.layer = L.marker(this.get('position'), this.get('options'));
+    },
+
+    getPosition: function () {
+      return this.layer.getLatLng(); 
+    },
+
+    setPosition: function (position) {
+      this.layer.setLatLng(position);
+      return this;
+    }
+  
+  });
+
+  var MapCircleMarker = MapMarker.inherit({
+
+    defaults: {
+      position: null,
+      options: {}
+    },
+
+    initialize: function () {
+      this.layer = L.circleMarker(this.get('position'), this.get('options'))             
+    } 
+
+  });
+
+  var MapTrailHeadMarker = MapMarker.inherit({
+    defaults: {
+      options: {
+        icon: L.icon({
+          iconUrl: 'img/trailhead-marker.png',
+          iconRetinaUrl: 'img/trailhead-marker@2x.png',
+          iconSize: [ 30, 30 ]
+        })          
+      },
+      position: null
+    } 
+  });
+
+  var MapTrailLayer = MapGeoJsonLayer.inherit({
+
+    defaults: {
+      geojson: null,
+      options: {
+        style: {
+          color: "#a3a3a3"
+        } 
+      }
+    }
+
   });
 
   //
@@ -726,13 +841,29 @@
 
   var module = ng.module('trails.services', [ ]);
 
-  module.factory('TrailLayer', [
+  module.factory('MapTrailLayer', [
 
     function () {
-      return TrailLayer; 
+      return MapTrailLayer; 
     } 
 
   ]);
+
+  module.factory('MapTrailHeadMarker', [
+
+    function () {
+      return MapTrailHeadMarker; 
+    } 
+
+  ]);
+
+  module.factory('CurrentPositionMarker', [
+
+    function () {
+      return MapCircleMarker; 
+    } 
+
+  ])
 
   //
   // DB MODEL
@@ -744,6 +875,10 @@
 
     function ($http) {
 
+      var ALL = [
+        "TrailHead", "Trail", "TrailSegment", "Steward", "Notification"
+      ]
+
       var Models = {
         "TrailHead": TrailHead,
         "Trail": Trail,
@@ -752,66 +887,24 @@
         "Notification": Notification
       }
 
-      var reload = function (data) {
-        for (var key in Models) {
-          Models[key].load(data);
-        }
+      Models.reload = function (data) {
+        ng.forEach(ALL, function (model) { Models[model].load(data) })
       }
 
-      $http.get('data/data.json').then(
+      Models.loaded = function () {
+        var loaded = true;
+        ng.forEach(ALL, function (model) { if (!Models[model].loaded) loaded = false });
+        return loaded;
+      }
+
+      $http.get('data/output.json').then(
         function (res) {
-          reload(res.data);
+          Models.reload(res.data);
         }
       );
 
       return Models;
     }
-
-  ]);
-
-  module.factory('Application', [
-
-    'Map',
-    'CurrentPosition',
-
-    function (Map, CurrentPosition) {
-
-      var Application = function () {
-        this.initialize.apply(this, arguments) 
-      } 
-
-      Application.prototype.initialize = function () {
-        this.map = new Map();
-        this.currentPosition = new CurrentPosition();
-      }
-
-      return new Application();
-    } 
-
-  ]);
-
-  module.factory('CurrentPosition', [
-
-    function () {
-
-      var CurrentPosition = Model.inherit({
-        defaults: {
-          latitude: null,
-          longitude: null
-        },
-
-        initialize: function (attrs) {
-          this.position = new Position({latitude: this.get('latitude'), longitude: this.get('longitude') });
-          this.update();
-        },
-
-        update: function () {
-          this.set({ latitude: 41.07792775176955, longitude: -81.54353141784668 });
-        }
-      })
-
-      return CurrentPosition;
-    }  
 
   ]);
 
@@ -889,8 +982,16 @@
 
       Map.TileLayer = TileLayer;
 
-      return Map;
+      return new Map();
     } 
+  ]);
+
+  module.factory('MapCircleMarker', [
+
+    function () {
+      return MapCircleMarker; 
+    }
+
   ]);
 
   module.factory('TileLayer', [
