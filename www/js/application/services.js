@@ -677,17 +677,15 @@
   });
 
   //
-  // POSITION
+  // POSITION MODEL
   //
-
-  var POSITION_ATTRIBUTES = {
-    latitude: null,
-    longitude: null
-  }
 
   var Position = Model.inherit({
 
-    defaults: POSITION_ATTRIBUTES,
+    defaults: {
+      latitude: null,
+      longitude: null
+    },
 
     distanceFrom: function (position) {
       return utils.haversine(this, position);
@@ -695,6 +693,24 @@
 
     toArray: function () {
       return [this.get('latitude'),this.get('longitude')]          
+    }
+
+  });
+
+  var GeoPosition = Model.inherit({
+
+    defaults: {
+      accuracy: null,
+      altitude: null,
+      altitudeAccuracy: null,
+      heading: null,
+      latitude: null,
+      longitude: null,
+      speed: null
+    },
+
+    getLatLng: function () {
+      return [ this.get('latitude'), this.get('longitude') ];
     }
 
   });
@@ -857,13 +873,21 @@
 
   ]);
 
-  module.factory('CurrentPositionMarker', [
+  module.factory('GeoPositionMarker', [
 
     function () {
       return MapCircleMarker; 
     } 
 
-  ])
+  ]);
+
+  module.factory('GeoPosition', [
+
+    function () {
+      return new GeoPosition();
+    }
+
+  ]);
 
   //
   // DB MODEL
