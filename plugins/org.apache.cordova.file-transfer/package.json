@@ -1,0 +1,25 @@
+{
+    "version": "0.4.2",
+    "name": "org.apache.cordova.file-transfer",
+    "cordova_name": "File Transfer",
+    "description": "Cordova File Transfer Plugin",
+    "license": "Apache 2.0",
+    "repo": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-file-transfer.git",
+    "issue": "https://issues.apache.org/jira/browse/CB/component/12320650",
+    "keywords": [
+        "cordova",
+        "file",
+        "transfer"
+    ],
+    "platforms": [
+        "android",
+        "amazon-fireos",
+        "ubuntu",
+        "blackberry10",
+        "ios",
+        "wp7",
+        "wp8",
+        "windows8"
+    ],
+    "engines": []
+}
