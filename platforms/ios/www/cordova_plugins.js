@@ -27,12 +27,20 @@ module.exports = [
         "clobbers": [
             "navigator.geolocation"
         ]
+    },
+    {
+        "file": "plugins/com.testflightapp.cordova-plugin/www/testflight.js",
+        "id": "com.testflightapp.cordova-plugin.TestFlight",
+        "clobbers": [
+            "TestFlight"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.geolocation": "0.3.6"
+    "org.apache.cordova.geolocation": "0.3.6",
+    "com.testflightapp.cordova-plugin": "3.0.0"
 }
 // BOTTOM OF METADATA
 });
