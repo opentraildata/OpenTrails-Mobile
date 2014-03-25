@@ -1,27 +1,27 @@
 # ANDROID / ECLIPSE
- 
+
 # built application files
 *.apk
 *.ap_
- 
+
 # files for the dex VM
 *.dex
- 
+
 # Java class files
 *.class
- 
+
 # generated files - android project subfolder
 Android/bin/
 Android/gen/
 Android/assets/
- 
+
 # generated files
 bin/
 gen/
- 
+
 # Local configuration file (sdk path, etc)
 local.properties
- 
+
 # IOS / Xcode
 build/*
 *.pbxuser
@@ -38,13 +38,15 @@ xcuserdata
 profile
 *.moved-aside
 IOS/www/
- 
+
 # OSX
 .DS_Store
- 
+
 # Thumbnails
 ._*
- 
+
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+*/console.log

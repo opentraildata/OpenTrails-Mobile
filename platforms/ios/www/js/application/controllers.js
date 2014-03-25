@@ -77,11 +77,12 @@
 
     '$scope',
     'Map',
-    'CurrentPositionMarker',
+    'GeoPosition',
+    'GeoPositionMarker',
 
-    function ($scope, Map, CurrentPositionMarker) {
+    function ($scope, Map, GeoPosition, GeoPositionMarker) {
 
-      var positionMarker = new CurrentPositionMarker({
+      var positionMarker = new GeoPositionMarker({
         position: Map.DEFAULT_ORIGIN,
         options: {
           clickable: false
@@ -90,8 +91,12 @@
 
       positionMarker.addTo(Map);
 
+      window.GeoPosition = GeoPosition;
+
       var onGeolocationSuccess = function (position) {
-        $scope.geoposition = position;
+        console.log(position);
+        positionMarker.setPosition([position.coords.latitude,position.coords.longitude])
+        GeoPosition.set(position.coords);
       }
 
       var onGeolocationError = function () {
@@ -102,12 +107,6 @@
         onGeolocationSuccess,
         onGeolocationError
       );
-
-      $scope.$watch('geoposition', function (gp) {
-        if (gp) {
-          positionMarker.setPosition([ gp.coords.latitude, gp.coords.longitude ]);
-        }
-      })
 
       $scope.recenter = function () {
         Map.setView(positionMarker.getPosition(), Map.DEFAULT_ZOOM);
