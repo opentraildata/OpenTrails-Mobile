@@ -33,15 +33,6 @@
 
       $scope.show = show;
 
-      $scope.views = {
-        "notifications": 'views/notifications.html'
-      }
-
-      $scope.partials = {
-        "footer": 'partials/footer.html',
-        "layers": 'partials/layers.html'
-      }
-
       //
       // MAP LOGIC
       //
@@ -211,7 +202,7 @@
       });
 
       function showTrailHead (th) {
-        show('trails');
+        if ($scope.visible !== 'trails') show('trails');
         $scope.trailHead = th;
         $scope.steward = $scope.trailHead.stewards.first();
         $scope.trails = $scope.trailHead.trails.all();
@@ -249,6 +240,16 @@
         if (index > 0) {
           $scope.current = $scope.trails[index - 1];
         }
+      }
+
+      $scope.minimized = false;
+
+      $scope.minimize = function () {
+        $scope.minimized = true; 
+      }
+
+      $scope.maximize = function () {
+        $scope.minimized = false; 
       }
 
       $scope.close = function () {

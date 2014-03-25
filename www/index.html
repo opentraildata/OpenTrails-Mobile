@@ -32,7 +32,14 @@
 
         <div id="map-container"></div>
 
-        <ng-include src="partials.layers"></ng-include>
+        <ul id="map-layers" ng-show="visible === 'map-layers'" ng-cloak>
+          <li class="map-layer" ng-repeat="layer in mapTileLayers" ng-click="setMapTileLayer(layer.url)">
+            <span class="map-layer-name">{{layer.name}}</span>
+            <span class="map-layer-visible" ng-show="mapTileLayerUrl === layer.url">
+              <img src="img/check@2x.png"/>
+            </span>
+          </li>
+        </ul>
       </div>
 
       <div id="notifications-view" ng-show="visible === 'notifications'" ng-cloak>
@@ -41,21 +48,20 @@
             <p>You are currently in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
           </div>
 
-          <div id="notification-sources">
+          <div id="notifications-empty">
+            <p>There are no notifications at this time.</p>
+          </div>
+
+          <div id="notification-sources" ng-show="notifications.length > 0">
             <div class="source">
-              <div class="col-left">
-              </div>
-              <div class="col-right">
-                <h3>The Cuyahoga Valley National Park</h3>
-              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="trail-view" class="minimized" ng-show="visible === 'trails'" ng-cloak>
+      <div id="trail-view" ng-show="visible === 'trails'" ng-class="{ minimized: minimized }" hm-swipe-down="minimize()" hm-swipe-up="maximize()" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-cloak>
         <div class="nav-and-title">
-          <div class="trail-nav" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+          <div class="trail-nav">
             <div class="nav-text">
               <p>{{ trails.indexOf(current) + 1 }} of {{ trails.length }}</p>
             </div>
@@ -85,7 +91,7 @@
             </div>
           </div>
         </div>
-        <div class="trail-and-trailhead-data" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+        <div class="trail-and-trailhead-data">
           <div class="trail-data">
             <div class="trail-body">
               <div class="photo-box">
@@ -168,7 +174,7 @@
           </div>
         </a>
 
-        <a href="#" ng-click="show('search')" ng-show="visible === 'map' || visible === 'map-layers'">
+        <a href="#" ng-click="show('search')" ng-show="visible === 'map' || visible === 'map-layers'" ng-cloak>
           <div class="button button-search">
             <img src="img/search@2x.png"/>
           </div>

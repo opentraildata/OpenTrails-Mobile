@@ -836,11 +836,11 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
     },
     "satellite": {
       name: "Satellite",
-      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
+      url: "https://{s}.tiles.mapbox.com/v3/examples.map-qfyrx5r8/{z}/{x}/{y}.png"
     }
   }
 
