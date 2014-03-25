@@ -59,8 +59,8 @@
 @z-index-5: 5000;
 @z-index-6: 6000;
 
-@large-font: 32px;
-@medium-font: 22px;
+@large-font: 28px;
+@medium-font: 20px;
 @small-font: 16px;
 
 /** Styles **/
@@ -354,18 +354,19 @@ body {
   }
 }
 
-
 /* Trail View - AJW*/
 #trail-view {
-
   position: fixed;
-  bottom: 80px; /* Footer Height, Flush */
   background-color: @white-color;
+  overflow: auto;
+  background-color: @white-color;
+  z-index: @z-index-4;
   width: 100%;
   height: 100%;
   overflow: auto;
   background-color: @white-color;
   z-index: @z-index-4;
+  bottom: 80px; /* Footer Height, Flush */
 
   .nav-and-title {
     z-index: @z-index-5;
@@ -619,6 +620,13 @@ body {
   }
 }
 
+.minimized {
+  top: 270px;
+  .nav-and-title {
+    position: relative !important;
+    bottom: none;
+  }
+}
 
 #notifications-view {
   position: fixed;
