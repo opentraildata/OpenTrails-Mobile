@@ -219,6 +219,7 @@
         if (value) {
           showTrailHead(value.get('record'))
         } else {
+          show('map');
           $scope.trailHead = null;
           $scope.steward = null;
           $scope.trails = null;
@@ -242,7 +243,7 @@
         }
       }
 
-      $scope.minimized = false;
+      $scope.minimized = true;
 
       $scope.minimize = function () {
         $scope.minimized = true; 
