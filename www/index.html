@@ -35,47 +35,116 @@
         <ng-include src="partials.templates.layers"></ng-include>
       </div>
 
-      <div id="trail-view" style="display:none">
-        <div class="trail-data">
-          <div class="trail-title-field">
-            <!-- H3 element is a placeholder. Determine best elem. -->
-            <h3 class="trail-title"></h3>
+<!-- TRAIL VIEW SCAFFOLDING -->
+      <div id="trail-view">
+        <div class="trail-nav">
+          <div class="nav-text">
+            <p>1 of 3</p>
           </div>
-          <div class="trail-attributes">
-            <!-- p class may need to change as well, similar to h3 above -->
-            <p class="trail-attribute-length"></p>
-            <div class="trail-attribute-icons">
-              <img class="attribute-icon">
-              <img class="attribute-icon">
-              <img class="attribute-icon">
-              <img class="attribute-icon">
+          <ol class="nav-indicators">
+            <li class="indicator"></li>
+            <li class="indicator"></li>
+            <li class="indicator"></li>
+          </ol>
+        </div>
+        <div class="trail-and-trailhead-data">
+          <div class="trail-data">
+            <div class="trail-title-field">
+              <!-- H3 element is a placeholder. Determine best elem. -->
+              <h3 class="trail-title">The Towpath Trail</h3>
+            </div>
+            <div class="trail-attributes">
+              <!-- p class may need to change as well, similar to h3 above -->
+              <p class="trail-attribute-length">12.5 mi long</p>
+              <div class="trail-attribute-icons">
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/foot.png">
+                </div>
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/bike.png">
+                </div>
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/horse.png">
+                </div>
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/ski.png">
+                </div>
+              </div>
+            </div>
+            <div class="trail-body">
+              <div class="photo-box">
+                <img src="img/photo.png"><img>
+              </div>
+              <p>Mules once towed canal boats along the 110-mile Ohio & Erie Canal Towpath Trail. The trail is firm and level. This leg takes you to Lock 38 and the Canal Visitor Center. It follows the only watered section of the canal within the national park. To stay safe, keep to the right. Cyclists, please pass on the left and give an audible signal. During warm months, Bike Aboard! train service is available at Rockside and Canal Visitor Center stations.</p>
             </div>
           </div>
-          <div class="trail-body">
-            <img></img>
-            <p></p>
+          <div class="trailhead-data">
+            <div class="trailhead-title-field">
+              <!-- h4 is a placeholder, like the trail title -->
+              <img class="trailhead-icon" src="img/marker.png"/></img>
+              <p class="trailhead-title">Peninsula Township Trailhead</p>
+            </div>
+            <div class="trailhead-attributes">
+              <!-- p is placeholder elem, may need to change -->
+              <div class="trailhead-location-attributes">
+                <p class="trailhead-distance">2.1 mi away</p>
+                <a class="trailhead-address" href="">4408 Ranch View Road, Akron, OH</a>
+              </div>
+              <div class="amenities">
+                <p class="amenity">Parking</p>
+                <p class="amenity">Drinking Water</p>
+                <p class="amenity">Restrooms</p>
+                <p class="amenity">Info Kiosk</p>
+              </div>
+              <div class="trailhead-steward">
+                <p>Managed by Metro Parks, Serving Summit County</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="trailhead-data">
-          <div class="trailhead-title-field">
-            <!-- h4 is a placeholder, like the trail title -->
-            <img class="trailhead-icon"></img>
-            <h4 class="trailhead-title"></h4>
-          </div>
-          <div class="trailhead-attributes">
-            <!-- p is placeholder elem, may need to change -->
-            <p class="trailhead-distance"></p>
-            <p class="trailhead-address"></p>
-            <div class="trailhead-keyline-1"></div>
-            <div class="amenities">
-              <p class="amenity"></p>
-              <p class="amenity"></p>
-              <p class="amenity"></p>
-              <p class="amenity"></p>
+      </div>
+
+  <!-- NOTIFICATIONS VIEW SCAFFOLDING -->
+        <div id="notifications-view" style="display:none">
+          <div class="agency-nav">
+            <p class="nav-text">You are in a park managed by:</p>
+            <div class="nav-indicators">
+              <!-- The number of indicators should reflect the number of agencies contributing data -->
+              <div class="indicator"></div>
+              <div class="indicator"></div>
+              <div class="indicator"></div>
+              <div class="indicator"></div>
+              <div class="indicator"></div>
             </div>
-            <div class="trailhead-keyline-2"></div>
-            <div class="trailhead-steward">
-              <p></p>
+          </div>
+          <div class="agency-data">
+            <div class="agency-logo">
+              <img></img>
+            </div>
+            <!-- h3 is a placeholder element, may change -->
+            <h3 class="agency-name"></h3>
+            <div class="call-btn">
+              <img class="call-icon"></img>
+              <p>Call</p>
+            </div>
+            <div class="address">
+              <p>Address goes here.</p>
+            </div>
+          </div>
+          <div class="notification-stream">
+            <div class="notification">
+              <div class="notification-data">
+                <!-- h3 is a placeholder elem -->
+                <h3 class="notification-headline"></h3>
+                <p class="notification-subhead"></p>
+                <div class="notification-close-btn">
+                  <img></img>
+                </div>
+                <div class="notification-keyline"></div>
+                <div class="notification-body">
+                  <p>Lorem Ipsum</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

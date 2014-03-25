@@ -164,11 +164,25 @@
         var trailHeads = Models.TrailHead.query.map(
           function (th) {
             var trails = th.trails.where(query).all();
-            if ( trails.length > 0 ) return { trailHead: th, trails: trails };
+            if ( trails.length > 0 ) {
+              var distance = th.distanceFrom(GeoPosition.get('latitude'), GeoPosition.get('longitude'));
+              return {
+                trailHead: th,
+                trails: trails,
+                distance: distance 
+              };
+            }
           }
         );
 
-        $scope.results = utils.compact(trailHeads);
+        trailHeads = utils.compact(trailHeads).sort(function (a,b) {
+          return a.distance > b.distance; 
+        });
+
+        trailHeads = trailHeads.sort(function (a,b) {
+        })
+
+        $scope.results = trailHeads;
       }
 
       $scope.showTrail = function (trail) {

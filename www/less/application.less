@@ -34,7 +34,7 @@
 
 /** Variables **/
 
-@white-color: #f6f6f6;
+@white-color: #f6f6f6; 
 @gray-color: #242424;
 @blue-color: #4A90E2;
 @red-color: #D0021B;
@@ -55,6 +55,12 @@
 @z-index-2: 2000;
 @z-index-3: 3000;
 @z-index-4: 4000;
+@z-index-5: 5000;
+@z-index-6: 6000;
+
+@large-font: 32px;
+@medium-font: 22px;
+@small-font: 16px;
 
 /** Styles **/
 
@@ -111,7 +117,7 @@ body {
   height: @footer-height;
   width: 100%;
   background-color: @gray-color;
-  z-index: @z-index-3;
+  z-index: @z-index-6;
   text-align: justify;
   -ms-text-justify: distribute-all-lines;
   text-justify: distribute-all-lines;
@@ -170,88 +176,6 @@ body {
 }
 
 /** Views **/
-
-#trail-view {
-
-  /* The entire bundle of trail info*/
-  .trail-data {
-
-    /* The field of dark color for the title, and the title*/
-    .trail-title-field {
-      .trail-title {
-
-      }
-    }
-
-    /* Length, icons */
-    .trail-attributes{
-      .trail-attribute-length {
-
-      }
-      .trail-attribute-icons {
-        .attribute-icon {
-          .yes {
-
-          }
-          .no {
-
-          }
-        }
-      }
-    }
-    /* Photo and description*/
-    .trail-body {
-      img {
-
-      }
-      p {
-
-      }
-    }
-  }
-  .trailhead-data {
-
-    .trailhead-title-field {
-
-    }
-    .trailhead-icon {
-
-    }
-    .trailhead-title {
-    
-    }
-  }
-  .trailhead-attributes {
-    .trailhead-distance {
-
-    }
-    .trailhead-address {
-
-    }
-    .trailhead-keyline-1 {
-
-    }
-    .amenities {
-      .amenity {
-        .yes {
-
-        }
-        .no {
-
-        }
-      }
-    }
-    /* This could be refactored, but for now mirroring DOM structure*/
-    .trailhead-keyline-2 {
-
-    }
-    .trailhead-steward {
-      p {
-
-      }
-    }
-  }
-}
 
 #map-view {
 
@@ -320,7 +244,6 @@ body {
     height: 100%;
     z-index: @z-index-1;
   }
-
 }
 
 #search-view {
@@ -335,6 +258,12 @@ body {
     width: 100%;
     display: inline-block;
     padding: 10px 0;
+    a {
+      font-size: @medium-font;
+      color: @white-color;
+      text-decoration: none;
+      margin-left: 1em;
+    }
   }
 
   .search-input-icon {
@@ -364,7 +293,7 @@ body {
     padding: 20px 0;
     background-color: @green-color;
     color: lighten(@gray-color, 50%);
-    font-size: 14px;
+    font-size: @small-font;
     text-align: center;
   }
 
@@ -379,7 +308,7 @@ body {
     .search-result-header-outer {
       background-color: @white-color;
       color: lighten(@gray-color, 50%);
-      font-size: 14px;
+      font-size: @small-font;
       font-weight: 100;
       padding: 5px 10px 0 10px;
 
@@ -416,51 +345,292 @@ body {
       a {
         text-decoration: none; 
         color: @gray-color;
-        font-size: 20px;
+        font-size: @medium-font;
+        font-weight: 500;
       }
     }
   }
 }
 
-#notifications-view {
 
-  #content {
-    top: @status-height + 1;
-  }
+/* Trail View - AJW*/
+#trail-view {
 
-  #notifications-info {
+  position: fixed;
+  bottom: 80px; /* Footer Height, Flush */
+  background-color: @white-color;
+  width: 100%;
+  height: 100%;
+/*  z-index: @z-index-4;*/
+  overflow: auto;
+  display: none;
+
+  .trail-nav {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
     background-color: @green-color;
-    text-align: center;
-    color: lighten(@gray-color, 50%);
-    font-size: 12px;
+    overflow: hidden;
+    .nav-text {
+      width: 100%;
+      display: inline-block;
+      height: auto;
+      text-align: center;
+      margin: .5em 0;
+      p {
+        color: @white-color;
+        margin: 0;
+      }
+    }
 
-    p {
-      margin: 0; 
-      padding: 10px;
+    .nav-indicators {
+      height: auto;
+      width: 100%;
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+      .indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 10px;
+        text-indent: -999px;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: #000 \9;
+        background-color: rgba(0,0,0,0);
+      }
     }
   }
+  .trail-and-trailhead-data {
+    position: fixed;
+    top: 60px;
+    height: 100%;
+    overflow-y: scroll;
+    display: inline-block;
+    background-color: @white-color;
 
-  #notification-sources {
-    .source {
-      border-bottom: 1px solid @gray-color; 
+    .trail-data {
+      height: auto;
+      position: relative;
       display: inline-block;
-      width: 100%;
+      margin: 0 30px;
+      border-bottom: 1px solid @light-gray-color;
 
-      .col-left {
-        width: 40px; 
+      .trail-title-field {
         display: inline-block;
-      }
-
-      .col-right {
-        display: inline-block;
-
-        h3 {
-          font-size: 13px; 
+        height: auto;
+        width: 100%;
+        margin: 20px 0 0 0;
+        padding-bottom: 20px;
+        line-height: 2em;
+        border-bottom: 1px solid @light-gray-color;
+        .trail-title {
+          font-size: @large-font;
+          margin: 0;
         }
       }
-    } 
-  }
 
+      .trail-attributes {
+        display: inline-block;
+        width: 100%;
+        margin: 15px 0 15px 0;
+        position: relative;
+        vertical-align: middle;
+        .trail-attribute-length {
+          width: auto;
+          font-size: @medium-font;
+          display: inline-block;
+          position: relative;
+          float: left;
+          margin-top: 0;
+          margin-bottom: 0;
+          font-weight: 200;
+        }
+        .trail-attribute-icons {
+          width: auto;
+          display: inline-block;
+          position: relative;
+          float: right;
+          text-align: justify;
+          .attribute-icon-box {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-left: 20px;
+            .attribute-icon {
+              height: 100%;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .trail-body {
+        margin: 0;
+        display: inline-block;
+        position: relative;
+        .photo-box {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+          img {
+            height: auto;
+            max-width: 100%;
+          }
+        }
+        p {
+          display: inline-block;
+          position: relative;
+          line-height: 1.4em;
+          font-weight: 200;
+        }
+      }
+    }
+    .trailhead-data {
+      display: inline-block;
+      position: relative;
+      height: auto;
+      min-height: 300px;
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-bottom: 40px;
+      margin-top: 10px;
+
+      .trailhead-title-field {
+        display: inline-block;
+        position: relative;
+        height: auto;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        .trailhead-icon {
+          display: inline-block;
+          position: relative;
+          float: left;
+          width: 20px;
+          height: auto;
+        }
+
+        .trailhead-title {
+          position: relative;
+          display: inline-block;
+          float: left;
+          width: auto;
+          margin: 0 0 0 10px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .trailhead-attributes {
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      width: 100%;
+      .trailhead-location-attributes {
+        width: 100%;
+        height: auto;
+        min-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: justify;
+        .trailhead-distance {
+          display: inline-block;
+          position: relative;
+          width: auto;
+          max-width: 20%;
+          margin: 0;
+          font-weight: 200;
+          float: left;
+        }
+        .trailhead-address {
+          position: relative;
+          display: inline-block;
+          margin: 0;
+          width: auto;
+          max-width: 80%;
+          font-weight: 200;
+          float: right;
+        }
+      }
+      .amenities {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        .amenity {
+          margin: 0;
+          width: auto;
+          font-weight: 200;
+          float: left;
+          margin-right: 20px;
+          .yes {
+          }
+          .no {
+            color: @light-gray-color;
+          }
+        }
+      }
+      /* This could be refactored, but for now mirroring DOM structure*/
+      .trailhead-keyline-2 {}
+      .trailhead-steward {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        padding-top: 10px;
+        margin-bottom: 20px;
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+
+/*#content {
+  top: @status-height + 1;
+}*/
+
+#notifications-info {
+  background-color: @green-color;
+  text-align: center;
+  color: lighten(@gray-color, 50%);
+  font-size: 12px;
+
+  p {
+    margin: 0; 
+    padding: 10px;
+  }
+}
+
+#notification-sources {
+  .source {
+    border-bottom: 1px solid @gray-color; 
+    display: inline-block;
+    width: 100%;
+
+    .col-left {
+      width: 40px; 
+      display: inline-block;
+    }
+
+    .col-right {
+      display: inline-block;
+
+      h3 {
+        font-size: 13px; 
+      }
+    }
+  } 
 }
 
 /** Device Specific Styles **/

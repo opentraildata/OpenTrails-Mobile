@@ -26,7 +26,7 @@
         <div class="search-result-header-outer">
           <div class="search-result-header-inner">
             <p class="name">{{ result.trailHead.get('name') }}</p>
-            <p class="distance">{{ result.trailHead.distanceFrom(geoposition.get('latitude'), geoposition.get('longitude')).toFixed(2) }} miles away</p>
+            <p class="distance">{{ result.distance.toFixed(2) }} miles away</p>
           </div>
         </div>
         <div class="search-subresults">
