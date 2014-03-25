@@ -175,14 +175,9 @@
           }
         );
 
-        trailHeads = utils.compact(trailHeads).sort(function (a,b) {
+        $scope.results = utils.compact(trailHeads).sort(function (a,b) {
           return a.distance > b.distance; 
         });
-
-        trailHeads = trailHeads.sort(function (a,b) {
-        })
-
-        $scope.results = trailHeads;
       }
 
       $scope.showTrail = function (trail) {
@@ -201,8 +196,11 @@
     'Models',
     'MapTrailLayer',
     'MapTrailHeadMarker',
+    'GeoPosition',
 
-    function ($scope, Map, Models, MapTrailLayer, MapTrailHeadMarker) {
+
+    function ($scope, Map, Models, MapTrailLayer, MapTrailHeadMarker, GeoPosition) {
+      window.Models = Models;
 
       var markers = []
       var layers  = [];
@@ -264,8 +262,40 @@
       });
 
       $scope.$watch('selected', function (value) {
-        console.log(value)
+        if (value) {
+          $scope.trailVisible = true;
+          $scope.trailHead = value.get('record');
+          $scope.steward = $scope.trailHead.stewards.first();
+          $scope.trails = $scope.trailHead.trails.all();
+          $scope.current = $scope.trails[0]
+          $scope.distance = utils.haversine($scope.trailHead.getLat(), $scope.trailHead.getLng(), GeoPosition.get('latitude'), GeoPosition.get('longitude'));
+        } else {
+          $scope.trailVisible = false; 
+          $scope.trailHead = null;
+          $scope.steward = null;
+          $scope.trails = null;
+          $scope.current = null;
+        }
       });
+
+      $scope.next = function () {
+        var index  = $scope.trails.indexOf($scope.current);
+        var length = $scope.trails.length;
+        if (index < length - 1) {
+          $scope.current = $scope.trails[index + 1];
+        }
+      }
+
+      $scope.back = function () {
+        var index = $scope.trails.indexOf($scope.current);
+        if (index > 0) {
+          $scope.current = $scope.trails[index - 1];
+        }
+      }
+
+      $scope.close = function () {
+        $scope.trailVisible = false; 
+      }
 
       $scope.$watch(Models.loaded, onLoad);
     }

@@ -301,6 +301,54 @@
 
     },
 
+    getLength: function () {
+      var total = 0;
+      this.trailSegments.each(function (ts) {
+        total = total + ts.getLength(); 
+      });
+      return total;
+    },
+
+    canFoot: function () {
+      var result = false;
+      this.trailSegments.each(function (ts) {
+        if ( ts.canFoot() ) result = true;
+      });
+      return result;
+    },
+
+    canBicycle: function () {
+      var result = false;
+      this.trailSegments.each(function (ts) {
+        if ( ts.canBicycle() ) result = true;
+      });
+      return result;
+    },
+
+    canHorse: function () {
+      var result = false;
+      this.trailSegments.each(function (ts) {
+        if ( ts.canHorse() ) result = true;
+      });
+      return result;
+    },
+
+    canSki: function () {
+      var result = false;
+      this.trailSegments.each(function (ts) {
+        if ( ts.canSki() ) result = true;
+      });
+      return result;
+    },
+
+    canWheelChair: function () {
+      var result = false;
+      this.trailSegments.each(function (ts) {
+        if ( ts.canWheelChair() ) result = true;
+      });
+      return result;
+    },
+
     toGeoJson: function () {
       var features = this.trailSegments.map(function (trailSegment) {
         return trailSegment.toGeoJson(); 
@@ -364,7 +412,7 @@
         foreign: Steward,
         scope: {
           key: 'id',
-          evaluator: 'equals',
+          evaluator: 'in',
           value: this.get('stewardId')
         }
       });
@@ -458,6 +506,53 @@
       });
     },
 
+    getLength: function () {
+      var geom = this.get('geometry');
+
+      function calc (obj, total) {
+
+        for (var i = 0; i < obj.length; i++) {
+          if ( ng.isArray(obj[i][0]) ) {
+            total = calc(obj[i], total) 
+          } else {
+            var j = i + 1;
+
+            if (j === obj.length) break;
+
+            var a = obj[i];
+            var b = obj[j];
+            var dist = utils.haversine(a[1], a[0], b[1], b[0])
+
+            total = total + dist;
+          }
+        }
+
+        return total;
+      }
+
+      return calc(geom.coordinates, 0);
+    },
+
+    canFoot: function () {
+      return this.get('foot') !== 'N';
+    },
+
+    canBicycle: function () {
+      return this.get('bicycle') !== 'N';
+    },
+
+    canHorse: function () {
+      return this.get('horse') !== 'N';
+    },
+
+    canSki: function () {
+      return this.get('ski') !== 'N';
+    },
+
+    canWheelChair: function () {
+      return this.get('wheelChair') !== 'N';
+    },
+
     toGeoJson: function () {
       var properties = utils.without(this.attributes, ['geometry']);
       var geometry = this.get('geometry');
@@ -511,7 +606,7 @@
         foreign: Steward,
         scope: {
           key: 'stewardId',
-          evaluator: 'equals',
+          evaluator: 'includes',
           value: this.get('id')
         }
       });
