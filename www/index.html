@@ -48,13 +48,12 @@
             <p>You are currently in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
           </div>
 
-          <div id="notification-sources">
+          <div id="notifications-empty">
+            <p>There are no notifications at this time.</p>
+          </div>
+
+          <div id="notification-sources" ng-show="notifications.length > 0">
             <div class="source">
-              <div class="col-left">
-              </div>
-              <div class="col-right">
-                <h3>The Cuyahoga Valley National Park</h3>
-              </div>
             </div>
           </div>
         </div>
