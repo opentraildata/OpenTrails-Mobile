@@ -82,35 +82,39 @@
       </div>
 
       <div id="trail-view" ng-show="visible === 'trails'" ng-cloak>
-        <div class="trail-nav" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
-          <div class="nav-text">
-            <p>{{ trails.indexOf(current) + 1 }} of {{ trails.length }}</p>
+        <div class="nav-and-title">
+          <div class="trail-nav" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+            <div class="nav-text">
+              <p>{{ trails.indexOf(current) + 1 }} of {{ trails.length }}</p>
+            </div>
+          </div>
+          <div class="trail-title-and-attributes">
+            <div class="trail-title-field">
+              <!-- H3 element is a placeholder. Determine best elem. -->
+              <h3 class="trail-title">{{ current.get('name') }}</h3>
+              <div class="trail-attributes">
+                <!-- p class may need to change as well, similar to h3 above -->
+                <p class="trail-attribute-length">{{ current.getLength().toFixed(2) }} mi long</p>
+                <div class="trail-attribute-icons">
+                  <div class="attribute-icon-box" ng-show="current.canFoot()">
+                  <img class="attribute-icon" src="img/foot.png">
+                  </div>
+                  <div class="attribute-icon-box" ng-show="current.canBicycle()">
+                    <img class="attribute-icon" src="img/bike.png">
+                  </div>
+                  <div class="attribute-icon-box" ng-show="current.canHorse()">
+                    <img class="attribute-icon" src="img/horse.png">
+                  </div>
+                  <div class="attribute-icon-box" ng-show="current.canSki()">
+                    <img class="attribute-icon" src="img/ski.png">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="trail-and-trailhead-data" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
           <div class="trail-data">
-            <div class="trail-title-field">
-              <!-- H3 element is a placeholder. Determine best elem. -->
-              <h3 class="trail-title">{{ current.get('name') }}</h3>
-            </div>
-            <div class="trail-attributes">
-              <!-- p class may need to change as well, similar to h3 above -->
-              <p class="trail-attribute-length">{{ current.getLength().toFixed(2) }} mi long</p>
-              <div class="trail-attribute-icons">
-                <div class="attribute-icon-box" ng-show="current.canFoot()">
-                  <img class="attribute-icon" src="img/foot.png">
-                </div>
-                <div class="attribute-icon-box" ng-show="current.canBicycle()">
-                  <img class="attribute-icon" src="img/bike.png">
-                </div>
-                <div class="attribute-icon-box" ng-show="current.canHorse()">
-                  <img class="attribute-icon" src="img/horse.png">
-                </div>
-                <div class="attribute-icon-box" ng-show="current.canSki()">
-                  <img class="attribute-icon" src="img/ski.png">
-                </div>
-              </div>
-            </div>
             <div class="trail-body">
               <div class="photo-box">
                 <img src="img/photo.png"><img>
