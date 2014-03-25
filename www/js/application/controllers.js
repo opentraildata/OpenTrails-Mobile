@@ -139,8 +139,9 @@
 
     '$scope',
     'Models',
+    'GeoPosition',
 
-    function ($scope, Models) {
+    function ($scope, Models, GeoPosition) {
 
       $scope.loading = false;
       $scope.results = [];
@@ -154,13 +155,23 @@
       });
 
       $scope.search = function (keywords) {
-        $scope.results = Models.Trail.query.where({
+        var query = {
           key: 'name',
           evaluator: 'contains',
           value: keywords
-        }).all();
+        }
+
+        var trailHeads = Models.TrailHead.query.map(
+          function (th) {
+            var trails = th.trails.where(query).all();
+            if ( trails.length > 0 ) return { trailHead: th, trails: trails };
+          }
+        );
+
+        $scope.results = utils.compact(trailHeads);
       }
 
+      $scope.geoposition = GeoPosition;
     }
 
   ]);

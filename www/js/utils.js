@@ -11,12 +11,7 @@
     return num * Math.PI / 180;                 
   }
 
-  Utils.prototype.haversine = function (position1, position2) {
-    var lat1 = position1.get('latitude'),
-        lat2 = position2.get('latitude'),
-        lng1 = position1.get('longitude'),
-        lng2 = position2.get('longitude');
-
+  Utils.prototype.haversine = function (lat1, lng1, lat2, lng2) {
     var dLat = utils.numToRad(lat2 - lat1),
         dLng = utils.numToRad(lng2 - lng1);
 
@@ -35,6 +30,14 @@
       }
     });
     return obj;
+  }
+
+  Utils.prototype.compact = function (arr) {
+    var results = []; 
+    ng.forEach(arr, function (item) {
+      if (item !== null && item !== undefined) results.push(item);
+    });
+    return results;
   }
 
   Utils.prototype.has = function (obj,key) {

@@ -371,8 +371,8 @@
 
     },
 
-    distanceFrom: function (position) {
-      return position.distanceFrom(this.toPosition());
+    distanceFrom: function (lat, lng) {
+      return utils.haversine(this.getLat(), this.getLng(), lat, lng);
     },
 
     getLat: function () {
