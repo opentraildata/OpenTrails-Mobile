@@ -55,6 +55,8 @@
 @z-index-2: 2000;
 @z-index-3: 3000;
 @z-index-4: 4000;
+@z-index-5: 5000;
+@z-index-6: 6000;
 
 @large-font: 32px;
 @medium-font: 22px;
@@ -115,7 +117,7 @@ body {
   height: @footer-height;
   width: 100%;
   background-color: @gray-color;
-  z-index: @z-index-3;
+  z-index: @z-index-6;
   text-align: justify;
   -ms-text-justify: distribute-all-lines;
   text-justify: distribute-all-lines;
@@ -256,6 +258,12 @@ body {
     width: 100%;
     display: inline-block;
     padding: 10px 0;
+    a {
+      font-size: @medium-font;
+      color: @white-color;
+      text-decoration: none;
+      margin-left: 1em;
+    }
   }
 
   .search-input-icon {
@@ -348,8 +356,9 @@ body {
   background-color: @white-color;
   width: 100%;
   height: 100%;
-  z-index: @z-index-4;
+/*  z-index: @z-index-4;*/
   overflow: auto;
+  display: none;
 
   .trail-nav {
     position: fixed;
@@ -413,8 +422,8 @@ body {
         display: inline-block;
         height: auto;
         width: 100%;
-        margin: 10px 0 0 0;
-        padding-bottom: 10px;
+        margin: 20px 0 0 0;
+        padding-bottom: 20px;
         line-height: 2em;
         border-bottom: 1px solid @light-gray-color;
         .trail-title {
@@ -426,7 +435,7 @@ body {
       .trail-attributes {
         display: inline-block;
         width: 100%;
-        margin: 20px 0 10px 0;
+        margin: 15px 0 15px 0;
         position: relative;
         vertical-align: middle;
         .trail-attribute-length {
@@ -487,6 +496,7 @@ body {
       margin-left: 30px;
       margin-right: 30px;
       margin-bottom: 40px;
+      margin-top: 10px;
 
       .trailhead-title-field {
         display: inline-block;
@@ -580,73 +590,10 @@ body {
   }
 }
 
-/* Notifications View - AJW */
-#notifications-view {
-  .navigation-alert {
-    .agency-context {
 
-    }
-    .nav-indicators {
-      .indicator {
-        .active {
-
-        }
-      }
-    }
-    .agency-data {
-      .agency-logo {
-        img {
-
-        }
-      }
-      .agency-name {
-
-      }
-      .call-btn {
-        .call-icon {
-
-        }
-        p {
-
-        }
-      }
-      .address {
-        p {
-
-        }
-      }
-    }
-    .notifciations-stream {
-      .notification {
-        .notification-data {
-          .notification-headline {
-
-          }
-          .notification-subhead {
-
-          }
-          .notification-close-btn {
-            img {
-
-            }
-          }
-          .notification-keyline {
-
-          }
-        }
-        .notification-body {
-          p {
-
-          }
-        }
-      }
-    }
-  }
-}
-
-#content {
+/*#content {
   top: @status-height + 1;
-}
+}*/
 
 #notifications-info {
   background-color: @green-color;
