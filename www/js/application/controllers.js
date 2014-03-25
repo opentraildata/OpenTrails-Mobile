@@ -202,7 +202,7 @@
       });
 
       function showTrailHead (th) {
-        show('trails');
+        if ($scope.visible !== 'trails') show('trails');
         $scope.trailHead = th;
         $scope.steward = $scope.trailHead.stewards.first();
         $scope.trails = $scope.trailHead.trails.all();
