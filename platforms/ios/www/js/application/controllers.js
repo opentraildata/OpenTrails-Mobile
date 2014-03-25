@@ -33,15 +33,6 @@
 
       $scope.show = show;
 
-      $scope.views = {
-        "notifications": 'views/notifications.html'
-      }
-
-      $scope.partials = {
-        "footer": 'partials/footer.html',
-        "layers": 'partials/layers.html'
-      }
-
       //
       // MAP LOGIC
       //
