@@ -85,7 +85,7 @@
       <ng-include src="views.templates.search"></ng-include>
       <ng-include src="views.templates.notifications"></ng-include>
 
-      <div id="footer">
+      <div id="footer" hm-swipe-left="go()">
         <a href="#" ng-click="views.render('map')" ng-show="!mapVisible">
           <div class="button button-map">
             <img src="img/map@2x.png"/>
@@ -118,6 +118,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/lib/fastclick/fastclick.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular/angular-gestures.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
     <script type="text/javascript" src="js/lib/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="js/utils.js"></script>

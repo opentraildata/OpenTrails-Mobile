@@ -869,7 +869,8 @@
     selected: false,
 
     defaults: {
-      position: null
+      position: null,
+      record: null
     },
 
     toggle: function () {
@@ -904,7 +905,7 @@
   });
 
   MapTrailHeadMarker.fromTrailHead = function (trailHead) {
-    return new MapTrailHeadMarker({ position: trailHead.getLatLng() }) 
+    return new MapTrailHeadMarker({ position: trailHead.getLatLng(), record: trailHead });
   }
 
   var MapTrailLayer = MapGeoJsonLayer.inherit({
@@ -915,150 +916,21 @@
         style: {
           color: "#a3a3a3"
         } 
-      }
+      },
+      record: null
     }
 
   });
 
   MapTrailLayer.fromTrail = function (trail) {
-    return new MapTrailLayer({ geojson: trail.toGeoJson() }) 
+    return new MapTrailLayer({ geojson: trail.toGeoJson(), record: trail });
   }
-
-  var CollectionPresenter = function () {
-    this.initialize.apply(this, arguments);
-  }
-
-  ng.extend(CollectionPresenter.prototype, {
-
-    initialize: function (query) {
-      this.query = query;            
-      this.collection = [];
-    }
-  
-  });
-
-  CollectionPresenter.inherit = utils.inherit;
-
-  var TrailHeadsPresenter = CollectionPresenter.inherit({
-
-    selected: null,
-
-    bindEvents: function () {
-      var context = this;             
-
-      ng.forEach(this.collection, function (marker) {
-        marker.on('click', function (e) {
-          context.select(marker);
-        });
-      });
-
-      return this;
-    },
-
-    unbindEvents: function () {
-      var context = this;             
-
-      ng.forEach(this.collection, function (marker) {
-        marker.off('click', function (e) {
-          context.select(marker);
-        });
-      });
-
-      return this;
-    },
-
-    render: function (map) {
-      this.remove();
-
-      if (this.query) {
-        this.collection = this.query.map(function (th) {
-          return MapTrailHeadMarker.fromTrailHead(th).deselect().addTo(map);
-        });
-      }
-
-      this.bindEvents();
-
-      return this;
-    },
-
-    remove: function () {
-      this.unbindEvents();
-
-      ng.forEach(this.collection, function (marker) {
-        marker.remove(); 
-      });
-    },
-
-    renderTo: function (map) {
-      ng.forEach(this.collection, function (marker) {
-        marker.deselect().addTo(map);
-      });
-    },
-
-    select: function (marker) {
-      if (this.selected === marker) {
-        this.selected = null; 
-        this.deselect(marker);
-      } else {
-        this.reset();
-        this.selected = marker;
-        marker.select(); 
-      }
-
-      return this;
-    },
-
-    deselect: function (marker) {
-      marker.deselect();
-      return this;
-    },
-
-    reset: function () {
-      ng.forEach(this.collection, this.deselect);
-      return this;
-    }
-  
-  });
-
-  var TrailsPresenter = CollectionPresenter.inherit({
-
-    render: function (map) {
-      this.remove();
-
-      if (this.query) {
-        this.collection = this.query.map(function (t) {
-          return MapTrailLayer.fromTrail(t).addTo(map);
-        });
-      }
-
-      return this;
-    },
-
-    remove: function () {
-      ng.forEach(this.collection, function (layer) {
-        layer.remove(); 
-      })         
-    }
- 
-  });
-
 
   //
   // MODULE DEFINITION
   //
 
   var module = ng.module('trails.services', [ ]);
-
-  module.factory('Presenters', [
-
-    function () {
-      return {
-        "Trails": TrailsPresenter,
-        "TrailHeads": TrailHeadsPresenter
-      }
-    }    
-
-  ]);
 
   module.factory('MapTileLayer', [
     function () {

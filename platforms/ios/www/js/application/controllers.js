@@ -11,6 +11,10 @@
 
     function ($rootScope, $scope) {
 
+      $scope.go = function () {
+        alert('fuck');
+      }
+
       // Views
 
       var views = {
@@ -111,10 +115,6 @@
         Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
       }
 
-      Map.on('click', function () {
-        console.log('map clicked');
-      });
-
     }
       
   ]);
@@ -174,25 +174,78 @@
     '$scope',
     'Map',
     'Models',
-    'Presenters',
+    'MapTrailLayer',
+    'MapTrailHeadMarker',
 
-    function ($scope, Map, Models, Presenters) {
+    function ($scope, Map, Models, MapTrailLayer, MapTrailHeadMarker) {
 
-      var tPresenter = new Presenters.Trails( Models.Trail.query );
-      var thPresenter = new Presenters.TrailHeads( Models.TrailHead.query );
+      var markers = []
+      var layers  = [];
+
+      function renderLayer (t) {
+        layers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
+      }
+
+      function renderMarker (t) {
+        markers.push( MapTrailHeadMarker.fromTrailHead(t).deselect().addTo(Map) );
+      }
+
+      function selectMarker (marker) {
+        marker.select();
+        if (marker.selected) {
+          $scope.$apply(function() {
+            $scope.selected = marker; 
+          });
+        }
+      }
+
+      function deselectMarker (marker) {
+        marker.deselect();
+        $scope.$apply(function() {
+          $scope.selected = null;
+        });
+      }
+
+      function onMarkerClick (marker) {
+        if (!marker) return false;
+        if ($scope.selected !== marker) {
+          if ($scope.selected) {
+            $scope.selected.deselect();
+          }
+          selectMarker(marker);
+        } else {
+          deselectMarker(marker);
+        }
+      }
+
+      function bindEvents () {
+        ng.forEach(markers, function (marker) {
+          marker.on('click', function (e) {
+            onMarkerClick(marker);
+          });
+        });
+      }
 
       function onLoad (loaded) {
         if (loaded) {
-          tPresenter.render(Map);
-          thPresenter.render(Map);
+          Models.Trail.query.each(renderLayer);
+          Models.TrailHead.query.each(renderMarker);
+          bindEvents();
         }
       }
+
+      Map.on('click', function () {
+        onMarkerClick($scope.selected);
+      });
+
+      $scope.$watch('selected', function (value) {
+        console.log(value)
+      });
 
       $scope.$watch(Models.loaded, onLoad);
     }
 
   ]);
-
 
   module.controller('NotificationsCtrl', [
 
