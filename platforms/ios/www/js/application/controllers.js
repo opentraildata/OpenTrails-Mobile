@@ -73,7 +73,7 @@
 
   ]);
 
-  module.controller('MapCtrl', [
+  module.controller('MapsCtrl', [
 
     '$scope',
     'Map',
@@ -82,8 +82,10 @@
 
     function ($scope, Map, GeoPosition, GeoPositionMarker) {
 
+      Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM)
+
       var positionMarker = new GeoPositionMarker({
-        position: Map.DEFAULT_ORIGIN,
+        position: Map.getCenter(),
         options: {
           clickable: false
         }
@@ -91,10 +93,7 @@
 
       positionMarker.addTo(Map);
 
-      window.GeoPosition = GeoPosition;
-
       var onGeolocationSuccess = function (position) {
-        console.log(position);
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude])
         GeoPosition.set(position.coords);
       }
@@ -109,7 +108,7 @@
       );
 
       $scope.recenter = function () {
-        Map.setView(positionMarker.getPosition(), Map.DEFAULT_ZOOM);
+        Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
       }
 
       Map.on('click', function () {
@@ -124,15 +123,18 @@
 
     '$scope',
     'Map',
-    'TileLayer',
+    'MapTileLayer',
 
-    function ($scope, Map, TileLayer) {
+    function ($scope, Map, MapTileLayer) {
+      var layer = new MapTileLayer();
+        
+      layer.addTo(Map);
 
-      $scope.setLayer = function (layer) {
-        Map.setTileLayer(layer.id);
+      $scope.setTiles = function (url) {
+        layer.setUrl(url);
       }
 
-      $scope.layers = TileLayer.ALL_LAYERS;
+      $scope.mapTileLayers = utils.values(MapTileLayer.INDEX);
     }
 
   ]);
@@ -172,50 +174,21 @@
     '$scope',
     'Map',
     'Models',
-    'MapTrailLayer',
-    'MapTrailHeadMarker',
+    'Presenters',
 
-    function ($scope, Map, Models, MapTrailLayer, MapTrailHeadMarker) {
+    function ($scope, Map, Models, Presenters) {
 
-      var renderTrails = function () {
+      var tPresenter = new Presenters.Trails( Models.Trail.query );
+      var thPresenter = new Presenters.TrailHeads( Models.TrailHead.query );
 
-        Models.Trail.query.each(function (trail) {
-          renderTrail(trail)
-        }); 
-
-        Models.TrailHead.query.each(function (trailHead) {
-          renderTrailHead(trailHead)
-        }); 
-
+      function onLoad (loaded) {
+        if (loaded) {
+          tPresenter.render(Map);
+          thPresenter.render(Map);
+        }
       }
 
-      var renderTrail = function (trail) {
-        var marker = new MapTrailLayer({ geojson: trail.toGeoJson() })
-
-        marker.addTo(Map);
-
-        return marker;
-      }
-
-      var renderTrailHead = function (trailHead) {
-        var marker = new MapTrailHeadMarker({ position: trailHead.toPosition().toArray() });
-
-        marker.addTo(Map);
-
-        marker.on('click', function () {
-          console.log(trailHead.get('name'));
-        });
-
-        return marker;
-      }
-
-      var renderMapData = function () {
-        renderTrails();
-      }
-
-      $scope.$watch(Models.loaded, function (loaded) {
-        if (loaded) renderMapData();
-      });
+      $scope.$watch(Models.loaded, onLoad);
     }
 
   ]);

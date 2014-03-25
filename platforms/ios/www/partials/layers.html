@@ -1,5 +1,5 @@
 <ul id="map-layers" ng-controller="MapLayersCtrl" ng-show="mapLayersVisible">
-  <li class="map-layer" ng-repeat="layer in layers" ng-click="setLayer(layer)">
+  <li class="map-layer" ng-repeat="layer in mapTileLayers" ng-click="setTiles(layer.url)">
     <span class="map-layer-name">{{layer.name}}</span>
     <span class="map-layer-visible">X</span>
   </li>
