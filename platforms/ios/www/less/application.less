@@ -235,6 +235,9 @@ body {
     .map-layer-visible {
       float: right;
       margin-right: 30px;
+      img {
+        width: 20px; 
+      }
     }
   }
 
@@ -624,6 +627,7 @@ body {
 
   #content {
     top: @status-height; 
+    height: @device-height - (@status-height + @footer-height);
   }
 }
 
