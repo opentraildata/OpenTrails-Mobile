@@ -242,6 +242,16 @@
         }
       }
 
+      $scope.minimized = false;
+
+      $scope.minimize = function () {
+        $scope.minimized = true; 
+      }
+
+      $scope.maximize = function () {
+        $scope.minimized = false; 
+      }
+
       $scope.close = function () {
         $scope.trailVisible = false; 
       }

@@ -60,9 +60,9 @@
         </div>
       </div>
 
-      <div id="trail-view" ng-show="visible === 'trails'" ng-cloak>
+      <div id="trail-view" ng-show="visible === 'trails'" ng-class="{ minimized: minimized }" hm-swipe-down="minimize()" hm-swipe-up="maximize()" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-cloak>
         <div class="nav-and-title">
-          <div class="trail-nav" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+          <div class="trail-nav">
             <div class="nav-text">
               <p>{{ trails.indexOf(current) + 1 }} of {{ trails.length }}</p>
             </div>
@@ -92,7 +92,7 @@
             </div>
           </div>
         </div>
-        <div class="trail-and-trailhead-data" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+        <div class="trail-and-trailhead-data">
           <div class="trail-data">
             <div class="trail-body">
               <div class="photo-box">
@@ -175,7 +175,7 @@
           </div>
         </a>
 
-        <a href="#" ng-click="show('search')" ng-show="visible === 'map' || visible === 'map-layers'">
+        <a href="#" ng-click="show('search')" ng-show="visible === 'map' || visible === 'map-layers'" ng-cloak>
           <div class="button button-search">
             <img src="img/search@2x.png"/>
           </div>
