@@ -1026,6 +1026,7 @@
     return new MapTrailLayer({ geojson: trail.toGeoJson(), record: trail });
   }
 
+
   //
   // MODULE DEFINITION
   //

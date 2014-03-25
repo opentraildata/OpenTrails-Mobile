@@ -93,6 +93,7 @@
       $scope.searchKeywords = '';
 
       function search (searchKeywords) {
+
         var query = {
           key: 'name',
           evaluator: 'contains',
@@ -125,6 +126,7 @@
             return a.distance > b.distance; 
           }
         );
+
       }
 
       $scope.search = search;
@@ -133,7 +135,7 @@
         if (searchKeywords) {
           $scope.search(searchKeywords);
         } else {
-          $scope.searchResults = []; 
+          search('');
         }
       });
 
@@ -194,6 +196,7 @@
           Models.Trail.query.each(renderLayer);
           Models.TrailHead.query.each(renderMarker);
           bindEvents();
+          search('');
         }
       }
 
