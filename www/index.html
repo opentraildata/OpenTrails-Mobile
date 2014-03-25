@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta name="format-detection" content="telephone=yes">
-      <meta charset="utf-8" />
-      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-      <title>To The Trails</title>
-      <link rel="stylesheet" type="text/css" href="css/lib/normalize/normalize.css">
-      <link rel="stylesheet" type="text/css" href="js/lib/leaflet/leaflet.css">
-      <link rel="stylesheet/less" type="text/css" href="less/application.less"/>
-      <script type="text/javascript" src="js/lib/less/less.min.js"></script>
+    <meta name="format-detection" content="telephone=yes">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <title>To The Trails</title>
+    <link rel="stylesheet" type="text/css" href="css/lib/normalize/normalize.css">
+    <link rel="stylesheet" type="text/css" href="js/lib/leaflet/leaflet.css">
+    <link rel="stylesheet/less" type="text/css" href="less/application.less"/>
+    <script type="text/javascript" src="js/lib/less/less.min.js"></script>
   </head>
 
   <body ng-controller='AppCtrl'>
@@ -35,46 +35,18 @@
         <ng-include src="partials.layers"></ng-include>
       </div>
 
-  <!-- NOTIFICATIONS VIEW SCAFFOLDING -->
-        <div id="notifications-view" style="display:none">
-          <div class="agency-nav">
-            <p class="nav-text">You are in a park managed by:</p>
-            <div class="nav-indicators">
-              <!-- The number of indicators should reflect the number of agencies contributing data -->
-              <div class="indicator"></div>
-              <div class="indicator"></div>
-              <div class="indicator"></div>
-              <div class="indicator"></div>
-              <div class="indicator"></div>
-            </div>
+      <div id="notifications-view" ng-show="visible === 'notifications'" ng-cloak>
+        <div id="content">
+          <div id="notifications-info">
+            <p>You are currently in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
           </div>
-          <div class="agency-data">
-            <div class="agency-logo">
-              <img></img>
-            </div>
-            <!-- h3 is a placeholder element, may change -->
-            <h3 class="agency-name"></h3>
-            <div class="call-btn">
-              <img class="call-icon"></img>
-              <p>Call</p>
-            </div>
-            <div class="address">
-              <p>Address goes here.</p>
-            </div>
-          </div>
-          <div class="notification-stream">
-            <div class="notification">
-              <div class="notification-data">
-                <!-- h3 is a placeholder elem -->
-                <h3 class="notification-headline"></h3>
-                <p class="notification-subhead"></p>
-                <div class="notification-close-btn">
-                  <img></img>
-                </div>
-                <div class="notification-keyline"></div>
-                <div class="notification-body">
-                  <p>Lorem Ipsum</p>
-                </div>
+
+          <div id="notification-sources">
+            <div class="source">
+              <div class="col-left">
+              </div>
+              <div class="col-right">
+                <h3>The Cuyahoga Valley National Park</h3>
               </div>
             </div>
           </div>
@@ -155,7 +127,7 @@
             <div class="search-input-container">
               <span class="search-input-icon">&nbsp;</span>
               <input class="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
-              <a href="#" ng-show="searchKeywords.length > 0" ng-click="searchKeywords = ''">Clear</a>
+              <a href="#" ng-click="searchKeywords = ''">Clear</a>
             </div>
           </form>
         </div>

@@ -41,7 +41,7 @@
 @green-color: #465C44;
 @light-gray-color: lighten(@gray-color, 50%);
 
-@status-height: 25px;
+@status-height: 0px;
 @header-height: 50px;
 @footer-height: 80px;
 @trail-header-height: 240px;
@@ -284,7 +284,7 @@ body {
   .search-input {
     .border-radius(3px);
     float: left; 
-    width: @device-width - 70px;
+    width: 200px;
     padding-left: 25px;
     color: @gray-color;
   }
@@ -620,9 +620,19 @@ body {
 }
 
 
-/*#content {
-  top: @status-height + 1;
-}*/
+#notifications-view {
+  position: fixed;
+  bottom: 80px; /* Footer Height, Flush */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: @z-index-4;
+
+  #content {
+    top: @status-height; 
+    height: @device-height - (@status-height + @footer-height);
+  }
+}
 
 #notifications-info {
   background-color: @green-color;
