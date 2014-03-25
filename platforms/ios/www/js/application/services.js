@@ -1,94 +1,6 @@
 'use strict';
 
 (function (ng) {
-
-  //
-  // UTILITIES
-  //
-
-  function Utils () { }
-
-  Utils.prototype.numToRad = function (num) {
-    return num * Math.PI / 180;                 
-  }
-
-  Utils.prototype.haversine = function (position1, position2) {
-    var lat1 = position1.get('latitude'),
-        lat2 = position2.get('latitude'),
-        lng1 = position1.get('longitude'),
-        lng2 = position2.get('longitude');
-
-    var dLat = utils.numToRad(lat2 - lat1),
-        dLng = utils.numToRad(lng2 - lng1);
-
-    var a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(utils.numToRad(lat1)) * Math.cos(utils.numToRad(lat2)) * Math.pow(Math.sin(dLng / 2), 2),
-        c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return (6372.8 * c) * 0.621371;
-  }
-
-  Utils.prototype.defaults = function (obj) {
-     ng.forEach(Array.prototype.slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          if (obj[prop] === void 0) obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  }
-
-  Utils.prototype.has = function (obj,key) {
-    return hasOwnProperty.call(obj, key); 
-  }
-
-  Utils.prototype.without = function (obj, keys) {
-    var result = {}; 
-    for (var key in obj) {
-      if (keys.indexOf(key) === -1) {
-        result[key] = obj[key]
-      }
-    }
-    return result;
-  }
-
-  Utils.prototype.map = function (arr, f) {
-    var results = []; 
-
-    ng.forEach(arr, function (item) {
-      results.push(f(item));
-    });
-
-    return results;
-  }
-
-  Utils.prototype.keys = function (obj) {
-    var keys = [];
-    for (var key in obj) {
-      keys.push(key);
-    }
-    return keys;
-  }
-
-  Utils.prototype.inherit = function(protoProps, staticProps) {
-    var parent = this;
-    var child;
-    if (protoProps && utils.has(protoProps, 'constructor')) {
-      child = protoProps.constructor;
-    } else {
-      child = function(){ return parent.apply(this, arguments); };
-    }
-    ng.extend(child, parent, staticProps);
-    var Surrogate = function(){ this.constructor = child; };
-    Surrogate.prototype = parent.prototype;
-    child.prototype = new Surrogate;
-    if (protoProps) ng.extend(child.prototype, protoProps);
-    child.__super__ = parent.prototype;
-    return child;
-  }
-
-  var utils = new Utils();
-
   //
   // MODEL DEFINITION
   //
@@ -473,6 +385,10 @@
       if (geom && geom.coordinates) return geom.coordinates[0];
     },
 
+    getLatLng: function () {
+      return [ this.getLat(), this.getLng() ];
+    },
+
     toPosition: function () {
       return new Position({latitude: this.getLat(), longitude: this.getLng() });
     },
@@ -578,9 +494,6 @@
   //
   // STEWARD MODEL
   //
-
-  var STEWARD_ATTRIBUTES = {
-  }
 
   var Steward = Model.inherit({
 
@@ -715,6 +628,68 @@
 
   });
 
+  var Map = Model.inherit({
+
+    DEFAULT_ZOOM: 13,
+
+    DEFAULT_CENTER: [ 41.082020, -81.518506 ],
+
+    defaults: {
+      el: 'map-container',
+      options: {
+        "zoomControl": false,
+      }
+    },
+
+    initialize: function () {
+      this.delegate = L.map( this.get('el'), this.get('options') );
+    },
+
+    setView: function (position, zoom) {
+      this.delegate.setView(position, zoom);
+      return this;
+    },
+
+    panTo: function (position) {
+      this.delegate.panTo(position);
+      return this;
+    },
+
+    getZoom: function () {
+      return this.delegate.getZoom();          
+    },
+
+    getCenter: function () {
+      return this.delegate.getCenter();
+    },
+
+    addLayer: function (layer) {
+      this.delegate.addLayer(layer.delegate);
+      return this;
+    },
+
+    removeLayer: function (layer) {
+      this.delegate.removeLayer(layer.delegate);
+      return this;
+    },
+
+    on: function (e, f) {
+      this.delegate.on(e, f);
+      return this;
+    },
+
+    off: function (e, f) {
+      this.delegate.off(e, f);
+      return this;
+    },
+
+    trigger: function (e) {
+      this.delegate.trigger(e);
+      return this;
+    }
+
+  });
+
   var MapLayer = Model.inherit({
 
     defaults: {
@@ -722,31 +697,31 @@
     },
 
     initialize: function () {
-      this.layer = undefined;           
+      this.delegate = undefined;           
     },
 
     on: function (e,f) {
-      this.layer.on(e, f);
+      this.delegate.on(e, f);
       return this;
     },
 
     off: function (e,f) {
-      this.layer.off(e, f);
+      this.delegate.off(e, f);
       return this;
     },
 
     trigger: function (e) {
-      this.layer.trigger(e);
+      this.delegate.trigger(e);
       return this;
     },
 
     bringToFront: function () {
-      this.layer.bringToFront();             
+      this.delegate.bringToFront();
       return this;
     },
 
     bringToBack: function () {
-      this.layer.bringToBack();             
+      this.delegate.bringToBack();
       return this;
     },
 
@@ -762,6 +737,40 @@
 
   });
 
+
+  var TILE_LAYERS = {
+    "terrain": {
+      name: "Terrain",
+      url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+    },
+    "satellite": {
+      name: "Satellite",
+      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
+    }
+  }
+
+  var MapTileLayer = MapLayer.inherit({
+
+    defaults: {
+      url: TILE_LAYERS.terrain.url,
+      options: {
+        "detectRetina": true
+      }
+    },
+
+    initialize: function () {
+      this.delegate = L.tileLayer( this.get('url'), this.get('options') );
+    },
+
+    setUrl: function (url) {
+      this.delegate.setUrl(url);
+      return this;
+    }
+
+  });
+
+  MapTileLayer.INDEX = TILE_LAYERS;
+
   var MapGeoJsonLayer = MapLayer.inherit({
 
     defaults: {
@@ -770,7 +779,7 @@
     },
 
     initialize: function () {
-      this.layer = L.geoJson(this.get('geojson'), this.get('options'));
+      this.delegate = L.geoJson(this.get('geojson'), this.get('options'));
     }
   
   });
@@ -785,7 +794,7 @@
     },
 
     initialize: function () {
-      this.layer = L.tileLayer(this.get('url'), this.get('options'));
+      this.delegate = L.tileLayer(this.get('url'), this.get('options'));
     }
 
   });
@@ -798,15 +807,25 @@
     },
 
     initialize: function () {
-      this.layer = L.marker(this.get('position'), this.get('options'));
+      this.delegate = L.marker(this.get('position'), this.get('options'));
     },
 
     getPosition: function () {
-      return this.layer.getLatLng(); 
+      return this.delegate.getLatLng(); 
     },
 
     setPosition: function (position) {
-      this.layer.setLatLng(position);
+      this.delegate.setLatLng(position);
+      return this;
+    },
+
+    setIcon: function (icon) {
+      this.delegate.setIcon(icon.delegate);
+      return this;
+    },
+
+    remove: function () {
+      this.delegate.remove();
       return this;
     }
   
@@ -820,23 +839,74 @@
     },
 
     initialize: function () {
-      this.layer = L.circleMarker(this.get('position'), this.get('options'))             
+      this.delegate = L.circleMarker(this.get('position'), this.get('options'))             
     } 
 
+  });
+
+  var MapIcon = Model.inherit({
+
+    defaults: {
+      iconUrl: null,
+      iconRetinaUrl: null,
+      iconSize: null,
+      iconAnchor: null,
+      popupAnchor: null,
+      shadowUrl: null,
+      shadowRetinaUrl: null,
+      shadowSize: null,
+      shadowAnchor: null
+    },
+
+    initialize: function () {
+      this.delegate = L.icon(this.attributes);
+    }
+  
   });
 
   var MapTrailHeadMarker = MapMarker.inherit({
+
+    selected: false,
+
     defaults: {
-      options: {
-        icon: L.icon({
-          iconUrl: 'img/trailhead-marker.png',
-          iconRetinaUrl: 'img/trailhead-marker@2x.png',
-          iconSize: [ 30, 30 ]
-        })          
-      },
-      position: null
-    } 
+      position: null,
+      record: null
+    },
+
+    toggle: function () {
+      this.selected ? this.deselect() : this.select();
+    },
+
+    select: function () {
+      this.selected = true;
+      this.setIcon(MapTrailHeadMarker.SelectedIcon);
+      return this;
+    },
+
+    deselect: function () {
+      this.selected = false;
+      this.setIcon(MapTrailHeadMarker.DeselectedIcon);
+      return this;
+    }
+
   });
+
+  MapTrailHeadMarker.DeselectedIcon = new MapIcon({
+    iconUrl: 'img/trailhead-marker-deselected.png',
+    iconRetinaUrl: 'img/trailhead-marker-deselected@2x.png',
+    iconSize: [ 30, 30 ]
+  });
+
+  MapTrailHeadMarker.SelectedIcon = new MapIcon({
+    iconUrl: 'img/trailhead-marker-selected.png',
+    iconRetinaUrl: 'img/trailhead-marker-selected@2x.png',
+    iconSize: [ 35, 50 ],
+    iconAnchor: [17,49]
+  });
+
+  MapTrailHeadMarker.fromTrailHead = function (trailHead) {
+    return new MapTrailHeadMarker({ position: trailHead.getLatLng(), record: trailHead });
+  }
 
   var MapTrailLayer = MapGeoJsonLayer.inherit({
 
@@ -846,16 +916,27 @@
         style: {
           color: "#a3a3a3"
         } 
-      }
+      },
+      record: null
     }
 
   });
+
+  MapTrailLayer.fromTrail = function (trail) {
+    return new MapTrailLayer({ geojson: trail.toGeoJson(), record: trail });
+  }
 
   //
   // MODULE DEFINITION
   //
 
   var module = ng.module('trails.services', [ ]);
+
+  module.factory('MapTileLayer', [
+    function () {
+      return MapTileLayer; 
+    }  
+  ]);
 
   module.factory('MapTrailLayer', [
 
@@ -881,14 +962,6 @@
 
   ]);
 
-  module.factory('GeoPosition', [
-
-    function () {
-      return new GeoPosition();
-    }
-
-  ]);
-
   //
   // DB MODEL
   //
@@ -899,7 +972,7 @@
 
     function ($http) {
 
-      var ALL = [
+      var LOADABLE = [
         "TrailHead", "Trail", "TrailSegment", "Steward", "Notification"
       ]
 
@@ -912,12 +985,12 @@
       }
 
       Models.reload = function (data) {
-        ng.forEach(ALL, function (model) { Models[model].load(data) })
+        ng.forEach(LOADABLE, function (model) { Models[model].load(data) })
       }
 
       Models.loaded = function () {
         var loaded = true;
-        ng.forEach(ALL, function (model) { if (!Models[model].loaded) loaded = false });
+        ng.forEach(LOADABLE, function (model) { if (!Models[model].loaded) loaded = false });
         return loaded;
       }
 
@@ -934,80 +1007,10 @@
 
   module.factory('Map', [
 
-    'TileLayer',
-
-    function (TileLayer) {
-
-      var Map = function () {
-        this.initialize.apply(this, arguments) 
-      } 
-
-      Map.prototype.DEFAULT_ZOOM  = 13;
-      Map.prototype.DEFAULT_ORIGIN = [ 41.082020, -81.518506 ];
-
-      Map.prototype.initialize = function () {
-        this.map = L.map(this.el, this.options); 
-        this.setView(this.DEFAULT_ORIGIN, this.DEFAULT_ZOOM);
-        this.setTileLayer(TileLayer.DEFAULT);
-      }
-
-      Map.prototype.options = {
-        "zoomControl": false
-      }
-
-      Map.prototype.el = 'map-container';
-
-      Map.prototype.render = function (el) {
-        this.map = L.map(this.el) 
-      }
-
-      Map.prototype.setView = function (origin,zoom) {
-        this.map.setView(origin,zoom);
-        return this;
-      }
-
-      Map.prototype.getZoom = function () {
-        return this.map.getZoom();
-      }
-
-      Map.prototype.setTileLayer = function (id) {
-        var layer = new Map.TileLayer(id);
-
-        this.addLayer(layer);
-
-        if (this.tileLayer) {
-          this.removeLayer(this.tileLayer);
-        }
-
-        this.tileLayer = layer;
-
-        return this;
-      }
-
-      Map.prototype.addLayer = function (layer) {
-        this.map.addLayer(layer.layer);
-        return this;
-      }
-
-      Map.prototype.removeLayer = function (layer) {
-        this.map.removeLayer(layer.layer);
-        return this;
-      }
-
-      Map.prototype.on = function (e, cb) {
-        this.map.on(e, cb);
-        return this;
-      }
-
-      Map.prototype.trigger = function (e) {
-        this.map.fire(e);
-        return this;
-      }
-
-      Map.TileLayer = TileLayer;
-
+    function () {
       return new Map();
     } 
+
   ]);
 
   module.factory('MapCircleMarker', [
@@ -1018,69 +1021,10 @@
 
   ]);
 
-  module.factory('TileLayer', [
+  module.factory('GeoPosition', [
 
     function () {
-      
-      var TileLayer = function () {
-        this.initialize.apply(this, arguments);
-      }
-
-      TileLayer.DEFAULT = 'terrain';
-
-      TileLayer.ALL_LAYERS = [
-        { "id": 'terrain',
-          "name": 'Terrain',
-          "url": 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        },
-        {
-          "id": 'satellite',
-          "name": 'Satellite',
-          "url": 'http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png'
-        }
-      ];
-
-      TileLayer.DEFAULT_OPTIONS = {
-        "detectRetina": true
-      }
-
-      TileLayer.find = function (id) {
-        var layer;
-
-        ng.forEach(TileLayer.ALL_LAYERS, function (tl) {
-          if (tl.id === id) layer = tl;
-        });
-
-        if (layer) {
-          return layer;
-        } else {
-          throw 'Error: TileLayer not found';
-        }
-      }
-
-      TileLayer.prototype.initialize = function (id, options) {
-        options = options || {};
-
-        for (var key in TileLayer.DEFAULT_OPTIONS) {
-          options[key] = options[key] || TileLayer.DEFAULT_OPTIONS[key];
-        }
-
-        this.options = options;
-
-        this.layer = L.tileLayer(TileLayer.find(id).url, this.options);
-      }
-
-      TileLayer.prototype.addTo = function (map) {
-        map.addLayer(this);
-        return this;
-      }
-
-      TileLayer.prototype.removeFrom = function (map) {
-        map.removeLayer(this);
-        return this;
-      }
-
-      return TileLayer;
+      return new GeoPosition(); 
     }
       
   ]);

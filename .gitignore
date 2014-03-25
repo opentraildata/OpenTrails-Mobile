@@ -49,4 +49,4 @@ IOS/www/
 .Spotlight-V100
 .Trashes
 
-*/console.log
+platforms/*/cordova/console.log
