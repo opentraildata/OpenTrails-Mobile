@@ -11,15 +11,15 @@
       <script type="text/javascript" src="js/lib/less/less.min.js"></script>
   </head>
 
-  <body ng-controller='ApplicationCtrl'>
+  <body ng-controller='AppCtrl'>
 
     <div id="main">
       <div id="status"></div>
 
-      <div id="map-view" ng-controller="MapsCtrl">
+      <div id="map-view">
 
         <div id="map-search">
-          <a href="#" class="control" ng-click="views.render('search');">
+          <a href="#" class="control" ng-click="show('search');">
             <img src="img/map-search@2x.png"/>
           </a>
         </div>
@@ -32,7 +32,7 @@
 
         <div id="map-container"></div>
 
-        <ng-include src="partials.templates.layers"></ng-include>
+        <ng-include src="partials.layers"></ng-include>
       </div>
 
   <!-- NOTIFICATIONS VIEW SCAFFOLDING -->
@@ -81,30 +81,132 @@
         </div>
       </div>
 
-      <ng-include src="views.templates.trail"></ng-include>
-      <ng-include src="views.templates.search"></ng-include>
-      <ng-include src="views.templates.notifications"></ng-include>
+      <div id="trail-view" ng-show="visible === 'trails'" ng-cloak>
+        <div class="trail-nav" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+          <div class="nav-text">
+            <p>{{ trails.indexOf(current) + 1 }} of {{ trails.length }}</p>
+          </div>
+        </div>
+        <div class="trail-and-trailhead-data" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()">
+          <div class="trail-data">
+            <div class="trail-title-field">
+              <!-- H3 element is a placeholder. Determine best elem. -->
+              <h3 class="trail-title">{{ current.get('name') }}</h3>
+            </div>
+            <div class="trail-attributes">
+              <!-- p class may need to change as well, similar to h3 above -->
+              <p class="trail-attribute-length">{{ current.getLength().toFixed(2) }} mi long</p>
+              <div class="trail-attribute-icons">
+                <div class="attribute-icon-box" ng-show="current.canFoot()">
+                  <img class="attribute-icon" src="img/foot.png">
+                </div>
+                <div class="attribute-icon-box" ng-show="current.canBicycle()">
+                  <img class="attribute-icon" src="img/bike.png">
+                </div>
+                <div class="attribute-icon-box" ng-show="current.canHorse()">
+                  <img class="attribute-icon" src="img/horse.png">
+                </div>
+                <div class="attribute-icon-box" ng-show="current.canSki()">
+                  <img class="attribute-icon" src="img/ski.png">
+                </div>
+              </div>
+            </div>
+            <div class="trail-body">
+              <div class="photo-box">
+                <img src="img/photo.png"><img>
+              </div>
+              <p>{{ current.get('description') }}</p>
+            </div>
+          </div>
+          <div class="trailhead-data">
+            <div class="trailhead-title-field">
+              <!-- h4 is a placeholder, like the trail title -->
+              <img class="trailhead-icon" src="img/marker.png"/></img>
+              <p class="trailhead-title">{{ trailHead.get('name') }}</p>
+            </div>
+            <div class="trailhead-attributes">
+              <!-- p is placeholder elem, may need to change -->
+              <div class="trailhead-location-attributes">
+                <p class="trailhead-distance">{{distance.toFixed(2)}} mi away</p>
+                <a class="trailhead-address" href="">{{ trailHead.get('address') }}</a>
+              </div>
+              <div class="amenities">
+                <p class="amenity">Parking</p>
+                <p class="amenity">Drinking Water</p>
+                <p class="amenity">Restrooms</p>
+                <p class="amenity">Info Kiosk</p>
+              </div>
+              <div class="trailhead-steward">
+                <p>Managed by {{ steward.get('name') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="search-view" ng-show="visible === 'search'" ng-cloak>
+
+        <div id="header">
+          <form class="search-form" ng-submit="search(searchKeywords)">
+            <div class="search-input-container">
+              <span class="search-input-icon">&nbsp;</span>
+              <input class="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
+              <a href="#" ng-show="searchKeywords.length > 0" ng-click="searchKeywords = ''">Clear</a>
+            </div>
+          </form>
+        </div>
+
+
+        <div id="content">
+
+          <div class="search-info" ng-if="searchKeywords.length > 0">
+            <span>Found {{ searchResults.length }} Results For '{{searchKeywords}}'</span>
+          </div>
+
+          <div class="search-info" ng-if="!searchKeywords || searchKeywords.length === 0">
+            <span>Found {{ searchResults.length }} Trails Near You</span>
+          </div>
+
+          <div class="search-results">
+            <div class="search-result" ng-repeat="result in searchResults">
+              <div class="search-result-header-outer">
+                <div class="search-result-header-inner">
+                  <p class="name">{{ result.record.get('name') }}</p>
+                  <p class="distance">{{ result.distance.toFixed(2) }} miles away</p>
+                </div>
+              </div>
+              <div class="search-subresults">
+                <a href="#" ng-click="showTrailHead(result.record)" ng-repeat="subrecord in result.subrecords">
+                  <h3>{{ subrecord.get('name') }}</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-include src="views.notifications"></ng-include>
 
       <div id="footer">
-        <a href="#" ng-click="views.render('map')" ng-show="!mapVisible">
+        <a href="#" ng-click="show('map')" ng-show="visible !== 'map' && visible !== 'map-layers'">
           <div class="button button-map">
             <img src="img/map@2x.png"/>
           </div>
         </a>
 
-        <a href="#" ng-click="views.render('search')" ng-show="mapVisible">
+        <a href="#" ng-click="show('search')" ng-show="visible === 'map' || visible === 'map-layers'">
           <div class="button button-search">
             <img src="img/search@2x.png"/>
           </div>
         </a>
 
-        <a href="#" ng-click="views.render('notifications')">
+        <a href="#" ng-click="show('notifications')">
           <div class="button button-info">
             <img src="img/info@2x.png"/>
           </div>
         </a>
 
-        <a href="#" ng-click="views.render('map-layers')">
+        <a href="#" ng-click="show('map-layers')">
           <div class="button button-layer">
             <img src="img/map-stack@2x.png"/>
           </div>

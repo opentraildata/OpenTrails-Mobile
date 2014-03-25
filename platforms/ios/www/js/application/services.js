@@ -858,8 +858,13 @@
     },
 
     setUrl: function (url) {
+      this.set({url: url});
       this.delegate.setUrl(url);
       return this;
+    },
+
+    getUrl: function () {
+      return this.get('url');
     }
 
   });
