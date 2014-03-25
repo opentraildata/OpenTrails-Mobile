@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "file-transfer": "org.apache.cordova.file-transfer",
-    "file": "org.apache.cordova.file",
-    "dialogs": "org.apache.cordova.dialogs"
-  }
-}
