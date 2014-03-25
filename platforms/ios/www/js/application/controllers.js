@@ -171,6 +171,10 @@
         $scope.results = utils.compact(trailHeads);
       }
 
+      $scope.showTrail = function (trail) {
+        alert(trail.get('name'));
+      }
+
       $scope.geoposition = GeoPosition;
     }
 

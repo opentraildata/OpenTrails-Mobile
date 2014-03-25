@@ -29,8 +29,10 @@
             <p class="distance">{{ result.trailHead.distanceFrom(geoposition.get('latitude'), geoposition.get('longitude')).toFixed(2) }} miles away</p>
           </div>
         </div>
-        <div class="search-result-body">
-          <h3 ng-repeat="trail in result.trails">{{ trail.get('name') }}</h3>
+        <div class="search-subresults">
+          <a href="#" ng-click="showTrail(trail)" ng-repeat="trail in result.trails">
+            <h3>{{ trail.get('name') }}</h3>
+          </a>
         </div>
       </div>
 
