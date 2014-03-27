@@ -263,22 +263,27 @@
       $scope.$watch(Models.loaded, onLoad);
 
       $scope.drag = function (e) {
-        var target = document.getElementById('trail-view')
-        var offsetTop = target.offsetTop;
+        var el = document.getElementById('trail-view')
+        var offsetTop = el.offsetTop;
 
-        var o = target;
+        var o = el;
         while (o=o.offsetParent) {
           offsetTop += o.offsetTop;
         }
 
-        var top = offsetTop + e.gesture.deltaY;
-
-        if (top <= 0) {
-          target.style.top = '0px';
-        } else if (top >= 300) {
-          target.style.top = '300x';
+        var t = offsetTop;
+        if ( e.gesture.deltaY > 0 ) {
+          t = t + 25; 
         } else {
-          target.style.top = top + 'px';
+          t = t - 25;
+        }
+
+        if (t <= 0) {
+          el.style.top = '0px';
+        } else if (t >= 300) {
+          el.style.top = '300x';
+        } else {
+          el.style.top = t + 'px';
         }
       }
 
