@@ -165,10 +165,12 @@
       }
 
       function deselectMarker (marker) {
-        marker.deselect();
-        $scope.$apply(function() {
-          $scope.selected = null;
-        });
+        if (marker) {
+          marker.deselect();
+          $scope.$apply(function() {
+            $scope.selected = null;
+          });
+        }
       }
 
       function onMarkerClick (marker) {
@@ -246,21 +248,13 @@
         }
       }
 
-      $scope.minimized = true;
-
-      $scope.minimize = function () {
-        $scope.minimized = true; 
-      }
-
-      $scope.maximize = function () {
-        $scope.minimized = false; 
-      }
+      $scope.$watch(Models.loaded, onLoad);
 
       $scope.close = function () {
-        $scope.trailVisible = false; 
+        if ($scope.canClose) {
+          show('map');
+        }
       }
-
-      $scope.$watch(Models.loaded, onLoad);
 
       $scope.drag = function (e) {
         var el = document.getElementById('trail-view')
@@ -282,8 +276,10 @@
           el.style.top = '0px';
         } else if (t >= 300) {
           el.style.top = '300x';
+          $scope.canClose = true;
         } else {
           el.style.top = t + 'px';
+          $scope.canClose = false;
         }
       }
 
