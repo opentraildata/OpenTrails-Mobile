@@ -4,6 +4,7 @@
     <description>
       Trails Mobile is a multi-device application that allows users of trails to cache trail information offline.
     </description>
+    <preference name="DisallowOverscroll" value="true" />
     <author email="ryanc@codeforamerica.org" href="http://codeforamerica.org">
         Code for America
     </author>

@@ -705,6 +705,10 @@
 
   });
 
+  //
+  // GEOPOSITION MODEL
+  //
+
   var GeoPosition = Model.inherit({
 
     defaults: {
@@ -722,6 +726,10 @@
     }
 
   });
+
+  //
+  // MAP MODEL
+  //
 
   var Map = Model.inherit({
 
@@ -785,6 +793,10 @@
 
   });
 
+  //
+  // MAPLAYER MODEL
+  //
+
   var MapLayer = Model.inherit({
 
     defaults: {
@@ -832,6 +844,9 @@
 
   });
 
+  //
+  // MAPTILELAYER MODEL
+  //
 
   var TILE_LAYERS = {
     "terrain": {
@@ -871,6 +886,10 @@
 
   MapTileLayer.INDEX = TILE_LAYERS;
 
+  //
+  // MAPGEOJSONLAYER MODEL
+  //
+
   var MapGeoJsonLayer = MapLayer.inherit({
 
     defaults: {
@@ -884,20 +903,9 @@
   
   });
 
-  var MapTilesLayer = MapLayer.inherit({
-
-    defaults: {
-      urlTemplate: null,
-      options: {
-        "detectRetina": true
-      }
-    },
-
-    initialize: function () {
-      this.delegate = L.tileLayer(this.get('url'), this.get('options'));
-    }
-
-  });
+  //
+  // MAPMARKER MODEL
+  //
 
   var MapMarker = MapLayer.inherit({
 
@@ -931,6 +939,10 @@
   
   });
 
+  //
+  // MAPCIRCLEMARKER MODEL
+  //
+
   var MapCircleMarker = MapMarker.inherit({
 
     defaults: {
@@ -943,6 +955,10 @@
     } 
 
   });
+
+  //
+  // MAPICON MODEL
+  //
 
   var MapIcon = Model.inherit({
 
@@ -963,6 +979,10 @@
     }
   
   });
+
+  //
+  // MAPTRAILHEADMARKER MODEL
+  //
 
   var MapTrailHeadMarker = MapMarker.inherit({
 
@@ -1007,6 +1027,10 @@
   MapTrailHeadMarker.fromTrailHead = function (trailHead) {
     return new MapTrailHeadMarker({ position: trailHead.getLatLng(), record: trailHead });
   }
+
+  //
+  // MAPTRAILLAYER MODEL
+  //
 
   var MapTrailLayer = MapGeoJsonLayer.inherit({
 
@@ -1063,8 +1087,32 @@
 
   ]);
 
+  module.factory('Map', [
+
+    function () {
+      return new Map();
+    } 
+
+  ]);
+
+  module.factory('MapCircleMarker', [
+
+    function () {
+      return MapCircleMarker; 
+    }
+
+  ]);
+
+  module.factory('GeoPosition', [
+
+    function () {
+      return new GeoPosition(); 
+    }
+      
+  ]);
+
   //
-  // DB MODEL
+  // DATA LOADER
   //
 
   module.factory('Models', [
@@ -1104,30 +1152,6 @@
       return Models;
     }
 
-  ]);
-
-  module.factory('Map', [
-
-    function () {
-      return new Map();
-    } 
-
-  ]);
-
-  module.factory('MapCircleMarker', [
-
-    function () {
-      return MapCircleMarker; 
-    }
-
-  ]);
-
-  module.factory('GeoPosition', [
-
-    function () {
-      return new GeoPosition(); 
-    }
-      
   ]);
 
 })(angular);

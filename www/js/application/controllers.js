@@ -251,27 +251,29 @@
       $scope.$watch(Models.loaded, onLoad);
 
       $scope.close = function () {
-        if ($scope.canClose) {
           show('map');
-        }
       }
 
-      var posY = 0,
-          lastPosY = 0;
+      var posY = 0;
+      var posYMin = 0;
+      var posYMax = 250;
 
       $scope.drag = function (e) {
-        var el = document.getElementById('trail-view')
+        var el = document.getElementById('trail-view');
+        var delta;
 
-        posY = lastPosY + e.gesture.deltaY;
-
-        if (posY <= 0) {
-          posY = 0; 
-          $scope.canClose = false;
-        } else if (posY >= 200) {
-          posY = 200; 
-          $scope.canClose = true;
+        if (e.gesture.deltaY > 0) {
+          delta = 40; 
         } else {
-          $scope.canClose = false;
+          delta = -40; 
+        }
+
+        posY = posY + delta;
+
+        if (posY <= posYMin) {
+          posY = posYMin; 
+        } else if (posY >= posYMax) {
+          posY = posYMax; 
         }
 
         var transform = "translate3d(0px,"+ posY+ "px, 0)";
@@ -283,9 +285,14 @@
         el.style.webkitTransform = transform;
       }
 
-      $scope.stopDrag = function (e) {
-        lastPosY = posY;
+      $scope.dragEnd = function () {
+        if (posY == posYMax) {
+          $scope.canClose = true;
+        } else {
+          $scope.canClosne = false; 
+        }
       }
+
  
     }
 
