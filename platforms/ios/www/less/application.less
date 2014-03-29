@@ -359,6 +359,7 @@ body {
 
 /* Trail View - AJW*/
 #trail-view {
+  transform: translate3d(0px, 0px, 0);
   position: fixed;
   background-color: @white-color;
   overflow: auto;
@@ -369,10 +370,9 @@ body {
   overflow: auto;
   background-color: @white-color;
   z-index: @z-index-4;
-  bottom: 80px; /* Footer Height, Flush */
+  top: 0px; /* Footer Height, Flush */
 
   .nav-and-title {
-    z-index: @z-index-5;
     width: 100%;
     height: @trail-header-height;
     background-color: @white-color;
@@ -382,8 +382,6 @@ body {
     box-shadow:         3px 3px 5px 6px #ddd;
 
     .trail-nav {
-      position: relative;
-      display: inline-block;
       height: 60px;
       width: 100%;
       background-color: @green-color;

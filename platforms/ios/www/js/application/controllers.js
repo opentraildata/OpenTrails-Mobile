@@ -256,35 +256,40 @@
         }
       }
 
+      var posY = 0,
+          lastPosY = 0;
+
       $scope.drag = function (e) {
         var el = document.getElementById('trail-view')
-        var offsetTop = el.offsetTop;
 
-        var o = el;
-        while (o=o.offsetParent) {
-          offsetTop += o.offsetTop;
-        }
+        posY = lastPosY + e.gesture.deltaY;
 
-        var t = offsetTop;
-        if ( e.gesture.deltaY > 0 ) {
-          t = t + 25; 
-        } else {
-          t = t - 25;
-        }
-
-        if (t <= 0) {
-          el.style.top = '0px';
-        } else if (t >= 300) {
-          el.style.top = '300x';
+        if (posY <= 0) {
+          posY = 0; 
+          $scope.canClose = false;
+        } else if (posY >= 200) {
+          posY = 200; 
           $scope.canClose = true;
         } else {
-          el.style.top = t + 'px';
           $scope.canClose = false;
         }
+
+        var transform = "translate3d(0px,"+ posY+ "px, 0)";
+
+        el.style.transform = transform;
+        el.style.oTransform = transform;
+        el.style.msTransform = transform;
+        el.style.mozTransform = transform;
+        el.style.webkitTransform = transform;
       }
 
+      $scope.stopDrag = function (e) {
+        lastPosY = posY;
+      }
+ 
     }
-    
+
+   
   ]);
 
 })(angular);

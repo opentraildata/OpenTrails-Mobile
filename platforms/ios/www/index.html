@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <div id="trail-view" ng-show="visible === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" hm-drag-up="drag($event)" hm-drag-down="drag($event)" hm-swipe-down="close()" ng-cloak>
+      <div id="trail-view" ng-show="visible === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" hm-drag-up="drag($event)" hm-drag-down="drag($event)" hm-drag-end="stopDrag($event)" hm-swipe-down="close()" ng-cloak>
         <div class="nav-and-title">
           <div class="trail-nav">
             <div class="nav-text">
