@@ -114,7 +114,7 @@
               return {
                 record: record,
                 subrecords: subrecords,
-                distance: distance 
+                distance: distance(record) 
               };
 
             }
@@ -147,6 +147,20 @@
       var markers = []
       var layers  = [];
 
+      $scope.selectedTrailHead = null;
+      $scope.selectedSteward = null;
+      $scope.selectedTrail = null;
+      $scope.trails = [];
+
+      function onLoad (loaded) {
+        if (loaded) {
+          Models.Trail.query.each(renderLayer);
+          Models.TrailHead.query.each(renderMarker);
+          bindEvents();
+          search('');
+        }
+      }
+
       function renderLayer (t) {
         layers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
       }
@@ -156,11 +170,13 @@
       }
 
       function selectMarker (marker) {
-        marker.select();
-        if (marker.selected) {
-          $scope.$apply(function() {
-            $scope.selected = marker; 
-          });
+        if (marker) {
+          marker.select();
+          if (marker.selected) {
+            $scope.$apply(function() {
+              $scope.selected = marker; 
+            });
+          }
         }
       }
 
@@ -173,15 +189,53 @@
         }
       }
 
+      function selectLayer (layer) {
+        if (layer) {
+          layer.select(); 
+        }
+      }
+
+      function deselectLayer (layer) {
+        if (layer) {
+          layer.deselect();  
+        }
+      }
+
       function onMarkerClick (marker) {
-        if (!marker) return false;
-        if ($scope.selected !== marker) {
-          if ($scope.selected) {
-            $scope.selected.deselect();
-          }
-          selectMarker(marker);
+        select( marker.get('record') );
+      }
+
+      function selectTrailHead (th) {
+        if (!th) return false;
+        $scope.$apply(function () {
+          $scope.selectedTrailHead = th;
+          $scope.selectedTrails = th.trails.all();
+          $scope.selectedTrail = th.trails.first();
+          $scope.selectedSteward = th.stewards.first();
+        });
+      }
+
+      function deselectTrailHead (th) {
+        if (!th) return false;
+        $scope.$apply(function () {
+          $scope.selectedTrailHead = null;
+          $scope.selectedTrails = [];
+          $scope.selectedTrail = null;
+          $scope.selectedSteward = null;
+        });
+      }
+
+      function selectTrail (t) {
+        if (!t) return false;
+        $scope.selectedTrail = t; 
+      }
+
+      function onMarkerClick (marker) {
+        var trailHead = marker.get('record');
+        if ( trailHead !== $scope.selectedTrailHead ) {
+          selectTrailHead( trailHead )
         } else {
-          deselectMarker(marker);
+          deselectTrailHead( trailHead );
         }
       }
 
@@ -193,73 +247,69 @@
         });
       }
 
-      function onLoad (loaded) {
-        if (loaded) {
-          Models.Trail.query.each(renderLayer);
-          Models.TrailHead.query.each(renderMarker);
-          bindEvents();
-          search('');
-        }
-      }
-
       Map.on('click', function () {
-        onMarkerClick($scope.selected);
+        deselectTrailHead( $scope.selectedTrailHead );
       });
 
-      function showTrailHead (th) {
-        if ($scope.visible !== 'trails') show('trails');
-        $scope.trailHead = th;
-        $scope.steward = $scope.trailHead.stewards.first();
-        $scope.trails = $scope.trailHead.trails.all();
-        $scope.current = $scope.trails[0]
-        $scope.distance = $scope.trailHead.distanceFrom(
-          GeoPosition.get('latitude'),
-          GeoPosition.get('longitude')
-        );
-      }
-
-      $scope.showTrailHead = showTrailHead;
-
-      $scope.$watch('selected', function (value) {
+      $scope.$watch('selectedTrailHead', function (value) {
+        ng.forEach(markers, function (marker) {
+          if (marker.get('record') === value) {
+            marker.select();
+          } else {
+            marker.deselect(); 
+          }
+        });
         if (value) {
-          showTrailHead(value.get('record'))
+          if ($scope.visible !== 'trails') show('trails');
         } else {
-          show('map');
-          $scope.trailHead = null;
-          $scope.steward = null;
-          $scope.trails = null;
-          $scope.current = null;
-          $scope.distance = null;
+          if ($scope.visible !== 'map') show('map');
         }
+      });
+
+      $scope.$watch('selectedTrail', function (value) {
+        ng.forEach(layers, function (layer) {
+          if (layer.get('record') === value)  {
+            selectLayer(layer);
+          } else {
+            deselectLayer(layer);
+          }
+        });
       });
 
       $scope.nextTrail = function () {
-        var index  = $scope.trails.indexOf($scope.current);
-        var length = $scope.trails.length;
+        var index  = $scope.selectedTrails.indexOf($scope.selectedTrail);
+        var length = $scope.selectedTrails.length;
         if (index < length - 1) {
-          $scope.current = $scope.trails[index + 1];
+          $scope.selectedTrail = $scope.selectedTrails[index + 1];
         }
       }
 
       $scope.previousTrail = function () {
-        var index = $scope.trails.indexOf($scope.current);
+        var index = $scope.selectedTrails.indexOf($scope.selectedTrail);
         if (index > 0) {
-          $scope.current = $scope.trails[index - 1];
+          $scope.selectedTrail = $scope.selectedTrails[index - 1];
         }
       }
 
       $scope.$watch(Models.loaded, onLoad);
 
       $scope.close = function () {
-          show('map');
+        show('map');
       }
 
-      var posY = 0;
-      var posYMin = 0;
-      var posYMax = 250;
+      function distance (th) {
+        return th.distanceFrom(GeoPosition.get('latitude'), GeoPosition.get('longitude'));
+      }
+
+      $scope.distance = distance;
+
+      var trailView = document.getElementById('trail-view');
+
+      var posY = trailView.offsetTop;
+      var posYMin = -posY;
+      var posYMax = 0;
 
       $scope.drag = function (e) {
-        var el = document.getElementById('trail-view');
         var delta;
 
         if (e.gesture.deltaY > 0) {
@@ -278,18 +328,18 @@
 
         var transform = "translate3d(0px,"+ posY+ "px, 0)";
 
-        el.style.transform = transform;
-        el.style.oTransform = transform;
-        el.style.msTransform = transform;
-        el.style.mozTransform = transform;
-        el.style.webkitTransform = transform;
+        trailView.style.transform = transform;
+        trailView.style.oTransform = transform;
+        trailView.style.msTransform = transform;
+        trailView.style.mozTransform = transform;
+        trailView.style.webkitTransform = transform;
       }
 
       $scope.dragEnd = function () {
         if (posY == posYMax) {
           $scope.canClose = true;
         } else {
-          $scope.canClosne = false; 
+          $scope.canClose = false; 
         }
       }
 

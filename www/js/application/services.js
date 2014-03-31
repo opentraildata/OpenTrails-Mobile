@@ -840,6 +840,11 @@
     removeFrom: function (map) {
       map.removeLayer(this);
       return this;
+    },
+
+    setOpacity: function (n) {
+      this.delegate.setOpacity(n);
+      return this;
     }
 
   });
@@ -1034,14 +1039,39 @@
 
   var MapTrailLayer = MapGeoJsonLayer.inherit({
 
+    selected: false,
+
     defaults: {
       geojson: null,
       options: {
         style: {
-          color: "#a3a3a3"
+          color: "#a3a3a3",
+          opacity: 0.5
         } 
       },
       record: null
+    },
+
+    select: function () {
+      this.selected = true;
+
+      this.delegate.setStyle({
+        opacity: 1,
+        color: "#333333"
+      });
+
+      return this;
+    },
+
+    deselect: function () {
+      this.selected = false;
+
+      this.delegate.setStyle({
+        opacity: 0.5,
+        color: "#a3a3a3"
+      });
+
+      return this;
     }
 
   });

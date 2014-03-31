@@ -705,6 +705,10 @@
 
   });
 
+  //
+  // GEOPOSITION MODEL
+  //
+
   var GeoPosition = Model.inherit({
 
     defaults: {
@@ -722,6 +726,10 @@
     }
 
   });
+
+  //
+  // MAP MODEL
+  //
 
   var Map = Model.inherit({
 
@@ -785,6 +793,10 @@
 
   });
 
+  //
+  // MAPLAYER MODEL
+  //
+
   var MapLayer = Model.inherit({
 
     defaults: {
@@ -828,10 +840,18 @@
     removeFrom: function (map) {
       map.removeLayer(this);
       return this;
+    },
+
+    setOpacity: function (n) {
+      this.delegate.setOpacity(n);
+      return this;
     }
 
   });
 
+  //
+  // MAPTILELAYER MODEL
+  //
 
   var TILE_LAYERS = {
     "terrain": {
@@ -871,6 +891,10 @@
 
   MapTileLayer.INDEX = TILE_LAYERS;
 
+  //
+  // MAPGEOJSONLAYER MODEL
+  //
+
   var MapGeoJsonLayer = MapLayer.inherit({
 
     defaults: {
@@ -884,20 +908,9 @@
   
   });
 
-  var MapTilesLayer = MapLayer.inherit({
-
-    defaults: {
-      urlTemplate: null,
-      options: {
-        "detectRetina": true
-      }
-    },
-
-    initialize: function () {
-      this.delegate = L.tileLayer(this.get('url'), this.get('options'));
-    }
-
-  });
+  //
+  // MAPMARKER MODEL
+  //
 
   var MapMarker = MapLayer.inherit({
 
@@ -931,6 +944,10 @@
   
   });
 
+  //
+  // MAPCIRCLEMARKER MODEL
+  //
+
   var MapCircleMarker = MapMarker.inherit({
 
     defaults: {
@@ -943,6 +960,10 @@
     } 
 
   });
+
+  //
+  // MAPICON MODEL
+  //
 
   var MapIcon = Model.inherit({
 
@@ -963,6 +984,10 @@
     }
   
   });
+
+  //
+  // MAPTRAILHEADMARKER MODEL
+  //
 
   var MapTrailHeadMarker = MapMarker.inherit({
 
@@ -1008,16 +1033,45 @@
     return new MapTrailHeadMarker({ position: trailHead.getLatLng(), record: trailHead });
   }
 
+  //
+  // MAPTRAILLAYER MODEL
+  //
+
   var MapTrailLayer = MapGeoJsonLayer.inherit({
+
+    selected: false,
 
     defaults: {
       geojson: null,
       options: {
         style: {
-          color: "#a3a3a3"
+          color: "#a3a3a3",
+          opacity: 0.5
         } 
       },
       record: null
+    },
+
+    select: function () {
+      this.selected = true;
+
+      this.delegate.setStyle({
+        opacity: 1,
+        color: "#333333"
+      });
+
+      return this;
+    },
+
+    deselect: function () {
+      this.selected = false;
+
+      this.delegate.setStyle({
+        opacity: 0.5,
+        color: "#a3a3a3"
+      });
+
+      return this;
     }
 
   });
@@ -1063,8 +1117,32 @@
 
   ]);
 
+  module.factory('Map', [
+
+    function () {
+      return new Map();
+    } 
+
+  ]);
+
+  module.factory('MapCircleMarker', [
+
+    function () {
+      return MapCircleMarker; 
+    }
+
+  ]);
+
+  module.factory('GeoPosition', [
+
+    function () {
+      return new GeoPosition(); 
+    }
+      
+  ]);
+
   //
-  // DB MODEL
+  // DATA LOADER
   //
 
   module.factory('Models', [
@@ -1104,30 +1182,6 @@
       return Models;
     }
 
-  ]);
-
-  module.factory('Map', [
-
-    function () {
-      return new Map();
-    } 
-
-  ]);
-
-  module.factory('MapCircleMarker', [
-
-    function () {
-      return MapCircleMarker; 
-    }
-
-  ]);
-
-  module.factory('GeoPosition', [
-
-    function () {
-      return new GeoPosition(); 
-    }
-      
   ]);
 
 })(angular);

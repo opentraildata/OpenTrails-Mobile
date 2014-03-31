@@ -45,7 +45,7 @@
       <div id="notifications-view" ng-show="visible === 'notifications'" ng-cloak>
         <div id="content">
           <div id="notifications-info">
-            <p>You are currently in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
+            <p>You are selectedTrailly in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
           </div>
 
           <div id="notifications-empty">
@@ -63,27 +63,27 @@
         <div class="nav-and-title">
           <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
             <div class="nav-text">
-              <p>{{ trails.indexOf(current) + 1 }} of {{ trails.length }}</p>
+              <p>{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
             </div>
           </div>
           <div class="trail-title-and-attributes">
             <div class="trail-title-field">
               <!-- H3 element is a placeholder. Determine best elem. -->
-              <h3 class="trail-title">{{ current.get('name') }}</h3>
+              <h3 class="trail-title">{{ selectedTrail.get('name') }}</h3>
               <div class="trail-attributes">
                 <!-- p class may need to change as well, similar to h3 above -->
-                <p class="trail-attribute-length">{{ current.getLength().toFixed(2) }} mi long</p>
+                <p class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</p>
                 <div class="trail-attribute-icons">
-                  <div class="attribute-icon-box" ng-show="current.canFoot()">
+                  <div class="attribute-icon-box" ng-show="selectedTrail.canFoot()">
                   <img class="attribute-icon" src="img/foot.png">
                   </div>
-                  <div class="attribute-icon-box" ng-show="current.canBicycle()">
+                  <div class="attribute-icon-box" ng-show="selectedTrail.canBicycle()">
                     <img class="attribute-icon" src="img/bike.png">
                   </div>
-                  <div class="attribute-icon-box" ng-show="current.canHorse()">
+                  <div class="attribute-icon-box" ng-show="selectedTrail.canHorse()">
                     <img class="attribute-icon" src="img/horse.png">
                   </div>
-                  <div class="attribute-icon-box" ng-show="current.canSki()">
+                  <div class="attribute-icon-box" ng-show="selectedTrail.canSki()">
                     <img class="attribute-icon" src="img/ski.png">
                   </div>
                 </div>
@@ -97,20 +97,20 @@
               <div class="photo-box">
                 <img src="img/photo.png"><img>
               </div>
-              <p>{{ current.get('descriptn') }}</p>
+              <p>{{ selectedTrail.get('descriptn') }}</p>
             </div>
           </div>
           <div class="trailhead-data">
             <div class="trailhead-title-field">
               <!-- h4 is a placeholder, like the trail title -->
               <img class="trailhead-icon" src="img/marker.png"/></img>
-              <p class="trailhead-title">{{ trailHead.get('name') }}</p>
+              <p class="trailhead-title">{{ selectedTrailHead.get('name') }}</p>
             </div>
             <div class="trailhead-attributes">
               <!-- p is placeholder elem, may need to change -->
               <div class="trailhead-location-attributes">
-                <p class="trailhead-distance">{{distance.toFixed(2)}} mi away</p>
-                <a class="trailhead-address" href="">{{ trailHead.get('address') }}</a>
+                <p class="trailhead-distance">{{ distance(selectedTrailHead).toFixed(2) }} mi away</p>
+                <a class="trailhead-address" href="">{{ selectedTrailHead.get('address') }}</a>
               </div>
               <div class="amenities">
                 <p class="amenity">Parking</p>
@@ -119,7 +119,7 @@
                 <p class="amenity">Info Kiosk</p>
               </div>
               <div class="trailhead-steward">
-                <p>Managed by {{ steward.get('name') }}</p>
+                <p>Managed by {{ selectedSteward.get('name') }}</p>
               </div>
             </div>
           </div>
