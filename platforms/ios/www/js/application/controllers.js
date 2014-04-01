@@ -262,7 +262,7 @@
         if (value) {
           if ($scope.visible !== 'trails') show('trails');
         } else {
-          show('map');
+          if ($scope.visible !== 'map') show('map');
         }
       });
 
