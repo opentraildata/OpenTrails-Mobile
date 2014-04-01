@@ -372,20 +372,32 @@ body {
     height: 60px;
     width: 100%;
     background-color: @green-color;
+    text-align: center;
     border-bottom: 1px solid @light-gray-color;
-    -moz-box-shadow:    3px 3px 5px 6px #ddd;
-    -webkit-box-shadow: 3px 3px 5px 6px #ddd;
-    box-shadow:         3px 3px 5px 6px #ddd;
-    .nav-text {
-      width: 100%;
+    .chevron-left {
       display: inline-block;
-      height: auto;
+      height: 30px;
+      margin-left: 20px;
+      margin-top: 15px;
+      width: auto;
+      float: left;
+    }
+    .nav-text {
+      display: inline-block;
       text-align: center;
       margin: 20px 0;
       p {
         color: @white-color;
         margin: 0;
       }
+    }
+    .chevron-right {
+      display: inline-block;
+      height: 30px;
+      margin-right: 20px;
+      margin-top: 15px;
+      width: auto;
+      float: right;
     }
   }
   .trail-and-trailhead-data {
@@ -397,6 +409,7 @@ body {
     width: 100%;
     /* ^^ Should this be a device width var? */
     overflow: auto;
+    background-color: @white-color;
     .trail-data {
       height: auto;
       position: relative;
@@ -415,7 +428,7 @@ body {
           width: 80%;
           line-height: 1.2em;
           font-size: @large-font;
-          margin: 10px 20px 10px 20px;
+          margin: 20px 20px 10px 20px;
         }
         .trail-attribute-length {
           width: auto;

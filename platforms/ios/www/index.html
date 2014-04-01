@@ -61,9 +61,11 @@
 
       <div id="trail-view" ng-show="visible === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()"  hm-dragend="dragEnd($event)" hm-swipe-down="close()" ng-cloak>
         <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
+          <img class="chevron chevron-left" src="img/chevron-left.png"></img>
           <div class="nav-text">
             <p>{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
           </div>
+          <img class="chevron chevron-right" src="img/chevron-right.png"></img>
         </div>
         <div class="trail-and-trailhead-data">
           <div class="trail-data">
