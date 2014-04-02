@@ -19,7 +19,7 @@
       <div id="map-view">
 
         <div id="map-search">
-          <a href="#" class="control" ng-click="show('search');">
+          <a href="#" class="control" ng-click="toggleView('search');">
             <img src="img/map-search@2x.png"/>
           </a>
         </div>
@@ -32,7 +32,7 @@
 
         <div id="map-container"></div>
 
-        <ul id="map-layers" ng-show="visible === 'map-layers'" ng-cloak>
+        <ul id="map-layers" ng-show="view === 'map-layers'" ng-cloak>
           <li class="map-layer" ng-repeat="layer in mapTileLayers" ng-click="setMapTileLayer(layer.url)">
             <span class="map-layer-name">{{layer.name}}</span>
             <span class="map-layer-visible" ng-show="mapTileLayerUrl === layer.url">
@@ -42,7 +42,7 @@
         </ul>
       </div>
 
-      <div id="notifications-view" ng-show="visible === 'notifications'" ng-cloak>
+      <div id="notifications-view" ng-show="view === 'notifications'" ng-cloak>
         <div id="content">
           <div id="notifications-info">
             <p>You are selectedTrailly in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <div id="trail-view" ng-show="visible === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()"  hm-dragend="dragEnd($event)" hm-swipe-down="close()" ng-cloak>
+      <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()"  hm-dragend="dragEnd($event)" hm-swipe-down="close()" ng-cloak>
         <div class="nav-and-title">
           <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
             <div class="nav-text">
@@ -126,7 +126,7 @@
         </div>
       </div>
 
-      <div id="search-view" ng-show="visible === 'search'" ng-cloak>
+      <div id="search-view" ng-show="view === 'search'" ng-cloak>
 
         <div id="header">
           <form class="search-form" ng-submit="search(searchKeywords)">
@@ -158,7 +158,7 @@
                 </div>
               </div>
               <div class="search-subresults">
-                <a href="#" ng-click="showTrailHead(result.record)" ng-repeat="subrecord in result.subrecords">
+                <a href="#" ng-click="selectTrailHead(result.record, subrecord)" ng-repeat="subrecord in result.subrecords">
                   <h3>{{ subrecord.get('name') }}</h3>
                 </a>
               </div>
@@ -168,25 +168,25 @@
       </div>
 
       <div id="footer">
-        <a href="#" ng-click="show('map')" ng-show="visible !== 'map' && visible !== 'map-layers'">
+        <a href="#" ng-click="toggleView('map')" ng-show="view !== 'map' && view !== 'map-layers'">
           <div class="button button-map">
             <img src="img/map@2x.png"/>
           </div>
         </a>
 
-        <a href="#" ng-click="show('search')" ng-show="visible === 'map' || visible === 'map-layers'" ng-cloak>
+        <a href="#" ng-click="toggleView('search')" ng-show="view === 'map' || view=== 'map-layers'" ng-cloak>
           <div class="button button-search">
             <img src="img/search@2x.png"/>
           </div>
         </a>
 
-        <a href="#" ng-click="show('notifications')">
+        <a href="#" ng-click="toggleView('notifications')">
           <div class="button button-info">
             <img src="img/info@2x.png"/>
           </div>
         </a>
 
-        <a href="#" ng-click="show('map-layers')">
+        <a href="#" ng-click="toggleView('map-layers')">
           <div class="button button-layer">
             <img src="img/map-stack@2x.png"/>
           </div>
