@@ -37,7 +37,6 @@
   //
   // QUERY MODEL
   //
-  
   function Query () {
     this.initialize.apply(this, arguments);
   }
@@ -55,7 +54,7 @@
         rhs = rhs.toLowerCase();
         return lhs.indexOf(rhs) !== -1
       } else {
-        return false; 
+        return false;
       }
     },
     "doesNotContain": function (lhs, rhs) {
@@ -64,21 +63,21 @@
         rhs = rhs.toLowerCase();
         return lhs.indexOf(rhs) === -1
       } else {
-        return false; 
+        return false;
       }
     },
     "includes": function (lhs, rhs) {
       if ( ng.isArray(lhs) ) {
         return lhs.indexOf(rhs) !== -1;
       } else {
-        return false; 
+        return false;
       }
     },
     "doesNotInclude": function (lhs, rhs) {
       if ( ng.isArray(lhs) ) {
         return lhs.indexOf(rhs) === -1;
       } else {
-        return false; 
+        return false;
       }
     },
     "in": function (lhs, rhs) {
@@ -111,11 +110,11 @@
 
   Query.prototype.setCollection = function (collection) {
     if (!ng.isArray(collection)) collection = [];
-    this.collection = collection; 
+    this.collection = collection;
   }
 
   Query.prototype.where = function (params) {
-    var results = []; 
+    var results = [];
 
     if ( ng.isObject(params) ) params = [ params ];
 
@@ -146,7 +145,7 @@
       } else if (dir === DESC) {
         return a.get(attr) < b.get(attr);
       } else {
-        return true; 
+        return true;
       }
     })
 
@@ -154,13 +153,13 @@
   }
 
   Query.prototype.groupBy = function (attr) {
-    var results = {}; 
+    var results = {};
 
     ng.forEach(this.collection, function (record) {
       var value;
 
       if ( ng.isString(obj) ) {
-        value = record.get(obj) 
+        value = record.get(obj);
       } else if ( ng.isFunction(obj) ) {
         value = obj.call(record, record);
       } else {
@@ -183,11 +182,11 @@
   }
 
   Query.prototype.all = function () {
-    return this.collection; 
+    return this.collection;
   }
 
   Query.prototype.count = function () {
-    return this.collection.length; 
+    return this.collection.length;
   }
 
   Query.prototype.each = function (f) {
@@ -998,6 +997,11 @@
       record: null
     },
 
+    initialize: function () {
+      MapMarker.prototype.initialize.apply(this, arguments);
+      this.setIcon(MapTrailHeadMarker.DeselectedIcon);
+    },
+
     toggle: function () {
       this.selected ? this.deselect() : this.select();
     },
@@ -1125,14 +1129,6 @@
 
   ]);
 
-  module.factory('MapCircleMarker', [
-
-    function () {
-      return MapCircleMarker; 
-    }
-
-  ]);
-
   module.factory('GeoPosition', [
 
     function () {
@@ -1153,7 +1149,7 @@
 
       var LOADABLE = [
         "TrailHead", "Trail", "TrailSegment", "Steward", "Notification"
-      ]
+      ];
 
       var Models = {
         "TrailHead": TrailHead,

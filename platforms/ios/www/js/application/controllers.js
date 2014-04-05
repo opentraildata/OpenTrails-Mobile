@@ -16,22 +16,29 @@
 
     function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker) {
 
+      //
+      // CONSTANTS
+      //
+
+      var DEFAULT_VIEW = 'map'
 
       //
       // VIEW LOGIC
       //
 
-      $scope.visible = 'map';
+      $scope.view = DEFAULT_VIEW;
 
-      function show (id) {
-        if ($scope.visible === id) {
-          $scope.visible = 'map';
-        } else {
-          $scope.visible = id; 
-        }
+      function toggleView (id) {
+        $scope.view === id ? showView(DEFAULT_VIEW) : showView(id);
       } 
 
-      $scope.show = show;
+      $scope.toggleView = toggleView;
+
+      function showView (id) {
+        $scope.view = id; 
+      }
+
+      $scope.showView = showView;
 
       //
       // MAP LOGIC
@@ -57,7 +64,7 @@
         console.log('Error: Could not geolocate user');
       }
 
-      var geoPositionWatchId = navigator.geolocation.watchPosition(
+      navigator.geolocation.watchPosition(
         onGeoPositionSuccess,
         onGeoPositionError
       );
@@ -68,13 +75,23 @@
 
       $scope.recenter = recenter;
 
+      function onMapClick () {
+        deselectTrailHead($scope.selectedTrailHead);
+      }
+
+      Map.on('click', function () {
+        onMapClick()
+      });
+
       //
       // MAP TILES LOGIC
       //
 
-      var mapTileLayer = new MapTileLayer().addTo(Map);
+      var mapTileLayer = new MapTileLayer({}).addTo(Map);
 
       $scope.mapTileLayerUrl = mapTileLayer.getUrl();
+
+      $scope.mapTileLayers = utils.values(MapTileLayer.INDEX);
 
       function setMapTileLayer (url) {
         mapTileLayer.setUrl(url);
@@ -82,8 +99,6 @@
       }
 
       $scope.setMapTileLayer = setMapTileLayer;
-
-      $scope.mapTileLayers = utils.values(MapTileLayer.INDEX);
 
       //
       // SEARCH LOGIC
@@ -106,15 +121,15 @@
 
             if ( subrecords.length > 0 ) {
 
-              var distance = record.distanceFrom(
-                GeoPosition.get('latitude'),
-                GeoPosition.get('longitude')
-              );
+              var dist;
+              if (record) {
+                dist = distance(record);
+              }
 
               return {
                 record: record,
                 subrecords: subrecords,
-                distance: distance(record) 
+                distance: dist
               };
 
             }
@@ -139,37 +154,36 @@
         }
       });
 
-
       //
       // TRAIL LAYERS LOGIC
       //
 
-      var markers = []
-      var layers  = [];
+      var trailHeadMarkers = []
+      var trailLayers  = [];
 
       $scope.selectedTrailHead = null;
       $scope.selectedSteward = null;
       $scope.selectedTrail = null;
-      $scope.trails = [];
+      $scope.selectedTrails = [];
 
       function onLoad (loaded) {
         if (loaded) {
-          Models.Trail.query.each(renderLayer);
-          Models.TrailHead.query.each(renderMarker);
+          Models.Trail.query.each(renderTrailLayer);
+          Models.TrailHead.query.each(renderTrailHeadMarker);
           bindEvents();
           search('');
         }
       }
 
-      function renderLayer (t) {
-        layers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
+      function renderTrailLayer (t) {
+        trailLayers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
       }
 
-      function renderMarker (t) {
-        markers.push( MapTrailHeadMarker.fromTrailHead(t).deselect().addTo(Map) );
+      function renderTrailHeadMarker (t) {
+        trailHeadMarkers.push( MapTrailHeadMarker.fromTrailHead(t).addTo(Map) );
       }
 
-      function selectMarker (marker) {
+      function selectTrailHeadMarker (marker) {
         if (marker) {
           marker.select();
           if (marker.selected) {
@@ -180,7 +194,7 @@
         }
       }
 
-      function deselectMarker (marker) {
+      function deselectTrailHeadMarker (marker) {
         if (marker) {
           marker.deselect();
           $scope.$apply(function() {
@@ -189,70 +203,63 @@
         }
       }
 
-      function selectLayer (layer) {
+      function selectTrailLayer (layer) {
         if (layer) {
           layer.select(); 
         }
       }
 
-      function deselectLayer (layer) {
+      function deselectTrailLayer (layer) {
         if (layer) {
           layer.deselect();  
         }
       }
 
-      function onMarkerClick (marker) {
-        select( marker.get('record') );
-      }
-
-      function selectTrailHead (th) {
-        if (!th) return false;
-        $scope.$apply(function () {
-          $scope.selectedTrailHead = th;
-          $scope.selectedTrails = th.trails.all();
-          $scope.selectedTrail = th.trails.first();
-          $scope.selectedSteward = th.stewards.first();
-        });
-      }
-
-      function deselectTrailHead (th) {
-        if (!th) return false;
-        $scope.$apply(function () {
-          $scope.selectedTrailHead = null;
-          $scope.selectedTrails = [];
-          $scope.selectedTrail = null;
-          $scope.selectedSteward = null;
-        });
-      }
-
-      function selectTrail (t) {
-        if (!t) return false;
-        $scope.selectedTrail = t; 
-      }
-
-      function onMarkerClick (marker) {
-        var trailHead = marker.get('record');
-        if ( trailHead !== $scope.selectedTrailHead ) {
-          selectTrailHead( trailHead )
+      function onTrailHeadMarkerClick (marker) {
+        var record = marker.get('record');
+        if ( record !== $scope.selectedTrailHead ) {
+          $scope.$apply(function () { selectTrailHead( record ) });
         } else {
-          deselectTrailHead( trailHead );
+          $scope.$apply(function () { deselectTrailHead( record ) });
         }
       }
 
       function bindEvents () {
-        ng.forEach(markers, function (marker) {
+        ng.forEach(trailHeadMarkers, function (marker) {
           marker.on('click', function (e) {
-            onMarkerClick(marker);
+            onTrailHeadMarkerClick(marker);
           });
         });
       }
 
-      Map.on('click', function () {
-        deselectTrailHead( $scope.selectedTrailHead );
-      });
+      function selectTrailHead (th, t) {
+        if (!th || ng.isUndefined(th)) return false;
+        $scope.selectedTrailHead = th;
+        $scope.selectedTrails = th.trails.all();
+        $scope.selectedTrail = t || th.trails.first();
+        $scope.selectedSteward = th.stewards.first();
+      }
+
+      $scope.selectTrailHead = selectTrailHead;
+
+      function deselectTrailHead (th) {
+        if (!th || ng.isUndefined(th)) return false;
+        $scope.selectedTrailHead = null;
+        $scope.selectedTrails = [];
+        $scope.selectedTrail = null;
+        $scope.selectedSteward = null;
+      }
+
+      function selectTrail (t) {
+        console.log('trail selected: ' + t)
+        if (!t || ng.isUndefined(t)) return false;
+        $scope.selectedTrail = t; 
+      }
+
+      $scope.selectTrail = selectTrail;
 
       $scope.$watch('selectedTrailHead', function (value) {
-        ng.forEach(markers, function (marker) {
+        ng.forEach(trailHeadMarkers, function (marker) {
           if (marker.get('record') === value) {
             marker.select();
           } else {
@@ -260,20 +267,26 @@
           }
         });
         if (value) {
-          if ($scope.visible !== 'trails') show('trails');
+          showView('trails');
         } else {
-          if ($scope.visible !== 'map') show('map');
+          showView(DEFAULT_VIEW);
         }
       });
 
       $scope.$watch('selectedTrail', function (value) {
-        ng.forEach(layers, function (layer) {
+        ng.forEach(trailLayers, function (layer) {
           if (layer.get('record') === value)  {
-            selectLayer(layer);
+            selectTrailLayer(layer);
           } else {
-            deselectLayer(layer);
+            deselectTrailLayer(layer);
           }
         });
+        if (value) {
+          showView('trails');
+        } else {
+          showView(DEFAULT_VIEW);
+        }
+
       });
 
       $scope.nextTrail = function () {
@@ -307,11 +320,13 @@
       resetTrailViewOffset();
 
       $scope.close = function () {
-        show('map');
+        showView(DEFAULT_VIEW);
       }
 
       function distance (th) {
-        return th.distanceFrom(GeoPosition.get('latitude'), GeoPosition.get('longitude'));
+        if (th) {
+          return th.distanceFrom(GeoPosition.get('latitude'), GeoPosition.get('longitude'));
+        }
       }
 
       $scope.distance = distance;
