@@ -293,6 +293,19 @@
 
       $scope.$watch(Models.loaded, onLoad);
 
+      function resetTrailViewOffset() {
+          var trailView = document.getElementById('trail-view'),
+              footerHeight = document.getElementById('footer').offsetHeight,
+              attributesHeight = document.getElementsByClassName('trail-attributes')[0].offsetHeight,
+              trailNavHeight = document.getElementsByClassName('trail-nav')[0].offsetHeight,
+              viewportHeight = window.innerHeight,
+              initialOffset = viewportHeight - footerHeight - trailNavHeight - attributesHeight;
+
+              trailView.offsetTop = initialOffset;
+      };
+
+      resetTrailViewOffset();
+
       $scope.close = function () {
         show('map');
       }
@@ -339,14 +352,13 @@
         if (posY == posYMax) {
           $scope.canClose = true;
         } else {
-          $scope.canClose = false; 
+          $scope.canClose = false;
         }
       }
 
- 
+
     }
 
-   
   ]);
 
 })(angular);

@@ -63,6 +63,9 @@
         <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
           <img class="chevron chevron-left" src="img/chevron-left.png"></img>
           <div class="nav-text">
+            <img class="trailhead-icon" src="img/marker-white.png"/></img>
+            <p class="trailhead-title">{{ selectedTrailHead.get('name') }}</p>
+            <p>{{ distance(selectedTrailHead).toFixed(2) }} mi away</p>
             <p>{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
           </div>
           <img class="chevron chevron-right" src="img/chevron-right.png"></img>
@@ -86,11 +89,11 @@
                   <img class="attribute-icon" src="img/ski.png">
                 </div>
               </div>
-              <div class="photo-box">
-                <img src="img/photo.png"><img>
-              </div>
-              <p>{{ selectedTrail.get('descriptn') }}</p>
             </div>
+            <div class="photo-box">
+              <img src="img/photo.png"><img>
+            </div>
+            <p>{{ selectedTrail.get('descriptn') }}</p>
           </div>
           <div class="trailhead-data">
             <div class="trailhead-title-field">
@@ -111,9 +114,9 @@
               <div class="trailhead-steward">
                 <p>Managed by {{ selectedSteward.get('name') }}</p>
               </div>
-              <div class="trail-view-footer-shim"></div>
             </div>
           </div>
+          <div class="trail-view-footer-shim"></div>
         </div>
       </div>
 
