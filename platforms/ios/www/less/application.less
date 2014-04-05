@@ -393,9 +393,6 @@ body {
         width: 20px;
         height: auto;
       }
-      .trailhead-title {
-
-      }
       p {
         color: @white-color;
         margin: 0;
@@ -428,17 +425,49 @@ body {
       background-color: @white-color;
       .trail-attributes {
         display: inline-block;
-        width: 100%;
+        width: auto;
         margin: 0;
         position: relative;
         vertical-align: middle;
+        .trail-trailhead {
+          display: inline-block;
+          position: relative;
+          height: auto;
+          min-width: 85%;
+          margin: 0 20px 0 20px;
+          border-bottom: 1px solid lighten(@gray-color, 50%);
+          vertical-align: middle;
+          img {
+            display: inline-block;
+            position: relative;
+            float: left;
+            width: 20px;
+            height: auto;
+            margin: .75em .5em .5em 0;
+          }
+          .trailhead-title {
+            display: inline-block;
+            position: relative;
+            font-size: 12px;
+            margin: 1em .5em 1em 0;
+            width: auto;
+          }
+          .trailhead-distance {
+            display: inline-block;
+            position: relative;
+            width: auto;
+            font-size: 12px;
+            margin-right: 0;
+            float: right;
+          }
+        }
         .trail-title {
           position: relative;
           display: inline-block;
           width: 80%;
           line-height: 1.2em;
           font-size: @large-font;
-          margin: 20px 20px 0 20px;
+          margin: 10px 20px 0 20px;
         }
         .trail-attribute-length {
           width: auto;

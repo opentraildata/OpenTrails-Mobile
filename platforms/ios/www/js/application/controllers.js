@@ -251,7 +251,6 @@
       }
 
       function selectTrail (t) {
-        console.log('trail selected: ' + t)
         if (!t || ng.isUndefined(t)) return false;
         $scope.selectedTrail = t; 
       }
@@ -263,7 +262,7 @@
           if (marker.get('record') === value) {
             marker.select();
           } else {
-            marker.deselect(); 
+            marker.deselect();
           }
         });
         if (value) {
@@ -271,6 +270,7 @@
         } else {
           showView(DEFAULT_VIEW);
         }
+
       });
 
       $scope.$watch('selectedTrail', function (value) {
@@ -287,6 +287,11 @@
           showView(DEFAULT_VIEW);
         }
 
+        // #HACK -- sets height of trail view dynamically
+        // based upon the height of its constituent elements.
+        // Let's find a more elegant solution for this.
+
+        setTimeout(resetTrailViewOffset, 50);
       });
 
       $scope.nextTrail = function () {
@@ -314,10 +319,9 @@
               viewportHeight = window.innerHeight,
               initialOffset = viewportHeight - footerHeight - trailNavHeight - attributesHeight;
 
-              trailView.offsetTop = initialOffset;
+              trailView.style.top = initialOffset + 'px';
       };
 
-      resetTrailViewOffset();
 
       $scope.close = function () {
         showView(DEFAULT_VIEW);
