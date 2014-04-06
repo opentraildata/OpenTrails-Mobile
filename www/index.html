@@ -44,18 +44,32 @@
 
       <div id="notifications-view" ng-show="view === 'notifications'" ng-cloak>
         <div id="content">
-          <div id="notifications-info">
-            <p>You are selectedTrailly in The Cuyahoga Valley National Park. Read information from other parks in your region.</p>
+          <div id="sources-nav">
+            <img class="chevron chevron-left" src="img/chevron-left.png"></img>
+            <div class="nav-text">
+              <p>You</p>
+            </div>
+            <img class="chevron chevron-right" src="img/chevron-right.png"></img>
           </div>
-
-          <div id="notifications-empty">
-            <p>There are no notifications at this time.</p>
-          </div>
-
-          <div id="notification-sources" ng-show="notifications.length > 0">
-            <div class="source">
+         <div id="notification-source">
+            <div class="source-name">
+              <img class="source-logo" src="img/nps.png"></img>
+              <h3>Metro Parks, Serving Summit County</h3>
+            </div>
+            <div class="source-call-btn">
+              <img class="phone-icon" src="img/phone-white.png"></img>
+              <p class="call-btn-label">Call</p>
+            </div>
+            <div class="source-address">
+              <a href="#">1550 Boston Mills Road, Peninsula, OH</a>
             </div>
           </div>
+          <div id="notifications-empty" ng-show="notifications.length > 0">
+            <p>There are no notifications at this time.</p>
+          </div>
+        </div>
+        <div id="notification-list">
+          <!-- Sample Notification goes here -->
         </div>
       </div>
 
