@@ -93,8 +93,8 @@
           <div class="trail-data">
             <div class="trail-attributes">
               <h3 class="trail-title">{{ selectedTrail.get('name') }}</h3>
-              <p class="trail-attribute-distance">{{ distance(selectedTrailHead).toFixed(2) }} mi away</p>
-              <p class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</p>
+              <h5 class="trail-attribute-distance">{{ distance(selectedTrailHead).toFixed(2) }} mi away</h5>
+              <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
               <div class="trail-attribute-icons">
                 <div class="attribute-icon-box" ng-show="selectedTrail.canFoot()">
                 <img class="attribute-icon" src="img/foot.png">
@@ -103,7 +103,7 @@
                   <img class="attribute-icon" src="img/bike.png">
                 </div>
                 <div class="attribute-icon-box" ng-show="selectedTrail.canHorse()">
-                  <img class="attribute-icon" src="img/horse.png">
+                  <img class="attribute-icon" src="img/horse-light-gray.png">
                 </div>
                 <div class="attribute-icon-box" ng-show="selectedTrail.canSki()">
                   <img class="attribute-icon" src="img/ski.png">
