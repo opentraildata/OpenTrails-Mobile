@@ -170,6 +170,8 @@
 
       function onLoad (loaded) {
         if (loaded) {
+          $scope.stewards = Models.Steward.query.all();
+          $scope.selectedSteward = Models.Steward.query.first();
           Models.Trail.query.each(renderTrailLayer);
           Models.TrailHead.query.each(renderTrailHeadMarker);
           bindEvents();
@@ -239,7 +241,7 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        $scope.selectedSteward = th.stewards.first();
+        $scope.selectedTrailHeadSteward = th.stewards.first();
       }
 
       $scope.selectTrailHead = selectTrailHead;
@@ -324,7 +326,6 @@
 
       $scope.canPreviousTrail = canPreviousTrail
 
-      $scope.$watch(Models.loaded, onLoad);
 
       function setTrailViewOffset() {
           var trailView = document.getElementById('trail-view'),
@@ -346,6 +347,48 @@
 
       $scope.distance = distance;
 
+      // Notifications Logic
+
+      $scope.stewards = [];
+
+      function nextSteward () {
+        var index = $scope.stewards.indexOf($scope.selectedSteward);
+        if ( canNextSteward() ) {
+          setSelectedSteward($scope.stewards[index + 1]);
+        }
+      }
+
+      $scope.nextSteward = nextSteward;
+
+      function canNextSteward () {
+        return $scope.stewards.indexOf($scope.selectedSteward) < ($scope.stewards.length - 1);
+      }
+
+      $scope.canNextSteward = canNextSteward;
+
+      function previousSteward () {
+        var index = $scope.stewards.indexOf($scope.selectedSteward);
+        if ( canPreviousSteward() ) {
+          setSelectedSteward($scope.stewards[index - 1]);
+        }
+      }
+
+      $scope.previousSteward = previousSteward;
+
+      function canPreviousSteward () {
+        return $scope.stewards.indexOf($scope.selectedSteward) > 0;
+      }
+
+      $scope.canPreviousSteward = canPreviousSteward;
+
+      function setSelectedSteward (s) {
+        if (!s || ng.isUndefined(s) ) return false;
+        $scope.selectedSteward = s;
+      }
+
+      // On Load
+
+      $scope.$watch(Models.loaded, onLoad);
     }
 
   ]);

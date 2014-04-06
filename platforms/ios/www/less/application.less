@@ -305,6 +305,7 @@ body {
   .search-results {
     width: 100%; 
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     height: 340px;
     margin-bottom: 30px;
   }
@@ -363,7 +364,8 @@ body {
   &.fullscreen {
     top: 0px !important; 
     .trail-and-trailhead-data {
-      overflow: auto; 
+      overflow: scroll; 
+      -webkit-overflow-scrolling: touch;
     }
   }
 
