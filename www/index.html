@@ -87,7 +87,7 @@
         </div>
       </div>
 
-      <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }"ng-cloak>
+      <div id="trail-view" ng-show="view === 'trails'" hm-swipe-up="fullscreen = true" hm-swipe-down="fullscreen = false" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }" ng-cloak>
         <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
           <a href="#" class="more-btn" ng-click="fullscreen = true" ng-show="!fullscreen" ng-cloak>
               <img src="img/chevron-up-white.png">
