@@ -59,9 +59,9 @@
 @z-index-5: 5000;
 @z-index-6: 6000;
 
-@large-font: 28px;
-@medium-font: 20px;
-@small-font: 16px;
+@large-font: 22px;
+@medium-font: 16px;
+@small-font: 12px;
 
 /** Styles **/
 
@@ -369,42 +369,26 @@ body {
   z-index: @z-index-4;
   top: 20px; /* Footer Height, Flush */
   .trail-nav {
-    height: 60px;
+    display: inline-block;
+    position: relative;
+    height: 2.5em;
     width: 100%;
     background-color: @green-color;
-    text-align: center;
     border-bottom: 1px solid @light-gray-color;
-    .chevron-left {
+    p {
       display: inline-block;
-      height: 30px;
-      margin-left: 20px;
-      margin-top: 15px;
-      width: auto;
-      float: left;
+      position: relative; 
+      font-size: @medium-font;
+      font-weight: 200;
+      margin: .75em 0 0 20px;
+      color: @white-color;
     }
-    .nav-text {
+    .close-btn {
       display: inline-block;
-      text-align: center;
-      margin: 15px 0;
-      .trailhead-icon {
-        display: inline-block;
-        position: relative;
-        float: left;
-        width: 20px;
-        height: auto;
-      }
-      p {
-        color: @white-color;
-        margin: 0;
-      }
-    }
-    .chevron-right {
-      display: inline-block;
-      height: 30px;
-      margin-right: 20px;
-      margin-top: 15px;
+      height: 20px;
       width: auto;
       float: right;
+      margin: .75em 20px;
     }
   }
   .trail-and-trailhead-data {
@@ -418,61 +402,25 @@ body {
     overflow: auto;
     background-color: @white-color;
     .trail-data {
-      height: auto;
-      position: relative;
       display: inline-block;
+      position: relative;
+      height: auto;
       width: 100%;
       background-color: @white-color;
       .trail-attributes {
         display: inline-block;
-        width: auto;
-        margin: 0;
         position: relative;
         vertical-align: middle;
-        .trail-trailhead {
-          display: inline-block;
-          position: relative;
-          height: auto;
-          margin: 0 20px 0 20px;
-          border-bottom: 1px solid lighten(@gray-color, 50%);
-          vertical-align: middle;
-          img {
-            display: inline-block;
-            position: relative;
-            vertical-align: top;
-            float: left;
-            width: 5%;
-            height: auto;
-            margin: .75em 0;
-          }
-          .trailhead-title {
-            display: inline-block;
-            position: relative;
-            vertical-align: top;
-            font-size: 12px;
-            margin: 1em;
-            width: 50%;
-          }
-          .trailhead-distance {
-            display: inline-block;
-            position: relative;
-            vertical-align: top;
-            width: 30%;
-            float: right;
-            font-size: 12px;
-            text-align: right;
-            margin: 1em 0;
-          }
-        }
+        width: auto;
+        margin: 0;
         .trail-title {
           position: relative;
           display: inline-block;
-          width: 80%;
           line-height: 1.2em;
           font-size: @large-font;
           margin: 10px 20px 0 20px;
         }
-        .trail-attribute-length {
+        .trail-attribute-distance {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
@@ -482,7 +430,21 @@ body {
           margin-top: 0;
           margin-left: 20px;
           margin-right: 20px;
-          margin-bottom: 0;
+          margin-bottom: 10px;
+          font-weight: 200;
+        }
+        .trail-attribute-length {
+          width: auto;
+          vertical-align: top;
+          padding-top: 10px;
+          font-size: @medium-font;
+          display: inline-block;
+          position: relative;
+          float: right;
+          text-align: right;
+          margin-top: 0;
+          margin-right: 20px;
+          margin-bottom: 10px;
           font-weight: 200;
         }
         .trail-attribute-icons {
@@ -495,12 +457,95 @@ body {
             display: inline-block;
             width: 30px;
             height: 30px;
-            margin-top: 10px;
+            margin-top: 0;
             margin-left: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             .attribute-icon {
               height: 100%;
               width: 100%;
+            }
+          }
+        }
+        .trail-trailhead {
+          display: inline-block;
+          position: relative;
+          height: auto;
+          margin: 0 20px;
+          border-top: 1px solid lighten(@gray-color, 50%);
+          vertical-align: middle;
+          .change-trail {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            .previous-trail {
+              display: inline-block;
+              position: relative;
+              height: 40px;
+              width: 30px;
+              margin: 10px 0 0 0;
+              float: left;
+              background-color: @white-color;
+              img {
+                width: 20px;
+                margin: 10px 3px 10px 0px;
+              }
+              p {
+                display: inline-block;
+                position: relative;
+                float: left;
+                margin: 1em 1em 0 0;
+                font-size: @small-font;
+              }
+            }
+            .nav-text {
+              display: inline-block;
+              position: relative;
+              text-align: center;
+              height: 40px;
+              width: auto;
+              margin: 10px 0 0 0;
+              margin: 20px 0 0 0;
+              background-color: #eee;
+            }
+            img {
+              display: inline-block;
+              position: relative;
+              float: left;
+              width: 15px;
+              height: auto;
+              margin: 1.25em .5em;
+            }
+            .trailhead-title {
+              display: inline-block;
+              position: relative;
+              float: left;
+              font-size: 12px;
+              font-weight: 200;
+              text-align: center;
+              width: 75%;
+              margin: 1em 0 0 0;
+            }
+            .next-trail {
+              display: inline-block;
+              position: relative;
+              height: 40px;
+              width: 30px;
+              margin: 10px 0 0 0;
+              float: right;
+              background-color: @white-color;
+              img {
+                width: 20px;
+                margin: 10px 0px 10px 3px;
+              }
+              p {
+                display: inline-block;
+                position: relative;
+                float: right;
+                margin: 1em 0em 1em 1em;
+                font-size: @small-font;
+              }
             }
           }
         }
