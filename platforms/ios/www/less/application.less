@@ -712,45 +712,44 @@ body {
     top: @status-height; 
     height: @device-height - (@status-height + @footer-height);
     #sources-nav {
-      height: 60px;
+      height: 40px;
       width: 100%;
-      background-color: @green-color;
       text-align: center;
+      margin: 0 20px;
       color: @white-color;
       font-size: 12px;
       .chevron-left {
-        display: inline-block;
-        height: 30px;
-        margin-left: 20px;
-        margin-top: 15px;
+        position: absolute;
+        height: 20px;
+        margin-top: 10px;
         width: auto;
-        float: left;
+        left: 20px;
       }
       .nav-text {
-        display: inline-block;
+        position: absolute;
         text-align: center;
         margin: 15px 0;
         p {
-          color: @white-color;
+          color: @gray-color;
           margin: 0;
         }
       }
       .chevron-right {
-        display: inline-block;
-        height: 30px;
+        position: absolute;
+        height: 20px;
         width: auto;
-        margin-top: 15px;
-        margin-right: 20px;
-        float: right;
+        margin-top: 10px;
+        right: 20px;
       }
     }
     #notification-source {
       display: inline-block;
       position: relative;
       height: auto;
-      margin: 20px;
-      padding-bottom: 20px;
+      margin: 0 20px;
+      padding: 20px 0;
       border-bottom: 1px solid lighten(@gray-color, 50%);
+      border-top: 1px solid lighten(@gray-color, 50%);
       .source-name {
         display: inline-block;
         position: relative;
@@ -834,8 +833,9 @@ body {
             display: inline-block;
             position: relative;
             vertical-align: top;
+            float: right;
             height: auto;
-            width: 10%;
+            width: 20px;
           }
           .notification-timestamp {
             font-size: 12px;
