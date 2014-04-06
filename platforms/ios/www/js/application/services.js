@@ -943,6 +943,28 @@
   
   });
 
+  var MapMarkerClusterGroup = Model.inherit({
+
+    defaults: {
+              
+    },
+
+    initialize: function () {
+      this.delegate = new L.MarkerClusterGroup(this.attributes);
+    },
+
+    addLayer: function (layer) {
+      this.delegate.addLayer(layer.delegate);
+      return this;
+    },
+
+    addTo: function (map) {
+      map.addLayer(this);
+      return this;
+    }
+  
+  });
+
   //
   // MAPCIRCLEMARKER MODEL
   //
@@ -1090,6 +1112,14 @@
   //
 
   var module = ng.module('trails.services', [ ]);
+
+  module.factory('MapMarkerClusterGroup', [
+
+    function () {
+      return MapMarkerClusterGroup; 
+    }
+      
+  ]);
 
   module.factory('MapTileLayer', [
     function () {

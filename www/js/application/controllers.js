@@ -13,8 +13,9 @@
     'MapTileLayer',
     'MapTrailLayer',
     'MapTrailHeadMarker',
+    'MapMarkerClusterGroup',
 
-    function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker) {
+    function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker, MapMarkerClusterGroup) {
 
       //
       // CONSTANTS
@@ -160,6 +161,7 @@
       // TRAIL LAYERS LOGIC
       //
 
+      var trailHeadCluster = new MapMarkerClusterGroup();
       var trailHeadMarkers = []
       var trailLayers  = [];
 
@@ -174,6 +176,7 @@
           $scope.selectedSteward = Models.Steward.query.first();
           Models.Trail.query.each(renderTrailLayer);
           Models.TrailHead.query.each(renderTrailHeadMarker);
+          trailHeadCluster.addTo(Map);
           bindEvents();
           search('');
         }
@@ -184,7 +187,9 @@
       }
 
       function renderTrailHeadMarker (t) {
-        trailHeadMarkers.push( MapTrailHeadMarker.fromTrailHead(t).addTo(Map) );
+        var marker = MapTrailHeadMarker.fromTrailHead(t);
+        trailHeadMarkers.push(marker);
+        trailHeadCluster.addLayer(marker);
       }
 
       function selectTrailHeadMarker (marker) {
