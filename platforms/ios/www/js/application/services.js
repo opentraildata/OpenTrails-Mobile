@@ -1086,6 +1086,8 @@
         color: "#333333"
       });
 
+      this.bringToFront();
+
       return this;
     },
 
@@ -1096,6 +1098,8 @@
         opacity: 0.5,
         color: "#a3a3a3"
       });
+
+      this.bringToBack();
 
       return this;
     }
