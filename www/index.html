@@ -84,17 +84,19 @@
 
       <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }"ng-cloak>
         <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
-          <a href="#" ng-click="fullscreen = true" ng-show="!fullscreen" ng-cloak>
-            <img class="more-btn" src="img/more-btn-white.png">
-            <p class="more-btn-label">More</p>
+          <a href="#" class="more-btn" ng-click="fullscreen = true" ng-show="!fullscreen" ng-cloak>
+            <div>
+              <img src="img/chevron-up-white.png">
+            </div>
           </a>
-          <a href="#" ng-click="fullscreen = false" ng-show="fullscreen" ng-cloak>
-            <img class="more-btn" src="img/less-btn-white.png">
-            <p class="more-btn-label">Less</p>
+          <a href="#" class="more-btn" ng-click="fullscreen = false" ng-show="fullscreen" ng-cloak>
+            <div>
+              <img src="img/chevron-down-white.png">
+            </div>
           </a>
 
-          <a href="#" ng-click="showView('map')">
-            <img class="close-btn" src="img/close-btn-white.png"></img>
+          <a href="#" class="close-btn" ng-click="showView('map')">
+            <img src="img/close-btn-white.png"></img>
           </a>
         </div>
         <div class="trail-and-trailhead-data">

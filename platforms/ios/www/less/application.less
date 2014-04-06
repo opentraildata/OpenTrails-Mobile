@@ -362,6 +362,9 @@ body {
 
   &.fullscreen {
     top: 0px !important; 
+    .trail-and-trailhead-data {
+      overflow: auto; 
+    }
   }
 
   .transition(top 0.5s);
@@ -382,13 +385,19 @@ body {
     width: 100%;
     background-color: @green-color;
     border-bottom: 1px solid @light-gray-color;
+
     .more-btn {
       display: inline-block;
       height: 20px;
+      padding: 10px 15px;
       width: auto;
       float: left;
-      margin: .75em 0 0 20px;
+      
+      img {
+        height: 20px; 
+      }
     }
+
     .more-btn-label {
       display: inline-block;
       position: relative;
@@ -397,6 +406,7 @@ body {
       margin: 1.25em 0 0 10px;
       color: @white-color;
     }
+
     .close-btn-label {
       display: inline-block;
       position: relative;
@@ -406,12 +416,16 @@ body {
       margin: 1.25em 10px 0 0;
       color: @white-color;
     }
+
     .close-btn {
       display: inline-block;
       height: 20px;
       width: auto;
       float: right;
-      margin: .75em 20px 0 0;
+      padding: 10px 15px;
+      img {
+        height: 20px; 
+      }
     }
   }
   .trail-and-trailhead-data {
@@ -422,7 +436,6 @@ body {
     /* ^^ device height less .traiil-nav height */
     width: 100%;
     /* ^^ Should this be a device width var? */
-    overflow: auto;
     background-color: @white-color;
     .trail-data {
       display: inline-block;
