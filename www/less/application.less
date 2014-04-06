@@ -375,12 +375,28 @@ body {
     width: 100%;
     background-color: @green-color;
     border-bottom: 1px solid @light-gray-color;
-    p {
+    .more-btn {
       display: inline-block;
-      position: relative; 
-      font-size: @medium-font;
-      font-weight: 200;
+      height: 20px;
+      width: auto;
+      float: left;
       margin: .75em 0 0 20px;
+    }
+    .more-btn-label {
+      display: inline-block;
+      position: relative;
+      font-size: @small-font;
+      font-weight: 200;
+      margin: 1.25em 0 0 10px;
+      color: @white-color;
+    }
+    .close-btn-label {
+      display: inline-block;
+      position: relative;
+      float: right;
+      font-size: @small-font;
+      font-weight: 200;
+      margin: 1.25em 10px 0 0;
       color: @white-color;
     }
     .close-btn {
@@ -388,7 +404,7 @@ body {
       height: 20px;
       width: auto;
       float: right;
-      margin: .75em 20px;
+      margin: .75em 20px 0 0;
     }
   }
   .trail-and-trailhead-data {
@@ -416,6 +432,7 @@ body {
         .trail-title {
           position: relative;
           display: inline-block;
+          min-width: 75%;
           line-height: 1.2em;
           font-size: @large-font;
           margin: 10px 20px 0 20px;
