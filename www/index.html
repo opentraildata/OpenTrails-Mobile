@@ -84,10 +84,15 @@
 
       <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }"ng-cloak>
         <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
-          <a href="#" ng-click="fullscreen = !fullscreen">
-            <img class="more-btn" src="img/more-btn-white.png"></img>
+          <a href="#" ng-click="fullscreen = true" ng-show="!fullscreen" ng-cloak>
+            <img class="more-btn" src="img/more-btn-white.png">
+            <p class="more-btn-label">More</p>
           </a>
-          <p class="more-btn-label">More</p>
+          <a href="#" ng-click="fullscreen = false" ng-show="fullscreen" ng-cloak>
+            <img class="more-btn" src="img/less-btn-white.png">
+            <p class="more-btn-label">Less</p>
+          </a>
+
           <a href="#" ng-click="showView('map')">
             <img class="close-btn" src="img/close-btn-white.png"></img>
           </a>
@@ -100,31 +105,33 @@
               <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
               <div class="trail-attribute-icons">
                 <div class="attribute-icon-box">
-                  <img class="attribute-icon" src="img/foot.png" ng-show="selectedTrail.canFoot()" ng-cloak>
+                  <img class="attribute-icon" src="img/foot-gray.png" ng-show="selectedTrail.canFoot()" ng-cloak>
                   <img class="attribute-icon" src="img/foot-light-gray.png" ng-show="!selectedTrail.canFoot()" ng-cloak>
                 </div>
                 <div class="attribute-icon-box">
-                  <img class="attribute-icon" src="img/bike.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
+                  <img class="attribute-icon" src="img/bike-gray.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
                   <img class="attribute-icon" src="img/bike-light-gray.png" ng-show="!selectedTrail.canBicycle()" ng-cloak>
                 </div>
                 <div class="attribute-icon-box">
-                  <img class="attribute-icon" src="img/horse.png" ng-show="selectedTrail.canHorse()" ng-cloak>
+                  <img class="attribute-icon" src="img/horse-gray.png" ng-show="selectedTrail.canHorse()" ng-cloak>
                   <img class="attribute-icon" src="img/horse-light-gray.png" ng-show="!selectedTrail.canHorse()" ng-cloak>
                 </div>
                 <div class="attribute-icon-box">
-                  <img class="attribute-icon" src="img/ski.png" ng-show="selectedTrail.canSki()" ng-cloak>
+                  <img class="attribute-icon" src="img/ski-gray.png" ng-show="selectedTrail.canSki()" ng-cloak>
                   <img class="attribute-icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
                 </div>
               </div>
               <div class="trail-trailhead">
                 <div class="change-trail">
                   <a href="#" class="previous-trail" ng-click="previousTrail()">
-                    <img class="chevron chevron-left" src="img/chevron-left-gray.png"></img>
+                    <img class="chevron chevron-left" src="img/chevron-left-gray.png" ng-show="canPreviousTrail()" ng-cloak/>
+                    <img class="chevron chevron-left" src="img/chevron-left-light-gray.png" ng-show="!canPreviousTrail()" ng-cloak/>
                   </a>
 <!--                   <img class="trailhead-icon" src="img/marker.png"/></img> -->
                   <p class="trailhead-title">See other trails accessible via The {{ selectedTrailHead.get('name') }} Trailhead.</p>
                   <a href="#" class="next-trail" ng-click="nextTrail()">
-                    <img class="chevron chevron-right" src="img/chevron-right-gray.png"></img>
+                    <img class="chevron chevron-right" src="img/chevron-right-gray.png" ng-show="canNextTrail()" ng-cloak/>
+                    <img class="chevron chevron-right" src="img/chevron-right-light-gray.png" ng-show="!canNextTrail()" ng-cloak/>
                   </a>
                 </div>
               </div>
