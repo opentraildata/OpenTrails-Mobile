@@ -82,12 +82,15 @@
         </div>
       </div>
 
-      <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()"  hm-dragend="dragEnd($event)" hm-swipe-down="close()" ng-cloak>
+      <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }"ng-cloak>
         <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
-          <img class="more-btn" src="img/more-btn-white.png"></img>
+          <a href="#" ng-click="fullscreen = !fullscreen">
+            <img class="more-btn" src="img/more-btn-white.png"></img>
+          </a>
           <p class="more-btn-label">More</p>
-          <!-- <p class="close-btn-label">Close</p> -->
-          <img class="close-btn" src="img/close-btn-white.png"></img>
+          <a href="#" ng-click="showView('map')">
+            <img class="close-btn" src="img/close-btn-white.png"></img>
+          </a>
         </div>
         <div class="trail-and-trailhead-data">
           <div class="trail-data">
@@ -102,6 +105,9 @@
                 <div class="attribute-icon-box" ng-show="selectedTrail.canBicycle()">
                   <img class="attribute-icon" src="img/bike.png">
                 </div>
+                <div class="attribute-icon-box" ng-show="selectedTrail.canBicycle()">
+                  <img class="attribute-icon" src="img/bike.png">
+                </div>
                 <div class="attribute-icon-box" ng-show="selectedTrail.canHorse()">
                   <img class="attribute-icon" src="img/horse-light-gray.png">
                 </div>
@@ -111,14 +117,14 @@
               </div>
               <div class="trail-trailhead">
                 <div class="change-trail">
-                  <div class="previous-trail">
+                  <a href="#" class="previous-trail" ng-click="previousTrail()">
                     <img class="chevron chevron-left" src="img/chevron-left-gray.png"></img>
-                  </div>
+                  </a>
 <!--                   <img class="trailhead-icon" src="img/marker.png"/></img> -->
                   <p class="trailhead-title">See other trails accessible via The {{ selectedTrailHead.get('name') }} Trailhead.</p>
-                  <div class="next-trail">
+                  <a href="#" class="next-trail" ng-click="nextTrail()">
                     <img class="chevron chevron-right" src="img/chevron-right-gray.png"></img>
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>

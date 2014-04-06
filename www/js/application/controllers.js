@@ -76,7 +76,9 @@
       $scope.recenter = recenter;
 
       function onMapClick () {
-        deselectTrailHead($scope.selectedTrailHead);
+        $scope.$apply(function () {
+          deselectTrailHead($scope.selectedTrailHead);
+        });
       }
 
       Map.on('click', function () {
@@ -258,6 +260,7 @@
       $scope.selectTrail = selectTrail;
 
       $scope.$watch('selectedTrailHead', function (value) {
+
         ng.forEach(trailHeadMarkers, function (marker) {
           if (marker.get('record') === value) {
             marker.select();
@@ -265,6 +268,7 @@
             marker.deselect();
           }
         });
+
         if (value) {
           showView('trails');
         } else {
@@ -291,7 +295,7 @@
         // based upon the height of its constituent elements.
         // Let's find a more elegant solution for this.
 
-        setTimeout(resetTrailViewOffset, 50);
+        setTimeout(setTrailViewOffset, 50);
       });
 
       $scope.nextTrail = function () {
@@ -311,7 +315,7 @@
 
       $scope.$watch(Models.loaded, onLoad);
 
-      function resetTrailViewOffset() {
+      function setTrailViewOffset() {
           var trailView = document.getElementById('trail-view'),
               footerHeight = document.getElementById('footer').offsetHeight,
               attributesHeight = document.getElementsByClassName('trail-attributes')[0].offsetHeight,
@@ -323,10 +327,6 @@
       };
 
 
-      $scope.close = function () {
-        showView(DEFAULT_VIEW);
-      }
-
       function distance (th) {
         if (th) {
           return th.distanceFrom(GeoPosition.get('latitude'), GeoPosition.get('longitude'));
@@ -334,47 +334,6 @@
       }
 
       $scope.distance = distance;
-
-      var trailView = document.getElementById('trail-view');
-
-      var posY = trailView.offsetTop;
-      var posYMin = -posY;
-      var posYMax = 0;
-
-      $scope.drag = function (e) {
-        var delta;
-
-        if (e.gesture.deltaY > 0) {
-          delta = 40; 
-        } else {
-          delta = -40; 
-        }
-
-        posY = posY + delta;
-
-        if (posY <= posYMin) {
-          posY = posYMin; 
-        } else if (posY >= posYMax) {
-          posY = posYMax; 
-        }
-
-        var transform = "translate3d(0px,"+ posY+ "px, 0)";
-
-        trailView.style.transform = transform;
-        trailView.style.oTransform = transform;
-        trailView.style.msTransform = transform;
-        trailView.style.mozTransform = transform;
-        trailView.style.webkitTransform = transform;
-      }
-
-      $scope.dragEnd = function () {
-        if (posY == posYMax) {
-          $scope.canClose = true;
-        } else {
-          $scope.canClose = false;
-        }
-      }
-
 
     }
 
