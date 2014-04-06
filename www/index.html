@@ -45,15 +45,15 @@
       <div id="notifications-view" ng-show="view === 'notifications'" ng-cloak>
         <div id="content">
           <div id="sources-nav">
-            <a href="#" ng-click="previousSteward()">
-              <img class="chevron chevron-left" src="img/chevron-left-gray.png" ng-show="canPreviousSteward()" ng-cloak/>
-              <img class="chevron chevron-left" src="img/chevron-left-light-gray.png" ng-show="!canPreviousSteward()" ng-cloak/>
+            <a href="#" class="previous-steward" ng-click="previousSteward()">
+              <img src="img/chevron-left-gray.png" ng-show="canPreviousSteward()" ng-cloak/>
+              <img src="img/chevron-left-light-gray.png" ng-show="!canPreviousSteward()" ng-cloak/>
             </a>
             <div class="nav-text">
             </div>
-            <a href="#" ng-click="nextSteward()">
-              <img class="chevron chevron-right" src="img/chevron-right-gray.png" ng-show="canNextSteward()" ng-cloak/>
-              <img class="chevron chevron-right" src="img/chevron-right-light-gray.png" ng-show="!canNextSteward()" ng-cloak/>
+            <a href="#" class="next-steward" ng-click="nextSteward()">
+              <img class="" src="img/chevron-right-gray.png" ng-show="canNextSteward()" ng-cloak/>
+              <img class="" src="img/chevron-right-light-gray.png" ng-show="!canNextSteward()" ng-cloak/>
             </a>
           </div>
          <div id="notification-source">
