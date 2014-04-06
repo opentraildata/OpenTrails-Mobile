@@ -56,9 +56,11 @@
               <img class="source-logo" src="img/nps.png"></img>
               <h3>Metro Parks, Serving Summit County</h3>
             </div>
-            <div class="source-call-btn">
-              <img class="phone-icon" src="img/phone-white.png"></img>
-              <p class="call-btn-label">Call</p>
+              <div class="source-call-btn">
+                <img class="phone-icon" src="img/phone-white.png"></img>
+                <a href="#"><span class="call-btn-link"></span></a>
+                <p class="call-btn-label">Call</p>
+              </a>
             </div>
             <div class="source-address">
               <a href="#">1550 Boston Mills Road, Peninsula, OH</a>
@@ -67,9 +69,16 @@
           <div id="notifications-empty" ng-show="notifications.length > 0">
             <p>There are no notifications at this time.</p>
           </div>
-        </div>
-        <div id="notification-list">
-          <!-- Sample Notification goes here -->
+          <div id="notification-list">
+            <div class="notification-card">
+              <div class="notification-metadata">
+                <h4 class="notification-headline">Notification Headlines Can Be Quite Long</h4>
+                <img class="notification-close-btn" src="img/check.png"></img>
+                <p class="notification-timestamp">Post on May 15th, 2003 at 9:21am</p>
+              </div>
+              <p class="notification-body">This Thursday, Metro Parks Serving Summit County will be hosting the Akron local chapter of the YMCA's Young Leaders program's annual retreat. As a result, the Big Sheep Trail will be closed from 9am until 2pm. For more information, please contact the Park Ranger office.
+            </div>
+          </div>
         </div>
       </div>
 
