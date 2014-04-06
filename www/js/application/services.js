@@ -309,41 +309,41 @@
     },
 
     canFoot: function () {
-      var result = false;
+      var result = true;
       this.trailSegments.each(function (ts) {
-        if ( ts.canFoot() ) result = true;
+        if ( !ts.canFoot() ) result = false;
       });
       return result;
     },
 
     canBicycle: function () {
-      var result = false;
+      var result = true;
       this.trailSegments.each(function (ts) {
-        if ( ts.canBicycle() ) result = true;
+        if ( !ts.canBicycle() ) result = false;
       });
       return result;
     },
 
     canHorse: function () {
-      var result = false;
+      var result = true;
       this.trailSegments.each(function (ts) {
-        if ( ts.canHorse() ) result = true;
+        if ( !ts.canHorse() ) result = false;
       });
       return result;
     },
 
     canSki: function () {
-      var result = false;
+      var result = true;
       this.trailSegments.each(function (ts) {
-        if ( ts.canSki() ) result = true;
+        if ( !ts.canSki() ) result = false;
       });
       return result;
     },
 
     canWheelChair: function () {
-      var result = false;
+      var result = true;
       this.trailSegments.each(function (ts) {
-        if ( ts.canWheelChair() ) result = true;
+        if ( !ts.canWheelChair() ) result = false;
       });
       return result;
     },
@@ -533,23 +533,23 @@
     },
 
     canFoot: function () {
-      return this.get('foot') !== 'N';
+      return (this.get('foot') || '').toLowerCase() !== 'n';
     },
 
     canBicycle: function () {
-      return this.get('bicycle') !== 'N';
+      return (this.get('bicycle') || '').toLowerCase() !== 'n';
     },
 
     canHorse: function () {
-      return this.get('horse') !== 'N';
+      return (this.get('horse') || '').toLowerCase() !== 'n';
     },
 
     canSki: function () {
-      return this.get('ski') !== 'N';
+      return (this.get('ski') || '').toLowerCase() !== 'n';
     },
 
     canWheelChair: function () {
-      return this.get('wheelChair') !== 'N';
+      return (this.get('wheelchair') || '').toLowerCase() !== 'n';
     },
 
     toGeoJson: function () {

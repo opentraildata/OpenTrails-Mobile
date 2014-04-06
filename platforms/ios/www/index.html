@@ -99,17 +99,21 @@
               <h5 class="trail-attribute-distance">{{ distance(selectedTrailHead).toFixed(2) }} mi away</h5>
               <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
               <div class="trail-attribute-icons">
-                <div class="attribute-icon-box" ng-show="selectedTrail.canFoot()">
-                <img class="attribute-icon" src="img/foot.png">
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/foot.png" ng-show="selectedTrail.canFoot()" ng-cloak>
+                  <img class="attribute-icon" src="img/foot-light-gray.png" ng-show="!selectedTrail.canFoot()" ng-cloak>
                 </div>
-                <div class="attribute-icon-box" ng-show="selectedTrail.canBicycle()">
-                  <img class="attribute-icon" src="img/bike.png">
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/bike.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
+                  <img class="attribute-icon" src="img/bike-light-gray.png" ng-show="!selectedTrail.canBicycle()" ng-cloak>
                 </div>
-                <div class="attribute-icon-box" ng-show="selectedTrail.canHorse()">
-                  <img class="attribute-icon" src="img/horse-light-gray.png">
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/horse.png" ng-show="selectedTrail.canHorse()" ng-cloak>
+                  <img class="attribute-icon" src="img/horse-light-gray.png" ng-show="!selectedTrail.canHorse()" ng-cloak>
                 </div>
-                <div class="attribute-icon-box" ng-show="selectedTrail.canSki()">
-                  <img class="attribute-icon" src="img/ski.png">
+                <div class="attribute-icon-box">
+                  <img class="attribute-icon" src="img/ski.png" ng-show="selectedTrail.canSki()" ng-cloak>
+                  <img class="attribute-icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
                 </div>
               </div>
               <div class="trail-trailhead">

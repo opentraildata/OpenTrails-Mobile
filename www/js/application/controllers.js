@@ -300,18 +300,29 @@
 
       $scope.nextTrail = function () {
         var index  = $scope.selectedTrails.indexOf($scope.selectedTrail);
-        var length = $scope.selectedTrails.length;
-        if (index < length - 1) {
+        if ( canNextTrail() ) {
           $scope.selectedTrail = $scope.selectedTrails[index + 1];
         }
       }
 
+      function canNextTrail () {
+        return $scope.selectedTrails.indexOf($scope.selectedTrail) < ($scope.selectedTrails.length - 1)
+      }
+
+      $scope.canNextTrail = canNextTrail;
+
       $scope.previousTrail = function () {
         var index = $scope.selectedTrails.indexOf($scope.selectedTrail);
-        if (index > 0) {
+        if ( canPreviousTrail() ) {
           $scope.selectedTrail = $scope.selectedTrails[index - 1];
         }
       }
+
+      function canPreviousTrail () {
+        return $scope.selectedTrails.indexOf($scope.selectedTrail) > 0;
+      }
+
+      $scope.canPreviousTrail = canPreviousTrail
 
       $scope.$watch(Models.loaded, onLoad);
 
