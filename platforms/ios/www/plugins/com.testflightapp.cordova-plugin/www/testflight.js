@@ -35,7 +35,7 @@ var TestFlight = function() {
  @param information string
  */
 TestFlight.prototype.addCustomEnvironmentInformation = function(successCallback, failureCallback, key, information) {
-    exec(successCallback, failureCallback, this.serviceName, "addCustomEnvironmentInformation", 
+    exec(successCallback, failureCallback, this.serviceName, "addCustomEnvironmentInformation",
                   [ key, information]);
 };
 
@@ -106,12 +106,12 @@ TestFlight.prototype.remoteLog = function(successCallback, failureCallback, mess
 TestFlight.prototype.remoteLogAsync = function(successCallback, failureCallback, message) {
     exec(successCallback, failureCallback, this.serviceName, "remoteLogAsync", [ message ]);
 };
-           
+
 
 /*
-  Submits custom feedback to the site. Sends the data in feedback to the site. 
+  Submits custom feedback to the site. Sends the data in feedback to the site.
   This is to be used as the method to submit feedback from custom feedback forms.
- 
+
   @param feedback Your users feedback, method does nothing if feedback is nil
 */
 TestFlight.prototype.submitFeedback = function(successCallback, failureCallback, feedback) {
@@ -123,7 +123,7 @@ TestFlight.prototype.submitFeedback = function(successCallback, failureCallback,
 
  If you do not provide the identifier you will still see all session data, with
  checkpoints and logs, but the data will be anonymized.
- 
+
   @param deviceIdentifer The current devices device identifier
 */
 TestFlight.prototype.setDeviceIdentifier = function(successCallback, failureCallback, deviceIdentifier) {

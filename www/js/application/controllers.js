@@ -14,8 +14,9 @@
     'MapTrailLayer',
     'MapTrailHeadMarker',
     'MapMarkerClusterGroup',
+    'TrailSearch',
 
-    function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker, MapMarkerClusterGroup) {
+    function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker, MapMarkerClusterGroup, TrailSearch) {
 
       //
       // CONSTANTS
@@ -31,12 +32,12 @@
 
       function toggleView (id) {
         $scope.view === id ? showView(DEFAULT_VIEW) : showView(id);
-      } 
+      }
 
       $scope.toggleView = toggleView;
 
       function showView (id) {
-        $scope.view = id; 
+        $scope.view = id;
       }
 
       $scope.showView = showView;
@@ -69,6 +70,8 @@
         onGeoPositionSuccess,
         onGeoPositionError
       );
+
+      $scope.geoposition = GeoPosition;
 
       function recenter () {
         Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
@@ -110,52 +113,20 @@
       $scope.searchResults = [];
       $scope.searchKeywords = '';
 
-      function search (searchKeywords) {
-
-        var query = {
-          key: 'name',
-          evaluator: 'contains',
-          value: searchKeywords
-        }
-
-        var searchResults = Models.TrailHead.query.map(
-          function (record) {
-            var subrecords = record.trails.where(query).all();
-
-            if ( subrecords.length > 0 ) {
-
-              var dist;
-              if (record) {
-                dist = distance(record);
-              }
-
-              return {
-                record: record,
-                subrecords: subrecords,
-                distance: dist
-              };
-
-            }
-          }
-        );
-
-        $scope.searchResults = utils.compact(searchResults).sort(
-          function (a,b) {
-            return a.distance > b.distance; 
-          }
-        );
-
+      function search (keywords) {
+        $scope.lastSearch = keywords;
+        $scope.searchResults = TrailSearch.perform({ keywords: keywords });
       }
 
       $scope.search = search;
 
-      $scope.$watch('searchKeywords', function (searchKeywords) {
-        if (searchKeywords) {
-          $scope.search(searchKeywords);
-        } else {
-          search('');
-        }
-      });
+      function clearSearch () {
+        $scope.lastSearch = null; 
+        $scope.searchKeywords = null;
+        $scope.search();
+      }
+
+      $scope.clearSearch = clearSearch;
 
       //
       // TRAIL LAYERS LOGIC
@@ -197,7 +168,7 @@
           marker.select();
           if (marker.selected) {
             $scope.$apply(function() {
-              $scope.selected = marker; 
+              $scope.selected = marker;
             });
           }
         }
@@ -214,13 +185,13 @@
 
       function selectTrailLayer (layer) {
         if (layer) {
-          layer.select(); 
+          layer.select();
         }
       }
 
       function deselectTrailLayer (layer) {
         if (layer) {
-          layer.deselect();  
+          layer.deselect();
         }
       }
 
@@ -261,7 +232,7 @@
 
       function selectTrail (t) {
         if (!t || ng.isUndefined(t)) return false;
-        $scope.selectedTrail = t; 
+        $scope.selectedTrail = t;
       }
 
       $scope.selectTrail = selectTrail;

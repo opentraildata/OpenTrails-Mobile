@@ -8,7 +8,7 @@
   function Utils () { }
 
   Utils.prototype.numToRad = function (num) {
-    return num * Math.PI / 180;                 
+    return num * Math.PI / 180;
   }
 
   Utils.prototype.haversine = function (lat1, lng1, lat2, lng2) {
@@ -33,7 +33,7 @@
   }
 
   Utils.prototype.compact = function (arr) {
-    var results = []; 
+    var results = [];
     ng.forEach(arr, function (item) {
       if (item !== null && item !== undefined) results.push(item);
     });
@@ -41,11 +41,11 @@
   }
 
   Utils.prototype.has = function (obj,key) {
-    return hasOwnProperty.call(obj, key); 
+    return hasOwnProperty.call(obj, key);
   }
 
   Utils.prototype.without = function (obj, keys) {
-    var result = {}; 
+    var result = {};
     for (var key in obj) {
       if (keys.indexOf(key) === -1) {
         result[key] = obj[key]
@@ -55,7 +55,7 @@
   }
 
   Utils.prototype.map = function (arr, f) {
-    var results = []; 
+    var results = [];
 
     ng.forEach(arr, function (item) {
       results.push(f(item));
@@ -73,7 +73,7 @@
   }
 
   Utils.prototype.values = function (obj) {
-    var values = []; 
+    var values = [];
     for (var key in obj) {
       values.push(obj[key]);
     }

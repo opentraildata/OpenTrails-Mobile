@@ -6,6 +6,7 @@
     'trails.routes',
     'trails.controllers',
     'trails.services',
+    'trails.directives',
     'angular-gestures'
   ]);
 
@@ -20,4 +21,3 @@
   }, false);
 
 })(angular, FastClick);
-

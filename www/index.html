@@ -108,7 +108,9 @@
           <div class="trail-data">
             <div class="trail-attributes">
               <h3 class="trail-title">{{ selectedTrail.get('name') }}</h3>
-              <h5 class="trail-attribute-distance">{{ distance(selectedTrailHead).toFixed(2) }} mi away</h5>
+              <h5 class="trail-attribute-distance">
+                <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
+              </h5>
               <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
               <div class="trail-attribute-icons">
                 <div class="attribute-icon-box">
@@ -155,7 +157,9 @@
             </div>
             <div class="trailhead-attributes">
               <div class="trailhead-location-attributes">
-                <p class="trailhead-distance">{{ distance(selectedTrailHead).toFixed(2) }} mi away</p>
+                <p class="trailhead-distance">
+                  <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
+                </p>
                 <a class="trailhead-address" href="">{{ selectedTrailHead.get('address') }}</a>
               </div>
               <div class="amenities">
@@ -180,7 +184,7 @@
             <div class="search-input-container">
               <span class="search-input-icon">&nbsp;</span>
               <input class="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
-              <a href="#" ng-click="searchKeywords = ''">Clear</a>
+              <a href="#" ng-click="clearSearch()">Clear</a>
             </div>
           </form>
         </div>
@@ -188,11 +192,11 @@
 
         <div id="content">
 
-          <div class="search-info" ng-if="searchKeywords.length > 0">
-            <span>Found {{ searchResults.length }} Results For '{{searchKeywords}}'</span>
+          <div class="search-info" ng-if="lastSearch.length > 0">
+            <span>Found {{ searchResults.length }} Results For '{{ lastSearch }}'</span>
           </div>
 
-          <div class="search-info" ng-if="!searchKeywords || searchKeywords.length === 0">
+          <div class="search-info" ng-if="!lastSearch || lastSearch.length === 0">
             <span>Found {{ searchResults.length }} Trails Near You</span>
           </div>
 
@@ -200,13 +204,15 @@
             <div class="search-result" ng-repeat="result in searchResults">
               <div class="search-result-header-outer">
                 <div class="search-result-header-inner">
-                  <p class="name">{{ result.record.get('name') }}</p>
-                  <p class="distance">{{ result.distance.toFixed(2) }} miles away</p>
+                  <p class="name">{{ result.trailhead.get('name') }}</p>
+                  <p class="distance">
+                    <distance-from-trailhead trailhead="result.trailhead" position="geoposition"/>
+                  </p>
                 </div>
               </div>
               <div class="search-subresults">
-                <a href="#" ng-click="selectTrailHead(result.record, subrecord)" ng-repeat="subrecord in result.subrecords">
-                  <h3>{{ subrecord.get('name') }}</h3>
+                <a href="#" ng-click="selectTrailHead(result.trailhead, trail)" ng-repeat="trail in result.trails">
+                  <h3>{{ trail.get('name') }}</h3>
                 </a>
               </div>
             </div>
@@ -254,6 +260,7 @@
     <script type="text/javascript" src="js/application/controllers.js"></script>
     <script type="text/javascript" src="js/application/routes.js"></script>
     <script type="text/javascript" src="js/application/services.js"></script>
+    <script type="text/javascript" src="js/application/directives.js"></script>
     <script type="text/javascript" src="js/application.js"></script>
 
   </body>

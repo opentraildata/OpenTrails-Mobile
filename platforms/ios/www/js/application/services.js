@@ -116,7 +116,7 @@
   Query.prototype.where = function (params) {
     var results = [];
 
-    if ( ng.isObject(params) ) params = [ params ];
+    if ( !ng.isArray(params) ) params = [ params ];
 
     ng.forEach(this.collection, function (record) {
       ng.forEach(params, function (param) {
@@ -152,7 +152,7 @@
     return new Query(results);
   }
 
-  Query.prototype.groupBy = function (attr) {
+  Query.prototype.groupBy = function (obj) {
     var results = {};
 
     ng.forEach(this.collection, function (record) {
@@ -195,6 +195,68 @@
 
   Query.prototype.map = function (f) {
     return utils.map(this.collection, f);
+  }
+
+  //
+  // TRAILSEARCH
+  //
+
+  function TrailSearch () {
+  }
+
+  TrailSearch.perform = function (params) {
+    var query = [];
+
+    params = params || {};
+
+    if (params.keywords) {
+      query.push({ key: 'name', evaluator: 'contains', value: params.keywords });
+    }
+
+    var results = TrailHead.query.map(function (trailhead) {
+      var trails;
+
+      if (query.length > 0) {
+        trails = trailhead.trails.where(query).all();
+      } else {
+        trails = trailhead.trails.all();
+      }
+
+      if (trails.length > 0) {
+        return new SearchResult(trailhead, trails);
+      }
+    });
+
+    results = utils.compact(results);
+
+    if (params.position) {
+      results = results.sort(function (a,b) {
+        return a.distanceFrom(params.position) < b.distanceFrom(params.position);
+      });
+    }
+
+    return results;
+  }
+
+  //
+  // SEARCHRESULT MODEL
+  //
+
+  function SearchResult (trailhead, trails) {
+    this.trailhead = trailhead;
+    this.trails = trails;
+  }
+
+  SearchResult.prototype.distanceFrom = function (position) {
+    var dist;
+
+    if (this.trailhead) {
+      dist = this.trailhead.distanceFrom(position.get('latitude'), position.get('longitude'));
+    } else {
+      dist = 0;
+    }
+
+    return dist;
   }
 
   //
@@ -303,7 +365,7 @@
     getLength: function () {
       var total = 0;
       this.trailSegments.each(function (ts) {
-        total = total + ts.getLength(); 
+        total = total + ts.getLength();
       });
       return total;
     },
@@ -350,7 +412,7 @@
 
     toGeoJson: function () {
       var features = this.trailSegments.map(function (trailSegment) {
-        return trailSegment.toGeoJson(); 
+        return trailSegment.toGeoJson();
       });
       return {
         "type": "FeatureCollection",
@@ -374,7 +436,7 @@
       this.query.setCollection(results);
       this.loaded = true;
     }
-  
+
   });
 
   //
@@ -448,7 +510,7 @@
         "type": 'Feature',
         "properties": properties,
         "geometry": geometry
-      } 
+      }
     }
   }, {
 
@@ -512,7 +574,7 @@
 
         for (var i = 0; i < obj.length; i++) {
           if ( ng.isArray(obj[i][0]) ) {
-            total = calc(obj[i], total) 
+            total = calc(obj[i], total)
           } else {
             var j = i + 1;
 
@@ -560,7 +622,7 @@
         "type": 'Feature',
         "properties": properties,
         "geometry": geometry
-      } 
+      }
     }
 
   }, {
@@ -661,7 +723,7 @@
     },
 
     isRead: function () {
-      return this.get('read')         
+      return this.get('read')
     }
 
   }, {
@@ -680,7 +742,7 @@
       this.query.setCollection(results);
       this.loaded = true;
     }
-  
+
   });
 
   //
@@ -699,7 +761,7 @@
     },
 
     toArray: function () {
-      return [this.get('latitude'),this.get('longitude')]          
+      return [this.get('latitude'),this.get('longitude')]
     }
 
   });
@@ -758,7 +820,7 @@
     },
 
     getZoom: function () {
-      return this.delegate.getZoom();          
+      return this.delegate.getZoom();
     },
 
     getCenter: function () {
@@ -799,11 +861,11 @@
   var MapLayer = Model.inherit({
 
     defaults: {
-      options: {}           
+      options: {}
     },
 
     initialize: function () {
-      this.delegate = undefined;           
+      this.delegate = undefined;
     },
 
     on: function (e,f) {
@@ -904,7 +966,7 @@
     initialize: function () {
       this.delegate = L.geoJson(this.get('geojson'), this.get('options'));
     }
-  
+
   });
 
   //
@@ -923,7 +985,7 @@
     },
 
     getPosition: function () {
-      return this.delegate.getLatLng(); 
+      return this.delegate.getLatLng();
     },
 
     setPosition: function (position) {
@@ -940,13 +1002,13 @@
       this.delegate.remove();
       return this;
     }
-  
+
   });
 
   var MapMarkerClusterGroup = Model.inherit({
 
     defaults: {
-              
+
     },
 
     initialize: function () {
@@ -962,7 +1024,7 @@
       map.addLayer(this);
       return this;
     }
-  
+
   });
 
   //
@@ -977,8 +1039,8 @@
     },
 
     initialize: function () {
-      this.delegate = L.circleMarker(this.get('position'), this.get('options'))             
-    } 
+      this.delegate = L.circleMarker(this.get('position'), this.get('options'))
+    }
 
   });
 
@@ -1003,7 +1065,7 @@
     initialize: function () {
       this.delegate = L.icon(this.attributes);
     }
-  
+
   });
 
   //
@@ -1073,7 +1135,7 @@
         style: {
           color: "#a3a3a3",
           opacity: 0.5
-        } 
+        }
       },
       record: null
     },
@@ -1120,38 +1182,38 @@
   module.factory('MapMarkerClusterGroup', [
 
     function () {
-      return MapMarkerClusterGroup; 
+      return MapMarkerClusterGroup;
     }
-      
+
   ]);
 
   module.factory('MapTileLayer', [
     function () {
-      return MapTileLayer; 
-    }  
+      return MapTileLayer;
+    }
   ]);
 
   module.factory('MapTrailLayer', [
 
     function () {
-      return MapTrailLayer; 
-    } 
+      return MapTrailLayer;
+    }
 
   ]);
 
   module.factory('MapTrailHeadMarker', [
 
     function () {
-      return MapTrailHeadMarker; 
-    } 
+      return MapTrailHeadMarker;
+    }
 
   ]);
 
   module.factory('GeoPositionMarker', [
 
     function () {
-      return MapCircleMarker; 
-    } 
+      return MapCircleMarker;
+    }
 
   ]);
 
@@ -1159,16 +1221,32 @@
 
     function () {
       return new Map();
-    } 
+    }
 
   ]);
 
   module.factory('GeoPosition', [
 
     function () {
-      return new GeoPosition(); 
+      return new GeoPosition();
     }
-      
+
+  ]);
+
+  module.factory('utils', [
+
+    function () {
+      return utils;
+    }
+
+  ]);
+
+  module.factory('TrailSearch', [
+
+    function () {
+      return TrailSearch;
+    }
+
   ]);
 
   //
