@@ -1008,7 +1008,8 @@
   var MapMarkerClusterGroup = Model.inherit({
 
     defaults: {
-
+      "maxClusterRadius": 30,
+      "showCoverageOnHover": false
     },
 
     initialize: function () {
