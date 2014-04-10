@@ -805,7 +805,6 @@
         "minZoom": 10,
         "maxZoom": 15,
         "maxBounds": L.latLngBounds([41.838746, -82.276611],[40.456287,-81.035156])
-        
       }
     },
 
@@ -853,6 +852,11 @@
 
     trigger: function (e) {
       this.delegate.trigger(e);
+      return this;
+    },
+
+    fitBounds: function (bounds) {
+      this.delegate.fitBounds(bounds);
       return this;
     }
 
@@ -910,6 +914,10 @@
     setOpacity: function (n) {
       this.delegate.setOpacity(n);
       return this;
+    },
+
+    getBounds: function () {
+      return this.delegate.getBounds();            
     }
 
   });

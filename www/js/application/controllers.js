@@ -259,6 +259,7 @@
         ng.forEach(trailLayers, function (layer) {
           if (layer.get('record') === value)  {
             selectTrailLayer(layer);
+            Map.fitBounds( layer.getBounds() );
           } else {
             deselectTrailLayer(layer);
           }

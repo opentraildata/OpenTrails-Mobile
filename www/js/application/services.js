@@ -853,6 +853,11 @@
     trigger: function (e) {
       this.delegate.trigger(e);
       return this;
+    },
+
+    fitBounds: function (bounds) {
+      this.delegate.fitBounds(bounds);
+      return this;
     }
 
   });
@@ -909,6 +914,10 @@
     setOpacity: function (n) {
       this.delegate.setOpacity(n);
       return this;
+    },
+
+    getBounds: function () {
+      return this.delegate.getBounds();            
     }
 
   });
