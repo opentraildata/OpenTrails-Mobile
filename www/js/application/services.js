@@ -802,6 +802,9 @@
       el: 'map-container',
       options: {
         "zoomControl": false,
+        "minZoom": 10,
+        "maxZoom": 15,
+        "maxBounds": L.latLngBounds([41.838746, -82.276611],[40.456287,-81.035156])
       }
     },
 
@@ -917,7 +920,7 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
+      url: "tiles/terrain/{z}/{x}/{y}.jpg"
     },
     "satellite": {
       name: "Satellite",
