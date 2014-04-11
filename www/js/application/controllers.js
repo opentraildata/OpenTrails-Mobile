@@ -140,19 +140,123 @@
       $scope.selectedSteward = null;
       $scope.selectedTrail = null;
       $scope.selectedTrails = [];
+      
+      var allTrails = [];
+      var allTrailInfo = [];
+      var colors = [
+        "#FF0000",
+        "#FF7F00",
+        "#FFFF00",
+        "#00FF00",
+        "#0000FF",
+        "#4B0082",
+        "#8F00FF"
+      ];
+      var colorIndex = 0;
 
       function onLoad (loaded) {
         if (loaded) {
+          mapBounds = Map.delegate.getBounds();
+          console.log("Map bounds", mapBounds);
+          
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
-          Models.Trail.query.each(renderTrailLayer);
+          
+          // Models.Trail.query.each(renderTrailLayer);
+          allTrails = Models.Trail.query.all();
+          var start = Date.now();
+          allTrailInfo = allTrails.map(function(trail) {
+            if (colorIndex > 6) {
+              colorIndex = 0;
+            }
+            var layer = MapTrailLayer.fromTrail(trail);
+            return {
+              trail: trail,
+              layer: layer.delegate,
+              bounds: layer.delegate.getBounds(),
+              color: colors[colorIndex++]
+            };
+          });
+          console.log('Calculating bounds and layers:', Date.now() - start);
+          var canvasTiles = L.tileLayer.canvas();
+          canvasTiles.drawTile = renderTrailTile;
+          Map.delegate.addLayer(canvasTiles);
+          
           Models.TrailHead.query.each(renderTrailHeadMarker);
           trailHeadCluster.addTo(Map);
           bindEvents();
           search('');
         }
       }
+      
+      var displayRatio = window.devicePixelRatio || 1;
+      function renderTrailTile(canvas, tilePoint, zoom) {
+        var start = Date.now();
+        if (displayRatio !== 1) {
+          canvas.width = 256 * displayRatio;
+          canvas.height = 256 * displayRatio;
+          canvas.style.width = "256px";
+          canvas.style.height = "256px";
+        }
+        
+        var tileX = 256 * tilePoint.x;
+        var tileY = 256 * tilePoint.y;
+        var tileGeo = new L.LatLngBounds(
+          Map.delegate.unproject(L.point(256 * (tilePoint.x - 0.25), 256 * (tilePoint.y + 1.25)), zoom),
+          Map.delegate.unproject(L.point(256 * (tilePoint.x + 1.25), 256 * (tilePoint.y - 0.25)), zoom)
+        );
+        // console.log("Rendering", tilePoint, zoom);
+        
+        var ctx = canvas.getContext('2d');
+        ctx.scale(displayRatio, displayRatio);
+        ctx.fillStyle = "#f00";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "#00f";
+        ctx.lineJoin = "round";
+        
+        allTrailInfo.forEach(function(info) {
+          if (info.bounds.intersects(tileGeo)) {
+            // setTimeout(function() {
+            // console.log("  + Should render trail", info.trail.get("name"), info.trail);
+            info.layer.eachLayer(function(geoLayer) {
+              ctx.strokeStyle = info.color;
+              // FIXME: not always going to have this format for getLatLngs()
+              var lines = geoLayer.getLatLngs();
+              for (var j = 0, lenj = lines.length; j < lenj; j++) {
+                var coordinates = lines[j];
+                ctx.beginPath();
+                for (var i = 0, len = coordinates.length; i < len; i++) {
+                  var pixel = Map.delegate.project(coordinates[i], zoom);
+                  if (i === 0) {
+                    ctx.moveTo(pixel.x - tileX, pixel.y - tileY);
+                  }
+                  else {
+                    ctx.lineTo(pixel.x - tileX, pixel.y - tileY);
+                  }
+                }
+                ctx.stroke();
+                ctx.closePath();
+              }
+            });
+            // }, 10);
+          }
+        });
+        
+        console.log("  Rendered tile in ", Date.now() - start);
+        // this.tileDrawn(canvas);
+        
+        
+        
+        
+        ctx.beginPath();
+        ctx.arc(128, 128, 10, 0, 2 * Math.PI, true);
+        ctx.closePath();
+        ctx.fill();
+        
+        // draw something on the tile canvas
+      }
 
+      var mapBounds;
       function renderTrailLayer (t) {
         trailLayers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
       }

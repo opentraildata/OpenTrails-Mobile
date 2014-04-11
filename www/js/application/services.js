@@ -429,7 +429,9 @@
 
       if (data.trails) {
         ng.forEach(data.trails, function (trail) {
-          results.push( new Trail(trail) );
+          if (trail.segmentIds.length) {
+            results.push( new Trail(trail) );
+          }
         });
       }
 
@@ -1148,7 +1150,8 @@
         style: {
           color: "#a3a3a3",
           opacity: 0.5
-        }
+        },
+        smoothFactor: 100
       },
       record: null
     },
