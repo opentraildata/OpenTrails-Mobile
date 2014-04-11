@@ -1151,6 +1151,11 @@
           color: "#a3a3a3",
           opacity: 0.5
         },
+        // PERF: this is likely neither right, nor the right place to do this
+        // Simplifying the lines makes a *BIG* difference for performance in
+        // both SVG (GeoJSON layer) rendering and canvas rendering. Ideally
+        // we'd have a low detail and high detail version of each trail for
+        // differing zoom levels.
         smoothFactor: 100
       },
       record: null

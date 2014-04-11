@@ -141,8 +141,11 @@
       $scope.selectedTrail = null;
       $scope.selectedTrails = [];
       
+      // PERF: This is a bit messy, but we're storing precalculated data
+      // about the trails here to increase render speed.
       var allTrails = [];
       var allTrailInfo = [];
+      // PERF: This gives us rainbow-colored lines for debugging :P
       var colors = [
         "#FF0000",
         "#FF7F00",
@@ -161,8 +164,24 @@
           
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
-          
+
+          // PERF: managing the SVG is a little slow, so instead we're
+          // going to do some precalculation and canvas rendering.
+          // The line below is what we *used* to do.
           // Models.Trail.query.each(renderTrailLayer);
+          
+          // PERF: instead of adding each layer to the map...
+          // we precalculate some data about each trail:
+          // 1. a layer for getting coordinates; ultimately we probably don't
+          //    want this -- it's mainly just overhead, but provided some
+          //    conveniences for experimenting.
+          // 2. The bounds of the trail. We use this when determine whether to
+          //    render a trail on a given tile.
+          // 3. Color. Just for debugging so I could see what's happening.
+          //    This should be removed.
+          // FIXME: this precalculation takes a long time and should really
+          // be done async in a worker. (Check out the timings that get
+          // logged to see how slow. We're talking several seconds.)
           allTrails = Models.Trail.query.all();
           var start = Date.now();
           allTrailInfo = allTrails.map(function(trail) {
@@ -178,6 +197,7 @@
             };
           });
           console.log('Calculating bounds and layers:', Date.now() - start);
+          // PERF: Now create a canvas layer. We'll render each trail in it.
           var canvasTiles = L.tileLayer.canvas();
           canvasTiles.drawTile = renderTrailTile;
           Map.delegate.addLayer(canvasTiles);
@@ -189,44 +209,63 @@
         }
       }
       
+      // PERF: get and cache the device resolution for sharp drawing.
       var displayRatio = window.devicePixelRatio || 1;
+      // PERF: renderTrailTile will actually render trails onto a canvas.
+      // This method is called by Leaflet each time it needs a new tile.
       function renderTrailTile(canvas, tilePoint, zoom) {
         var start = Date.now();
+        
+        // Calculate the pixel coordinates of the tile and the geographic
+        // bounds of the tile. We use these to determine which trails overlap
+        // this tile and should be drawn.
+        var tileX = 256 * tilePoint.x;
+        var tileY = 256 * tilePoint.y;
+        var tileGeoBounds = new L.LatLngBounds(
+          Map.delegate.unproject(L.point(256 * (tilePoint.x - 0.25), 256 * (tilePoint.y + 1.25)), zoom),
+          Map.delegate.unproject(L.point(256 * (tilePoint.x + 1.25), 256 * (tilePoint.y - 0.25)), zoom)
+        );
+        
+        var ctx = canvas.getContext('2d');
+        
+        // Scale the canvas is we're on a retina or hi-res display
         if (displayRatio !== 1) {
           canvas.width = 256 * displayRatio;
           canvas.height = 256 * displayRatio;
           canvas.style.width = "256px";
           canvas.style.height = "256px";
+          ctx.scale(displayRatio, displayRatio);
         }
         
-        var tileX = 256 * tilePoint.x;
-        var tileY = 256 * tilePoint.y;
-        var tileGeo = new L.LatLngBounds(
-          Map.delegate.unproject(L.point(256 * (tilePoint.x - 0.25), 256 * (tilePoint.y + 1.25)), zoom),
-          Map.delegate.unproject(L.point(256 * (tilePoint.x + 1.25), 256 * (tilePoint.y - 0.25)), zoom)
-        );
-        // console.log("Rendering", tilePoint, zoom);
-        
-        var ctx = canvas.getContext('2d');
-        ctx.scale(displayRatio, displayRatio);
+        // Set drawing styles
         ctx.fillStyle = "#f00";
         ctx.lineWidth = 5;
         ctx.strokeStyle = "#00f";
         ctx.lineJoin = "round";
         
         allTrailInfo.forEach(function(info) {
-          if (info.bounds.intersects(tileGeo)) {
-            // setTimeout(function() {
-            // console.log("  + Should render trail", info.trail.get("name"), info.trail);
+          // Only draw the trail if it overlaps with the tile's bounds.
+          if (info.bounds.intersects(tileGeoBounds)) {
             info.layer.eachLayer(function(geoLayer) {
               ctx.strokeStyle = info.color;
-              // FIXME: not always going to have this format for getLatLngs()
+              // FIXME: we know getLatLngs() will always give us back an
+              // array of lines (because all trails are polylines) right now,
+              // but we can't guarantee in the future that that all trails
+              // are polylines. We need to handle different line types.
               var lines = geoLayer.getLatLngs();
               for (var j = 0, lenj = lines.length; j < lenj; j++) {
                 var coordinates = lines[j];
                 ctx.beginPath();
                 for (var i = 0, len = coordinates.length; i < len; i++) {
+                  // NOTE: this projection is expensive. We might be able to
+                  // make it feel faster by doing the projection in a worker
+                  // so it's not blocking user interaction.
                   var pixel = Map.delegate.project(coordinates[i], zoom);
+                  // NOTE: we need to subtract tileX since leaflet's projected
+                  // coordinates are in the space of the whole map (i.e.
+                  // starting at the int'l date line), not just the tile.
+                  // We might be able to remove this math by doing:
+                  //     `ctx.translate(tileX, tileY)`
                   if (i === 0) {
                     ctx.moveTo(pixel.x - tileX, pixel.y - tileY);
                   }
@@ -243,17 +282,12 @@
         });
         
         console.log("  Rendered tile in ", Date.now() - start);
-        // this.tileDrawn(canvas);
         
-        
-        
-        
+        // For debugging, draw a nice little red dot at the tile's center.
         ctx.beginPath();
         ctx.arc(128, 128, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
         ctx.fill();
-        
-        // draw something on the tile canvas
       }
 
       var mapBounds;
