@@ -429,7 +429,9 @@
 
       if (data.trails) {
         ng.forEach(data.trails, function (trail) {
-          results.push( new Trail(trail) );
+          if (trail.segmentIds.length) {
+            results.push( new Trail(trail) );
+          }
         });
       }
 
@@ -929,7 +931,7 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: "tiles/terrain/{z}/{x}/{y}.jpg"
+      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
     },
     "satellite": {
       name: "Satellite",
@@ -1148,7 +1150,8 @@
         style: {
           color: "#a3a3a3",
           opacity: 0.5
-        }
+        },
+        smoothFactor: 100
       },
       record: null
     },

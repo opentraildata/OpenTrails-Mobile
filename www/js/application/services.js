@@ -931,7 +931,7 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: "tiles/terrain/{z}/{x}/{y}.jpg"
+      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
     },
     "satellite": {
       name: "Satellite",
