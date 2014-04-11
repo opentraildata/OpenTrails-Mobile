@@ -363,6 +363,20 @@
         $scope.selectedSteward = s;
       }
 
+      // Notification Logic
+
+      $scope.notifications = [];
+
+      $scope.$watch('selectedSteward', function (value) {
+        window.steward = value
+        if (value) {
+          $scope.notifications = value.notifications.where({key:'read', evaluator: 'equals', value: false }).all();
+        } else {
+          $scope.notifications = []; 
+        }
+      })
+
+
       // On Load
 
       $scope.$watch(Models.loaded, onLoad);

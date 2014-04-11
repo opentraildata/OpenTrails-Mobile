@@ -724,6 +724,10 @@
 
     isRead: function () {
       return this.get('read')
+    },
+
+    getCreatedAt: function () {
+      return Date(this.get('createdAt'));
     }
 
   }, {
@@ -929,7 +933,7 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: "tiles/terrain/{z}/{x}/{y}.jpg"
+      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
     },
     "satellite": {
       name: "Satellite",
@@ -1273,7 +1277,7 @@
     function ($http) {
 
       var LOADABLE = [
-        "TrailHead", "Trail", "TrailSegment", "Steward", "Notification"
+        "TrailHead", "Trail", "TrailSegment", "Steward","Notification"
       ];
 
       var Models = {
@@ -1284,10 +1288,6 @@
         "Notification": Notification
       }
 
-      Models.reload = function (data) {
-        ng.forEach(LOADABLE, function (model) { Models[model].load(data) })
-      }
-
       Models.loaded = function () {
         var loaded = true;
         ng.forEach(LOADABLE, function (model) { if (!Models[model].loaded) loaded = false });
@@ -1296,9 +1296,18 @@
 
       $http.get('data/output.json').then(
         function (res) {
-          Models.reload(res.data);
+          TrailHead.load(res.data);
+          Trail.load(res.data);
+          TrailSegment.load(res.data);
+          Steward.load(res.data);
         }
       );
+
+      $http.get('data/notifications.json').then(
+        function (res) {
+          Notification.load(res.data);
+        }
+      )
 
       return Models;
     }
