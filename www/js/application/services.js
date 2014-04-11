@@ -722,8 +722,17 @@
       return this;
     },
 
+    markAsUnread: function () {
+      this.set({ read: false });
+      return this;
+    },
+
     isRead: function () {
       return this.get('read')
+    },
+
+    isUnread: function () {
+      return !this.isRead();         
     },
 
     getCreatedAt: function () {

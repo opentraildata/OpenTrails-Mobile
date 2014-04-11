@@ -77,10 +77,12 @@
             <p>There are no notifications at this time.</p>
           </div>
           <div id="notification-list">
-            <div class="notification-card" ng-repeat="notification in notifications">
+            <div class="notification-card" ng-repeat="notification in notifications" ng-if="notification.isUnread()">
               <div class="notification-metadata">
                 <h4 class="notification-headline">{{ notification.get('title') }}</h4>
-                <img class="notification-close-btn" src="img/close-btn-gray.png"></img>
+                <a href="#" ng-click="closeNotification(notification)">
+                  <img class="notification-close-btn" src="img/close-btn-gray.png"></img>
+                </a>
                 <p class="notification-timestamp">Post on {{ notification.getCreatedAt()|date:'medium' }}</p>
               </div>
               <p class="notification-body">{{ notification.get('body') }}</p>
