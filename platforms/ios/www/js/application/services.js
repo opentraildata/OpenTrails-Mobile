@@ -724,8 +724,21 @@
       return this;
     },
 
+    markAsUnread: function () {
+      this.set({ read: false });
+      return this;
+    },
+
     isRead: function () {
       return this.get('read')
+    },
+
+    isUnread: function () {
+      return !this.isRead();         
+    },
+
+    getCreatedAt: function () {
+      return Date(this.get('createdAt'));
     }
 
   }, {
@@ -1281,7 +1294,7 @@
     function ($http) {
 
       var LOADABLE = [
-        "TrailHead", "Trail", "TrailSegment", "Steward", "Notification"
+        "TrailHead", "Trail", "TrailSegment", "Steward","Notification"
       ];
 
       var Models = {
@@ -1292,10 +1305,6 @@
         "Notification": Notification
       }
 
-      Models.reload = function (data) {
-        ng.forEach(LOADABLE, function (model) { Models[model].load(data) })
-      }
-
       Models.loaded = function () {
         var loaded = true;
         ng.forEach(LOADABLE, function (model) { if (!Models[model].loaded) loaded = false });
@@ -1304,9 +1313,18 @@
 
       $http.get('data/output.json').then(
         function (res) {
-          Models.reload(res.data);
+          TrailHead.load(res.data);
+          Trail.load(res.data);
+          TrailSegment.load(res.data);
+          Steward.load(res.data);
         }
       );
+
+      $http.get('data/notifications.json').then(
+        function (res) {
+          Notification.load(res.data);
+        }
+      )
 
       return Models;
     }

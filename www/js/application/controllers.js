@@ -501,6 +501,31 @@
         $scope.selectedSteward = s;
       }
 
+      // Notification Logic
+
+      $scope.notifications = [];
+
+      $scope.$watch('selectedSteward', function (value) {
+        window.steward = value
+        if (value) {
+          setNotifications();
+        } else {
+          $scope.notifications = []; 
+        }
+      });
+
+      function setNotifications () {
+        $scope.notifications = $scope.selectedSteward.notifications.where({key:'read', evaluator: 'equals', value: false }).all();
+      }
+
+      function closeNotification (notification) {
+        notification.markAsRead(); 
+        setNotifications();
+      }
+
+      $scope.closeNotification = closeNotification;
+
+
       // On Load
 
       $scope.$watch(Models.loaded, onLoad);
