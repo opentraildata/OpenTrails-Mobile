@@ -268,19 +268,21 @@
       });
 
       $scope.$watch('selectedTrail', function (value) {
+        var fitOptions = {
+          paddingBottomRight: [0, 250]
+        };
+        
         if (trailsLayer) {
           trailsLayer.highlight(value);
           if (trailsLayer.highlighted) {
-            Map.fitBounds(trailsLayer.highlighted.bounds, {
-              paddingBottomRight: [0, 250]
-            });
+            Map.fitBounds(trailsLayer.highlighted.bounds, fitOptions);
           }
         }
         
         ng.forEach(trailLayers, function (layer) {
           if (layer.get('record') === value)  {
             selectTrailLayer(layer);
-            Map.fitBounds( layer.getBounds() );
+            Map.fitBounds( layer.getBounds(), fitOptions );
           } else {
             deselectTrailLayer(layer);
           }
