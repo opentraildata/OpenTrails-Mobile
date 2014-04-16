@@ -870,8 +870,8 @@
       return this;
     },
 
-    fitBounds: function (bounds) {
-      this.delegate.fitBounds(bounds);
+    fitBounds: function (bounds, options) {
+      this.delegate.fitBounds(bounds, options);
       return this;
     }
 
@@ -1164,12 +1164,11 @@
           color: "#a3a3a3",
           opacity: 0.5
         },
-        // PERF: this is likely neither right, nor the right place to do this
-        // Simplifying the lines makes a *BIG* difference for performance in
-        // both SVG (GeoJSON layer) rendering and canvas rendering. Ideally
-        // we'd have a low detail and high detail version of each trail for
-        // differing zoom levels.
-        smoothFactor: 100
+        highlightStyle: {
+          color: "#333333",
+          opacity: 1
+        },
+        smoothFactor: 2
       },
       record: null
     },
@@ -1177,10 +1176,7 @@
     select: function () {
       this.selected = true;
 
-      this.delegate.setStyle({
-        opacity: 1,
-        color: "#333333"
-      });
+      this.delegate.setStyle(this.get('options').highlightStyle);
 
       this.bringToFront();
 
@@ -1190,10 +1186,7 @@
     deselect: function () {
       this.selected = false;
 
-      this.delegate.setStyle({
-        opacity: 0.5,
-        color: "#a3a3a3"
-      });
+      this.delegate.setStyle(this.get('options').style);
 
       this.bringToBack();
 
