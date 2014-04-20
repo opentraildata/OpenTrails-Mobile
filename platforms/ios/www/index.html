@@ -194,6 +194,27 @@
               <a href="#" ng-click="clearSearch()">Clear</a>
             </div>
           </form>
+          <div class="filter-info">
+            <span>Filter by Activity</span>
+          </div>
+          <div class="trail-icons">
+            <div class="icon-box first-filter">
+              <img class="icon" src="img/foot-gray.png" ng-show="selectedTrail.canFoot()" ng-cloak>
+              <img class="icon" src="img/foot-light-gray.png" ng-show="!selectedTrail.canFoot()" ng-cloak>
+            </div>
+            <div class="icon-box">
+              <img class="icon" src="img/bike-gray.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
+              <img class="icon" src="img/bike-light-gray.png" ng-show="!selectedTrail.canBicycle()" ng-cloak>
+            </div>
+            <div class="icon-box">
+              <img class="icon" src="img/horse-gray.png" ng-show="selectedTrail.canHorse()" ng-cloak>
+              <img class="icon" src="img/horse-light-gray.png" ng-show="!selectedTrail.canHorse()" ng-cloak>
+            </div>
+            <div class="icon-box">
+              <img class="icon" src="img/ski-gray.png" ng-show="selectedTrail.canSki()" ng-cloak>
+              <img class="icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
+            </div>
+          </div>
         </div>
 
 

@@ -250,109 +250,144 @@ body {
   }
 }
 
+
+/* SEARCH VIEW */
+
 #search-view {
-
- .search-form {
-    width: 100%;
-    height: 100%;
-  }
-
-  .search-input-container {
-    height: 100%;
-    width: 100%;
-    display: inline-block;
-    padding: 10px 0;
-    a {
-      font-size: @medium-font;
-      color: @white-color;
-      text-decoration: none;
-      margin-left: 1em;
+  #header {
+    height: 140px;
+    .search-form {
+      width: 100%;
+      height: auto;
+      .search-input-container {
+        height: 100%;
+        width: 100%;
+        display: inline-block;
+        padding: 10px 0;
+        a {
+          font-size: @medium-font;
+          color: @white-color;
+          text-decoration: none;
+          margin-left: 1em;
+          font-weight: 200;
+        }
+      }
+      .search-input-icon {
+        background: transparent url(../img/magnifying-glass.png) no-repeat right top;
+        background-size: 15px;
+        width: 15px;
+        height: 15px;
+        float: left;
+        position: relative;
+        z-index: @z-index-3; 
+        display: block;
+        top: 8px;
+        left: 23px;
+      }
+      .search-input {
+        .border-radius(3px);
+        float: left; 
+        width: 175px;
+        padding-left: 25px;
+        color: @gray-color;
+      }
+    }
+    .filter-info {
+      margin: 0px 0 10px 20px;
+      width: 100%;
+      height: 1em;
+      font-size: @small-font;
       font-weight: 200;
     }
+    .trail-icons {
+      width: 100%;
+      text-align: justify;
+      .icon-box {
+        display: inline-block;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        margin: 0 0 0 20px;
+        background-color: @white-color;
+        border-radius: 2px;
+        .icon {
+          text-align: center;
+          height: 60%;
+          margin-top: 20%;
+        }
+      }
+      .first-filter {
+        margin: 0 0 0 20px;
+      }
+      .trail-icons:after {
+        content: "";
+        width: 100%;
+        display: inline-block;
+      }
+    }
   }
-
-  .search-input-icon {
-    background: transparent url(../img/magnifying-glass.png) no-repeat right top;
-    background-size: 15px;
-    width: 15px;
-    height: 15px;
-    float: left;
-    position: relative;
-    z-index: @z-index-3; 
-    display: block;
-    top: 8px;
-    left: 23px;
-  }
-
-  .search-input {
-    .border-radius(3px);
-    float: left; 
-    width: 175px;
-    padding-left: 25px;
-    color: @gray-color;
-  }
-
-  .search-info {
-    width: 100%; 
-    height: 20px;
-    padding: 20px 0;
-    background-color: @green-color;
-    color: lighten(@gray-color, 50%);
-    font-size: @small-font;
-    text-align: center;
-  }
-
-  .search-results {
-    width: 100%; 
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    height: 340px;
-    margin-bottom: 30px;
-  }
-
-  .search-result {
-    .search-result-header-outer {
-      background-color: @white-color;
-      color: lighten(@gray-color, 50%);
+  #content {
+    top: 140px;
+    .search-info {
+      width: 100%; 
+      height: 20px;
+      padding: 10px 0 5px 0;
+      color: darken(@green-color, 50%);
       font-size: @small-font;
-      font-weight: 100;
-      padding: 5px 10px 0 10px;
-
-      .search-result-header-inner {
-        border-bottom: 1px solid lighten(@gray-color, 60%);
-        padding: 10px 5px;
-        display: inline-block; 
-        width: 95%;
-      }
-
-      p {
-        margin: 0;
-      }
-
-      .name {
-        float: left; 
-        max-width: 60%;
-      }
-
-      .distance {
-        float: right; 
-      }
-
+      text-align: center;
+      border-bottom: 1px solid @gray-color
+    }
+    .search-results {
+      width: 100%; 
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      height: 340px;
+      margin-bottom: 30px;
     }
 
-    .search-subresults {
-      background-color: @white-color; 
-      h3 {
-        border-bottom: 1px solid @gray-color; 
-        margin: 0;
-        padding: 15px;
-        font-weight: 500;
+    .search-result {
+      .search-result-header-outer {
+        background-color: @green-color;
+        color: @white-color;
+        font-size: @small-font;
+        font-weight: 200;
+        padding: 5px 20px 0 20px;
+
+        .search-result-header-inner {
+          padding: 10px 0;
+          display: inline-block; 
+          width: 100%;
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .name {
+          float: left; 
+          max-width: 60%;
+        }
+
+        .distance {
+          float: right; 
+        }
+
       }
-      a {
-        text-decoration: none; 
-        color: @gray-color;
-        font-size: @medium-font;
-        font-weight: 500;
+
+      .search-subresults {
+        background-color: @white-color; 
+        h3 {
+          border-bottom: 1px solid @gray-color; 
+          margin: 0;
+          padding: 15px;
+          font-weight: 600;
+        }
+        a {
+          text-decoration: none; 
+          color: @gray-color;
+          font-size: @medium-font;
+          font-weight: 500;
+        }
       }
     }
   }
@@ -622,7 +657,7 @@ body {
           float: left;
           width: auto;
           margin: 0 0 0 10px;
-          font-weight: bold;
+          font-weight: 400;
         }
       }
 
