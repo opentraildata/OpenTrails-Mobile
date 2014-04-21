@@ -397,16 +397,17 @@ body {
 #trail-view {
 
   &.fullscreen {
-    top: 0px !important; 
-    .trail-and-trailhead-data {
-      overflow: scroll; 
-      -webkit-overflow-scrolling: touch;
-    }
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    // .trail-and-trailhead-data {
+    //   overflow: auto;
+    //   -webkit-overflow-scrolling: touch;
+    // }
   }
 
-  .transition(top 0.5s);
+  .transition(-webkit-transform 0.5s);
 
-  transform: translate3d(0px, 0px, 0);
+  -webkit-transform: translate3d(0, 20px, 0); /* Footer Height, Flush */
+  transform: translate3d(0px, 20px, 0);
   position: fixed;
   background-color: @white-color;
   width: 100%;
@@ -414,7 +415,7 @@ body {
   max-height: @device-height;
   background-color: @white-color;
   z-index: @z-index-4;
-  top: 20px; /* Footer Height, Flush */
+  top: 0;
   .trail-nav {
     display: inline-block;
     position: relative;
@@ -545,6 +546,9 @@ body {
     width: 100%;
     /* ^^ Should this be a device width var? */
     background-color: @white-color;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
     .trail-data {
       display: inline-block;
       position: relative;

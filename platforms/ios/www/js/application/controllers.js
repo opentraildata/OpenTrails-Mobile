@@ -43,6 +43,20 @@
       }
 
       $scope.showView = showView;
+      
+      // prevent scrolling when not in fullscreen mode
+      document.getElementsByClassName('trail-and-trailhead-data')[0].addEventListener('touchmove', function (event) {
+        if (!$scope.fullscreen) {
+          event.preventDefault();
+        }
+      });
+      
+      // when leaving fullscreen mode, make sure we scroll back to the top
+      $scope.$watch('fullscreen', function(value) {
+        if (!value) {
+          document.getElementsByClassName('trail-and-trailhead-data')[0].scrollTop = 0;
+        }
+      })
 
       //
       // MAP LOGIC
@@ -351,7 +365,7 @@
               viewportHeight = window.innerHeight,
               initialOffset = viewportHeight - footerHeight - trailNavHeight - attributesHeight;
 
-              trailView.style.top = initialOffset + 'px';
+              trailView.style.webkitTransform = 'translate3d(0, ' + initialOffset + 'px, 0)';
       };
 
 
