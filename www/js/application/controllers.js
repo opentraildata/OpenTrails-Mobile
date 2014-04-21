@@ -137,7 +137,6 @@
       function setSearchFilter (key, value) {
         $scope.searchFilters[key] = value;
         search($scope.searchKeywords, $scope.searchFilters);
-        console.log('fuck')
       }
 
       $scope.setSearchFilter = setSearchFilter;
