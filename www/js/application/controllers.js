@@ -64,6 +64,7 @@
 
       function onGeoPositionError (err) {
         console.log('Error: Could not geolocate user');
+        positionMarker.removeFrom(Map);
       }
 
       navigator.geolocation.watchPosition(
