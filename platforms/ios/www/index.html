@@ -187,7 +187,7 @@
       <div id="search-view" ng-show="view === 'search'" ng-cloak>
 
         <div id="header">
-          <form class="search-form" ng-submit="search(searchKeywords)">
+          <form class="search-form" ng-submit="search(searchKeywords, searchFilters)">
             <div class="search-input-container">
               <span class="search-input-icon">&nbsp;</span>
               <input class="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
@@ -199,20 +199,20 @@
           </div>
           <div class="trail-icons">
             <div class="icon-box first-filter">
-              <img class="icon" src="img/foot-gray.png" ng-show="selectedTrail.canFoot()" ng-cloak>
-              <img class="icon" src="img/foot-light-gray.png" ng-show="!selectedTrail.canFoot()" ng-cloak>
+              <img class="icon" src="img/foot-gray.png" ng-show="searchFilters.canFoot" ng-click="setSearchFilter('canFoot', false)" ng-cloak>
+              <img class="icon" src="img/foot-light-gray.png" ng-hide="searchFilters.canFoot" ng-click="setSearchFilter('canFoot', true)" ng-cloak>
             </div>
             <div class="icon-box">
-              <img class="icon" src="img/bike-gray.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
-              <img class="icon" src="img/bike-light-gray.png" ng-show="!selectedTrail.canBicycle()" ng-cloak>
+              <img class="icon" src="img/bike-gray.png" ng-show="searchFilters.canBicycle" ng-click="setSearchFilter('canBicycle', false)"ng-cloak>
+              <img class="icon" src="img/bike-light-gray.png" ng-hide="searchFilters.canBicycle" ng-click="setSearchFilter('canBicycle', true)" ng-cloak>
             </div>
             <div class="icon-box">
-              <img class="icon" src="img/horse-gray.png" ng-show="selectedTrail.canHorse()" ng-cloak>
-              <img class="icon" src="img/horse-light-gray.png" ng-show="!selectedTrail.canHorse()" ng-cloak>
+              <img class="icon" src="img/horse-gray.png" ng-show="searchFilters.canHorse" ng-click="setSearchFilter('canHorse', false)" ng-cloak>
+              <img class="icon" src="img/horse-light-gray.png" ng-hide="searchFilters.canHorse" ng-click="setSearchFilter('canHorse', true)" ng-cloak>
             </div>
             <div class="icon-box">
-              <img class="icon" src="img/ski-gray.png" ng-show="selectedTrail.canSki()" ng-cloak>
-              <img class="icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
+              <img class="icon" src="img/ski-gray.png" ng-show="searchFilters.canSki" ng-click="setSearchFilter('canSki', false)" ng-cloak>
+              <img class="icon" src="img/ski-light-gray.png" ng-hide="searchFilters.canSki" ng-click="setSearchFilter('canSki', true)" ng-cloak>
             </div>
           </div>
         </div>

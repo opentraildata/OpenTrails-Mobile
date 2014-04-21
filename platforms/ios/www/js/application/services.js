@@ -237,6 +237,17 @@
         trails = trailhead.trails.all();
       }
 
+      if (params.filters) {
+        trails = utils.select(trails, function (trail) {
+          var match = true; 
+          ng.forEach(utils.keys(params.filters), function (filter) {
+            var value = params.filters[filter];
+            if (value && !trail[filter]()) match = false;
+          });
+          return match;
+        }) 
+      }
+
       if (trails.length > 0) {
         return new SearchResult(trailhead, trails);
       }

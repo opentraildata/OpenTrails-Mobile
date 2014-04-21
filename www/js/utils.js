@@ -72,6 +72,16 @@
     return results;
   }
 
+  Utils.prototype.select = function (arr, f) {
+    var results = [];
+
+    ng.forEach(arr, function (item) {
+      if (f(item)) results.push(item);
+    });
+
+    return results;
+  }
+
   Utils.prototype.keys = function (obj) {
     var keys = [];
     for (var key in obj) {

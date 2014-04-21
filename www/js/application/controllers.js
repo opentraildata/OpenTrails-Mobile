@@ -111,11 +111,10 @@
       //
 
       $scope.searchResults = [];
-      $scope.searchKeywords = '';
 
-      function search (keywords) {
+      function search (keywords, filters) {
         $scope.lastSearch = keywords;
-        $scope.searchResults = TrailSearch.perform({ keywords: keywords });
+        $scope.searchResults = TrailSearch.perform({ keywords: keywords, filters: filters });
       }
 
       $scope.search = search;
@@ -123,10 +122,27 @@
       function clearSearch () {
         $scope.lastSearch = null; 
         $scope.searchKeywords = null;
+        $scope.searchFilters = {
+          canFoot: false,
+          canBicycle: false,
+          canHorse: false,
+          canSki: false
+        };
         $scope.search();
       }
 
       $scope.clearSearch = clearSearch;
+
+
+      function setSearchFilter (key, value) {
+        $scope.searchFilters[key] = value;
+        search($scope.searchKeywords, $scope.searchFilters);
+        console.log('fuck')
+      }
+
+      $scope.setSearchFilter = setSearchFilter;
+
+      clearSearch();
 
       //
       // TRAIL LAYERS LOGIC
