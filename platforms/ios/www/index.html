@@ -70,7 +70,7 @@
               </a>
             </div>
             <div class="source-address">
-              <a href="#">975 Treaty Line Rd Akron, OH</a>
+              <a href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedSteward.get('address')}}" target="_system">975 Treaty Line Rd Akron, OH</a>
             </div>
           </div>
           <div id="notifications-empty" ng-hide="notifications.length > 0">
@@ -163,7 +163,7 @@
                 <p class="trailhead-distance">
                   <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
                 </p>
-                <a class="trailhead-address" href="">{{ selectedTrailHead.get('address') }}</a>
+                <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">{{ selectedTrailHead.get('address') }}</a>
               </div>
               <table class="amenities">
                 <tr>
