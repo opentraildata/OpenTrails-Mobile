@@ -40,6 +40,14 @@
     return results;
   }
 
+  Utils.prototype.unique = function (arr) {
+    var results = [];
+    ng.forEach(arr, function (item) {
+      if (results.indexOf(item) === -1) results.push(item);
+    });
+    return results;
+  }
+
   Utils.prototype.has = function (obj,key) {
     return hasOwnProperty.call(obj, key);
   }

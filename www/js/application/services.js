@@ -205,19 +205,24 @@
   }
 
   TrailSearch.perform = function (params) {
-    var query = [];
+    var nameQuery = [];
+    var descQuery = [];
 
     params = params || {};
 
     if (params.keywords) {
-      query.push({ key: 'name', evaluator: 'contains', value: params.keywords });
+      nameQuery.push({ key: 'name', evaluator: 'contains', value: params.keywords });
+      descQuery.push({ key: 'descriptn', evaluator: 'contains', value: params.keywords });
     }
 
     var results = TrailHead.query.map(function (trailhead) {
       var trails;
 
-      if (query.length > 0) {
-        trails = trailhead.trails.where(query).all();
+      if (descQuery.length > 0 || nameQuery.length > 0) {
+        trails = []
+        trails = trails.concat( trailhead.trails.where(nameQuery).all() );
+        trails = trails.concat( trailhead.trails.where(descQuery).all() );
+        trails = utils.unique(trails);
       } else {
         trails = trailhead.trails.all();
       }
