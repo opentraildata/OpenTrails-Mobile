@@ -215,14 +215,24 @@
       descQuery.push({ key: 'descriptn', evaluator: 'contains', value: params.keywords });
     }
 
+    var results = [];
+
+    var trailheads = [];
+    trailheads = trailheads.concat( TrailHead.query.where(nameQuery) );
+    trailheads = trailheads.concat( TrailHead.query.where(descQuery) );
+
     var results = TrailHead.query.map(function (trailhead) {
       var trails;
 
-      if (descQuery.length > 0 || nameQuery.length > 0) {
-        trails = []
-        trails = trails.concat( trailhead.trails.where(nameQuery).all() );
-        trails = trails.concat( trailhead.trails.where(descQuery).all() );
-        trails = utils.unique(trails);
+      if (trailheads.indexOf(trailhead) === -1) {
+        if (nameQuery.length > 0 || descQuery.length > 0) {
+          trails = []
+          trails = trails.concat( trailhead.trails.where(nameQuery).all() );
+          trails = trails.concat( trailhead.trails.where(descQuery).all() );
+          trails = utils.unique(trails);
+        } else {
+          trails = trailhead.trails.all();
+        }
       } else {
         trails = trailhead.trails.all();
       }
