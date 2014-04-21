@@ -250,109 +250,144 @@ body {
   }
 }
 
+
+/* SEARCH VIEW */
+
 #search-view {
-
- .search-form {
-    width: 100%;
-    height: 100%;
-  }
-
-  .search-input-container {
-    height: 100%;
-    width: 100%;
-    display: inline-block;
-    padding: 10px 0;
-    a {
-      font-size: @medium-font;
-      color: @white-color;
-      text-decoration: none;
-      margin-left: 1em;
+  #header {
+    height: 140px;
+    .search-form {
+      width: 100%;
+      height: auto;
+      .search-input-container {
+        height: 100%;
+        width: 100%;
+        display: inline-block;
+        padding: 10px 0;
+        a {
+          font-size: @medium-font;
+          color: @white-color;
+          text-decoration: none;
+          margin-left: 1em;
+          font-weight: 200;
+        }
+      }
+      .search-input-icon {
+        background: transparent url(../img/magnifying-glass.png) no-repeat right top;
+        background-size: 15px;
+        width: 15px;
+        height: 15px;
+        float: left;
+        position: relative;
+        z-index: @z-index-3; 
+        display: block;
+        top: 8px;
+        left: 23px;
+      }
+      .search-input {
+        .border-radius(3px);
+        float: left; 
+        width: 175px;
+        padding-left: 25px;
+        color: @gray-color;
+      }
+    }
+    .filter-info {
+      margin: 0px 0 10px 20px;
+      width: 100%;
+      height: 1em;
+      font-size: @small-font;
       font-weight: 200;
     }
+    .trail-icons {
+      width: 100%;
+      text-align: justify;
+      .icon-box {
+        display: inline-block;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        margin: 0 0 0 20px;
+        background-color: @white-color;
+        border-radius: 2px;
+        .icon {
+          text-align: center;
+          height: 60%;
+          margin-top: 20%;
+        }
+      }
+      .first-filter {
+        margin: 0 0 0 20px;
+      }
+      .trail-icons:after {
+        content: "";
+        width: 100%;
+        display: inline-block;
+      }
+    }
   }
-
-  .search-input-icon {
-    background: transparent url(../img/magnifying-glass.png) no-repeat right top;
-    background-size: 15px;
-    width: 15px;
-    height: 15px;
-    float: left;
-    position: relative;
-    z-index: @z-index-3; 
-    display: block;
-    top: 8px;
-    left: 23px;
-  }
-
-  .search-input {
-    .border-radius(3px);
-    float: left; 
-    width: 175px;
-    padding-left: 25px;
-    color: @gray-color;
-  }
-
-  .search-info {
-    width: 100%; 
-    height: 20px;
-    padding: 20px 0;
-    background-color: @green-color;
-    color: lighten(@gray-color, 50%);
-    font-size: @small-font;
-    text-align: center;
-  }
-
-  .search-results {
-    width: 100%; 
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    height: 340px;
-    margin-bottom: 30px;
-  }
-
-  .search-result {
-    .search-result-header-outer {
-      background-color: @white-color;
-      color: lighten(@gray-color, 50%);
+  #content {
+    top: 140px;
+    .search-info {
+      width: 100%; 
+      height: 20px;
+      padding: 10px 0 5px 0;
+      color: darken(@green-color, 50%);
       font-size: @small-font;
-      font-weight: 100;
-      padding: 5px 10px 0 10px;
-
-      .search-result-header-inner {
-        border-bottom: 1px solid lighten(@gray-color, 60%);
-        padding: 10px 5px;
-        display: inline-block; 
-        width: 95%;
-      }
-
-      p {
-        margin: 0;
-      }
-
-      .name {
-        float: left; 
-        max-width: 60%;
-      }
-
-      .distance {
-        float: right; 
-      }
-
+      text-align: center;
+      border-bottom: 1px solid @gray-color
+    }
+    .search-results {
+      width: 100%; 
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      height: 340px;
+      margin-bottom: 30px;
     }
 
-    .search-subresults {
-      background-color: @white-color; 
-      h3 {
-        border-bottom: 1px solid @gray-color; 
-        margin: 0;
-        padding: 15px;
-        font-weight: 500;
+    .search-result {
+      .search-result-header-outer {
+        background-color: @green-color;
+        color: @white-color;
+        font-size: @small-font;
+        font-weight: 200;
+        padding: 5px 20px 0 20px;
+
+        .search-result-header-inner {
+          padding: 10px 0;
+          display: inline-block; 
+          width: 100%;
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .name {
+          float: left; 
+          max-width: 60%;
+        }
+
+        .distance {
+          float: right; 
+        }
+
       }
-      a {
-        text-decoration: none; 
-        color: @gray-color;
-        font-size: @medium-font;
-        font-weight: 500;
+
+      .search-subresults {
+        background-color: @white-color; 
+        h3 {
+          border-bottom: 1px solid @gray-color; 
+          margin: 0;
+          padding: 15px;
+          font-weight: 600;
+        }
+        a {
+          text-decoration: none; 
+          color: @gray-color;
+          font-size: @medium-font;
+          font-weight: 500;
+        }
       }
     }
   }
@@ -386,17 +421,88 @@ body {
     height: 2.5em;
     width: 100%;
     background-color: @green-color;
-    border-bottom: 1px solid @light-gray-color;
-
-    .more-btn {
+    border-bottom: 5px solid @white-color;
+    .trail-trailhead {
       display: inline-block;
-      height: 20px;
-      padding: 10px 15px;
-      width: auto;
-      float: left;
-      
-      img {
-        height: 20px; 
+      position: relative;
+      height: 100%;
+      border-top: 1px solid lighten(@gray-color, 50%);
+      vertical-align: middle;
+      .change-trail {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        .previous-trail {
+          display: inline-block;
+          position: relative;
+          height: 40px;
+          width: 30px;
+          padding-left: 20px;
+          float: left;
+          img {
+            width: 20px;
+            margin: 10px 10px 10px 0px;
+          }
+          p {
+            display: inline-block;
+            position: relative;
+            float: left;
+            margin: 1em 1em 0 0;
+            font-size: @small-font;
+          }
+        }
+        .trailhead-index {
+          display: inline-block;
+          position: relative;
+          float: left;
+          font-size: 12px;
+          font-weight: 200;
+          text-align: center;
+          color: @white-color;
+          margin: 1em 0 0 0;
+        }
+        .next-trail {
+          display: inline-block;
+          position: relative;
+          height: 40px;
+          width: 30px;
+          padding-right: 10px;
+          img {
+            width: 20px;
+            margin: 10px 0px 10px 10px;
+          }
+          p {
+            display: inline-block;
+            position: relative;
+            float: right;
+            margin: 1em 0em 1em 1em;
+            font-size: @small-font;
+          }
+        }
+      }
+    }
+    .more-btn-tab {
+      display: block;
+      position: absolute;
+      left: 40%;
+      bottom: 0;
+      height: 70%;
+      width: 20%;
+      background-color: @white-color;
+      border-radius: 2px 2px 0 0;
+      .more-btn {
+        display: block;
+        height: auto;
+        padding: 5% 0 10% 0;
+        width: auto;
+        text-align: center;
+
+        img {
+          height: 20px; 
+          text-align: center;
+        }
       }
     }
 
@@ -486,106 +592,23 @@ body {
           margin-bottom: 10px;
           font-weight: 400;
         }
-        .trail-attribute-icons {
-          width: auto;
+      }
+      .trail-icons {
+        width: auto;
+        display: inline-block;
+        position: relative;;
+        text-align: justify;
+        margin-right: 20px;
+        .icon-box {
           display: inline-block;
-          position: relative;;
-          text-align: justify;
-          margin-right: 20px;
-          .attribute-icon-box {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            margin-top: 0;
-            margin-left: 20px;
-            margin-bottom: 10px;
-            .attribute-icon {
-              height: 100%;
-              width: 100%;
-            }
-          }
-        }
-        .trail-trailhead {
-          display: inline-block;
-          position: relative;
-          height: auto;
-          margin: 0 20px;
-          border-top: 1px solid lighten(@gray-color, 50%);
-          vertical-align: middle;
-          .change-trail {
-            display: inline-block;
-            position: relative;
+          width: 30px;
+          height: 30px;
+          margin-top: 0;
+          margin-left: 20px;
+          margin-bottom: 10px;
+          .icon {
+            height: 100%;
             width: 100%;
-            height: auto;
-            text-align: center;
-            .previous-trail {
-              display: inline-block;
-              position: relative;
-              height: 40px;
-              width: 30px;
-              margin: 10px 0 0 0;
-              float: left;
-              background-color: @white-color;
-              img {
-                width: 20px;
-                margin: 10px 3px 10px 0px;
-              }
-              p {
-                display: inline-block;
-                position: relative;
-                float: left;
-                margin: 1em 1em 0 0;
-                font-size: @small-font;
-              }
-            }
-            .nav-text {
-              display: inline-block;
-              position: relative;
-              text-align: center;
-              height: 40px;
-              width: auto;
-              margin: 10px 0 0 0;
-              margin: 20px 0 0 0;
-              background-color: #eee;
-            }
-            img {
-              display: inline-block;
-              position: relative;
-              float: left;
-              width: 15px;
-              height: auto;
-              margin: 1.25em .5em;
-            }
-            .trailhead-title {
-              display: inline-block;
-              position: relative;
-              float: left;
-              font-size: 12px;
-              font-weight: 200;
-              text-align: center;
-              width: 75%;
-              margin: 1em 0 0 0;
-            }
-            .next-trail {
-              display: inline-block;
-              position: relative;
-              height: 40px;
-              width: 30px;
-              margin: 10px 0 0 0;
-              float: right;
-              background-color: @white-color;
-              img {
-                width: 20px;
-                margin: 10px 0px 10px 3px;
-              }
-              p {
-                display: inline-block;
-                position: relative;
-                float: right;
-                margin: 1em 0em 1em 1em;
-                font-size: @small-font;
-              }
-            }
           }
         }
       }
@@ -614,14 +637,13 @@ body {
       margin-left: 20px;
       margin-right: 20px;
       margin-top: 10px;
-
+      background-color: @white-color;
       .trailhead-title-field {
         display: inline-block;
         position: relative;
         height: auto;
         width: 100%;
         padding-top: 10px;
-        padding-bottom: 10px;
         .trailhead-icon {
           display: inline-block;
           position: relative;
@@ -635,7 +657,7 @@ body {
           float: left;
           width: auto;
           margin: 0 0 0 10px;
-          font-weight: bold;
+          font-weight: 400;
         }
       }
 
@@ -649,26 +671,20 @@ body {
           height: auto;
           min-height: 20px;
           padding-top: 10px;
-          padding-bottom: 10px;
           .trailhead-distance {
             display: inline-block;
             position: relative;
-            width: auto;
-            max-width: 40%;
+            width: 100%;
             margin: 0;
             font-weight: 200;
-            float: left;
-            text-align: left;
           }
           .trailhead-address {
             position: relative;
             display: inline-block;
             margin: 0;
-            width: auto;
-            max-width: 40%;
+            width: 100%;
             font-weight: 200;
-            float: right;
-            text-align: right;
+            padding-top: 10px;
           }
         }
         .amenities {
@@ -678,13 +694,11 @@ body {
           margin-top: 10px;
           text-align: center;
           .amenity {
-            margin: 0;
+            text-align: left;
+            margin: 5px 20px 5px 0px;
             width: auto;
             position: relative;
-            display: inline-block;
             font-weight: 200;
-            margin-right: 20px;
-            margin-bottom: 10px;
             .yes {
             }
             .no {
