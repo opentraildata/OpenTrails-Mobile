@@ -351,7 +351,7 @@
               viewportHeight = window.innerHeight,
               initialOffset = viewportHeight - footerHeight - trailNavHeight - attributesHeight;
 
-              trailView.style.top = initialOffset + 'px';
+              trailView.style.webkitTransform = 'translate3d(0, ' + initialOffset + 'px, 0)';
       };
 
 
