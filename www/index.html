@@ -167,12 +167,12 @@
               </div>
               <table class="amenities">
                 <tr>
-                  <td><p class="amenity">&#9745 Parking</p></td>
-                  <td><p class="amenity">&#9745 Drinking Water</p></td>
+                  <td ng-show="selectedTrailHead.hasParking()"><p class="amenity">&#9745 Parking</p></td>
+                  <td ng-show="selectedTrailHead.hasWater()"><p class="amenity">&#9745 Drinking Water</p></td>
                 </tr>
                 <tr>
-                  <td><p class="amenity">&#9745 Restrooms</p></td>
-                  <td><p class="amenity">&#9745 Info Kiosk</p></td>
+                  <td ng-show="selectedTrailHead.hasRestroom()"><p class="amenity">&#9745 Restrooms</p></td>
+                  <td ng-show="selectedTrailHead.hasKiosk()"><p class="amenity">&#9745 Info Kiosk</p></td>
                 </tr>
               </table>
               <div class="trailhead-steward">

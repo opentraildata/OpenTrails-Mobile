@@ -480,6 +480,7 @@
       "address": null,
       "parking": null,
       "kiosk": null,
+      "restroom": null,
       "geometry": null
     },
 
@@ -504,6 +505,22 @@
         }
       });
 
+    },
+
+    hasWater: function () {
+      return (this.get('water') || '').toLowerCase() !== 'n';
+    },
+
+    hasParking: function () {
+      return (this.get('parking') || '').toLowerCase() !== 'n';
+    },
+
+    hasKiosk: function () {
+      return (this.get('kiosk') || '').toLowerCase() !== 'n';
+    },
+
+    hasRestroom: function () {
+      return (this.get('restroom') || '').toLowerCase() !== 'n';
     },
 
     distanceFrom: function (lat, lng) {
