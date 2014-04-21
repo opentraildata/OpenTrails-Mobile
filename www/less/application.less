@@ -398,10 +398,10 @@ body {
 
   &.fullscreen {
     -webkit-transform: translate3d(0, 0, 0) !important;
-    .trail-and-trailhead-data {
-      overflow: scroll;
-      -webkit-overflow-scrolling: touch;
-    }
+    // .trail-and-trailhead-data {
+    //   overflow: auto;
+    //   -webkit-overflow-scrolling: touch;
+    // }
   }
 
   .transition(-webkit-transform 0.5s);
@@ -546,6 +546,9 @@ body {
     width: 100%;
     /* ^^ Should this be a device width var? */
     background-color: @white-color;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
     .trail-data {
       display: inline-block;
       position: relative;
