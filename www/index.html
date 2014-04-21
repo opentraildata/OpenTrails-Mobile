@@ -163,7 +163,9 @@
                 <p class="trailhead-distance">
                   <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
                 </p>
-                <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">{{ selectedTrailHead.get('address') }}</a>
+                <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">
+                  {{ selectedTrailHead.get('address') }}
+                </a>
               </div>
               <table class="amenities">
                 <tr>
@@ -176,11 +178,12 @@
                 </tr>
               </table>
               <div class="trailhead-steward">
-                <p>Managed by {{ selectedTrailHeadSteward.get('name') }}</p>
+                <p>
+                  Managed by {{ selectedTrailHeadSteward.get('name') }}
+                </p>
               </div>
             </div>
           </div>
-          <div class="trail-view-footer-shim"></div>
         </div>
       </div>
 
@@ -195,7 +198,7 @@
             </div>
           </form>
           <div class="filter-info">
-            <span>Filter by Activity</span>
+            <span ng-hide="searchFilter.canFoot">Show Trails for All Activities</span>
           </div>
           <div class="trail-icons">
             <div class="icon-box first-filter">

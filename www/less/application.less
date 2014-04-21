@@ -41,7 +41,7 @@
 @green-color: #465C44;
 @light-gray-color: lighten(@gray-color, 50%);
 
-@status-height: 0px;
+@status-height: 20px;
 @header-height: 50px;
 @footer-height: 80px;
 @trail-header-height: 240px;
@@ -65,6 +65,9 @@
 
 /** Styles **/
 
+html {
+  height: 100%;
+}
 body {
   background-color: @white-color;
   font-family: Helvetica Neue,Helvetica,Verdana;
@@ -86,8 +89,8 @@ body {
   position: fixed;
   height: @status-height;
   width: 100%;
-  background-color: @gray-color;
-  border-bottom: 1px solid lighten(@gray-color, 30%);
+  background-color: @white-color;
+  border-bottom: 1px solid @white-color;
   z-index: @z-index-3;
 }
 
@@ -182,12 +185,13 @@ body {
 
   #map-search {
     position: relative; 
-    top: 20px;
-    left: 15px;
+    top: 30px;
+    left: 20px;
     float: left;
     z-index: @z-index-3;
     height: 50px;
     width: 50px;
+    border-radius: 2px;
 
     img {
       height: 50px; 
@@ -197,12 +201,13 @@ body {
 
   #map-recenter {
     position: relative; 
-    top: 20px;
-    right: 15px;
+    top: 30px;
+    right: 20px;
     float: right;
     z-index: @z-index-3;
     height: 50px;
     width: 50px;
+    border-radius: 2px;
 
     img {
       height: 50px; 
@@ -256,6 +261,8 @@ body {
 #search-view {
   #header {
     height: 140px;
+    background-color: @white-color;
+    color: @gray-color;
     .search-form {
       width: 100%;
       height: auto;
@@ -266,7 +273,7 @@ body {
         padding: 10px 0;
         a {
           font-size: @medium-font;
-          color: @white-color;
+          color: @gray-color;
           text-decoration: none;
           margin-left: 1em;
           font-weight: 200;
@@ -397,7 +404,7 @@ body {
 #trail-view {
 
   &.fullscreen {
-    -webkit-transform: translate3d(0, 0, 0) !important;
+    -webkit-transform: translate3d(0, 20px, 0) !important;
     // .trail-and-trailhead-data {
     //   overflow: auto;
     //   -webkit-overflow-scrolling: touch;
@@ -411,11 +418,12 @@ body {
   position: fixed;
   background-color: @white-color;
   width: 100%;
-  min-height: 500px;
-  max-height: @device-height;
   background-color: @white-color;
   z-index: @z-index-4;
   top: 0;
+  bottom: @footer-height;
+  right: 0;
+  left: 0;
   .trail-nav {
     display: inline-block;
     position: relative;
@@ -427,7 +435,6 @@ body {
       display: inline-block;
       position: relative;
       height: 100%;
-      border-top: 1px solid lighten(@gray-color, 50%);
       vertical-align: middle;
       .change-trail {
         display: inline-block;
@@ -538,13 +545,12 @@ body {
     }
   }
   .trail-and-trailhead-data {
-    position: relative;
+    position: absolute;
+    top: 45px; /* green nav bar, plus hardware padding, plus border */
+    bottom: 0;
+    right: 0;
+    left: 0;
     display: inline-block;
-    min-height: @device-height - (60px);
-    max-height: @device-height;
-    /* ^^ device height less .traiil-nav height */
-    width: 100%;
-    /* ^^ Should this be a device width var? */
     background-color: @white-color;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -638,9 +644,9 @@ body {
       display: inline-block;
       position: relative;
       height: auto;
-      margin-left: 20px;
-      margin-right: 20px;
-      margin-top: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 10px;
       background-color: @white-color;
       .trailhead-title-field {
         display: inline-block;
@@ -724,11 +730,6 @@ body {
         }
       }
     }
-    .trail-view-footer-shim {
-      height: @footer-height + (20px);
-      width: 100%;
-      background-color: @white-color;
-    }
   }
 }
 
@@ -742,7 +743,6 @@ body {
 
 #notifications-view {
   position: fixed;
-  bottom: 80px; /* Footer Height, Flush */
   width: 100%;
   height: 100%;
   overflow: auto;
