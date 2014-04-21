@@ -455,7 +455,9 @@
 
       if (data.trails) {
         ng.forEach(data.trails, function (trail) {
-          results.push( new Trail(trail) );
+          if (trail.segmentIds.length) {
+            results.push( new Trail(trail) );
+          }
         });
       }
 
@@ -911,8 +913,8 @@
       return this;
     },
 
-    fitBounds: function (bounds) {
-      this.delegate.fitBounds(bounds);
+    fitBounds: function (bounds, options) {
+      this.delegate.fitBounds(bounds, options);
       return this;
     }
 
@@ -1204,7 +1206,12 @@
         style: {
           color: "#a3a3a3",
           opacity: 0.5
-        }
+        },
+        highlightStyle: {
+          color: "#333333",
+          opacity: 1
+        },
+        smoothFactor: 2
       },
       record: null
     },
@@ -1212,10 +1219,7 @@
     select: function () {
       this.selected = true;
 
-      this.delegate.setStyle({
-        opacity: 1,
-        color: "#333333"
-      });
+      this.delegate.setStyle(this.get('options').highlightStyle);
 
       this.bringToFront();
 
@@ -1225,10 +1229,7 @@
     deselect: function () {
       this.selected = false;
 
-      this.delegate.setStyle({
-        opacity: 0.5,
-        color: "#a3a3a3"
-      });
+      this.delegate.setStyle(this.get('options').style);
 
       this.bringToBack();
 

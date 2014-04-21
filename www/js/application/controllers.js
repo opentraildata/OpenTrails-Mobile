@@ -15,14 +15,16 @@
     'MapTrailHeadMarker',
     'MapMarkerClusterGroup',
     'TrailSearch',
+    'TrailsCanvasLayer',
 
-    function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker, MapMarkerClusterGroup, TrailSearch) {
+    function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker, MapMarkerClusterGroup, TrailSearch, TrailsCanvasLayer) {
 
       //
       // CONSTANTS
       //
 
       var DEFAULT_VIEW = 'map'
+      var USE_CANVAS_TRAILS = true;
 
       //
       // VIEW LOGIC
@@ -157,11 +159,21 @@
       $scope.selectedTrail = null;
       $scope.selectedTrails = [];
 
+      var trailsLayer;
       function onLoad (loaded) {
         if (loaded) {
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
-          Models.Trail.query.each(renderTrailLayer);
+          
+          if (USE_CANVAS_TRAILS) {
+            trailsLayer = (new TrailsCanvasLayer({
+              trails: Models.Trail.query.all()
+            })).addTo(Map.delegate);
+          }
+          else {
+            Models.Trail.query.each(renderTrailLayer);
+          }
+          
           Models.TrailHead.query.each(renderTrailHeadMarker);
           trailHeadCluster.addTo(Map);
           bindEvents();
@@ -272,10 +284,21 @@
       });
 
       $scope.$watch('selectedTrail', function (value) {
+        var fitOptions = {
+          paddingBottomRight: [0, 250]
+        };
+        
+        if (trailsLayer) {
+          trailsLayer.highlight(value);
+          if (trailsLayer.highlighted) {
+            Map.fitBounds(trailsLayer.highlighted.bounds, fitOptions);
+          }
+        }
+        
         ng.forEach(trailLayers, function (layer) {
           if (layer.get('record') === value)  {
             selectTrailLayer(layer);
-            Map.fitBounds( layer.getBounds() );
+            Map.fitBounds( layer.getBounds(), fitOptions );
           } else {
             deselectTrailLayer(layer);
           }
