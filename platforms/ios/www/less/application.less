@@ -260,7 +260,7 @@ body {
 
 #search-view {
   #header {
-    height: 140px;
+    height: 130px;
     background-color: @white-color;
     color: @gray-color;
     .search-form {
@@ -276,7 +276,7 @@ body {
           color: @gray-color;
           text-decoration: none;
           margin-left: 1em;
-          font-weight: 200;
+          font-weight: 400;
         }
       }
       .search-input-icon {
@@ -315,8 +315,9 @@ body {
         width: 50px;
         height: 50px;
         margin: 0 0 0 20px;
-        background-color: @white-color;
+        background-color: #ffffff;
         border-radius: 2px;
+        border: 1px solid @light-gray-color;
         .icon {
           text-align: center;
           height: 60%;
@@ -334,7 +335,7 @@ body {
     }
   }
   #content {
-    top: 140px;
+    top: 150px;
     .search-info {
       width: 100%; 
       height: 20px;
@@ -356,12 +357,13 @@ body {
       .search-result-header-outer {
         background-color: @green-color;
         color: @white-color;
+        height: 26px;
         font-size: @small-font;
-        font-weight: 200;
-        padding: 5px 20px 0 20px;
+        font-weight: 400;
+        padding: 0 20px;
 
         .search-result-header-inner {
-          padding: 10px 0;
+          padding: .5em 0;
           display: inline-block; 
           width: 100%;
         }
@@ -545,6 +547,7 @@ body {
     }
   }
   .trail-and-trailhead-data {
+    -webkit-transform: translate3d(0, 0, 0);
     position: absolute;
     top: 45px; /* green nav bar, plus hardware padding, plus border */
     bottom: 0;
@@ -641,6 +644,7 @@ body {
       }
     }
     .trailhead-data {
+      -webkit-transform: translate3d(0, 0, 0);
       display: inline-block;
       position: relative;
       height: auto;
@@ -672,6 +676,7 @@ body {
       }
 
       .trailhead-attributes {
+        -webkit-transform: translate3d(0, 0, 0);
         position: relative;
         display: inline-block;
         margin: 0;
@@ -723,7 +728,7 @@ body {
           display: inline-block;
           width: 100%;
           margin-top: 10px;
-          margin-bottom: 20px;
+          margin-bottom: 40px;
           p {
             margin: 0;
           }
@@ -865,9 +870,12 @@ body {
     }
     #notification-list {
       display: inline-block;
-      position: relative;
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 240px;
+      bottom: 0;
+      overflow: scroll;
       background-color: white;
       .notification-card {
         display: inline-block;
