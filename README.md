@@ -10,7 +10,7 @@ In order to test this application, you'll have to have the PhoneGap command-line
 Once you have PhoneGap up and running, clone the GitHub repo to a new PhoneGap application and run the installation script.
 
 ```
-git clone https://github.com/rclosner/trails-mobile trails-mobile
+git clone https://github.com/codeforamerica/trails-mobile trails-mobile
 cd trails-mobile
 ./bin/install
 ```
