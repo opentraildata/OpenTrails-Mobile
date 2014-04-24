@@ -566,12 +566,9 @@
     load: function (data) {
       var results = [];
 
-      if (data.geojson && data.geojson.features) {
-        ng.forEach(data.geojson.features, function (feature) {
-          var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
-          if (attrs.type === 'TrailHead') {
-            results.push( new TrailHead(attrs) );
-          }
+      if (data.trailheads) {
+        ng.forEach(data.trailheads, function (feature) {
+          results.push( new TrailHead( ng.extend({}, feature.properties, { geometry: feature.geometry }) ) );
         });
       }
 
@@ -679,12 +676,9 @@
     load: function (data) {
       var results = [];
 
-      if (data.geojson && data.geojson.features) {
-        ng.forEach(data.geojson.features, function (feature) {
-          var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
-          if (attrs.type === 'TrailSegment') {
-            results.push( new TrailSegment(attrs) );
-          }
+      if (data.trailsegments) {
+        ng.forEach(data.trailsegments, function (feature) {
+          results.push( new TrailSegment(ng.extend({}, feature.properties, { geometry: feature.geometry })) );
         });
       }
 
@@ -1331,6 +1325,8 @@
 
     function ($http) {
 
+      var HOST = "http://morning-peak-3686.herokuapp.com";
+
       var LOADABLE = [
         "TrailHead", "Trail", "TrailSegment", "Steward","Notification"
       ];
@@ -1345,24 +1341,41 @@
 
       Models.loaded = function () {
         var loaded = true;
-        ng.forEach(LOADABLE, function (model) { if (!Models[model].loaded) loaded = false });
+
+        for (var i = 0; i < LOADABLE.length; i++) {
+          var model = LOADABLE[i];
+          if (!Models[model].loaded) {
+            loaded = false; 
+            break;
+          }
+        }
+
         return loaded;
       }
 
-      $http.get('data/output.json').then(
-        function (res) {
-          TrailHead.load(res.data);
-          Trail.load(res.data);
-          TrailSegment.load(res.data);
-          Steward.load(res.data);
-        }
-      );
+      function loadModel (model, key, path) {
+        var data;
 
-      $http.get('data/notifications.json').then(
-        function (res) {
-          Notification.load(res.data);
+        if (data = window.localStorage.getItem(key)) {
+          model.load( JSON.parse(data) );
+        } else {
+          $http.get(HOST + path).then(
+            function (res) {
+              data = res.data;
+              window.localStorage.setItem(key, JSON.stringify(data) );
+              model.load(data);
+            }
+          );
         }
-      )
+      }
+
+      window.Trail = Trail;
+
+      loadModel(Trail, "TrailData", "/trails.json");
+      loadModel(TrailHead, "TrailHeadData", "/trailheads.json");
+      loadModel(TrailSegment, "TrailSegmentData", "/trailsegments.json");
+      loadModel(Steward, "StewardData", "/stewards.json");
+      loadModel(Notification, "NotificationData", "/notifications.json");
 
       return Models;
     }
