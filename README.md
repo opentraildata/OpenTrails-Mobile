@@ -7,7 +7,7 @@ Trails Mobile is a multi-device application that allows users of trails to cache
 
 ***Note: the following requires that nodejs is installed, follow the [node installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) for your system if needed.***
 
-In order to test this application, you'll first need to install Cordova. Do so with the following command: 
+In order to test this application, you'll first need to install Cordova. Do so with the following commands: 
 
 ```
 sudo npm install -g cordova
