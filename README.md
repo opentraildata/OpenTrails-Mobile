@@ -5,21 +5,32 @@ Trails Mobile is a multi-device application that allows users of trails to cache
 
 ## Installation
 
-In order to test this application, you'll have to have the PhoneGap command-line tools installed. If you don't have it installed, you can reference this [tutorial](http://phonegap.com/install/).
+***Note: the following requires that nodejs is installed, follow the [node installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) for your system if needed.***
 
-Once you have PhoneGap up and running, clone the GitHub repo to a new PhoneGap application and run the installation script.
-
-```
-git clone https://github.com/rclosner/trails-mobile trails-mobile
-cd trails-mobile
-./bin/install
-```
-
-Build platform
+In order to test this application, you'll first need to install Cordova. Do so with the following command: 
 
 ```
-phonegap build ios
-phonegap install ios
+sudo npm install -g cordova
+sudo npm install -g ios-sim
+```
+
+Once you have Cordova installed, clone the GitHub repo. To install the application in a projects directory on your computer. **In the following command, change `YOUR_PROJECTS_DIRECTORY` to the directory you want the projet installed in**:
+
+```
+git clone https://github.com/rclosner/trails-mobile ~/YOUR_PROJECTS_DIRECTORY/trails-mobile
+```
+
+Now navigate to the directory with:
+
+```
+cd ~/YOUR_PROJECTS_DIRECTORY/trails-mobile
+```
+
+Now to build the application from the source code into the application:
+
+```
+cordova build ios
+cordova emulate ios
 ```
 
 ## Usage
