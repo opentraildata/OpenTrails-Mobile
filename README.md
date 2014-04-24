@@ -14,7 +14,7 @@ sudo npm install -g cordova
 sudo npm install -g ios-sim
 ```
 
-Once you have Cordova installed, clone the GitHub repo. To install the application in a projects directory on your computer. **In the following command, change `YOUR_PROJECTS_DIRECTORY` to the directory you want the projet installed in**:
+Once you have Cordova installed, clone the GitHub repo. **In the following command, change `YOUR_PROJECTS_DIRECTORY` to the directory you want the project to be downloaded into**:
 
 ```
 git clone https://github.com/rclosner/trails-mobile ~/YOUR_PROJECTS_DIRECTORY/trails-mobile
@@ -26,7 +26,7 @@ Now navigate to the directory with:
 cd ~/YOUR_PROJECTS_DIRECTORY/trails-mobile
 ```
 
-Now to build the application from the source code into the application:
+To build and launch the application from the source code and view it in the iOS emulator, use:
 
 ```
 cordova build ios
