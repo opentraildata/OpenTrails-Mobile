@@ -36,6 +36,5 @@ cordova emulate ios
 ## Contribution
 
   * Fork the project.
-  * Make your feature addition or bug fix.
-  * Commit, do not mess with Rakefile or version
-  * Send me a pull request. Bonus points for topic branches.
+  * Make your feature addition or bug fix and commit the changes.
+  * Send a pull request. Bonus points for topic branches.
