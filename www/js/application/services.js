@@ -388,6 +388,16 @@
         }
       });
 
+      this.photo = new Association({
+        primary: this,
+        foreign: Photo,
+        scope: {
+          key: 'trailId',
+          evaluator: 'equals',
+          value: this.get('id')
+        }
+      });
+
     },
 
     getLength: function () {
@@ -686,6 +696,50 @@
       this.loaded = true;
     }
 
+  });
+
+  //
+  // PHOTO MODEL
+  //
+
+  var Photo = Model.inherit({
+
+    defaults: {
+      "id": null,
+      "trailId": null,
+      "url": null
+    },
+
+    initialize: function () {
+
+      this.trail = new Association({
+        primary: this,
+        foreign: Trail,
+        scope: {
+          key: 'id',
+          evaluator: 'equals',
+          value: this.get('trailId')
+        }
+      });
+
+    }
+
+  },
+  {
+    query: new Query(),
+
+    load: function (data) {
+      var results = [];
+
+      if (data.photos) {
+        ng.forEach(data.photos, function (photo) {
+          results.push( new Photo(photo) );
+        });
+      }
+
+      this.query.setCollection(results);
+      this.loaded = true;
+    }
   });
 
   //
@@ -1336,7 +1390,8 @@
         "Trail": Trail,
         "TrailSegment": TrailSegment,
         "Steward": Steward,
-        "Notification": Notification
+        "Notification": Notification,
+        "Photo": Photo
       }
 
       Models.loaded = function () {
@@ -1369,13 +1424,15 @@
         }
       }
 
-      window.Trail = Trail;
-
       loadModel(Trail, "TrailData", "/trails.json");
       loadModel(TrailHead, "TrailHeadData", "/trailheads.json");
       loadModel(TrailSegment, "TrailSegmentData", "/trailsegments.json");
       loadModel(Steward, "StewardData", "/stewards.json");
       loadModel(Notification, "NotificationData", "/notifications.json");
+      loadModel(Photo, "PhotoData", "/photos.json");
+
+      window.Trail = Trail;
+      window.Photo = Photo;
 
       return Models;
     }

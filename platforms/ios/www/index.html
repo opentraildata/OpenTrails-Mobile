@@ -148,8 +148,8 @@
                 <img class="icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
               </div>
             </div>
-            <div class="photo-box">
-              <img src="img/photo.png"><img>
+            <div class="photo-box" ng-show="selectedPhoto">
+              <img src="{{ selectedPhoto.get('url') }}"><img>
             </div>
             <p>{{ selectedTrail.get('descriptn') }}</p>
           </div>
