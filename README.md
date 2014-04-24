@@ -33,10 +33,6 @@ cordova build ios
 cordova emulate ios
 ```
 
-## Usage
-
-TODO: Fill me in
-
 ## Contribution
 
   * Fork the project.
