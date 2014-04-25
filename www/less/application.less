@@ -43,7 +43,7 @@
 
 @status-height: 20px;
 @header-height: 50px;
-@footer-height: 80px;
+@footer-height: 60px;
 @trail-header-height: 240px;
 
 @device-width: 320px;
@@ -149,32 +149,33 @@ body {
   }
 
   .button-search {
-    margin-top: 5px;
     img {
-      height: 30px; 
-      width: 40px;
+      height: auto; 
+      width: 30px;
     }
   }
 
   .button-map {
-    margin-top: 5px;
+    padding-top: 15px;
     img {
       height: 30px; 
-      width: 43px;
+      width: 30px;
     }
   }
 
   .button-info {
+    padding-top: 15px;
     img {
-      height: 40px; 
-      width: 34px;
+      height: 30px; 
+      width: 30px;
     }
   }
 
   .button-layer {
+    padding-top: 15px;
     img {
-      height: 40px; 
-      width: 50px;
+      height: auto;
+      width: 35px;
     }
   }
 }
@@ -186,7 +187,7 @@ body {
   #map-search {
     position: relative; 
     top: 30px;
-    left: 20px;
+    left: 10px;
     float: left;
     z-index: @z-index-3;
     height: 50px;
@@ -194,15 +195,14 @@ body {
     border-radius: 2px;
 
     img {
-      height: 50px; 
-      width: 50px;
+      height: 40px; 
+      width: 40px;
     }
   }
 
   #map-recenter {
     position: relative; 
     top: 30px;
-    right: 20px;
     float: right;
     z-index: @z-index-3;
     height: 50px;
@@ -210,8 +210,8 @@ body {
     border-radius: 2px;
 
     img {
-      height: 50px; 
-      width: 50px;
+      height: 40px; 
+      width: 40px;
     }
   }
 
@@ -755,7 +755,7 @@ body {
   z-index: @z-index-4;
 
   #content {
-    top: @status-height;
+    top: @status-height; 
     height: @device-height - (@status-height + @footer-height);
     #sources-nav {
       height: 40px;
@@ -779,7 +779,7 @@ body {
         right: 10px;
 
         img {
-          height: 20px;
+          height: 20px; 
         }
       }
 
@@ -886,15 +886,16 @@ body {
       right: 0;
       top: 165px;
       bottom: 30px;
-      overflow: scroll;
-      background-color: #f6f6f6;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      background-color: @white-color;
       .notification-card {
         display: inline-block;
         position: relative;
         height: 100%;
         margin: 10px 20px;
         background-color: @white-color;
-        border 1px solid @light-gray-color;
+        border: 1px solid @light-gray-color;
         .notification-metadata{
           display: inline-block;
           position: relative;
