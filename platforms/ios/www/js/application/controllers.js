@@ -171,7 +171,6 @@
       $scope.selectedTrailHead = null;
       $scope.selectedSteward = null;
       $scope.selectedTrail = null;
-      $scope.selectedPhoto = null;
       $scope.selectedTrails = [];
 
       var trailsLayer;
@@ -260,7 +259,6 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        $scope.selectedPhoto = $scope.selectedTrail.photo.first()
         $scope.selectedTrailHeadSteward = th.stewards.first();
       }
 
@@ -271,14 +269,12 @@
         $scope.selectedTrailHead = null;
         $scope.selectedTrails = [];
         $scope.selectedTrail = null;
-        $scope.selectedPhoto = null;
         $scope.selectedSteward = null;
       }
 
       function selectTrail (t) {
         if (!t || ng.isUndefined(t)) return false;
         $scope.selectedTrail = t;
-        $scope.selectedPhoto = t.photo.first();
       }
 
       $scope.selectTrail = selectTrail;

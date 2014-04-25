@@ -130,37 +130,43 @@
               </h5>
               <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
             </div>
-            <div class="trailhead-title-field">
-              <img class="trailhead-icon" src="img/marker.png"/></img>
-              <p class="trailhead-title">{{ selectedTrailHead.get('name') }} Trailhead</p>
-              <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">
-                  {{ selectedTrailHead.get('address') }}
-              </a>
+            <div class="trail-icons">
+              <div class="icon-box">
+                <img class="icon" src="img/foot-gray.png" ng-show="selectedTrail.canFoot()" ng-cloak>
+                <img class="icon" src="img/foot-light-gray.png" ng-show="!selectedTrail.canFoot()" ng-cloak>
+              </div>
+              <div class="icon-box">
+                <img class="icon" src="img/bike-gray.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
+                <img class="icon" src="img/bike-light-gray.png" ng-show="!selectedTrail.canBicycle()" ng-cloak>
+              </div>
+              <div class="icon-box">
+                <img class="icon" src="img/horse-gray.png" ng-show="selectedTrail.canHorse()" ng-cloak>
+                <img class="icon" src="img/horse-light-gray.png" ng-show="!selectedTrail.canHorse()" ng-cloak>
+              </div>
+              <div class="icon-box">
+                <img class="icon" src="img/ski-gray.png" ng-show="selectedTrail.canSki()" ng-cloak>
+                <img class="icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
+              </div>
             </div>
             <div class="photo-box">
               <img src="img/photo.png"><img>
             </div>
-            <div class="trailhead-data">
-              <p class="trail-subhead">Trail Activities</p>
-              <div class="trail-icons">
-                <div class="icon-box">
-                  <img class="icon" src="img/foot-gray.png" ng-show="selectedTrail.canFoot()" ng-cloak>
-                  <img class="icon" src="img/foot-light-gray.png" ng-show="!selectedTrail.canFoot()" ng-cloak>
-                </div>
-                <div class="icon-box">
-                  <img class="icon" src="img/bike-gray.png" ng-show="selectedTrail.canBicycle()" ng-cloak>
-                  <img class="icon" src="img/bike-light-gray.png" ng-show="!selectedTrail.canBicycle()" ng-cloak>
-                </div>
-                <div class="icon-box">
-                  <img class="icon" src="img/horse-gray.png" ng-show="selectedTrail.canHorse()" ng-cloak>
-                  <img class="icon" src="img/horse-light-gray.png" ng-show="!selectedTrail.canHorse()" ng-cloak>
-                </div>
-                <div class="icon-box">
-                  <img class="icon" src="img/ski-gray.png" ng-show="selectedTrail.canSki()" ng-cloak>
-                  <img class="icon" src="img/ski-light-gray.png" ng-show="!selectedTrail.canSki()" ng-cloak>
-                </div>
+            <p>{{ selectedTrail.get('descriptn') }}</p>
+          </div>
+          <div class="trailhead-data">
+            <div class="trailhead-title-field">
+              <img class="trailhead-icon" src="img/marker.png"/></img>
+              <p class="trailhead-title">{{ selectedTrailHead.get('name') }}</p>
+            </div>
+            <div class="trailhead-attributes">
+              <div class="trailhead-location-attributes">
+                <p class="trailhead-distance">
+                  <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
+                </p>
+                <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">
+                  {{ selectedTrailHead.get('address') }}
+                </a>
               </div>
-              <p class="trail-subhead">Amenities at this Trailhead</p>
               <table class="amenities">
                 <tr>
                   <td ng-show="selectedTrailHead.hasParking()"><p class="amenity">&#9745 Parking</p></td>
@@ -171,8 +177,6 @@
                   <td ng-show="selectedTrailHead.hasKiosk()"><p class="amenity">&#9745 Info Kiosk</p></td>
                 </tr>
               </table>
-              <p class="trail-subhead">Trail Description</p>
-              <p>{{ selectedTrail.get('descriptn') }}</p>
               <div class="trailhead-steward">
                 <p>
                   Managed by {{ selectedTrailHeadSteward.get('name') }}
