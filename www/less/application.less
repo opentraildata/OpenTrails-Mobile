@@ -755,14 +755,13 @@ body {
   z-index: @z-index-4;
 
   #content {
-    top: @status-height; 
+    top: @status-height;
     height: @device-height - (@status-height + @footer-height);
     #sources-nav {
       height: 40px;
       width: 100%;
       text-align: center;
-      margin: 0 20px;
-      color: @white-color;
+      background-color: @green-color;
       font-size: 12px;
       .chevron-left {
         position: absolute;
@@ -780,7 +779,7 @@ body {
         right: 10px;
 
         img {
-          height: 20px; 
+          height: 20px;
         }
       }
 
@@ -811,34 +810,36 @@ body {
       position: relative;
       height: auto;
       margin: 0 20px;
-      padding: 20px 0;
+      padding: 10px 0;
       border-bottom: 1px solid lighten(@gray-color, 50%);
-      border-top: 1px solid lighten(@gray-color, 50%);
       .source-name {
         display: inline-block;
         position: relative;
         .source-logo {
           display: inline-block;
           position: relative;
-          height: auto;
-          width: 25%;
+          height: 50px;
+          max-width: 25%;
+          float: right;
         }
         h3 {
           display: inline-block;
           position: relative;
           vertical-align: top;
-          width: 60%;
-          margin: 0 0 0 10%;
+          width: 80%;
+          margin: 0 0 0 0;
+          float: left;
         }
       }
       .source-call-btn {
         display: inline-block;
         position: relative;
-        width: 25%;
+        width: 50%;
         height: 40px;
         margin-top: 10px;
         background-color: @blue-color;
         border-radius: 2px;
+        float: left;
         .phone-icon {
           position: absolute;
           left: 5%;
@@ -852,6 +853,13 @@ body {
           width: 100%;
           z-index: 1;
         }
+        a {
+          position: absolute;
+          right: 10px;
+          top: 12px;
+          font-size: @small-font;
+          color: @white-color;
+        }
         .call-btn-label {
           position: absolute;
           top: 25%;
@@ -864,9 +872,11 @@ body {
         display: inline-block;
         position:relative;
         vertical-align: top;
-        width: 60%;
-        margin: 10px 0 0 10%;
+        width: 40%;
+        margin: 15px 0 0 10px;
         font-size: 12px;
+        float: right;
+        text-align: center;
       }
     }
     #notification-list {
@@ -874,16 +884,17 @@ body {
       position: absolute;
       left: 0;
       right: 0;
-      top: 240px;
-      bottom: 0;
+      top: 165px;
+      bottom: 30px;
       overflow: scroll;
-      background-color: white;
+      background-color: #f6f6f6;
       .notification-card {
         display: inline-block;
         position: relative;
         height: 100%;
-        margin: 10px;
+        margin: 10px 20px;
         background-color: @white-color;
+        border 1px solid @light-gray-color;
         .notification-metadata{
           display: inline-block;
           position: relative;

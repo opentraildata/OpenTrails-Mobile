@@ -646,8 +646,7 @@ body {
   height: 40px;
   width: 100%;
   text-align: center;
-  margin: 0 20px;
-  color: #f6f6f6;
+  background-color: #465c44;
   font-size: 12px;
 }
 #notifications-view #content #sources-nav .chevron-left {
@@ -691,9 +690,8 @@ body {
   position: relative;
   height: auto;
   margin: 0 20px;
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #a3a3a3;
-  border-top: 1px solid #a3a3a3;
 }
 #notifications-view #content #notification-source .source-name {
   display: inline-block;
@@ -702,24 +700,27 @@ body {
 #notifications-view #content #notification-source .source-name .source-logo {
   display: inline-block;
   position: relative;
-  height: auto;
-  width: 25%;
+  height: 50px;
+  max-width: 25%;
+  float: right;
 }
 #notifications-view #content #notification-source .source-name h3 {
   display: inline-block;
   position: relative;
   vertical-align: top;
-  width: 60%;
-  margin: 0 0 0 10%;
+  width: 80%;
+  margin: 0 0 0 0;
+  float: left;
 }
 #notifications-view #content #notification-source .source-call-btn {
   display: inline-block;
   position: relative;
-  width: 25%;
+  width: 50%;
   height: 40px;
   margin-top: 10px;
   background-color: #4a90e2;
   border-radius: 2px;
+  float: left;
 }
 #notifications-view #content #notification-source .source-call-btn .phone-icon {
   position: absolute;
@@ -734,6 +735,13 @@ body {
   width: 100%;
   z-index: 1;
 }
+#notifications-view #content #notification-source .source-call-btn a {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-size: 12px;
+  color: #f6f6f6;
+}
 #notifications-view #content #notification-source .source-call-btn .call-btn-label {
   position: absolute;
   top: 25%;
@@ -745,17 +753,19 @@ body {
   display: inline-block;
   position: relative;
   vertical-align: top;
-  width: 60%;
-  margin: 10px 0 0 10%;
+  width: 40%;
+  margin: 15px 0 0 10px;
   font-size: 12px;
+  float: right;
+  text-align: center;
 }
 #notifications-view #content #notification-list {
   display: inline-block;
   position: absolute;
   left: 0;
   right: 0;
-  top: 240px;
-  bottom: 0;
+  top: 165px;
+  bottom: 30px;
   overflow: scroll;
   background-color: white;
 }
@@ -763,7 +773,7 @@ body {
   display: inline-block;
   position: relative;
   height: 100%;
-  margin: 10px;
+  margin: 10px 20px;
   background-color: #f6f6f6;
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata {

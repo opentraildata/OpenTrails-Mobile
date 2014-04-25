@@ -150,9 +150,11 @@
 
       $scope.clearSearch = clearSearch;
 
+      var searchFilterState = false
 
-      function setSearchFilter (key, value) {
-        $scope.searchFilters[key] = value;
+      function setSearchFilter (key) {
+        searchFilterState = !searchFilterState;
+        $scope.searchFilters[key] = searchFilterState;
         search($scope.searchKeywords, $scope.searchFilters);
       }
 
