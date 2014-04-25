@@ -40,7 +40,11 @@ If you'd prefer to view it in a web browser use:
 
 **If you'd prefer not to have to type out the node modules path each time, you'll need to add the node modules directory `./node_modules/.bin` to your PATH environment variable.**
 
-## Contribution
+## Development
+
+If you work on the project and update the less file in `www/less/application.less` run `grunt less` to compile the CSS changes, or `grunt watch` to continuously compile the CSS changes while you work.
+
+##Contribution
 
   * Fork the project.
   * Make your feature addition or bug fix and commit the changes.

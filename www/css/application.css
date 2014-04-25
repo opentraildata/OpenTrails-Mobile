@@ -1,0 +1,822 @@
+/** Mixins **/
+/** Variables **/
+/** Styles **/
+html {
+  height: 100%;
+}
+body {
+  background-color: #f6f6f6;
+  font-family: Helvetica Neue,Helvetica,Verdana;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+/** Layout **/
+#main {
+  width: 100%;
+  height: 100%;
+}
+#status {
+  top: 0;
+  position: fixed;
+  height: 20px;
+  width: 100%;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #f6f6f6;
+  z-index: 3000;
+}
+#header {
+  position: fixed;
+  top: 21px;
+  height: 50px;
+  width: 100%;
+  background-color: #242424;
+  color: #f6f6f6;
+  weight: 300;
+  overflow-y: hidden;
+  z-index: 3000;
+}
+#content {
+  position: fixed;
+  top: 70px;
+  z-index: 3000;
+  width: 100%;
+  height: 418px;
+  background-color: #f6f6f6;
+}
+#footer {
+  position: fixed;
+  bottom: 0;
+  height: 80px;
+  width: 100%;
+  background-color: #242424;
+  z-index: 6000;
+  text-align: justify;
+  -ms-text-justify: distribute-all-lines;
+  text-justify: distribute-all-lines;
+}
+#footer a {
+  text-decoration: none;
+  color: #242424;
+}
+#footer .button {
+  padding: 20px 10px 0px 20px;
+  vertical-align: top;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  width: 50px;
+  height: 50px;
+}
+#footer .stretch {
+  width: 100%;
+  display: inline-block;
+  line-height: 0;
+  font-size: 0;
+}
+#footer .button-search {
+  margin-top: 5px;
+}
+#footer .button-search img {
+  height: 30px;
+  width: 40px;
+}
+#footer .button-map {
+  margin-top: 5px;
+}
+#footer .button-map img {
+  height: 30px;
+  width: 43px;
+}
+#footer .button-info img {
+  height: 40px;
+  width: 34px;
+}
+#footer .button-layer img {
+  height: 40px;
+  width: 50px;
+}
+/** Views **/
+#map-view #map-search {
+  position: relative;
+  top: 30px;
+  left: 20px;
+  float: left;
+  z-index: 3000;
+  height: 50px;
+  width: 50px;
+  border-radius: 2px;
+}
+#map-view #map-search img {
+  height: 50px;
+  width: 50px;
+}
+#map-view #map-recenter {
+  position: relative;
+  top: 30px;
+  right: 20px;
+  float: right;
+  z-index: 3000;
+  height: 50px;
+  width: 50px;
+  border-radius: 2px;
+}
+#map-view #map-recenter img {
+  height: 50px;
+  width: 50px;
+}
+#map-view #map-layers {
+  position: fixed;
+  bottom: 80px;
+  width: 100%;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+  background-color: #f6f6f6;
+  border-top: 1px solid #a3a3a3;
+}
+#map-view #map-layers .map-layer {
+  width: 100%;
+  list-style-type: none;
+  border-bottom: 1px solid #a3a3a3;
+  padding: 15px;
+  display: inline-block;
+}
+#map-view #map-layers .map-layer-name {
+  float: left;
+}
+#map-view #map-layers .map-layer-visible {
+  float: right;
+  margin-right: 30px;
+}
+#map-view #map-layers .map-layer-visible img {
+  width: 20px;
+}
+#map-view #map-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+/* SEARCH VIEW */
+#search-view #header {
+  height: 130px;
+  background-color: #f6f6f6;
+  color: #242424;
+}
+#search-view #header .search-form {
+  width: 100%;
+  height: auto;
+  padding: 0px 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#search-view #header .search-form .search-input-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding: 10px 0;
+}
+#search-view #header .search-form .search-input-container .search-input-icon {
+  background: transparent url(../img/magnifying-glass.png) no-repeat right top;
+  background-size: 15px;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  z-index: 3000;
+  display: block;
+  top: 50%;
+  left: 5px;
+  margin-top: -8px;
+  position: absolute;
+}
+#search-view #header .search-form .search-input-container .search-input {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  width: 100%;
+  color: #242424;
+  padding: 0px 25px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#search-view #header .search-form .search-input-container .search-clear-btn {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  margin-top: -8px;
+  opacity: 0.5;
+}
+#search-view #header .filter-info {
+  margin: 0px 0 10px 20px;
+  width: 100%;
+  height: 1em;
+  font-size: 12px;
+  font-weight: 200;
+}
+#search-view #header .trail-icons {
+  width: 100%;
+  text-align: justify;
+}
+#search-view #header .trail-icons .icon-box {
+  display: inline-block;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 0 0 20px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  border: 1px solid #a3a3a3;
+}
+#search-view #header .trail-icons .icon-box .icon {
+  text-align: center;
+  height: 60%;
+  margin-top: 20%;
+}
+#search-view #header .trail-icons .first-filter {
+  margin: 0 0 0 20px;
+}
+#search-view #header .trail-icons .trail-icons:after {
+  content: "";
+  width: 100%;
+  display: inline-block;
+}
+#search-view #content {
+  top: 150px;
+}
+#search-view #content .search-info {
+  width: 100%;
+  height: 20px;
+  padding: 10px 0 5px 0;
+  color: #000000;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: 1px solid #242424;
+}
+#search-view #content .search-results {
+  width: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 340px;
+  margin-bottom: 30px;
+}
+#search-view #content .search-result .search-result-header-outer {
+  background-color: #465c44;
+  color: #f6f6f6;
+  height: 26px;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0 20px;
+}
+#search-view #content .search-result .search-result-header-outer .search-result-header-inner {
+  padding: .5em 0;
+  display: inline-block;
+  width: 100%;
+}
+#search-view #content .search-result .search-result-header-outer p {
+  margin: 0;
+}
+#search-view #content .search-result .search-result-header-outer .name {
+  float: left;
+  max-width: 60%;
+}
+#search-view #content .search-result .search-result-header-outer .distance {
+  float: right;
+}
+#search-view #content .search-result .search-subresults {
+  background-color: #f6f6f6;
+}
+#search-view #content .search-result .search-subresults h3 {
+  border-bottom: 1px solid #242424;
+  margin: 0;
+  padding: 15px;
+  font-weight: 600;
+}
+#search-view #content .search-result .search-subresults a {
+  text-decoration: none;
+  color: #242424;
+  font-size: 16px;
+  font-weight: 500;
+}
+/* Trail View - AJW*/
+#trail-view {
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -webkit-transform 0.5s;
+  -ms-transition: -webkit-transform 0.5s;
+  -o-transition: -webkit-transform 0.5s;
+  -webkit-transform: translate3d(0, 20px, 0);
+  /* Footer Height, Flush */
+  transform: translate3d(0px, 20px, 0);
+  position: fixed;
+  width: 100%;
+  background-color: #f6f6f6;
+  z-index: 4000;
+  top: 0;
+  bottom: 80px;
+  right: 0;
+  left: 0;
+}
+#trail-view.fullscreen {
+  -webkit-transform: translate3d(0, 20px, 0) !important;
+}
+#trail-view .trail-nav {
+  display: inline-block;
+  position: relative;
+  height: 2.5em;
+  width: 100%;
+  background-color: #465c44;
+  border-bottom: 5px solid #f6f6f6;
+}
+#trail-view .trail-nav .trail-trailhead {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  vertical-align: middle;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail {
+  display: inline-block;
+  position: relative;
+  height: 40px;
+  width: 30px;
+  padding-left: 20px;
+  float: left;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail img {
+  width: 20px;
+  margin: 10px 10px 10px 0px;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail p {
+  display: inline-block;
+  position: relative;
+  float: left;
+  margin: 1em 1em 0 0;
+  font-size: 12px;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .trailhead-index {
+  display: inline-block;
+  position: relative;
+  float: left;
+  font-size: 12px;
+  font-weight: 200;
+  text-align: center;
+  color: #f6f6f6;
+  margin: 1em 0 0 0;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail {
+  display: inline-block;
+  position: relative;
+  height: 40px;
+  width: 30px;
+  padding-right: 10px;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail img {
+  width: 20px;
+  margin: 10px 0px 10px 10px;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail p {
+  display: inline-block;
+  position: relative;
+  float: right;
+  margin: 1em 0em 1em 1em;
+  font-size: 12px;
+}
+#trail-view .trail-nav .more-btn-tab {
+  display: block;
+  position: absolute;
+  left: 40%;
+  bottom: 0;
+  height: 70%;
+  width: 20%;
+  background-color: #f6f6f6;
+  border-radius: 2px 2px 0 0;
+}
+#trail-view .trail-nav .more-btn-tab .more-btn {
+  display: block;
+  height: auto;
+  padding: 5% 0 10% 0;
+  width: auto;
+  text-align: center;
+}
+#trail-view .trail-nav .more-btn-tab .more-btn img {
+  height: 20px;
+  text-align: center;
+}
+#trail-view .trail-nav .more-btn-label {
+  display: inline-block;
+  position: relative;
+  font-size: 12px;
+  font-weight: 200;
+  margin: 1.25em 0 0 10px;
+  color: #f6f6f6;
+}
+#trail-view .trail-nav .close-btn-label {
+  display: inline-block;
+  position: relative;
+  float: right;
+  font-size: 12px;
+  font-weight: 200;
+  margin: 1.25em 10px 0 0;
+  color: #f6f6f6;
+}
+#trail-view .trail-nav .close-btn {
+  display: inline-block;
+  height: 20px;
+  width: auto;
+  float: right;
+  padding: 10px 15px;
+}
+#trail-view .trail-nav .close-btn img {
+  height: 20px;
+}
+#trail-view .trail-and-trailhead-data {
+  position: absolute;
+  top: 45px;
+  /* green nav bar, plus hardware padding, plus border */
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: inline-block;
+  background-color: #f6f6f6;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+#trail-view .trail-and-trailhead-data .trail-data {
+  display: inline-block;
+  position: relative;
+  height: auto;
+  width: 100%;
+  background-color: #f6f6f6;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-attributes {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: auto;
+  margin: 0;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-attributes .trail-title {
+  position: relative;
+  display: inline-block;
+  min-width: 75%;
+  line-height: 1.2em;
+  font-size: 22px;
+  margin: 10px 20px 0 20px;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-attributes .trail-attribute-distance {
+  width: auto;
+  vertical-align: top;
+  padding-top: 10px;
+  font-size: 16px;
+  display: inline-block;
+  position: relative;
+  margin-top: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-attributes .trail-attribute-length {
+  width: auto;
+  vertical-align: top;
+  padding-top: 10px;
+  font-size: 16px;
+  display: inline-block;
+  position: relative;
+  float: right;
+  text-align: right;
+  margin-top: 0;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-icons {
+  width: auto;
+  display: inline-block;
+  position: relative;
+  text-align: justify;
+  margin-right: 20px;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-icons .icon-box {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-top: 0;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+#trail-view .trail-and-trailhead-data .trail-data .trail-icons .icon-box .icon {
+  height: 100%;
+  width: 100%;
+}
+#trail-view .trail-and-trailhead-data .trail-data .photo-box {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+#trail-view .trail-and-trailhead-data .trail-data .photo-box img {
+  height: auto;
+  max-width: 100%;
+}
+#trail-view .trail-and-trailhead-data .trail-data p {
+  display: inline-block;
+  position: relative;
+  line-height: 1.4em;
+  font-weight: 200;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data {
+  -webkit-transform: translate3d(0, 0, 0);
+  display: inline-block;
+  position: relative;
+  height: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  background-color: #f6f6f6;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-title-field {
+  display: inline-block;
+  position: relative;
+  height: auto;
+  width: 100%;
+  padding-top: 10px;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-title-field .trailhead-icon {
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 20px;
+  height: auto;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-title-field .trailhead-title {
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: auto;
+  margin: 0 0 0 10px;
+  font-weight: 400;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes {
+  -webkit-transform: translate3d(0, 0, 0);
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  width: 100%;
+  /* This could be refactored, but for now mirroring DOM structure*/
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .trailhead-location-attributes {
+  width: 100%;
+  height: auto;
+  min-height: 20px;
+  padding-top: 10px;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .trailhead-location-attributes .trailhead-distance {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  font-weight: 200;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .trailhead-location-attributes .trailhead-address {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  width: 100%;
+  font-weight: 200;
+  padding-top: 10px;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .amenities {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .amenities .amenity {
+  text-align: left;
+  margin: 5px 20px 5px 0px;
+  width: auto;
+  position: relative;
+  font-weight: 200;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .amenities .amenity .no {
+  color: #a3a3a3;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .trailhead-steward {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-attributes .trailhead-steward p {
+  margin: 0;
+}
+.minimized {
+  top: 270px;
+}
+.minimized .nav-and-title {
+  position: relative !important;
+  bottom: none;
+}
+#notifications-view {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 4000;
+}
+#notifications-view #content {
+  top: 20px;
+  height: 468px;
+}
+#notifications-view #content #sources-nav {
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  margin: 0 20px;
+  color: #f6f6f6;
+  font-size: 12px;
+}
+#notifications-view #content #sources-nav .chevron-left {
+  position: absolute;
+  height: 20px;
+  margin-top: 10px;
+  width: auto;
+  left: 20px;
+}
+#notifications-view #content #sources-nav .next-steward {
+  position: absolute;
+  height: 20px;
+  width: auto;
+  padding: 10px;
+  right: 10px;
+}
+#notifications-view #content #sources-nav .next-steward img {
+  height: 20px;
+}
+#notifications-view #content #sources-nav .previous-steward {
+  position: absolute;
+  height: 20px;
+  width: auto;
+  padding: 10px;
+  left: 10px;
+}
+#notifications-view #content #sources-nav .previous-steward img {
+  height: 20px;
+}
+#notifications-view #content #sources-nav .nav-text {
+  position: absolute;
+  text-align: center;
+  margin: 15px 0;
+}
+#notifications-view #content #sources-nav .nav-text p {
+  color: #242424;
+  margin: 0;
+}
+#notifications-view #content #notification-source {
+  display: inline-block;
+  position: relative;
+  height: auto;
+  margin: 0 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #a3a3a3;
+  border-top: 1px solid #a3a3a3;
+}
+#notifications-view #content #notification-source .source-name {
+  display: inline-block;
+  position: relative;
+}
+#notifications-view #content #notification-source .source-name .source-logo {
+  display: inline-block;
+  position: relative;
+  height: auto;
+  width: 25%;
+}
+#notifications-view #content #notification-source .source-name h3 {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  width: 60%;
+  margin: 0 0 0 10%;
+}
+#notifications-view #content #notification-source .source-call-btn {
+  display: inline-block;
+  position: relative;
+  width: 25%;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #4a90e2;
+  border-radius: 2px;
+}
+#notifications-view #content #notification-source .source-call-btn .phone-icon {
+  position: absolute;
+  left: 5%;
+  top: 15%;
+  height: 30px;
+  width: auto;
+}
+#notifications-view #content #notification-source .source-call-btn .call-btn-link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+#notifications-view #content #notification-source .source-call-btn .call-btn-label {
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  margin: 0;
+  color: #f6f6f6;
+}
+#notifications-view #content #notification-source .source-address {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  width: 60%;
+  margin: 10px 0 0 10%;
+  font-size: 12px;
+}
+#notifications-view #content #notification-list {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 240px;
+  bottom: 0;
+  overflow: scroll;
+  background-color: white;
+}
+#notifications-view #content #notification-list .notification-card {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  margin: 10px;
+  background-color: #f6f6f6;
+}
+#notifications-view #content #notification-list .notification-card .notification-metadata {
+  display: inline-block;
+  position: relative;
+  height: auto;
+  margin: 10px;
+  border-bottom: 1px solid #a3a3a3;
+}
+#notifications-view #content #notification-list .notification-card .notification-metadata .notification-headline {
+  display: inline-block;
+  position: relative;
+  width: 85%;
+  margin: 0;
+}
+#notifications-view #content #notification-list .notification-card .notification-metadata .notification-close-btn {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  float: right;
+  height: auto;
+  width: 20px;
+}
+#notifications-view #content #notification-list .notification-card .notification-metadata .notification-timestamp {
+  font-size: 12px;
+}
+#notifications-view #content #notification-list .notification-card .notification-body {
+  height: auto;
+  margin: 10px;
+  font-size: 12px;
+  line-height: 1.2em;
+}
+#notifications-empty {
+  color: #242424;
+  text-align: center;
+}
+#notification-sources .source {
+  border-bottom: 1px solid #242424;
+  display: inline-block;
+  width: 100%;
+}
+#notification-sources .source .col-left {
+  width: 40px;
+  display: inline-block;
+}
+#notification-sources .source .col-right {
+  display: inline-block;
+}
+#notification-sources .source .col-right h3 {
+  font-size: 13px;
+}
+/** Device Specific Styles **/
