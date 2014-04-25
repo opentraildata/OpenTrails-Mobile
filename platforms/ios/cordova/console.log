@@ -1,0 +1,26 @@
+2014-04-24 19:45:08.639 Trails[13250:70b] Multi-tasking -> Device: YES, App: YES
+2014-04-24 19:45:08.670 Trails[13250:70b] Unlimited access to network resources
+2014-04-24 19:45:08.910 Trails[13250:70b] Resetting plugins due to page load.
+2014-04-24 19:45:09.173 Trails[13250:70b] Finished load of: file:///Users/alanjosephwilliams/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/B36798AC-4293-429B-8B1D-FC635629ABAE/Trails.app/www/index.html
+2014-04-24 19:45:09.415 Trails[13250:70b] CDVPlugin class CDVLocation (pluginName: Geolocation) does not exist.
+2014-04-24 19:45:09.415 Trails[13250:70b] ERROR: Plugin 'Geolocation' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-04-24 19:45:09.415 Trails[13250:70b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "Geolocation1658949310",
+  "Geolocation",
+  "getLocation",
+  [
+    false,
+    0
+  ]
+]
+2014-04-24 19:45:09.415 Trails[13250:70b] CDVPlugin class CDVLocation (pluginName: Geolocation) does not exist.
+2014-04-24 19:45:09.416 Trails[13250:70b] ERROR: Plugin 'Geolocation' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-04-24 19:45:09.416 Trails[13250:70b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "Geolocation1658949311",
+  "Geolocation",
+  "addWatch",
+  [
+    "461caeac-b182-49e8-7303-2aa277a51108",
+    false
+  ]
+]

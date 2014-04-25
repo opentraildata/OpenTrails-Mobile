@@ -470,6 +470,7 @@ body {
             float: left;
             margin: 1em 1em 0 0;
             font-size: @small-font;
+            font-weight: 400;
           }
         }
         .trailhead-index {
@@ -477,7 +478,7 @@ body {
           position: relative;
           float: left;
           font-size: 12px;
-          font-weight: 200;
+          font-weight: 400;
           text-align: center;
           color: @white-color;
           margin: 1em 0 0 0;
@@ -498,6 +499,7 @@ body {
             float: right;
             margin: 1em 0em 1em 1em;
             font-size: @small-font;
+            font-weight: 400;
           }
         }
       }
@@ -591,7 +593,7 @@ body {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
-          font-size: @medium-font;
+          font-size: @small-font;
           display: inline-block;
           position: relative;
           margin-top: 0;
@@ -604,7 +606,7 @@ body {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
-          font-size: @medium-font;
+          font-size: @small-font;
           display: inline-block;
           position: relative;
           float: right;
@@ -615,23 +617,38 @@ body {
           font-weight: 400;
         }
       }
-      .trail-icons {
-        width: auto;
-        display: inline-block;
-        position: relative;;
-        text-align: justify;
-        margin-right: 20px;
-        .icon-box {
+      .trailhead-title-field {
+        display: block;
+        position: relative;
+        height: 1em;
+        margin: 0 20px;
+        .trailhead-icon {
           display: inline-block;
-          width: 30px;
-          height: 30px;
-          margin-top: 0;
-          margin-left: 20px;
-          margin-bottom: 10px;
-          .icon {
-            height: 100%;
-            width: 100%;
-          }
+          position: relative;
+          float: left;
+          width: auto;
+          height: 12px;
+          margin: .5em 0;
+          padding-top: .1em;
+        }
+        .trailhead-title {
+          position: relative;
+          display: inline-block;
+          font-size: @small-font;
+          float: left;
+          width: auto;
+          max-width: 40%;
+          margin: .5em 10px;
+          font-weight: 400;
+        }
+        .trailhead-address {
+          display: inline-block;
+          position: relative;
+          float: right;
+          width: auto;
+          max-width: 40%;
+          margin: .5em 0;
+          font-size: @small-font;
         }
       }
       .photo-box {
@@ -643,13 +660,57 @@ body {
           max-width: 100%;
         }
       }
+      .trail-subhead {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        font-size: 12px;
+        font-weight: 400;
+        color: @light-gray-color;
+        margin: 0;
+      }
+      .trail-icons {
+        width: auto;
+        display: inline-block;
+        position: relative;;
+        text-align: justify;
+        margin: 10px 0;
+        .icon-box {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          margin-top: 0;
+          margin-right: 20px;
+          margin-bottom: 10px;
+          .icon {
+            height: 100%;
+            width: 100%;
+          }
+        }
+      }
+      .amenities {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        margin: 10px 0;
+        text-align: center;
+        td {
+          text-align: left;
+        }
+        .amenity {
+          text-align: left;
+          margin: 5px 20px 5px 0px;
+          width: auto;
+          position: relative;
+          font-size: @small-font;
+          font-weight: 600;
+        }
+      }
       p {
         display: inline-block;
         position: relative;
         line-height: 1.4em;
-        font-weight: 200;
-        margin-right: 20px;
-        margin-left: 20px;
+        font-weight: 400;
       }
     }
     .trailhead-data {
@@ -661,86 +722,16 @@ body {
       padding-right: 20px;
       padding-top: 10px;
       background-color: @white-color;
-      .trailhead-title-field {
-        display: inline-block;
-        position: relative;
-        height: auto;
-        width: 100%;
-        padding-top: 10px;
-        .trailhead-icon {
-          display: inline-block;
-          position: relative;
-          float: left;
-          width: 20px;
-          height: auto;
-        }
-        .trailhead-title {
-          position: relative;
-          display: inline-block;
-          float: left;
-          width: auto;
-          margin: 0 0 0 10px;
-          font-weight: 400;
-        }
-      }
-
-      .trailhead-attributes {
-        -webkit-transform: translate3d(0, 0, 0);
+      .trailhead-steward {
         position: relative;
         display: inline-block;
-        margin: 0;
         width: 100%;
-        .trailhead-location-attributes {
-          width: 100%;
-          height: auto;
-          min-height: 20px;
-          padding-top: 10px;
-          .trailhead-distance {
-            display: inline-block;
-            position: relative;
-            width: 100%;
-            margin: 0;
-            font-weight: 200;
-          }
-          .trailhead-address {
-            position: relative;
-            display: inline-block;
-            margin: 0;
-            width: 100%;
-            font-weight: 200;
-            padding-top: 10px;
-          }
-        }
-        .amenities {
-          display: inline-block;
-          position: relative;
-          width: 100%;
-          margin-top: 10px;
-          text-align: center;
-          .amenity {
-            text-align: left;
-            margin: 5px 20px 5px 0px;
-            width: auto;
-            position: relative;
-            font-weight: 200;
-            .yes {
-            }
-            .no {
-              color: @light-gray-color;
-            }
-          }
-        }
-        /* This could be refactored, but for now mirroring DOM structure*/
-        .trailhead-keyline-2 {}
-        .trailhead-steward {
-          position: relative;
-          display: inline-block;
-          width: 100%;
-          margin-top: 10px;
-          margin-bottom: 40px;
-          p {
-            margin: 0;
-          }
+        margin-top: 10px;
+        margin-bottom: 40px;
+        p {
+          margin: 0;
+          font-size: @small-font;
+          font-weight: 600;
         }
       }
     }
