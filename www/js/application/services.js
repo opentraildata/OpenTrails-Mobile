@@ -388,6 +388,16 @@
         }
       });
 
+      this.photo = new Association({
+        primary: this,
+        foreign: Photo,
+        scope: {
+          key: 'trailId',
+          evaluator: 'equals',
+          value: this.get('id')
+        }
+      });
+
     },
 
     getLength: function () {
@@ -566,12 +576,9 @@
     load: function (data) {
       var results = [];
 
-      if (data.geojson && data.geojson.features) {
-        ng.forEach(data.geojson.features, function (feature) {
-          var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
-          if (attrs.type === 'TrailHead') {
-            results.push( new TrailHead(attrs) );
-          }
+      if (data.trailheads) {
+        ng.forEach(data.trailheads, function (feature) {
+          results.push( new TrailHead( ng.extend({}, feature.properties, { geometry: feature.geometry }) ) );
         });
       }
 
@@ -679,12 +686,9 @@
     load: function (data) {
       var results = [];
 
-      if (data.geojson && data.geojson.features) {
-        ng.forEach(data.geojson.features, function (feature) {
-          var attrs = ng.extend({}, feature.properties, { geometry: feature.geometry });
-          if (attrs.type === 'TrailSegment') {
-            results.push( new TrailSegment(attrs) );
-          }
+      if (data.trailsegments) {
+        ng.forEach(data.trailsegments, function (feature) {
+          results.push( new TrailSegment(ng.extend({}, feature.properties, { geometry: feature.geometry })) );
         });
       }
 
@@ -692,6 +696,50 @@
       this.loaded = true;
     }
 
+  });
+
+  //
+  // PHOTO MODEL
+  //
+
+  var Photo = Model.inherit({
+
+    defaults: {
+      "id": null,
+      "trailId": null,
+      "url": null
+    },
+
+    initialize: function () {
+
+      this.trail = new Association({
+        primary: this,
+        foreign: Trail,
+        scope: {
+          key: 'id',
+          evaluator: 'equals',
+          value: this.get('trailId')
+        }
+      });
+
+    }
+
+  },
+  {
+    query: new Query(),
+
+    load: function (data) {
+      var results = [];
+
+      if (data.photos) {
+        ng.forEach(data.photos, function (photo) {
+          results.push( new Photo(photo) );
+        });
+      }
+
+      this.query.setCollection(results);
+      this.loaded = true;
+    }
   });
 
   //
@@ -1331,6 +1379,8 @@
 
     function ($http) {
 
+      var HOST = "http://morning-peak-3686.herokuapp.com";
+
       var LOADABLE = [
         "TrailHead", "Trail", "TrailSegment", "Steward","Notification"
       ];
@@ -1340,29 +1390,49 @@
         "Trail": Trail,
         "TrailSegment": TrailSegment,
         "Steward": Steward,
-        "Notification": Notification
+        "Notification": Notification,
+        "Photo": Photo
       }
 
       Models.loaded = function () {
         var loaded = true;
-        ng.forEach(LOADABLE, function (model) { if (!Models[model].loaded) loaded = false });
+
+        for (var i = 0; i < LOADABLE.length; i++) {
+          var model = LOADABLE[i];
+          if (!Models[model].loaded) {
+            loaded = false; 
+            break;
+          }
+        }
+
         return loaded;
       }
 
-      $http.get('data/output.json').then(
-        function (res) {
-          TrailHead.load(res.data);
-          Trail.load(res.data);
-          TrailSegment.load(res.data);
-          Steward.load(res.data);
-        }
-      );
+      function loadModel (model, key, path) {
+        var data;
 
-      $http.get('data/notifications.json').then(
-        function (res) {
-          Notification.load(res.data);
+        if (data = window.localStorage.getItem(key)) {
+          model.load( JSON.parse(data) );
+        } else {
+          $http.get(HOST + path).then(
+            function (res) {
+              data = res.data;
+              window.localStorage.setItem(key, JSON.stringify(data) );
+              model.load(data);
+            }
+          );
         }
-      )
+      }
+
+      loadModel(Trail, "TrailData", "/trails.json");
+      loadModel(TrailHead, "TrailHeadData", "/trailheads.json");
+      loadModel(TrailSegment, "TrailSegmentData", "/trailsegments.json");
+      loadModel(Steward, "StewardData", "/stewards.json");
+      loadModel(Notification, "NotificationData", "/notifications.json");
+      loadModel(Photo, "PhotoData", "/photos.json");
+
+      window.Trail = Trail;
+      window.Photo = Photo;
 
       return Models;
     }

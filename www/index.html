@@ -137,8 +137,8 @@
                   {{ selectedTrailHead.get('address') }}
               </a>
             </div>
-            <div class="photo-box">
-              <img src="img/photo.png"><img>
+            <div class="photo-box" ng-show="selectedPhoto">
+              <img src="{{ selectedPhoto.get('url') }}"><img>
             </div>
             <div class="trailhead-data">
               <p class="trail-subhead">Trail Activities</p>
