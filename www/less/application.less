@@ -157,16 +157,17 @@ body {
   }
 
   .button-map {
+    margin-top: 5px;
     img {
-      height: 40px; 
-      width: 40px;
+      height: 30px; 
+      width: 43px;
     }
   }
 
   .button-info {
     img {
       height: 40px; 
-      width: 40px;
+      width: 34px;
     }
   }
 
@@ -256,46 +257,55 @@ body {
 
 
 /* SEARCH VIEW */
-
 #search-view {
   #header {
     height: 130px;
     background-color: @white-color;
     color: @gray-color;
+
     .search-form {
       width: 100%;
       height: auto;
+      padding: 0px 20px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+
       .search-input-container {
         height: 100%;
         width: 100%;
-        display: inline-block;
-        padding: 10px 0;
-        a {
-          font-size: @medium-font;
-          color: @gray-color;
-          text-decoration: none;
-          margin-left: 1em;
-          font-weight: 400;
-        }
-      }
-      .search-input-icon {
-        background: transparent url(../img/magnifying-glass.png) no-repeat right top;
-        background-size: 15px;
-        width: 15px;
-        height: 15px;
-        float: left;
         position: relative;
-        z-index: @z-index-3; 
-        display: block;
-        top: 8px;
-        left: 23px;
-      }
-      .search-input {
-        .border-radius(3px);
-        float: left; 
-        width: 175px;
-        padding-left: 25px;
-        color: @gray-color;
+        padding: 10px 0;
+
+        .search-input-icon {
+          background: transparent url(../img/magnifying-glass.png) no-repeat right top;
+          background-size: 15px;
+          width: 16px;
+          height: 16px;
+          position: relative;
+          z-index: @z-index-3;
+          display: block;
+          top: 50%;
+          left: 5px;
+          margin-top: -8px;
+          position: absolute;
+        }
+        .search-input {
+          .border-radius(3px);
+          width: 100%;
+          color: @gray-color;
+          padding: 0px 25px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+        .search-clear-btn {
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          right: 5px;
+          top: 50%;
+          margin-top: -8px;
+          opacity: 0.5;
+        }
       }
     }
     .filter-info {
@@ -313,7 +323,7 @@ body {
         text-align: center;
         width: 50px;
         height: 50px;
-        margin: 0 20px 0 0;
+        margin: 0 0 0 20px;
         background-color: #ffffff;
         border-radius: 2px;
         border: 1px solid @light-gray-color;
@@ -460,7 +470,6 @@ body {
             float: left;
             margin: 1em 1em 0 0;
             font-size: @small-font;
-            font-weight: 400;
           }
         }
         .trailhead-index {
@@ -468,7 +477,7 @@ body {
           position: relative;
           float: left;
           font-size: 12px;
-          font-weight: 400;
+          font-weight: 200;
           text-align: center;
           color: @white-color;
           margin: 1em 0 0 0;
@@ -489,7 +498,6 @@ body {
             float: right;
             margin: 1em 0em 1em 1em;
             font-size: @small-font;
-            font-weight: 400;
           }
         }
       }
@@ -583,7 +591,7 @@ body {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
-          font-size: @small-font;
+          font-size: @medium-font;
           display: inline-block;
           position: relative;
           margin-top: 0;
@@ -596,7 +604,7 @@ body {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
-          font-size: @small-font;
+          font-size: @medium-font;
           display: inline-block;
           position: relative;
           float: right;
@@ -607,38 +615,23 @@ body {
           font-weight: 400;
         }
       }
-      .trailhead-title-field {
-        display: block;
-        position: relative;
-        height: 1em;
-        margin: 0 20px;
-        .trailhead-icon {
+      .trail-icons {
+        width: auto;
+        display: inline-block;
+        position: relative;;
+        text-align: justify;
+        margin-right: 20px;
+        .icon-box {
           display: inline-block;
-          position: relative;
-          float: left;
-          width: auto;
-          height: 12px;
-          margin: .5em 0;
-          padding-top: .1em;
-        }
-        .trailhead-title {
-          position: relative;
-          display: inline-block;
-          font-size: @small-font;
-          float: left;
-          width: auto;
-          max-width: 40%;
-          margin: .5em 10px;
-          font-weight: 400;
-        }
-        .trailhead-address {
-          display: inline-block;
-          position: relative;
-          float: right;
-          width: auto;
-          max-width: 40%;
-          margin: .5em 0;
-          font-size: @small-font;
+          width: 30px;
+          height: 30px;
+          margin-top: 0;
+          margin-left: 20px;
+          margin-bottom: 10px;
+          .icon {
+            height: 100%;
+            width: 100%;
+          }
         }
       }
       .photo-box {
@@ -650,57 +643,13 @@ body {
           max-width: 100%;
         }
       }
-      .trail-subhead {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-        font-size: 12px;
-        font-weight: 400;
-        color: @light-gray-color;
-        margin: 0;
-      }
-      .trail-icons {
-        width: auto;
-        display: inline-block;
-        position: relative;;
-        text-align: justify;
-        margin: 10px 0;
-        .icon-box {
-          display: inline-block;
-          width: 30px;
-          height: 30px;
-          margin-top: 0;
-          margin-right: 20px;
-          margin-bottom: 10px;
-          .icon {
-            height: 100%;
-            width: 100%;
-          }
-        }
-      }
-      .amenities {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-        margin: 10px 0;
-        text-align: center;
-        td {
-          text-align: left;
-        }
-        .amenity {
-          text-align: left;
-          margin: 5px 20px 5px 0px;
-          width: auto;
-          position: relative;
-          font-size: @small-font;
-          font-weight: 600;
-        }
-      }
       p {
         display: inline-block;
         position: relative;
         line-height: 1.4em;
-        font-weight: 400;
+        font-weight: 200;
+        margin-right: 20px;
+        margin-left: 20px;
       }
     }
     .trailhead-data {
@@ -712,16 +661,86 @@ body {
       padding-right: 20px;
       padding-top: 10px;
       background-color: @white-color;
-      .trailhead-steward {
+      .trailhead-title-field {
+        display: inline-block;
+        position: relative;
+        height: auto;
+        width: 100%;
+        padding-top: 10px;
+        .trailhead-icon {
+          display: inline-block;
+          position: relative;
+          float: left;
+          width: 20px;
+          height: auto;
+        }
+        .trailhead-title {
+          position: relative;
+          display: inline-block;
+          float: left;
+          width: auto;
+          margin: 0 0 0 10px;
+          font-weight: 400;
+        }
+      }
+
+      .trailhead-attributes {
+        -webkit-transform: translate3d(0, 0, 0);
         position: relative;
         display: inline-block;
+        margin: 0;
         width: 100%;
-        margin-top: 10px;
-        margin-bottom: 40px;
-        p {
-          margin: 0;
-          font-size: @small-font;
-          font-weight: 600;
+        .trailhead-location-attributes {
+          width: 100%;
+          height: auto;
+          min-height: 20px;
+          padding-top: 10px;
+          .trailhead-distance {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            margin: 0;
+            font-weight: 200;
+          }
+          .trailhead-address {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            width: 100%;
+            font-weight: 200;
+            padding-top: 10px;
+          }
+        }
+        .amenities {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+          margin-top: 10px;
+          text-align: center;
+          .amenity {
+            text-align: left;
+            margin: 5px 20px 5px 0px;
+            width: auto;
+            position: relative;
+            font-weight: 200;
+            .yes {
+            }
+            .no {
+              color: @light-gray-color;
+            }
+          }
+        }
+        /* This could be refactored, but for now mirroring DOM structure*/
+        .trailhead-keyline-2 {}
+        .trailhead-steward {
+          position: relative;
+          display: inline-block;
+          width: 100%;
+          margin-top: 10px;
+          margin-bottom: 40px;
+          p {
+            margin: 0;
+          }
         }
       }
     }
