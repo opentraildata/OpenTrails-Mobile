@@ -1,0 +1,20 @@
+{
+  "name": "trails-mobile",
+  "version": "0.0.1",
+  "description": "A mobile application for viewing trail map data offline",
+  "dependencies": {
+    "grunt": "~0.4.4",
+    "cordova": "~3.4.1-0.1.0",
+    "ios-sim": "~1.9.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeforamerica/trails-mobile"
+  },
+  "author": "Code for America",
+  "bugs": {
+    "url": "https://github.com/codeforamerica/trails-mobile/issues"
+  },
+  "homepage": "https://github.com/codeforamerica/trails-mobile"
+}

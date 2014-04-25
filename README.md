@@ -5,13 +5,13 @@ Trails Mobile is a multi-device application that allows users of trails to cache
 
 ## Installation
 
-***Note: the following requires that nodejs is installed, follow the [node installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) for your system if needed.***
+**Note: the following requires that nodejs is installed, follow the [node installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) for your system if needed.**
 
-In order to test this application, you'll first need to install Cordova. Do so with the following commands: 
+
+Install the project dependencies with:
 
 ```
-sudo npm install -g cordova
-sudo npm install -g ios-sim
+npm install
 ```
 
 Once you have Cordova installed, clone the GitHub repo. **In the following command, change `YOUR_PROJECTS_DIRECTORY` to the directory you want the project to be downloaded into**:
@@ -29,9 +29,18 @@ cd ~/YOUR_PROJECTS_DIRECTORY/trails-mobile
 To build and launch the application from the source code and view it in the iOS emulator, use:
 
 ```
-cordova build ios
-cordova emulate ios
+./node_modules/.bin/cordova build ios
+./node_modules/.bin/cordova emulate ios
 ```
+If you'd prefer to view it in a web browser use:
+
+```
+./node_modules/.bin/cordova serve ios
+```
+
+**
+If you'd prefer not to have to type out , you'll need to add the node modules directory `./node_modules/.bin` to your PATH environment variable.
+**
 
 ## Contribution
 

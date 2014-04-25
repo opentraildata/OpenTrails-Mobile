@@ -1,2 +1,3 @@
 platforms/ios/www
 merges/*
+node_modules/*
