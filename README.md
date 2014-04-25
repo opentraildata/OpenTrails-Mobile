@@ -38,7 +38,7 @@ If you'd prefer to view it in a web browser use:
 ./node_modules/.bin/cordova serve ios
 ```
 
-**If you'd prefer not to have to type out , you'll need to add the node modules directory `./node_modules/.bin` to your PATH environment variable.**
+**If you'd prefer not to have to type out the node modules path each time, you'll need to add the node modules directory `./node_modules/.bin` to your PATH environment variable.**
 
 ## Contribution
 
