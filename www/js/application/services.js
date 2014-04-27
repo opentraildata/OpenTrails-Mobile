@@ -1,8 +1,27 @@
-
-
 'use strict';
 
 (function (ng) {
+
+  //
+  // CONFIGURATION
+  //
+
+  var Configuration = {
+    MIN_ZOOM_LEVEL: 10,
+    MAX_ZOOM_LEVEL: 14,
+    MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
+    DEFAULT_ZOOM_LEVEL: 13,
+    DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
+    TRAIL_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trails.json",
+    TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.json",
+    TRAILSEGMENT_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailsegments.json",
+    STEWARD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/stewards.json",
+    NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
+    PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
+    TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
+    SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/examples.map-qfyrx5r8/{z}/{x}/{y}.png"
+  }
+
   //
   // MODEL DEFINITION
   //
@@ -902,17 +921,17 @@
 
   var Map = Model.inherit({
 
-    DEFAULT_ZOOM: 13,
+    DEFAULT_ZOOM: Configuration.DEFAULT_ZOOM_LEVEL,
 
-    DEFAULT_CENTER: [ 41.082020, -81.518506 ],
+    DEFAULT_CENTER: Configuration.DEFAULT_MAP_CENTER,
 
     defaults: {
       el: 'map-container',
       options: {
         "zoomControl": false,
-        "minZoom": 10,
-        "maxZoom": 15,
-        "maxBounds": L.latLngBounds([41.838746, -82.276611],[40.456287,-81.035156])
+        "minZoom": Configuration.MIN_ZOOM_LEVEL,
+        "maxZoom": Configuration.MAX_ZOOM_LEVEL,
+        "maxBounds": L.latLngBounds(Configuration.MAX_BOUNDS)
       }
     },
 
@@ -1037,11 +1056,11 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png"
+      url: Configuration.TERRAIN_MAP_TILE_ENDPOINT 
     },
     "satellite": {
       name: "Satellite",
-      url: "https://{s}.tiles.mapbox.com/v3/examples.map-qfyrx5r8/{z}/{x}/{y}.png"
+      url: Configuration.SATELLITE_MAP_TILE_ENDPOINT 
     }
   }
 
@@ -1408,13 +1427,13 @@
         return loaded;
       }
 
-      function loadModel (model, key, path) {
+      function loadModel (model, key, url) {
         var data;
 
         if (data = window.localStorage.getItem(key)) {
           model.load( JSON.parse(data) );
         } else {
-          $http.get(HOST + path).then(
+          $http.get(url).then(
             function (res) {
               data = res.data;
               window.localStorage.setItem(key, JSON.stringify(data) );
@@ -1424,12 +1443,12 @@
         }
       }
 
-      loadModel(Trail, "TrailData", "/trails.json");
-      loadModel(TrailHead, "TrailHeadData", "/trailheads.json");
-      loadModel(TrailSegment, "TrailSegmentData", "/trailsegments.json");
-      loadModel(Steward, "StewardData", "/stewards.json");
-      loadModel(Notification, "NotificationData", "/notifications.json");
-      loadModel(Photo, "PhotoData", "/photos.json");
+      loadModel(Trail, "TrailData", Configuration.TRAIL_DATA_ENDPOINT);
+      loadModel(TrailHead, "TrailHeadData", Configuration.TRAILHEAD_DATA_ENDPOINT);
+      loadModel(TrailSegment, "TrailSegmentData", Configuration.TRAILSEGMENT_DATA_ENDPOINT);
+      loadModel(Steward, "StewardData", Configuration.STEWARD_DATA_ENDPOINT);
+      loadModel(Notification, "NotificationData", Configuration.NOTIFICATION_DATA_ENDPOINT);
+      loadModel(Photo, "PhotoData", Configuration.PHOTO_DATA_ENDPOINT);
 
       window.Trail = Trail;
       window.Photo = Photo;
