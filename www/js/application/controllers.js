@@ -357,8 +357,14 @@
         return $scope.selectedTrails.indexOf($scope.selectedTrail) > 0;
       }
 
-      $scope.canPreviousTrail = canPreviousTrail
+      $scope.canPreviousTrail = canPreviousTrail;
 
+      function closeTrailView () {
+        $scope.fullscreen = false; 
+        deselectTrailHead($scope.selectedTrailHead);
+      }
+
+      $scope.closeTrailView = closeTrailView;
 
       function setTrailViewOffset() {
           var trailView = document.getElementById('trail-view'),
