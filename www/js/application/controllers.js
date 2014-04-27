@@ -111,17 +111,14 @@
       //
 
       var mapTileLayer = new MapTileLayer({}).addTo(Map);
+      var currentLayer = "terrain";
 
-      $scope.mapTileLayerUrl = mapTileLayer.getUrl();
-
-      $scope.mapTileLayers = utils.values(MapTileLayer.INDEX);
-
-      function setMapTileLayer (url) {
-        mapTileLayer.setUrl(url);
-        $scope.mapTileLayerUrl = url;
+      function toggleMapTileLayer () {
+        currentLayer = (currentLayer === "terrain" ? "satellite" : "terrain");
+        mapTileLayer.setUrl(MapTileLayer.INDEX[currentLayer].url);
       }
 
-      $scope.setMapTileLayer = setMapTileLayer;
+      $scope.toggleMapTileLayer = toggleMapTileLayer;
 
       //
       // SEARCH LOGIC
