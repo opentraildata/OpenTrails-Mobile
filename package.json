@@ -7,6 +7,7 @@
     "grunt-contrib-less": "~0.11.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-copy" : "~0.5.0",
+    "grunt-contrib-clean" : "~0.4.1",
     "cordova": "~3.4.1-0.1.0",
     "ios-sim": "~1.9.0"
   },

@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   watch: {
     scripts: {
       files: ['./www/js/**/*.js'],
-      tasks: ['copy:js']
+      tasks: ['clean:js','copy:js']
     }, //scripts
     less: {
       files: ['./www/less/*'],
@@ -25,6 +25,9 @@ module.exports = function(grunt) {
       tasks: ['copy:html']
     } //html
   }, // watch
+  clean: {
+    js: './platforms/ios/www/js/'
+  },
   copy: {
     css: {
       src: './www/css/application.css',
@@ -32,7 +35,9 @@ module.exports = function(grunt) {
       filter: 'isFile'
     }, //css
     js: {
-      src: './www/js/',
+      expand: true,
+      cwd: './www/js/',
+      src: '*',
       dest: './platforms/ios/www/js/'
     }, //js
     html: {
@@ -44,5 +49,6 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
 };
