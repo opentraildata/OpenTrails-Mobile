@@ -38,6 +38,8 @@ If you'd prefer to view it in a web browser use:
 ./node_modules/.bin/cordova serve ios
 ```
 
+Then view the application visit `localhost:8000/ios/www/` in your web browser.
+
 **If you'd prefer not to have to type out the node modules path each time, you'll need to add the node modules directory `./node_modules/.bin` to your PATH environment variable.**
 
 ## Development
