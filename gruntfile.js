@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     js: {
       expand: true,
       cwd: './www/js/',
-      src: '*',
+      src: '**/*',
       dest: './platforms/ios/www/js/'
     }, //js
     html: {
