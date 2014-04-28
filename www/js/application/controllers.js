@@ -4,6 +4,87 @@
 
   var module = ng.module('trails.controllers', []);
 
+  module.controller('NotificationsCtrl', [
+
+    '$scope',
+    'Models',
+    'GeoPosition',
+
+    function ($scope, Models, GeoPosition) {
+
+      // Instantiate variables
+
+      var index = 0;
+
+      // Wait until all models have been
+      // loaded to instantiate variables
+
+      $scope.$watch(Models.loaded, function (value) {
+        $scope.stewards = Models.Steward.query.all();
+        $scope.steward  = $scope.stewards[index];
+      });
+
+      // Navigate to next steward
+
+      $scope.next = function () {
+        if ( canNext() ) {
+          $scope.steward = $scope.stewards[++index];
+        }
+      }
+
+      // Navigate to previous steward
+
+      $scope.previous = function () {
+        if ( canPrevious() ) {
+          $scope.steward = $scope.stewards[--index];
+        }
+      }
+
+      // Returns whether or not a previous
+      // steward exists
+
+      function canPrevious () {
+        return index > 0;
+      }
+
+      $scope.canPrevious = canPrevious;
+
+      // Returns whether or not a subsequent
+      // steward exists
+
+      function canNext () {
+        return index < ($scope.stewards.length - 1);
+      }
+
+      $scope.canNext = canNext;
+
+      // Watch current steward, and set notifications
+      // when it changes
+
+      $scope.$watch('steward', function (value) {
+        if (value) {
+          $scope.notifications = $scope.steward.notifications.all();
+        } else {
+          $scope.notifications = [];
+        }
+      });
+
+      // Mark notification as read when closed
+
+      $scope.close = function (notification) {
+        if (notification) {
+          notification.markAsRead();
+        }
+      }
+
+      // Set geoposition for address lookup
+
+      $scope.geoposition = GeoPosition;
+
+    }
+
+  ]);
+
   module.controller('AppCtrl', [
     '$scope',
     'Map',
@@ -385,70 +466,6 @@
       }
 
       $scope.distance = distance;
-
-      // Notifications Logic
-
-      $scope.stewards = [];
-
-      function nextSteward () {
-        var index = $scope.stewards.indexOf($scope.selectedSteward);
-        if ( canNextSteward() ) {
-          setSelectedSteward($scope.stewards[index + 1]);
-        }
-      }
-
-      $scope.nextSteward = nextSteward;
-
-      function canNextSteward () {
-        return $scope.stewards.indexOf($scope.selectedSteward) < ($scope.stewards.length - 1);
-      }
-
-      $scope.canNextSteward = canNextSteward;
-
-      function previousSteward () {
-        var index = $scope.stewards.indexOf($scope.selectedSteward);
-        if ( canPreviousSteward() ) {
-          setSelectedSteward($scope.stewards[index - 1]);
-        }
-      }
-
-      $scope.previousSteward = previousSteward;
-
-      function canPreviousSteward () {
-        return $scope.stewards.indexOf($scope.selectedSteward) > 0;
-      }
-
-      $scope.canPreviousSteward = canPreviousSteward;
-
-      function setSelectedSteward (s) {
-        if (!s || ng.isUndefined(s) ) return false;
-        $scope.selectedSteward = s;
-      }
-
-      // Notification Logic
-
-      $scope.notifications = [];
-
-      $scope.$watch('selectedSteward', function (value) {
-        window.steward = value
-        if (value) {
-          setNotifications();
-        } else {
-          $scope.notifications = []; 
-        }
-      });
-
-      function setNotifications () {
-        $scope.notifications = $scope.selectedSteward.notifications.where({key:'read', evaluator: 'equals', value: false }).all();
-      }
-
-      function closeNotification (notification) {
-        notification.markAsRead(); 
-        setNotifications();
-      }
-
-      $scope.closeNotification = closeNotification;
-
 
       // On Load
 
