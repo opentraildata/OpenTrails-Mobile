@@ -60,6 +60,9 @@ body {
   text-decoration: none;
   color: #242424;
 }
+#footer a:active {
+  opacity: .75;
+}
 #footer .button {
   padding: 20px 10px 0px 20px;
   vertical-align: top;
@@ -96,9 +99,15 @@ body {
 #footer .button-layer {
   padding-top: 15px;
 }
+#footer .button-layer:active {
+  background: rgba(36, 36, 36, 0.66);
+}
 #footer .button-layer img {
   height: auto;
   width: 35px;
+}
+#footer .button-layer img:active {
+  opacity: .75;
 }
 /** Views **/
 #map-view #map-search {
@@ -272,7 +281,7 @@ body {
 #search-view #content .search-result .search-result-header-outer {
   background-color: #465c44;
   color: #f6f6f6;
-  height: 26px;
+  height: 40px;
   font-size: 12px;
   font-weight: 400;
   padding: 0 20px;
@@ -281,6 +290,7 @@ body {
   padding: .5em 0;
   display: inline-block;
   width: 100%;
+  height: 100%;
 }
 #search-view #content .search-result .search-result-header-outer p {
   margin: 0;
@@ -297,15 +307,14 @@ body {
 }
 #search-view #content .search-result .search-subresults h3 {
   border-bottom: 1px solid #242424;
+  font-size: 22px;
   margin: 0;
   padding: 15px;
-  font-weight: 600;
 }
 #search-view #content .search-result .search-subresults a {
   text-decoration: none;
   color: #242424;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 22px;
 }
 /* Trail View - AJW*/
 /* Trail View - AJW*/
@@ -358,6 +367,9 @@ body {
   padding-left: 20px;
   float: left;
 }
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail:active {
+  opacity: .75;
+}
 #trail-view .trail-nav .trail-trailhead .change-trail .previous-trail img {
   width: 20px;
   margin: 10px 10px 10px 0px;
@@ -386,6 +398,9 @@ body {
   height: 40px;
   width: 30px;
   padding-right: 10px;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail:active {
+  opacity: .75;
 }
 #trail-view .trail-nav .trail-trailhead .change-trail .next-trail img {
   width: 20px;
@@ -596,7 +611,11 @@ body {
   width: auto;
   position: relative;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
+}
+#trail-view .trail-and-trailhead-data .trail-data img {
+  height: .5em;
+  margin-right: .2em;
 }
 #trail-view .trail-and-trailhead-data .trail-data p {
   display: inline-block;
@@ -624,7 +643,7 @@ body {
 #trail-view .trail-and-trailhead-data .trailhead-data .trailhead-steward p {
   margin: 0;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .minimized {
   top: 270px;
@@ -665,6 +684,9 @@ body {
   padding: 10px;
   right: 10px;
 }
+#notifications-view #content #sources-nav .next-steward:active {
+  opacity: .75;
+}
 #notifications-view #content #sources-nav .next-steward img {
   height: 20px;
 }
@@ -674,6 +696,9 @@ body {
   width: auto;
   padding: 10px;
   left: 10px;
+}
+#notifications-view #content #sources-nav .previous-steward:active {
+  opacity: .75;
 }
 #notifications-view #content #sources-nav .previous-steward img {
   height: 20px;

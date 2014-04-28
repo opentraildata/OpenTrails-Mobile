@@ -129,6 +129,9 @@ body {
   a {
     text-decoration: none; 
     color: @gray-color;
+    &:active {
+      opacity: .75;
+    }
   }
 
   .button {
@@ -173,9 +176,15 @@ body {
 
   .button-layer {
     padding-top: 15px;
+    &:active {
+      background: rgba(36, 36, 36, 0.66);
+    }
     img {
       height: auto;
       width: 35px;
+      &:active {
+        opacity: .75;
+      }
     }
   }
 }
@@ -366,7 +375,7 @@ body {
       .search-result-header-outer {
         background-color: @green-color;
         color: @white-color;
-        height: 26px;
+        height: 40px;
         font-size: @small-font;
         font-weight: 400;
         padding: 0 20px;
@@ -375,6 +384,7 @@ body {
           padding: .5em 0;
           display: inline-block; 
           width: 100%;
+          height: 100%;
         }
 
         p {
@@ -395,16 +405,15 @@ body {
       .search-subresults {
         background-color: @white-color; 
         h3 {
-          border-bottom: 1px solid @gray-color; 
+          border-bottom: 1px solid @gray-color;
+          font-size: @large-font;
           margin: 0;
           padding: 15px;
-          font-weight: 600;
         }
         a {
           text-decoration: none; 
           color: @gray-color;
-          font-size: @medium-font;
-          font-weight: 500;
+          font-size: @large-font;
         }
       }
     }
@@ -461,6 +470,9 @@ body {
           width: 30px;
           padding-left: 20px;
           float: left;
+          &:active {
+            opacity: .75;
+          }
           img {
             width: 20px;
             margin: 10px 10px 10px 0px;
@@ -490,6 +502,9 @@ body {
           height: 40px;
           width: 30px;
           padding-right: 10px;
+          &:active {
+            opacity: .75;
+          }
           img {
             width: 20px;
             margin: 10px 0px 10px 10px;
@@ -704,8 +719,12 @@ body {
           width: auto;
           position: relative;
           font-size: @small-font;
-          font-weight: 600;
+          font-weight: 500;
         }
+      }
+      img {
+        height: .5em;
+        margin-right: .2em;
       }
       p {
         display: inline-block;
@@ -732,7 +751,7 @@ body {
         p {
           margin: 0;
           font-size: @small-font;
-          font-weight: 600;
+          font-weight: 500;
         }
       }
     }
@@ -777,7 +796,9 @@ body {
         width: auto;
         padding: 10px;
         right: 10px;
-
+        &:active {
+          opacity: .75;
+        }
         img {
           height: 20px; 
         }
@@ -789,7 +810,9 @@ body {
         width: auto;
         padding: 10px;
         left: 10px;
-
+        &:active {
+          opacity: .75;
+        }
         img {
           height: 20px; 
         }
