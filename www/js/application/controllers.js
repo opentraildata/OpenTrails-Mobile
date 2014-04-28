@@ -104,17 +104,21 @@
       // CONSTANTS
       //
 
-      var DEFAULT_VIEW = 'map'
+      var MAP_VIEW = 'map';
+      var TRAILS_VIEW = 'trails';
       var USE_CANVAS_TRAILS = true;
 
       //
       // VIEW LOGIC
       //
 
-      $scope.view = DEFAULT_VIEW;
+      $scope.view = MAP_VIEW;
 
       function toggleView (id) {
-        $scope.view === id ? showView(DEFAULT_VIEW) : showView(id);
+        if ($scope.view === id)
+          $scope.selectedTrailHead === null ? showView(MAP_VIEW) : showView(TRAILS_VIEW);
+        else
+          showView(id);
       }
 
       $scope.toggleView = toggleView;
@@ -124,14 +128,14 @@
       }
 
       $scope.showView = showView;
-      
+
       // prevent scrolling when not in fullscreen mode
       document.getElementsByClassName('trail-and-trailhead-data')[0].addEventListener('touchmove', function (event) {
         if (!$scope.fullscreen) {
           event.preventDefault();
         }
       });
-      
+
       // when leaving fullscreen mode, make sure we scroll back to the top
       $scope.$watch('fullscreen', function(value) {
         if (!value) {
@@ -259,7 +263,7 @@
         if (loaded) {
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
-          
+
           if (USE_CANVAS_TRAILS) {
             trailsLayer = (new TrailsCanvasLayer({
               trails: Models.Trail.query.all()
@@ -268,7 +272,7 @@
           else {
             Models.Trail.query.each(renderTrailLayer);
           }
-          
+
           Models.TrailHead.query.each(renderTrailHeadMarker);
           trailHeadCluster.addTo(Map);
           bindEvents();
@@ -376,7 +380,7 @@
         if (value) {
           showView('trails');
         } else {
-          showView(DEFAULT_VIEW);
+          showView(MAP_VIEW);
         }
 
       });
@@ -385,14 +389,14 @@
         var fitOptions = {
           paddingBottomRight: [0, 250]
         };
-        
+
         if (trailsLayer) {
           trailsLayer.highlight(value);
           if (trailsLayer.highlighted) {
             Map.fitBounds(trailsLayer.highlighted.bounds, fitOptions);
           }
         }
-        
+
         ng.forEach(trailLayers, function (layer) {
           if (layer.get('record') === value)  {
             selectTrailLayer(layer);
@@ -404,7 +408,7 @@
         if (value) {
           showView('trails');
         } else {
-          showView(DEFAULT_VIEW);
+          showView(MAP_VIEW);
         }
 
         // #HACK -- sets height of trail view dynamically
