@@ -129,6 +129,14 @@
 
       $scope.showView = showView;
 
+
+      // Notifications view settings
+      //
+      // Active tab in notifications.
+      $scope.isActiveTab = function(tab) {
+        return tab === $scope.view;
+      }
+
       // prevent scrolling when not in fullscreen mode
       document.getElementsByClassName('trail-and-trailhead-data')[0].addEventListener('touchmove', function (event) {
         if (!$scope.fullscreen) {

@@ -799,6 +799,45 @@ body {
   overflow: auto;
   z-index: @z-index-4;
 
+  .notification-tabs {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border:1px solid @green-color;
+    position:relative;
+
+    ul { margin:0; padding:0; }
+    li {
+      list-style: none;
+      display: inline-block;
+    }
+
+    .tab
+    {
+      padding: 10px;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      text-align: center;
+      width: 50%;
+      color: @light-gray-color;
+      cursor: pointer;
+
+      &:hover
+      {
+        background-color: lighten(@green-color,50%);
+        color: #fff;
+      }
+    }
+
+    .tab.active
+    {
+      color: #fff;
+      background-color: @green-color;
+      cursor: auto;
+    }
+  }
+
   #content {
     top: @status-height; 
     height: @device-height - (@status-height + @footer-height);
@@ -880,6 +919,10 @@ body {
           float: left;
         }
       }
+    }
+    #contact-view {
+      margin: 0 20px;
+      padding: 10px 0;
       .source-call-btn {
         display: inline-block;
         position: relative;
