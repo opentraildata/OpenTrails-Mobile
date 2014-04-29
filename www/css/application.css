@@ -110,6 +110,30 @@ body {
   opacity: .75;
 }
 /** Views **/
+#loading-view {
+  z-index: 7000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-size: cover;
+  background-image: url(../img/loading-screen.jpg);
+}
+#loading-view h1 {
+  display: block;
+  text-align: center;
+  width: auto;
+  margin: 2em auto .25em auto;
+  color: #242424;
+}
+#loading-view h4 {
+  display: block;
+  text-align: center;
+  width: auto;
+  margin: .1em auto;
+  color: #242424;
+}
 #map-view #map-search {
   position: relative;
   top: 30px;

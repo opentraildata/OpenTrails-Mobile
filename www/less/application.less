@@ -58,6 +58,7 @@
 @z-index-4: 4000;
 @z-index-5: 5000;
 @z-index-6: 6000;
+@z-index-7: 7000;
 
 @large-font: 22px;
 @medium-font: 16px;
@@ -190,6 +191,31 @@ body {
 }
 
 /** Views **/
+
+#loading-view {
+  z-index: @z-index-7;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-size: cover;
+  background-image: url(../img/loading-screen.jpg);
+  h1 {
+    display: block;
+    text-align: center;
+    width: auto;
+    margin: 2em auto .25em auto;
+    color: @gray-color;
+  }
+  h4 {
+    display: block;
+    text-align: center;
+    width: auto;
+    margin: .1em auto;
+    color: @gray-color;
+  }
+}
 
 #map-view {
 
