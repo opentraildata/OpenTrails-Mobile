@@ -684,16 +684,20 @@ body {
   z-index: 4000;
 }
 #notifications-view .notification-tabs {
-  margin-left: 10px;
-  margin-right: 10px;
+  position: relative;
+  text-align: center;
+}
+#notifications-view .notification-tabs ul {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
   border-radius: 4px;
   -webkit-border-radius: 4px;
   border: 1px solid #465c44;
-  position: relative;
-}
-#notifications-view .notification-tabs ul {
-  margin: 0;
-  padding: 0;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f2f2), color-stop(100%, #ffffff));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #f2f2f2 0%, #ffffff 100%);
+  /* Chrome10+,Safari5.1+ */
 }
 #notifications-view .notification-tabs li {
   list-style: none;
@@ -705,12 +709,7 @@ body {
   -webkit-box-sizing: border-box;
   text-align: center;
   width: 50%;
-  color: #a3a3a3;
   cursor: pointer;
-}
-#notifications-view .notification-tabs .tab:hover {
-  background-color: #cad7c8;
-  color: #fff;
 }
 #notifications-view .notification-tabs .tab.active {
   color: #fff;
@@ -771,7 +770,6 @@ body {
   margin: 0;
 }
 #notifications-view #content #notification-source {
-  display: inline-block;
   position: relative;
   height: auto;
   margin: 0 20px;
@@ -779,15 +777,13 @@ body {
   border-bottom: 1px solid #a3a3a3;
 }
 #notifications-view #content #notification-source .source-name {
-  display: inline-block;
-  position: relative;
+  padding-bottom: 10px;
 }
 #notifications-view #content #notification-source .source-name .source-logo {
   display: inline-block;
   position: relative;
   height: 50px;
   max-width: 25%;
-  float: right;
 }
 #notifications-view #content #notification-source .source-name h3 {
   display: inline-block;
@@ -795,58 +791,41 @@ body {
   vertical-align: top;
   width: 80%;
   margin: 0 0 0 0;
-  float: left;
 }
 #notifications-view #content #contact-view {
   margin: 0 20px;
   padding: 10px 0;
 }
 #notifications-view #content #contact-view .source-call-btn {
-  display: inline-block;
   position: relative;
-  width: 50%;
-  height: 40px;
-  margin-top: 10px;
   background-color: #4a90e2;
-  border-radius: 2px;
-  float: left;
+  border-radius: 4px;
+  display: inline-block;
+  padding-right: 10px;
+  cursor: pointer;
+}
+#notifications-view #content #contact-view .source-call-btn > * {
+  vertical-align: middle;
+  display: inline-block;
 }
 #notifications-view #content #contact-view .source-call-btn .phone-icon {
-  position: absolute;
-  left: 5%;
-  top: 15%;
+  margin: 5px;
   height: 30px;
   width: auto;
 }
-#notifications-view #content #contact-view .source-call-btn .call-btn-link {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-}
 #notifications-view #content #contact-view .source-call-btn a {
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  font-size: 12px;
+  font-size: 16px;
   color: #f6f6f6;
+  text-decoration: none;
 }
 #notifications-view #content #contact-view .source-call-btn .call-btn-label {
-  position: absolute;
-  top: 25%;
-  right: 10%;
-  margin: 0;
+  font-size: 22px;
   color: #f6f6f6;
 }
 #notifications-view #content #contact-view .source-address {
-  display: inline-block;
-  position: relative;
-  vertical-align: top;
-  width: 40%;
-  margin: 15px 0 0 10px;
-  font-size: 12px;
-  float: right;
-  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 #notifications-view #content #notification-list {
   display: inline-block;
