@@ -88,7 +88,7 @@
                 <a href="#" ng-click="closeNotification(notification)">
                   <img class="notification-close-btn" src="img/close-btn-gray.png"></img>
                 </a>
-                <p class="notification-timestamp">Post on {{ notification.getCreatedAt()|date:'medium' }}</p>
+                <p class="notification-timestamp">{{ notification.getCreatedAt() | date:'short' }}</p>
               </div>
               <p class="notification-body">{{ notification.get('body') }}</p>
             </div>

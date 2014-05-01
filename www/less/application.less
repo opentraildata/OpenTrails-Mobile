@@ -953,7 +953,8 @@ body {
       }
     }
     #notification-list {
-      display: inline-block;
+      margin: 10px 20px;
+      margin-bottom: 0;
       position: absolute;
       left: 0;
       right: 0;
@@ -963,18 +964,11 @@ body {
       -webkit-overflow-scrolling: touch;
       background-color: @white-color;
       .notification-card {
-        display: inline-block;
-        position: relative;
-        height: 100%;
-        margin: 10px 20px;
-        background-color: @white-color;
-        border: 1px solid @light-gray-color;
+        border-bottom: 1px solid lighten(@gray-color, 50%);
+        margin-bottom: 10px;
         .notification-metadata{
-          display: inline-block;
           position: relative;
           height: auto;
-          margin: 10px;
-          border-bottom: 1px solid lighten(@gray-color, 50%);
           .notification-headline {
             display: inline-block;
             position: relative;
