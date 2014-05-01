@@ -60,7 +60,6 @@
 
       // Watch current steward, and set notifications
       // when it changes
-
       $scope.$watch('steward', function (value) {
         if (value) {
           $scope.notifications = $scope.steward.notifications.all();
@@ -75,7 +74,20 @@
         if (notification) {
           notification.markAsRead();
         }
-      }
+      };
+
+      // Immensely hackish & expensive way of tracking a
+      // count of total unread notifications.
+      // TODO: Refactor this to update only when the 
+      // closeNotification function is called.
+      $scope.unreadNotifications = function () {
+        var numUnread = 0;
+        for( var i in $scope.notifications )
+        {
+          if (!$scope.notifications[i].attributes.read) numUnread++;
+        }
+        return numUnread;
+      };
 
       // Set geoposition for address lookup
 

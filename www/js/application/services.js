@@ -865,7 +865,7 @@
     },
 
     isUnread: function () {
-      return !this.isRead();         
+      return !this.isRead();
     },
 
     getCreatedAt: function () {
@@ -1063,7 +1063,7 @@
     },
 
     getBounds: function () {
-      return this.delegate.getBounds();            
+      return this.delegate.getBounds();
     }
 
   });
@@ -1075,11 +1075,11 @@
   var TILE_LAYERS = {
     "terrain": {
       name: "Terrain",
-      url: Configuration.TERRAIN_MAP_TILE_ENDPOINT 
+      url: Configuration.TERRAIN_MAP_TILE_ENDPOINT
     },
     "satellite": {
       name: "Satellite",
-      url: Configuration.SATELLITE_MAP_TILE_ENDPOINT 
+      url: Configuration.SATELLITE_MAP_TILE_ENDPOINT
     }
   }
 

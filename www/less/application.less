@@ -800,14 +800,18 @@ body {
   z-index: @z-index-4;
 
   .notification-tabs {
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border:1px solid @green-color;
-    position:relative;
+    position: relative;
+    text-align: center;
 
-    ul { margin:0; padding:0; }
+    ul {
+      display: inline-block;
+      margin:0; padding:0;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border:1px solid @green-color;
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(242,242,242,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  rgba(242,242,242,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+    }
     li {
       list-style: none;
       display: inline-block;
@@ -820,14 +824,8 @@ body {
       -webkit-box-sizing: border-box;
       text-align: center;
       width: 50%;
-      color: @light-gray-color;
+      //color: lighten(@green-color,50%);
       cursor: pointer;
-
-      &:hover
-      {
-        background-color: lighten(@green-color,50%);
-        color: #fff;
-      }
     }
 
     .tab.active
@@ -894,21 +892,18 @@ body {
       }
     }
     #notification-source {
-      display: inline-block;
       position: relative;
       height: auto;
       margin: 0 20px;
       padding: 10px 0;
       border-bottom: 1px solid lighten(@gray-color, 50%);
       .source-name {
-        display: inline-block;
-        position: relative;
+        padding-bottom: 10px;
         .source-logo {
           display: inline-block;
           position: relative;
           height: 50px;
           max-width: 25%;
-          float: right;
         }
         h3 {
           display: inline-block;
@@ -916,59 +911,46 @@ body {
           vertical-align: top;
           width: 80%;
           margin: 0 0 0 0;
-          float: left;
         }
       }
     }
     #contact-view {
       margin: 0 20px;
       padding: 10px 0;
+
       .source-call-btn {
-        display: inline-block;
         position: relative;
-        width: 50%;
-        height: 40px;
-        margin-top: 10px;
         background-color: @blue-color;
-        border-radius: 2px;
-        float: left;
+        border-radius: 4px;
+        display: inline-block;
+        padding-right: 10px;
+        cursor: pointer;
+
+        > *
+        {
+          vertical-align: middle;
+          display: inline-block;
+        }
+
         .phone-icon {
-          position: absolute;
-          left: 5%;
-          top: 15%;
+          margin: 5px;
           height: 30px;
           width: auto;
         }
-        .call-btn-link {
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          z-index: 1;
-        }
         a {
-          position: absolute;
-          right: 10px;
-          top: 12px;
-          font-size: @small-font;
+          font-size: @medium-font;
           color: @white-color;
+          text-decoration: none;
         }
         .call-btn-label {
-          position: absolute;
-          top: 25%;
-          right: 10%;
-          margin: 0;
+          font-size: @large-font;
           color: @white-color;
         }
       }
       .source-address {
-        display: inline-block;
-        position:relative;
-        vertical-align: top;
-        width: 40%;
-        margin: 15px 0 0 10px;
-        font-size: 12px;
-        float: right;
-        text-align: center;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: @medium-font;
       }
     }
     #notification-list {

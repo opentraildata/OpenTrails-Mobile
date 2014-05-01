@@ -56,8 +56,8 @@
           </div>
          <div id="notification-source">
             <div class="source-name">
-              <img class="source-logo" src="img/nps.png"></img>
               <h3>{{ steward.get('name') }}</h3>
+              <img class="source-logo" src="img/nps.png"></img>
             </div>
             <nav class="notification-tabs">
               <ul>
@@ -66,18 +66,19 @@
             </nav>
           </div>
           <div id="contact-view" ng-show="view === 'notifications-contact'" ng-cloak>
-            <div class="source-call-btn">
-              <img class="phone-icon" src="img/phone-white.png"></img>
-              <a href="tel:{{ steward.get('phone') }}"><span class="call-btn-link"></span>{{ steward.get('phone') }}</a>
-              </a>
-            </div>
             <div class="source-address">
               <a href="http://maps.apple.com/?saddr={{ geoposition.get('latitude') }},{{ geoposition.get('longitude') }}&daddr={{ steward.get('address') }}" target="_system">975 Treaty Line Rd Akron, OH</a>
+            </div>
+            <div class="source-call-btn">
+              <img class="phone-icon" src="img/phone-white.png"></img>
+              <a href="tel:{{ steward.get('phone') }}">{{ steward.get('phone') }}</a>
+              </a>
             </div>
           </div>
 
           <div id="notification-list" ng-show="view === 'notifications-notices'" ng-cloak>
-            <div id="notifications-empty" ng-hide="notifications.length > 0">
+
+            <div id="notifications-empty" ng-show="unreadNotifications() === 0">
               <p>There are no notifications at this time.</p>
             </div>
 
@@ -91,6 +92,7 @@
               </div>
               <p class="notification-body">{{ notification.get('body') }}</p>
             </div>
+
           </div>
         </div>
       </div>
