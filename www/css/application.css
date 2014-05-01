@@ -42,7 +42,7 @@ body {
   top: 70px;
   z-index: 3000;
   width: 100%;
-  height: 438px;
+  bottom: 60px;
   background-color: #f6f6f6;
 }
 #footer {
@@ -718,7 +718,6 @@ body {
 }
 #notifications-view #content {
   top: 20px;
-  height: 488px;
 }
 #notifications-view #content #sources-nav {
   height: 40px;

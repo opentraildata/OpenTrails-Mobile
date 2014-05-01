@@ -112,7 +112,7 @@ body {
   top: @header-height + @status-height;
   z-index: @z-index-3;
   width: 100%;
-  height: @device-height - (@status-height + @header-height + @footer-height);
+  bottom: @footer-height;
   background-color: @white-color;
 }
 
@@ -838,7 +838,6 @@ body {
 
   #content {
     top: @status-height; 
-    height: @device-height - (@status-height + @footer-height);
     #sources-nav {
       height: 40px;
       width: 100%;
