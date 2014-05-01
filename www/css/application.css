@@ -688,7 +688,6 @@ body {
   text-align: center;
 }
 #notifications-view .notification-tabs ul {
-  display: inline-block;
   margin: 0;
   padding: 0;
   border-radius: 4px;
@@ -822,6 +821,11 @@ body {
   color: #f6f6f6;
 }
 #notifications-view #content #contact-view .source-address {
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 6px;
+  text-align: left;
+  padding: 10px;
   width: 100%;
   margin-bottom: 10px;
   font-size: 16px;

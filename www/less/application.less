@@ -804,7 +804,6 @@ body {
     text-align: center;
 
     ul {
-      display: inline-block;
       margin:0; padding:0;
       border-radius: 4px;
       -webkit-border-radius: 4px;
@@ -947,6 +946,11 @@ body {
         }
       }
       .source-address {
+        box-sizing: border-box;
+        background: #fff;
+        border-radius: 6px;
+        text-align: left;
+        padding: 10px;
         width: 100%;
         margin-bottom: 10px;
         font-size: @medium-font;
