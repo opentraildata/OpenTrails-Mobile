@@ -213,7 +213,7 @@
 
       function search (keywords, filters) {
         $scope.lastSearch = keywords;
-        $scope.searchResults = TrailSearch.perform({ keywords: keywords, filters: filters });
+        $scope.searchResults = TrailSearch.perform({ keywords: keywords, filters: filters, position: GeoPosition });
       }
 
       $scope.search = search;

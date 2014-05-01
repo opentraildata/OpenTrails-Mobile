@@ -282,7 +282,26 @@
       });
     }
 
-    return results;
+    var uniqueTrails = [];
+    var filteredResults  = [];
+
+    ng.forEach(results, function (result) {
+      var resultTrails = [];
+
+      ng.forEach(result.trails, function (trail) {
+        if (uniqueTrails.indexOf(trail) === -1) {
+          uniqueTrails.push(trail);
+          resultTrails.push(trail);
+        }
+      })
+
+      if (resultTrails.length > 0) {
+        result.trails = resultTrails;
+        filteredResults.push(result);
+      }
+    });
+
+    return filteredResults;
   }
 
   //
