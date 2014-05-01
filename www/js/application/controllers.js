@@ -71,7 +71,7 @@
 
       // Mark notification as read when closed
 
-      $scope.close = function (notification) {
+      $scope.closeNotification = function (notification) {
         if (notification) {
           notification.markAsRead();
         }
