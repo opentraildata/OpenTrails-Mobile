@@ -1001,10 +1001,13 @@ body {
         .notification-metadata {
           position: relative;
           height: auto;
+          min-height: 30px;
+          padding-top: 10px;
+
           .notification-status {
             font-size: 64px;
             position: absolute;
-            top: -29px;
+            top: -20px;
             left: 0;
             width: 20px;
             height: 20px;
@@ -1043,13 +1046,19 @@ body {
           line-height: 1.2em;
         }
         .notification-close-btn {
-          display: inline-block;
+          display: block;
           text-decoration: none;
           padding-bottom: 5px;
           font-size: @small-font;
           border-radius: 6px;
           color: @red-color;
           margin-left: 10px;
+          text-align: right;
+          .icon {
+            font-size: @medium-font;
+            position: relative;
+            top: 1px;
+          }
         }
       }
     }

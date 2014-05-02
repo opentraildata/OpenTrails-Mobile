@@ -876,11 +876,13 @@ body {
 #notifications-view #content #notification-list .notification-card .notification-metadata {
   position: relative;
   height: auto;
+  min-height: 30px;
+  padding-top: 10px;
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata .notification-status {
   font-size: 64px;
   position: absolute;
-  top: -29px;
+  top: -20px;
   left: 0;
   width: 20px;
   height: 20px;
@@ -914,13 +916,19 @@ body {
   line-height: 1.2em;
 }
 #notifications-view #content #notification-list .notification-card .notification-close-btn {
-  display: inline-block;
+  display: block;
   text-decoration: none;
   padding-bottom: 5px;
   font-size: 12px;
   border-radius: 6px;
   color: #d0021b;
   margin-left: 10px;
+  text-align: right;
+}
+#notifications-view #content #notification-list .notification-card .notification-close-btn .icon {
+  font-size: 16px;
+  position: relative;
+  top: 1px;
 }
 #notifications-empty {
   color: #242424;
