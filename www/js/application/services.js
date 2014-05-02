@@ -847,7 +847,8 @@
       "stewardId": null,
       "type": null,
       "createdAt": null,
-      "read": false
+      "read": false,
+      "deleted": false
     },
 
     markAsRead: function () {
@@ -861,15 +862,35 @@
     },
 
     isRead: function () {
-      return this.get('read')
+      return this.get('read');
     },
 
     isUnread: function () {
       return !this.isRead();
     },
 
+    markAsDeleted: function () {
+      this.set({ deleted: true });
+      return this;
+    },
+
+    markAsUndeleted: function () {
+      this.set({ deleted: false });
+      return this;
+    },
+
+    isDeleted: function () {
+      return this.get('deleted');
+    },
+
+    isUndeleted: function () {
+      return !this.isDeleted();
+    },
+
     getCreatedAt: function () {
-      return Date(this.get('createdAt'));
+      // Return the creation date as a timestamp
+      // so view can format it per https://docs.angularjs.org/api/ng/filter/date#example
+      return new Date(this.get('createdAt')).getTime();
     }
 
   }, {

@@ -87,19 +87,20 @@
 
             <section id="notification-list" ng-show="view === 'notifications-notices'" ng-cloak>
 
-              <aside id="notifications-empty" ng-show="unreadNotifications() === 0">
+              <aside id="notifications-empty" ng-show="undeletedNotifications() === 0">
                 <p>There are no notifications at this time.</p>
               </aside>
 
-              <article class="notification-card" ng-repeat="notification in notifications" ng-if="notification.isUnread()">
-                <div class="notification-metadata">
+              <article class="notification-card" ng-repeat="notification in notifications" ng-if="notification.isUndeleted()">
+                <div class="notification-metadata" ng-click="selectNotice(notification)">
+                  <span class="notification-status active" ng-class="{true: 'unread', false: 'read'}[notification.isUnread()]"></span>
+                  <span class="notification-timestamp">{{ notification.getCreatedAt() | date:'short' }}</span>
                   <h4 class="notification-headline">{{ notification.get('title') }}</h4>
-                  <a href="#" ng-click="closeNotification(notification)">
-                    <img class="notification-close-btn" src="img/close-btn-gray.png"></img>
-                  </a>
-                  <p class="notification-timestamp">{{ notification.getCreatedAt() | date:'short' }}</p>
                 </div>
-                <p class="notification-body">{{ notification.get('body') }}</p>
+                <p class="notification-body" ng-show="selectedNotice === notification">{{ notification.get('body') }}</p>
+                <a href="#" ng-click="closeNotification(notification)" ng-show="selectedNotice === notification" ng-cloak class="notification-close-btn">
+                ✖ Delete
+                </a>
               </article>
 
             </section>
