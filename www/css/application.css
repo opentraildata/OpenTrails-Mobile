@@ -792,9 +792,29 @@ body {
   width: 80%;
   margin: 0 0 0 0;
 }
+#notifications-view #content #notification-content {
+  position: relative;
+  height: 100%;
+}
 #notifications-view #content #contact-view {
-  margin: 0 20px;
-  padding: 10px 0;
+  padding: 10px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#notifications-view #content #contact-view .source-address {
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 6px;
+  text-align: left;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 16px;
+  position: relative;
+  z-index: 2000;
 }
 #notifications-view #content #contact-view .source-call-btn {
   position: relative;
@@ -803,6 +823,7 @@ body {
   display: inline-block;
   padding-right: 10px;
   cursor: pointer;
+  z-index: 2000;
 }
 #notifications-view #content #contact-view .source-call-btn > * {
   vertical-align: middle;
@@ -822,24 +843,25 @@ body {
   font-size: 22px;
   color: #f6f6f6;
 }
-#notifications-view #content #contact-view .source-address {
-  box-sizing: border-box;
-  background: #fff;
-  border-radius: 6px;
-  text-align: left;
-  padding: 10px;
-  width: 100%;
-  margin-bottom: 10px;
-  font-size: 16px;
+#notifications-view #content #contact-view .source-splash-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: -webkit-gradient(linear, 0 top, 0 bottom, from(#f6f6f6), to(rgba(246, 246, 246, 0))), url(../img/splash-agency-contact.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  z-index: 1000;
 }
 #notifications-view #content #notification-list {
-  margin: 10px 20px;
-  margin-bottom: 0;
+  padding: 10px 20px;
   position: absolute;
   left: 0;
   right: 0;
-  top: 165px;
-  bottom: 30px;
+  top: 0;
+  bottom: 0;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   background-color: #f6f6f6;
