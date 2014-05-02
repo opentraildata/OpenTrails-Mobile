@@ -914,10 +914,31 @@ body {
         }
       }
     }
+    #notification-content
+    {
+      position: relative;
+      height: 100%;
+    }
     #contact-view {
-      margin: 0 20px;
-      padding: 10px 0;
+      padding: 10px 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
 
+      .source-address {
+        box-sizing: border-box;
+        background: #fff;
+        border-radius: 6px;
+        text-align: left;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: @medium-font;
+        position: relative;
+        z-index: @z-index-2;
+      }
       .source-call-btn {
         position: relative;
         background-color: @blue-color;
@@ -946,26 +967,28 @@ body {
           font-size: @large-font;
           color: @white-color;
         }
+        z-index: @z-index-2;
       }
-      .source-address {
-        box-sizing: border-box;
-        background: #fff;
-        border-radius: 6px;
-        text-align: left;
-        padding: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-        font-size: @medium-font;
+      .source-splash-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: -webkit-gradient(linear, 0 top, 0 bottom, from(rgba(246,246,246,1)), to(rgba(246,246,246,0))), url(../img/splash-agency-contact.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        z-index: @z-index-1;
       }
     }
     #notification-list {
-      margin: 10px 20px;
-      margin-bottom: 0;
+      padding: 10px 20px;
       position: absolute;
       left: 0;
       right: 0;
-      top: 165px;
-      bottom: 30px;
+      top: 0;
+      bottom: 0;
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       background-color: @white-color;
