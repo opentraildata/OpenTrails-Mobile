@@ -1,3 +1,5 @@
 platforms/ios/www
 merges/*
 node_modules/*
+
+platforms/ios/cordova/console.log
