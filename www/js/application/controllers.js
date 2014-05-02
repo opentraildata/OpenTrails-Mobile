@@ -60,7 +60,6 @@
 
       // Watch current steward, and set notifications
       // when it changes
-
       $scope.$watch('steward', function (value) {
         if (value) {
           $scope.notifications = $scope.steward.notifications.all();
@@ -71,11 +70,24 @@
 
       // Mark notification as read when closed
 
-      $scope.close = function (notification) {
+      $scope.closeNotification = function (notification) {
         if (notification) {
           notification.markAsRead();
         }
-      }
+      };
+
+      // Immensely hackish & expensive way of tracking a
+      // count of total unread notifications.
+      // TODO: Refactor this to update only when the 
+      // closeNotification function is called.
+      $scope.unreadNotifications = function () {
+        var numUnread = 0;
+        for( var i in $scope.notifications )
+        {
+          if (!$scope.notifications[i].attributes.read) numUnread++;
+        }
+        return numUnread;
+      };
 
       // Set geoposition for address lookup
 
@@ -128,6 +140,14 @@
       }
 
       $scope.showView = showView;
+
+
+      // Notifications view settings
+      //
+      // Active tab in notifications.
+      $scope.isActiveTab = function(tab) {
+        return tab === $scope.view;
+      }
 
       // prevent scrolling when not in fullscreen mode
       document.getElementsByClassName('trail-and-trailhead-data')[0].addEventListener('touchmove', function (event) {
