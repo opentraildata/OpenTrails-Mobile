@@ -40,63 +40,71 @@
         <h4>Northeast Ohio</h4>
       </div>
 
-      <div id="notifications-view" ng-show="view === 'notifications-notices' || view === 'notifications-contact'" ng-controller="NotificationsCtrl" ng-cloak>
+      <section id="notifications-view" ng-show="view === 'notifications-notices' || view === 'notifications-contact'" ng-controller="NotificationsCtrl" ng-cloak>
         <div id="content">
-          <div id="sources-nav">
-            <a href="#" class="previous-steward" ng-click="previous()">
-              <img src="img/chevron-left-white.png" ng-show="canPrevious()" ng-cloak/>
-              <img src="img/chevron-left-dark-green.png" ng-hide="canPrevious()" ng-cloak/>
-            </a>
-            <div class="nav-text">
-            </div>
-            <a href="#" class="next-steward" ng-click="next()">
-              <img class="" src="img/chevron-right-white.png" ng-show="canNext()" ng-cloak/>
-              <img class="" src="img/chevron-right-dark-green.png" ng-hide="canNext()" ng-cloak/>
-            </a>
-          </div>
-         <div id="notification-source">
-            <div class="source-name">
-              <h3>{{ steward.get('name') }}</h3>
-              <img class="source-logo" src="img/nps.png"></img>
-            </div>
-            <nav class="notification-tabs">
-              <ul>
-                <li ng-click="showView('notifications-notices')" class="tab" ng-class="{active:isActiveTab('notifications-notices')}">Notices</li><li ng-click="showView('notifications-contact')" class="tab" ng-class="{active:isActiveTab('notifications-contact')}">Contact</li>
-              </ul>
-            </nav>
-          </div>
-          <div id="contact-view" ng-show="view === 'notifications-contact'" ng-cloak>
-            <div class="source-address">
-              <div>Address:</div>
-              <a href="http://maps.apple.com/?saddr={{ geoposition.get('latitude') }},{{ geoposition.get('longitude') }}&daddr={{ steward.get('address') }}" target="_system">975 Treaty Line Rd Akron, OH</a>
-            </div>
-            <div class="source-call-btn">
-              <img class="phone-icon" src="img/phone-white.png"></img>
-              <a href="tel:{{ steward.get('phone') }}">{{ steward.get('phone') }}</a>
+
+          <header>
+            <nav id="sources-nav">
+              <a href="#" class="previous-steward" ng-click="previous()">
+                <img src="img/chevron-left-white.png" ng-show="canPrevious()" ng-cloak/>
+                <img src="img/chevron-left-dark-green.png" ng-hide="canPrevious()" ng-cloak/>
               </a>
-            </div>
-          </div>
-
-          <div id="notification-list" ng-show="view === 'notifications-notices'" ng-cloak>
-
-            <div id="notifications-empty" ng-show="unreadNotifications() === 0">
-              <p>There are no notifications at this time.</p>
-            </div>
-
-            <div class="notification-card" ng-repeat="notification in notifications" ng-if="notification.isUnread()">
-              <div class="notification-metadata">
-                <h4 class="notification-headline">{{ notification.get('title') }}</h4>
-                <a href="#" ng-click="closeNotification(notification)">
-                  <img class="notification-close-btn" src="img/close-btn-gray.png"></img>
-                </a>
-                <p class="notification-timestamp">{{ notification.getCreatedAt() | date:'short' }}</p>
+              <div class="nav-text">
               </div>
-              <p class="notification-body">{{ notification.get('body') }}</p>
-            </div>
+              <a href="#" class="next-steward" ng-click="next()">
+                <img class="" src="img/chevron-right-white.png" ng-show="canNext()" ng-cloak/>
+                <img class="" src="img/chevron-right-dark-green.png" ng-hide="canNext()" ng-cloak/>
+              </a>
+            </nav>
+            <section id="notification-source">
+              <div class="source-name">
+                <h3>{{ steward.get('name') }}</h3>
+                <img class="source-logo" src="img/nps.png"></img>
+              </div>
+              <nav class="notification-tabs">
+                <ul>
+                  <li ng-click="showView('notifications-notices')" class="tab" ng-class="{active:isActiveTab('notifications-notices')}">Notices</li><li ng-click="showView('notifications-contact')" class="tab" ng-class="{active:isActiveTab('notifications-contact')}">Contact</li>
+                </ul>
+              </nav>
+            </section>
+          </header>
 
-          </div>
-        </div>
-      </div>
+          <section id="notification-content">
+
+            <section id="contact-view" ng-show="view === 'notifications-contact'" ng-cloak>
+              <div class="source-address">
+                <div>Address:</div>
+                <a href="http://maps.apple.com/?saddr={{ geoposition.get('latitude') }},{{ geoposition.get('longitude') }}&daddr={{ steward.get('address') }}" target="_system">975 Treaty Line Rd Akron, OH</a>
+              </div>
+              <div class="source-call-btn">
+                <img class="phone-icon" src="img/phone-white.png"></img>
+                <a href="tel:{{ steward.get('phone') }}">{{ steward.get('phone') }}</a>
+                </a>
+              </div>
+            </section>
+
+            <section id="notification-list" ng-show="view === 'notifications-notices'" ng-cloak>
+
+              <aside id="notifications-empty" ng-show="unreadNotifications() === 0">
+                <p>There are no notifications at this time.</p>
+              </aside>
+
+              <article class="notification-card" ng-repeat="notification in notifications" ng-if="notification.isUnread()">
+                <div class="notification-metadata">
+                  <h4 class="notification-headline">{{ notification.get('title') }}</h4>
+                  <a href="#" ng-click="closeNotification(notification)">
+                    <img class="notification-close-btn" src="img/close-btn-gray.png"></img>
+                  </a>
+                  <p class="notification-timestamp">{{ notification.getCreatedAt() | date:'short' }}</p>
+                </div>
+                <p class="notification-body">{{ notification.get('body') }}</p>
+              </article>
+
+            </section>
+          </section>
+        </section>
+
+      </section>
 
 
       <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }" ng-cloak>
