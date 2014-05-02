@@ -771,30 +771,36 @@ body {
 }
 #notifications-view #content #notification-source {
   position: relative;
-  height: auto;
+  height: 103px;
   margin: 0 20px;
   padding: 10px 0;
-  border-bottom: 1px solid #a3a3a3;
 }
-#notifications-view #content #notification-source .source-name {
+#notifications-view #content #notification-source .source-name-container {
   padding-bottom: 10px;
 }
-#notifications-view #content #notification-source .source-name .source-logo {
-  display: inline-block;
-  position: relative;
-  height: 50px;
-  max-width: 25%;
-}
-#notifications-view #content #notification-source .source-name h3 {
+#notifications-view #content #notification-source .source-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
   display: inline-block;
   position: relative;
   vertical-align: top;
   width: 80%;
   margin: 0 0 0 0;
+  height: 48px;
+}
+#notifications-view #content #notification-source .source-logo {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  max-width: 25%;
 }
 #notifications-view #content #notification-content {
-  position: relative;
-  height: 100%;
+  position: absolute;
+  top: 160px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 #notifications-view #content #contact-view {
   padding: 10px 20px;
@@ -856,8 +862,7 @@ body {
   z-index: 1000;
 }
 #notifications-view #content #notification-list {
-  margin: 5px 20px;
-  margin-bottom: 0;
+  padding: 0 20px;
   position: absolute;
   left: 0;
   right: 0;

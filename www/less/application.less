@@ -893,31 +893,37 @@ body {
     }
     #notification-source {
       position: relative;
-      height: auto;
+      height: 103px; // hardcode header height so we can scroll through notice list
       margin: 0 20px;
       padding: 10px 0;
-      border-bottom: 1px solid lighten(@gray-color, 50%);
-      .source-name {
+      .source-name-container {
         padding-bottom: 10px;
-        .source-logo {
-          display: inline-block;
-          position: relative;
-          height: 50px;
-          max-width: 25%;
-        }
-        h3 {
-          display: inline-block;
-          position: relative;
-          vertical-align: top;
-          width: 80%;
-          margin: 0 0 0 0;
-        }
+      }
+      .source-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-text-overflow: ellipsis;
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        width: 80%;
+        margin: 0 0 0 0;
+        height: 48px;
+      }
+      .source-logo {
+        display: inline-block;
+        position: relative;
+        height: 50px;
+        max-width: 25%;
       }
     }
     #notification-content
     {
-      position: relative;
-      height: 100%;
+      position: absolute;
+      top: 160px;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
     #contact-view {
       padding: 10px 20px;
@@ -983,8 +989,7 @@ body {
       }
     }
     #notification-list {
-      margin: 5px 20px;
-      margin-bottom: 0;
+      padding: 0 20px;
       position: absolute;
       left: 0;
       right: 0;
