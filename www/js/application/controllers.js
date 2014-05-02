@@ -68,25 +68,33 @@
         }
       });
 
+      $scope.selectedNotice = null;
+      $scope.selectNotice = function (notification) {
+        notification.markAsRead();
+        if ($scope.selectedNotice === notification) 
+          $scope.selectedNotice = null
+        else
+          $scope.selectedNotice = notification;
+      }
+
       // Mark notification as read when closed
 
       $scope.closeNotification = function (notification) {
-        if (notification) {
-          notification.markAsRead();
-        }
+        if (notification)
+          notification.markAsDeleted();
       };
 
       // Immensely hackish & expensive way of tracking a
       // count of total unread notifications.
       // TODO: Refactor this to update only when the 
       // closeNotification function is called.
-      $scope.unreadNotifications = function () {
-        var numUnread = 0;
+      $scope.undeletedNotifications = function () {
+        var numUndeleted = 0;
         for( var i in $scope.notifications )
         {
-          if (!$scope.notifications[i].attributes.read) numUnread++;
+          if (!$scope.notifications[i].attributes.deleted) numUndeleted++;
         }
-        return numUnread;
+        return numUndeleted;
       };
 
       // Set geoposition for address lookup
