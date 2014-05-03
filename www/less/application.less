@@ -881,20 +881,12 @@ body {
       background-color: @green-color;
       font-family: @font-display;
       font-size: 12px;
-      .chevron-left {
-        position: absolute;
-        height: 20px;
-        margin-top: 10px;
-        width: auto;
-        left: 20px;
-      }
-
       .next-steward {
-        position: absolute;
-        height: 20px;
+        position: relative;
+        display: inline-block;
         width: auto;
-        padding: 10px;
-        right: 10px;
+        padding: 10px 20px 10px 10px;
+        float: right;
         &:active {
           opacity: .75;
         }
@@ -904,11 +896,13 @@ body {
       }
 
       .previous-steward {
-        position: absolute;
+        position: relative;
+        display: inline-block;
         height: 20px;
         width: auto;
-        padding: 10px;
+        padding: 10px 10px 10px 20px;
         left: 10px;
+        float: left;
         &:active {
           opacity: .75;
         }
@@ -918,10 +912,9 @@ body {
       }
 
       .nav-text {
+        position: relative;
+        display: inline-block;
         text-align: center;
-        margin: auto;
-        position: absolute;
-        width: 100%;
         p {
           color: @white-color;
           font-size: @small-font;
