@@ -38,7 +38,7 @@
 @gray-color: #242424;
 @blue-color: #4A90E2;
 @red-color: #D0021B;
-@green-color: #465C44;
+@green-color: #5c795a;
 @light-gray-color: lighten(@gray-color, 50%);
 
 @status-height: 20px;
@@ -61,7 +61,6 @@
 @z-index-7: 7000;
 
 @font-display: 'Merriweather Sans', sans-serif;
-@font-body: 'Lora', serif;
 @font-context: 'Source Sans Pro', sans-serif;
 
 @large-font: 22px;
@@ -300,9 +299,10 @@ body {
 /* SEARCH VIEW */
 #search-view {
   #header {
-    height: 130px;
+    height: 140px;
     background-color: @white-color;
     color: @gray-color;
+    border-bottom: 1px solid @gray-color;
 
     .search-form {
       width: 100%;
@@ -353,7 +353,7 @@ body {
       margin: 0px 0 10px 20px;
       width: 100%;
       height: 1em;
-      font-family: @font-display;
+      font-family: @font-context;
       font-size: @small-font;
       font-weight: 200;
     }
@@ -386,33 +386,32 @@ body {
     }
   }
   #content {
-    top: 150px;
-    .search-info {
-      width: 100%; 
-      height: 20px;
-      padding: 10px 0 5px 0;
-      color: darken(@green-color, 50%);
-      font-family: @font-display;
-      font-size: @small-font;
-      text-align: center;
-      border-bottom: 1px solid @gray-color
-    }
+    top: 162px;
     .search-results {
       width: 100%; 
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       height: 340px;
       margin-bottom: 30px;
+      .search-info {
+        width: 100%; 
+        height: 20px;
+        padding: 10px 0 5px 0;
+        color: darken(@green-color, 50%);
+        font-family: @font-context;
+        font-size: @small-font;
+        text-align: center;
+        border-bottom: 1px solid @gray-color
+      }
     }
-
     .search-result {
       .search-result-header-outer {
         background-color: @green-color;
         color: @white-color;
         height: auto;
-        font-family: @font-display;
+        font-family: @font-context;
         font-size: @small-font;
-        font-weight: 700;
+        font-weight: 400;
         padding: 0 20px;
 
         .search-result-header-inner {
@@ -443,10 +442,11 @@ body {
 
       .search-subresults {
         background-color: @white-color; 
-        h3 {
+        p {
           border-bottom: 1px solid @gray-color;
           font-family: @font-display;
           font-size: @large-font;
+          font-weight: 700;
           margin: 0;
           padding: 15px;
         }
@@ -693,7 +693,6 @@ body {
           width: auto;
           height: 12px;
           margin: .5em 0;
-          padding-top: .1em;
         }
         .trailhead-title {
           position: relative;
@@ -702,7 +701,7 @@ body {
           font-size: @small-font;
           float: left;
           width: auto;
-          max-width: 40%;
+          max-width: 50%;
           margin: .5em 10px;
           font-weight: 700;
         }
@@ -711,10 +710,14 @@ body {
           position: relative;
           float: right;
           width: auto;
-          max-width: 40%;
-          margin: .5em 0;
+          margin: .5em 0 1em 0;
           font-family: @font-context;
           font-size: @small-font;
+          padding: 6px;
+          background-color: @blue-color;
+          border-radius: 2px;
+          color: @white-color;
+          text-decoration: none;
         }
       }
       .photo-box {
@@ -838,19 +841,21 @@ body {
     ul {
       margin:0; padding:0;
       border-radius: 4px;
-      -webkit-border-radius: 4px;
+      -webkit-border-radius: 2px;
       border:1px solid @green-color;
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(242,242,242,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
       background: -webkit-linear-gradient(top,  rgba(242,242,242,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
     }
     li {
       list-style: none;
+      font-family: @font-context;
+      font-size: @small-font;
       display: inline-block;
     }
 
     .tab
     {
-      padding: 10px;
+      padding: 6px;
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
       text-align: center;
@@ -913,12 +918,14 @@ body {
       }
 
       .nav-text {
-        position: absolute;
         text-align: center;
-        margin: 15px 0;
+        margin: auto;
+        position: absolute;
+        width: 100%;
         p {
-          color: @gray-color;
-          margin: 0;
+          color: @white-color;
+          font-size: @small-font;
+          font-family: @font-context;
         }
       }
     }
@@ -937,6 +944,9 @@ body {
         display: inline-block;
         position: relative;
         vertical-align: top;
+        font-family: @font-display;
+        font-size: @medium-font;
+        font-weight: 700;
         width: 80%;
         margin: 0 0 0 0;
         height: 48px;
@@ -964,23 +974,29 @@ body {
       right: 0;
       bottom: 0;
 
-      .source-address {
+      .contact-options {
         box-sizing: border-box;
         background: #fff;
-        border-radius: 6px;
+        border-radius: 2px;
         text-align: left;
         padding: 10px;
         width: 100%;
         margin-bottom: 10px;
-        font-family: @font-display;
-        font-size: @medium-font;
+        font-family: @font-context;
+        font-size: @small-font;
         position: relative;
         z-index: @z-index-2;
+        .source-address {
+          max-width: 60%;
+        }
+        .source-phone {
+          max-width: 60%;
+        }
       }
       .source-call-btn {
         position: relative;
         background-color: @blue-color;
-        border-radius: 4px;
+        border-radius: 2px;
         display: inline-block;
         padding-right: 10px;
         cursor: pointer;
@@ -997,8 +1013,8 @@ body {
           width: auto;
         }
         a {
-          font-family: @font-display;
-          font-size: @medium-font;
+          font-family: @font-context;
+          font-size: @small-font;
           color: @white-color;
           text-decoration: none;
         }
@@ -1035,7 +1051,6 @@ body {
       .notification-card {
         border-bottom: 1px solid lighten(@gray-color, 50%);
         margin-bottom: 5px;
-        padding-bottom: 5px;
         clear: right;
         .notification-metadata {
           position: relative;
@@ -1045,10 +1060,10 @@ body {
 
           .notification-status {
             font-family: @font-display;
-            font-size: 64px;
+            font-size: 40px;
             position: absolute;
-            top: -20px;
-            left: 0;
+            top: -7px;
+            left: 5px;
             width: 20px;
             height: 20px;
             pointer-events: none;
@@ -1069,15 +1084,17 @@ body {
           .notification-headline {
             padding-left: 30px;
             position: relative;
+            font-family: @font-display;
+            font-size: @small-font;
+            font-weight: 700;
             margin: 0;
           }
           .notification-timestamp {
-            font-family: @font-display;
+            font-family: @font-context;
             font-size: @small-font;
             color: @gray-color;
             float: right;
             position: relative;
-            top: 5px;
           }
         }
         .notification-body {
@@ -1110,6 +1127,7 @@ body {
 
 #notifications-empty {
   color: @gray-color;
+  font-family: @font-context;
   text-align: center;
 }
 

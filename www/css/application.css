@@ -199,9 +199,10 @@ body {
 }
 /* SEARCH VIEW */
 #search-view #header {
-  height: 130px;
+  height: 140px;
   background-color: #f6f6f6;
   color: #242424;
+  border-bottom: 1px solid #242424;
 }
 #search-view #header .search-form {
   width: 100%;
@@ -255,7 +256,7 @@ body {
   margin: 0px 0 10px 20px;
   width: 100%;
   height: 1em;
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 200;
 }
@@ -287,17 +288,7 @@ body {
   display: inline-block;
 }
 #search-view #content {
-  top: 150px;
-}
-#search-view #content .search-info {
-  width: 100%;
-  height: 20px;
-  padding: 10px 0 5px 0;
-  color: #000000;
-  font-family: 'Merriweather Sans', sans-serif;
-  font-size: 12px;
-  text-align: center;
-  border-bottom: 1px solid #242424;
+  top: 162px;
 }
 #search-view #content .search-results {
   width: 100%;
@@ -306,13 +297,23 @@ body {
   height: 340px;
   margin-bottom: 30px;
 }
+#search-view #content .search-results .search-info {
+  width: 100%;
+  height: 20px;
+  padding: 10px 0 5px 0;
+  color: #000000;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: 1px solid #242424;
+}
 #search-view #content .search-result .search-result-header-outer {
-  background-color: #465c44;
+  background-color: #5c795a;
   color: #f6f6f6;
   height: auto;
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 400;
   padding: 0 20px;
 }
 #search-view #content .search-result .search-result-header-outer .search-result-header-inner {
@@ -338,10 +339,11 @@ body {
 #search-view #content .search-result .search-subresults {
   background-color: #f6f6f6;
 }
-#search-view #content .search-result .search-subresults h3 {
+#search-view #content .search-result .search-subresults p {
   border-bottom: 1px solid #242424;
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 22px;
+  font-weight: 700;
   margin: 0;
   padding: 15px;
 }
@@ -378,7 +380,7 @@ body {
   position: relative;
   height: 2.5em;
   width: 100%;
-  background-color: #465c44;
+  background-color: #5c795a;
   border-bottom: 5px solid #f6f6f6;
 }
 #trail-view .trail-nav .trail-trailhead {
@@ -579,7 +581,6 @@ body {
   width: auto;
   height: 12px;
   margin: .5em 0;
-  padding-top: .1em;
 }
 #trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-title {
   position: relative;
@@ -588,7 +589,7 @@ body {
   font-size: 12px;
   float: left;
   width: auto;
-  max-width: 40%;
+  max-width: 50%;
   margin: .5em 10px;
   font-weight: 700;
 }
@@ -597,10 +598,14 @@ body {
   position: relative;
   float: right;
   width: auto;
-  max-width: 40%;
-  margin: .5em 0;
+  margin: .5em 0 1em 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
+  padding: 6px;
+  background-color: #4a90e2;
+  border-radius: 2px;
+  color: #f6f6f6;
+  text-decoration: none;
 }
 #trail-view .trail-and-trailhead-data .trail-data .photo-box {
   display: inline-block;
@@ -719,8 +724,8 @@ body {
   margin: 0;
   padding: 0;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border: 1px solid #465c44;
+  -webkit-border-radius: 2px;
+  border: 1px solid #5c795a;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f2f2), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #f2f2f2 0%, #ffffff 100%);
@@ -728,10 +733,12 @@ body {
 }
 #notifications-view .notification-tabs li {
   list-style: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
   display: inline-block;
 }
 #notifications-view .notification-tabs .tab {
-  padding: 10px;
+  padding: 6px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   text-align: center;
@@ -740,7 +747,7 @@ body {
 }
 #notifications-view .notification-tabs .tab.active {
   color: #fff;
-  background-color: #465c44;
+  background-color: #5c795a;
   cursor: auto;
 }
 #notifications-view #content {
@@ -750,7 +757,7 @@ body {
   height: 40px;
   width: 100%;
   text-align: center;
-  background-color: #465c44;
+  background-color: #5c795a;
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
 }
@@ -788,13 +795,15 @@ body {
   height: 20px;
 }
 #notifications-view #content #sources-nav .nav-text {
-  position: absolute;
   text-align: center;
-  margin: 15px 0;
+  margin: auto;
+  position: absolute;
+  width: 100%;
 }
 #notifications-view #content #sources-nav .nav-text p {
-  color: #242424;
-  margin: 0;
+  color: #f6f6f6;
+  font-size: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 #notifications-view #content #notification-source {
   position: relative;
@@ -812,6 +821,9 @@ body {
   display: inline-block;
   position: relative;
   vertical-align: top;
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
   width: 80%;
   margin: 0 0 0 0;
   height: 48px;
@@ -837,23 +849,29 @@ body {
   right: 0;
   bottom: 0;
 }
-#notifications-view #content #contact-view .source-address {
+#notifications-view #content #contact-view .contact-options {
   box-sizing: border-box;
   background: #fff;
-  border-radius: 6px;
+  border-radius: 2px;
   text-align: left;
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
-  font-family: 'Merriweather Sans', sans-serif;
-  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
   position: relative;
   z-index: 2000;
+}
+#notifications-view #content #contact-view .contact-options .source-address {
+  max-width: 60%;
+}
+#notifications-view #content #contact-view .contact-options .source-phone {
+  max-width: 60%;
 }
 #notifications-view #content #contact-view .source-call-btn {
   position: relative;
   background-color: #4a90e2;
-  border-radius: 4px;
+  border-radius: 2px;
   display: inline-block;
   padding-right: 10px;
   cursor: pointer;
@@ -869,8 +887,8 @@ body {
   width: auto;
 }
 #notifications-view #content #contact-view .source-call-btn a {
-  font-family: 'Merriweather Sans', sans-serif;
-  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
   color: #f6f6f6;
   text-decoration: none;
 }
@@ -905,7 +923,6 @@ body {
 #notifications-view #content #notification-list .notification-card {
   border-bottom: 1px solid #a3a3a3;
   margin-bottom: 5px;
-  padding-bottom: 5px;
   clear: right;
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata {
@@ -916,10 +933,10 @@ body {
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata .notification-status {
   font-family: 'Merriweather Sans', sans-serif;
-  font-size: 64px;
+  font-size: 40px;
   position: absolute;
-  top: -20px;
-  left: 0;
+  top: -7px;
+  left: 5px;
   width: 20px;
   height: 20px;
   pointer-events: none;
@@ -936,15 +953,17 @@ body {
 #notifications-view #content #notification-list .notification-card .notification-metadata .notification-headline {
   padding-left: 30px;
   position: relative;
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
   margin: 0;
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata .notification-timestamp {
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   color: #242424;
   float: right;
   position: relative;
-  top: 5px;
 }
 #notifications-view #content #notification-list .notification-card .notification-body {
   height: auto;
@@ -971,6 +990,7 @@ body {
 }
 #notifications-empty {
   color: #242424;
+  font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
 }
 #notification-sources .source {
