@@ -255,6 +255,7 @@ body {
   margin: 0px 0 10px 20px;
   width: 100%;
   height: 1em;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
   font-weight: 200;
 }
@@ -293,6 +294,7 @@ body {
   height: 20px;
   padding: 10px 0 5px 0;
   color: #000000;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
   text-align: center;
   border-bottom: 1px solid #242424;
@@ -308,8 +310,9 @@ body {
   background-color: #465c44;
   color: #f6f6f6;
   height: 40px;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 700;
   padding: 0 20px;
 }
 #search-view #content .search-result .search-result-header-outer .search-result-header-inner {
@@ -333,6 +336,7 @@ body {
 }
 #search-view #content .search-result .search-subresults h3 {
   border-bottom: 1px solid #242424;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 22px;
   margin: 0;
   padding: 15px;
@@ -340,6 +344,7 @@ body {
 #search-view #content .search-result .search-subresults a {
   text-decoration: none;
   color: #242424;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 22px;
 }
 /* Trail View - AJW*/
@@ -412,6 +417,7 @@ body {
   display: inline-block;
   position: relative;
   float: left;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 400;
   text-align: center;
@@ -437,6 +443,7 @@ body {
   position: relative;
   float: right;
   margin: 1em 0em 1em 1em;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 400;
 }
@@ -464,6 +471,7 @@ body {
 #trail-view .trail-nav .more-btn-label {
   display: inline-block;
   position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 200;
   margin: 1.25em 0 0 10px;
@@ -473,6 +481,7 @@ body {
   display: inline-block;
   position: relative;
   float: right;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 200;
   margin: 1.25em 10px 0 0;
@@ -520,6 +529,7 @@ body {
   display: inline-block;
   min-width: 75%;
   line-height: 1.2em;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 22px;
   margin: 10px 20px 0 20px;
 }
@@ -527,6 +537,7 @@ body {
   width: auto;
   vertical-align: top;
   padding-top: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   display: inline-block;
   position: relative;
@@ -540,6 +551,7 @@ body {
   width: auto;
   vertical-align: top;
   padding-top: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   display: inline-block;
   position: relative;
@@ -568,12 +580,13 @@ body {
 #trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-title {
   position: relative;
   display: inline-block;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
   float: left;
   width: auto;
   max-width: 40%;
   margin: .5em 10px;
-  font-weight: 400;
+  font-weight: 700;
 }
 #trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-address {
   display: inline-block;
@@ -582,6 +595,7 @@ body {
   width: auto;
   max-width: 40%;
   margin: .5em 0;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
 }
 #trail-view .trail-and-trailhead-data .trail-data .photo-box {
@@ -597,6 +611,7 @@ body {
   display: inline-block;
   position: relative;
   width: 100%;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 400;
   color: #a3a3a3;
@@ -636,8 +651,9 @@ body {
   margin: 5px 20px 5px 0px;
   width: auto;
   position: relative;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
 }
 #trail-view .trail-and-trailhead-data .trail-data img {
   height: .5em;
@@ -659,6 +675,11 @@ body {
   padding-top: 10px;
   background-color: #f6f6f6;
 }
+#trail-view .trail-and-trailhead-data .trailhead-data .trail-body {
+  font-family: 'Merriweather Sans', sans-serif, serif;
+  font-size: 12px;
+  font-weight: 400;
+}
 #trail-view .trail-and-trailhead-data .trailhead-data .trailhead-steward {
   position: relative;
   display: inline-block;
@@ -668,8 +689,9 @@ body {
 }
 #trail-view .trail-and-trailhead-data .trailhead-data .trailhead-steward p {
   margin: 0;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
 }
 .minimized {
   top: 270px;
@@ -725,6 +747,7 @@ body {
   width: 100%;
   text-align: center;
   background-color: #465c44;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
 }
 #notifications-view #content #sources-nav .chevron-left {
@@ -818,6 +841,7 @@ body {
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 16px;
   position: relative;
   z-index: 2000;
@@ -841,11 +865,13 @@ body {
   width: auto;
 }
 #notifications-view #content #contact-view .source-call-btn a {
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 16px;
   color: #f6f6f6;
   text-decoration: none;
 }
 #notifications-view #content #contact-view .source-call-btn .call-btn-label {
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 22px;
   color: #f6f6f6;
 }
@@ -885,6 +911,7 @@ body {
   padding-top: 10px;
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata .notification-status {
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 64px;
   position: absolute;
   top: -20px;
@@ -908,6 +935,7 @@ body {
   margin: 0;
 }
 #notifications-view #content #notification-list .notification-card .notification-metadata .notification-timestamp {
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
   color: #242424;
   float: right;
@@ -917,6 +945,7 @@ body {
 #notifications-view #content #notification-list .notification-card .notification-body {
   height: auto;
   margin: 10px;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
   line-height: 1.2em;
 }
@@ -924,6 +953,7 @@ body {
   display: block;
   text-decoration: none;
   padding-bottom: 5px;
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
   border-radius: 6px;
   color: #d0021b;
@@ -952,6 +982,7 @@ body {
   display: inline-block;
 }
 #notification-sources .source .col-right h3 {
+  font-family: 'Merriweather Sans', sans-serif;
   font-size: 13px;
 }
 /** Device Specific Styles **/

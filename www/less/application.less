@@ -60,6 +60,10 @@
 @z-index-6: 6000;
 @z-index-7: 7000;
 
+@font-display: 'Merriweather Sans', sans-serif;
+@font-body: 'Lora', serif;
+@font-context: 'Source Sans Pro', sans-serif;
+
 @large-font: 22px;
 @medium-font: 16px;
 @small-font: 12px;
@@ -349,6 +353,7 @@ body {
       margin: 0px 0 10px 20px;
       width: 100%;
       height: 1em;
+      font-family: @font-display;
       font-size: @small-font;
       font-weight: 200;
     }
@@ -387,6 +392,7 @@ body {
       height: 20px;
       padding: 10px 0 5px 0;
       color: darken(@green-color, 50%);
+      font-family: @font-display;
       font-size: @small-font;
       text-align: center;
       border-bottom: 1px solid @gray-color
@@ -404,8 +410,9 @@ body {
         background-color: @green-color;
         color: @white-color;
         height: 40px;
+        font-family: @font-display;
         font-size: @small-font;
-        font-weight: 400;
+        font-weight: 700;
         padding: 0 20px;
 
         .search-result-header-inner {
@@ -434,6 +441,7 @@ body {
         background-color: @white-color; 
         h3 {
           border-bottom: 1px solid @gray-color;
+          font-family: @font-display;
           font-size: @large-font;
           margin: 0;
           padding: 15px;
@@ -441,6 +449,7 @@ body {
         a {
           text-decoration: none; 
           color: @gray-color;
+          font-family: @font-display;
           font-size: @large-font;
         }
       }
@@ -518,6 +527,7 @@ body {
           display: inline-block;
           position: relative;
           float: left;
+          font-family: @font-context;
           font-size: 12px;
           font-weight: 400;
           text-align: center;
@@ -542,6 +552,7 @@ body {
             position: relative;
             float: right;
             margin: 1em 0em 1em 1em;
+            font-family: @font-context;
             font-size: @small-font;
             font-weight: 400;
           }
@@ -574,6 +585,7 @@ body {
     .more-btn-label {
       display: inline-block;
       position: relative;
+      font-family: @font-context;
       font-size: @small-font;
       font-weight: 200;
       margin: 1.25em 0 0 10px;
@@ -584,6 +596,7 @@ body {
       display: inline-block;
       position: relative;
       float: right;
+      font-family: @font-context;
       font-size: @small-font;
       font-weight: 200;
       margin: 1.25em 10px 0 0;
@@ -630,6 +643,7 @@ body {
           display: inline-block;
           min-width: 75%;
           line-height: 1.2em;
+          font-family: @font-display;
           font-size: @large-font;
           margin: 10px 20px 0 20px;
         }
@@ -637,6 +651,7 @@ body {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
+          font-family: @font-context;
           font-size: @small-font;
           display: inline-block;
           position: relative;
@@ -650,6 +665,7 @@ body {
           width: auto;
           vertical-align: top;
           padding-top: 10px;
+          font-family: @font-context;
           font-size: @small-font;
           display: inline-block;
           position: relative;
@@ -678,12 +694,13 @@ body {
         .trailhead-title {
           position: relative;
           display: inline-block;
+          font-family: @font-display;
           font-size: @small-font;
           float: left;
           width: auto;
           max-width: 40%;
           margin: .5em 10px;
-          font-weight: 400;
+          font-weight: 700;
         }
         .trailhead-address {
           display: inline-block;
@@ -692,6 +709,7 @@ body {
           width: auto;
           max-width: 40%;
           margin: .5em 0;
+          font-family: @font-context;
           font-size: @small-font;
         }
       }
@@ -708,6 +726,7 @@ body {
         display: inline-block;
         position: relative;
         width: 100%;
+        font-family: @font-context;
         font-size: 12px;
         font-weight: 400;
         color: @light-gray-color;
@@ -746,8 +765,9 @@ body {
           margin: 5px 20px 5px 0px;
           width: auto;
           position: relative;
+          font-family: @font-display;
           font-size: @small-font;
-          font-weight: 500;
+          font-weight: 700;
         }
       }
       img {
@@ -770,6 +790,11 @@ body {
       padding-right: 20px;
       padding-top: 10px;
       background-color: @white-color;
+      .trail-body {
+        font-family: @font-display, serif;
+        font-size: @small-font;
+        font-weight: 400;
+      }
       .trailhead-steward {
         position: relative;
         display: inline-block;
@@ -778,8 +803,9 @@ body {
         margin-bottom: 40px;
         p {
           margin: 0;
+          font-family: @font-display;
           font-size: @small-font;
-          font-weight: 500;
+          font-weight: 700;
         }
       }
     }
@@ -844,6 +870,7 @@ body {
       width: 100%;
       text-align: center;
       background-color: @green-color;
+      font-family: @font-display;
       font-size: 12px;
       .chevron-left {
         position: absolute;
@@ -941,6 +968,7 @@ body {
         padding: 10px;
         width: 100%;
         margin-bottom: 10px;
+        font-family: @font-display;
         font-size: @medium-font;
         position: relative;
         z-index: @z-index-2;
@@ -965,11 +993,13 @@ body {
           width: auto;
         }
         a {
+          font-family: @font-display;
           font-size: @medium-font;
           color: @white-color;
           text-decoration: none;
         }
         .call-btn-label {
+          font-family: @font-display;
           font-size: @large-font;
           color: @white-color;
         }
@@ -1010,6 +1040,7 @@ body {
           padding-top: 10px;
 
           .notification-status {
+            font-family: @font-display;
             font-size: 64px;
             position: absolute;
             top: -20px;
@@ -1037,6 +1068,7 @@ body {
             margin: 0;
           }
           .notification-timestamp {
+            font-family: @font-display;
             font-size: @small-font;
             color: @gray-color;
             float: right;
@@ -1047,6 +1079,7 @@ body {
         .notification-body {
           height: auto;
           margin: 10px;
+          font-family: @font-display;
           font-size: 12px;
           line-height: 1.2em;
         }
@@ -1054,6 +1087,7 @@ body {
           display: block;
           text-decoration: none;
           padding-bottom: 5px;
+          font-family: @font-display;
           font-size: @small-font;
           border-radius: 6px;
           color: @red-color;
@@ -1090,6 +1124,7 @@ body {
       display: inline-block;
 
       h3 {
+        font-family: @font-display;
         font-size: 13px; 
       }
     }

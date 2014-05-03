@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="js/lib/leaflet/MarkerCluster.Default.css">
     <link rel="stylesheet" type="text/css" href="js/lib/leaflet/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="css/application.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Lora:400,700|Merriweather+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
   </head>
 
   <body ng-controller='AppCtrl'>
@@ -191,7 +192,7 @@
                 </tr>
               </table>
               <p class="trail-subhead">Trail Description</p>
-              <p>{{ selectedTrail.get('descriptn') }}</p>
+              <p class="trail-body">{{ selectedTrail.get('descriptn') }}</p>
               <div class="trailhead-steward">
                 <p>
                   Managed by {{ selectedTrailHeadSteward.get('name') }}

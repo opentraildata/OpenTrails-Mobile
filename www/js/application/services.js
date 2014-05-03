@@ -1313,11 +1313,11 @@
       geojson: null,
       options: {
         style: {
-          color: "#a3a3a3",
-          opacity: 0.5
+          color: "#91765E",
+          opacity: 1
         },
         highlightStyle: {
-          color: "#333333",
+          color: "#F26522",
           opacity: 1
         },
         smoothFactor: 2
