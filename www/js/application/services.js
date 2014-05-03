@@ -1313,7 +1313,7 @@
       geojson: null,
       options: {
         style: {
-          color: "#91765E",
+          color: "#CFA682",
           opacity: 1
         },
         highlightStyle: {
