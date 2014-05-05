@@ -174,6 +174,7 @@
       //
       // MAP LOGIC
       //
+      var mapContainer = document.getElementById('map-container');
 
       Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
 
@@ -209,15 +210,23 @@
 
       $scope.recenter = recenter;
 
+      //
+      // MAP EVENT HANDLERS (added after map loads)
+      //
       function onMapClick () {
         $scope.$apply(function () {
           deselectTrailHead($scope.selectedTrailHead);
         });
       }
 
-      Map.on('click', function () {
-        onMapClick()
-      });
+      // Update zoom level CSS class when map is zoomed.
+      var lastZoomClass; // The last zoom level class added
+      function onMapZoom () {
+        var zoomClass = 'map-zoom-'+Map.getZoom();
+        mapContainer.classList.remove(lastZoomClass);
+        mapContainer.classList.add(zoomClass);
+        lastZoomClass = zoomClass;
+      }
 
       //
       // MAP TILES LOGIC
@@ -277,7 +286,7 @@
       //
 
       var trailHeadCluster = new MapMarkerClusterGroup();
-      var trailHeadMarkers = []
+      var trailHeadMarkers = [];
       var trailLayers  = [];
 
       $scope.selectedTrailHead = null;
@@ -305,6 +314,14 @@
           trailHeadCluster.addTo(Map);
           bindEvents();
           search('');
+
+          // Add initial zoom level class to map container
+          lastZoomClass = 'map-zoom-'+Map.getZoom();
+          mapContainer.classList.add(lastZoomClass);
+
+          // Add event listeners
+          Map.on('click', onMapClick);
+          Map.on('zoomend', onMapZoom);
         }
       }
 
@@ -318,6 +335,7 @@
         trailHeadCluster.addLayer(marker);
       }
 
+      /*
       function selectTrailHeadMarker (marker) {
         if (marker) {
           marker.select();
@@ -349,6 +367,7 @@
           layer.deselect();
         }
       }
+      */
 
       function onTrailHeadMarkerClick (marker) {
         var record = marker.get('record');
@@ -374,6 +393,8 @@
         $scope.selectedTrail = t || th.trails.first();
         $scope.selectedPhoto = $scope.selectedTrail.photo.first()
         $scope.selectedTrailHeadSteward = th.stewards.first();
+
+        mapContainer.classList.add('trail-selected');
       }
 
       $scope.selectTrailHead = selectTrailHead;
@@ -385,6 +406,8 @@
         $scope.selectedTrail = null;
         $scope.selectedPhoto = null;
         $scope.selectedSteward = null;
+
+        mapContainer.classList.remove('trail-selected');
       }
 
       function selectTrail (t) {
@@ -395,19 +418,67 @@
 
       $scope.selectTrail = selectTrail;
 
+      // Remove the marker from the Marker clusters
+      // and add it to the map so that it doesn't
+      // combine with a cluster at zoomed out levels.
+      function moveMarkerToMap(marker)
+      {
+        trailHeadCluster.removeLayer(marker);
+        var index = trailHeadMarkers.indexOf(marker);
+        if (index > -1) trailHeadMarkers.splice(index, 1);
+        marker.addTo(Map);
+      }
+
+      // Add the marker to the Marker clusters
+      // and remove it from the map so that it does
+      // combine with a cluster at zoomed out levels.
+      function moveMarkerToCluster(marker)
+      {
+        trailHeadMarkers.push(marker);
+        marker.removeFrom(Map);
+        trailHeadCluster.addLayer(marker);
+      }
+
+      var lastSelectedMarker; // The last marker that was selected
       $scope.$watch('selectedTrailHead', function (value) {
 
+        var newMarkerSelected; // The new marker that was select, or null
         ng.forEach(trailHeadMarkers, function (marker) {
+
           if (marker.get('record') === value) {
-            marker.select();
-          } else {
-            marker.deselect();
+            newMarkerSelected = marker;
           }
+
         });
 
-        if (value) {
-          showView('trails');
-        } else {
+        // NOTE: This scenario occurs when a marker is clicked.
+        // If a new marker was selected, deselect the old marker
+        // and move it to the clustering group.
+        // Move the new marker to the map and select it.
+        // Then register the new marker as the last selected marker.
+        // Lastly, show the trails view.
+        if (newMarkerSelected) {
+          if (lastSelectedMarker) {
+            moveMarkerToCluster(lastSelectedMarker);
+            lastSelectedMarker.deselect();
+          }
+          moveMarkerToMap(newMarkerSelected);
+          newMarkerSelected.select();
+          lastSelectedMarker = newMarkerSelected;
+          showView(TRAILS_VIEW);
+        }
+        // NOTE: This scenario occurs when the map is clicked.
+        // If no new marker was selected and there is
+        // a last selected marker, then move the last selected
+        // marker to the cluster group and deselect it.
+        // Also, set the last selected marker to null,
+        // since there was no new marker clicked.
+        // Lastly, show the map view.
+        else if (lastSelectedMarker)
+        {
+          moveMarkerToCluster(lastSelectedMarker);
+          lastSelectedMarker.deselect();
+          lastSelectedMarker = null;
           showView(MAP_VIEW);
         }
 
@@ -434,7 +505,7 @@
           }
         });
         if (value) {
-          showView('trails');
+          showView(TRAILS_VIEW);
         } else {
           showView(MAP_VIEW);
         }
