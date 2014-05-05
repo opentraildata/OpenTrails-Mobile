@@ -1188,11 +1188,41 @@
 
     defaults: {
       "maxClusterRadius": 30,
-      "showCoverageOnHover": false
+      "showCoverageOnHover": false,
+
+      // This is a duplicate of the default icon
+      // creation function, which is provided
+      // here as a guide for updating the
+      // cluster icon appearance in the future.
+      // Note that there are three cluster icon
+      // sets: marker-cluster-small, -medium, and -large.
+      "iconCreateFunction": function(cluster) {
+        var childCount = cluster.getChildCount();
+
+        var c = ' marker-cluster-';
+        if (childCount < 10) {
+          c += 'small';
+        } else if (childCount < 100) {
+          c += 'medium';
+        } else {
+          c += 'large';
+        }
+
+        return new L.DivIcon({
+            html: '<div><span>' + childCount + '</span></div>',
+            className: 'marker-cluster' + c,
+            iconSize: new L.Point(40, 40)
+          });
+      }
     },
 
     initialize: function () {
       this.delegate = new L.MarkerClusterGroup(this.attributes);
+    },
+
+    removeLayer: function (layer) {
+      this.delegate.removeLayer(layer.delegate);
+      return this;
     },
 
     addLayer: function (layer) {
