@@ -78,35 +78,25 @@ body {
   line-height: 0;
   font-size: 0;
 }
-#footer .button-search img {
-  height: auto;
-  width: 30px;
+#footer .button-map .fa {
+  color: #f6f6f6;
+  font-size: 36px;
+  position: relative;
+  left: 5px;
+  top: -5px;
 }
-#footer .button-map {
-  padding-top: 15px;
+#footer .button-map .fa:active {
+  opacity: .75;
 }
-#footer .button-map img {
-  height: 30px;
-  width: 30px;
+#footer .button-search .fa,
+#footer .button-info .fa,
+#footer .button-layer .fa {
+  color: #f6f6f6;
+  font-size: 30px;
 }
-#footer .button-info {
-  padding-top: 15px;
-}
-#footer .button-info img {
-  height: 30px;
-  width: 30px;
-}
-#footer .button-layer {
-  padding-top: 15px;
-}
-#footer .button-layer:active {
-  background: rgba(36, 36, 36, 0.66);
-}
-#footer .button-layer img {
-  height: auto;
-  width: 35px;
-}
-#footer .button-layer img:active {
+#footer .button-search .fa:active,
+#footer .button-info .fa:active,
+#footer .button-layer .fa:active {
   opacity: .75;
 }
 /** Views **/
@@ -142,26 +132,41 @@ body {
   left: 10px;
   float: left;
   z-index: 3000;
-  height: 50px;
-  width: 50px;
   border-radius: 2px;
-}
-#map-view #map-search img {
+  background: rgba(255, 255, 255, 0.8);
   height: 40px;
   width: 40px;
+  box-shadow: 0px 0px 4px #a3a3a3;
+}
+#map-view #map-search .fa {
+  font-size: 26px;
+  color: #242424;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -12px;
+  margin-top: -13px;
 }
 #map-view #map-recenter {
   position: relative;
   top: 30px;
   float: right;
   z-index: 3000;
-  height: 50px;
-  width: 50px;
   border-radius: 2px;
-}
-#map-view #map-recenter img {
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
   height: 40px;
   width: 40px;
+  box-shadow: 0px 0px 4px #a3a3a3;
+}
+#map-view #map-recenter .fa {
+  font-size: 30px;
+  color: #242424;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -12px;
+  margin-top: -15px;
 }
 #map-view #map-layers {
   position: fixed;
@@ -240,7 +245,6 @@ body {
   padding: 10px 0;
 }
 #search-view #header .search-form .search-input-container .search-input-icon {
-  background: transparent url(../img/magnifying-glass.png) no-repeat right top;
   background-size: 15px;
   width: 16px;
   height: 16px;
@@ -248,8 +252,8 @@ body {
   z-index: 3000;
   display: block;
   top: 50%;
-  left: 5px;
-  margin-top: -8px;
+  left: 7px;
+  margin-top: -10px;
   position: absolute;
 }
 #search-view #header .search-form .search-input-container .search-input {
@@ -266,13 +270,13 @@ body {
   box-sizing: border-box;
 }
 #search-view #header .search-form .search-input-container .search-clear-btn {
-  width: 16px;
-  height: 16px;
   position: absolute;
   right: 5px;
   top: 50%;
-  margin-top: -8px;
+  margin-top: -15px;
   opacity: 0.5;
+  color: #242424;
+  font-size: 24px;
 }
 #search-view #header .filter-info {
   margin: 0px 0 10px 20px;
@@ -417,21 +421,26 @@ body {
   width: 100%;
   height: auto;
   text-align: center;
+  left: 20px;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa,
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa {
+  margin-top: 9px;
+  font-size: 24px;
+  color: #242424;
+}
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa.active,
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa.active {
+  color: #f6f6f6;
 }
 #trail-view .trail-nav .trail-trailhead .change-trail .previous-trail {
   display: inline-block;
   position: relative;
-  height: 40px;
-  width: 30px;
-  padding-left: 20px;
+  padding-right: 10px;
   float: left;
 }
 #trail-view .trail-nav .trail-trailhead .change-trail .previous-trail:active {
   opacity: .75;
-}
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail img {
-  width: 20px;
-  margin: 10px 10px 10px 0px;
 }
 #trail-view .trail-nav .trail-trailhead .change-trail .previous-trail p {
   display: inline-block;
@@ -455,16 +464,10 @@ body {
 #trail-view .trail-nav .trail-trailhead .change-trail .next-trail {
   display: inline-block;
   position: relative;
-  height: 40px;
-  width: 30px;
-  padding-right: 10px;
+  padding-left: 8px;
 }
 #trail-view .trail-nav .trail-trailhead .change-trail .next-trail:active {
   opacity: .75;
-}
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail img {
-  width: 20px;
-  margin: 10px 0px 10px 10px;
 }
 #trail-view .trail-nav .trail-trailhead .change-trail .next-trail p {
   display: inline-block;
@@ -492,9 +495,10 @@ body {
   width: auto;
   text-align: center;
 }
-#trail-view .trail-nav .more-btn-tab .more-btn img {
+#trail-view .trail-nav .more-btn-tab .more-btn .fa {
   height: 20px;
   text-align: center;
+  color: #5c795a;
 }
 #trail-view .trail-nav .more-btn-label {
   display: inline-block;
@@ -516,14 +520,12 @@ body {
   color: #f6f6f6;
 }
 #trail-view .trail-nav .close-btn {
-  display: inline-block;
-  height: 20px;
-  width: auto;
   float: right;
-  padding: 10px 15px;
+  padding: 5px 10px;
 }
-#trail-view .trail-nav .close-btn img {
-  height: 20px;
+#trail-view .trail-nav .close-btn .fa {
+  font-size: 30px;
+  color: #f6f6f6;
 }
 #trail-view .trail-and-trailhead-data {
   position: absolute;
@@ -686,9 +688,10 @@ body {
   font-size: 12px;
   font-weight: 700;
 }
-#trail-view .trail-and-trailhead-data .trail-data img {
+#trail-view .trail-and-trailhead-data .trail-data .fa {
   height: .5em;
   margin-right: .2em;
+  font-size: 20px;
 }
 #trail-view .trail-and-trailhead-data .trail-data p {
   display: inline-block;
@@ -783,6 +786,15 @@ body {
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
 }
+#notifications-view #content #sources-nav .next-steward .fa,
+#notifications-view #content #sources-nav .previous-steward .fa {
+  color: #242424;
+  font-size: 24px;
+}
+#notifications-view #content #sources-nav .next-steward .fa.active,
+#notifications-view #content #sources-nav .previous-steward .fa.active {
+  color: #f6f6f6;
+}
 #notifications-view #content #sources-nav .next-steward {
   position: relative;
   display: inline-block;
@@ -793,23 +805,16 @@ body {
 #notifications-view #content #sources-nav .next-steward:active {
   opacity: .75;
 }
-#notifications-view #content #sources-nav .next-steward img {
-  height: 20px;
-}
 #notifications-view #content #sources-nav .previous-steward {
   position: relative;
   display: inline-block;
   height: 20px;
   width: auto;
   padding: 10px 10px 10px 20px;
-  left: 10px;
   float: left;
 }
 #notifications-view #content #sources-nav .previous-steward:active {
   opacity: .75;
-}
-#notifications-view #content #sources-nav .previous-steward img {
-  height: 20px;
 }
 #notifications-view #content #sources-nav .nav-text {
   position: relative;
@@ -898,9 +903,9 @@ body {
   display: inline-block;
 }
 #notifications-view #content #contact-view .source-call-btn .phone-icon {
+  font-size: 30px;
+  color: #f6f6f6;
   margin: 5px;
-  height: 30px;
-  width: auto;
 }
 #notifications-view #content #contact-view .source-call-btn a {
   font-family: 'Source Sans Pro', sans-serif;

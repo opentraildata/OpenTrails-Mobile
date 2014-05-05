@@ -155,42 +155,31 @@ body {
     font-size: 0;
   }
 
-  .button-search {
-    img {
-      height: auto; 
-      width: 30px;
-    }
-  }
-
   .button-map {
-    padding-top: 15px;
-    img {
-      height: 30px; 
-      width: 30px;
-    }
-  }
-
-  .button-info {
-    padding-top: 15px;
-    img {
-      height: 30px; 
-      width: 30px;
-    }
-  }
-
-  .button-layer {
-    padding-top: 15px;
-    &:active {
-      background: rgba(36, 36, 36, 0.66);
-    }
-    img {
-      height: auto;
-      width: 35px;
+    .fa {
+      color: @white-color;
+      font-size: 36px;
+      position: relative;
+      left:5px;
+      top: -5px;
       &:active {
         opacity: .75;
       }
     }
   }
+
+  .button-search,
+  .button-info,
+  .button-layer {
+    .fa {
+      color: @white-color;
+      font-size: 30px;
+      &:active {
+        opacity: .75;
+      }
+    }
+  }
+
 }
 
 /** Views **/
@@ -230,13 +219,20 @@ body {
     left: 10px;
     float: left;
     z-index: @z-index-3;
-    height: 50px;
-    width: 50px;
     border-radius: 2px;
+    background: rgba(255,255,255,0.8);
+    height: 40px;
+    width: 40px;
+    box-shadow: 0px 0px 4px @light-gray-color;
 
-    img {
-      height: 40px; 
-      width: 40px;
+    .fa {
+      font-size: 26px;
+      color: @gray-color;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -12px;
+      margin-top: -13px;
     }
   }
 
@@ -245,13 +241,21 @@ body {
     top: 30px;
     float: right;
     z-index: @z-index-3;
-    height: 50px;
-    width: 50px;
     border-radius: 2px;
+    right:10px;
+    background: rgba(255,255,255,0.8);
+    height: 40px;
+    width: 40px;
+    box-shadow: 0px 0px 4px @light-gray-color;
 
-    img {
-      height: 40px;
-      width: 40px;
+    .fa {
+      font-size: 30px;
+      color: @gray-color;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -12px;
+      margin-top: -15px;
     }
   }
 
@@ -356,7 +360,6 @@ body {
         padding: 10px 0;
 
         .search-input-icon {
-          background: transparent url(../img/magnifying-glass.png) no-repeat right top;
           background-size: 15px;
           width: 16px;
           height: 16px;
@@ -364,8 +367,8 @@ body {
           z-index: @z-index-3;
           display: block;
           top: 50%;
-          left: 5px;
-          margin-top: -8px;
+          left: 7px;
+          margin-top: -10px;
           position: absolute;
         }
         .search-input {
@@ -377,13 +380,13 @@ body {
           box-sizing: border-box;
         }
         .search-clear-btn {
-          width: 16px;
-          height: 16px;
           position: absolute;
           right: 5px;
           top: 50%;
-          margin-top: -8px;
+          margin-top: -15px;
           opacity: 0.5;
+          color: @gray-color;
+          font-size: 24px;
         }
       }
     }
@@ -542,19 +545,29 @@ body {
         width: 100%;
         height: auto;
         text-align: center;
+        left: 20px;
+
+        // Chevron icons for trails.
+        .previous-trail,
+        .next-trail {
+          .fa {
+            margin-top: 9px;
+            font-size: 24px;
+            color: @gray-color;
+          }
+          .fa.active
+          {
+            color: @white-color;
+          }
+        }
+
         .previous-trail {
           display: inline-block;
           position: relative;
-          height: 40px;
-          width: 30px;
-          padding-left: 20px;
+          padding-right: 10px;
           float: left;
           &:active {
             opacity: .75;
-          }
-          img {
-            width: 20px;
-            margin: 10px 10px 10px 0px;
           }
           p {
             display: inline-block;
@@ -579,15 +592,9 @@ body {
         .next-trail {
           display: inline-block;
           position: relative;
-          height: 40px;
-          width: 30px;
-          padding-right: 10px;
+          padding-left: 8px;
           &:active {
             opacity: .75;
-          }
-          img {
-            width: 20px;
-            margin: 10px 0px 10px 10px;
           }
           p {
             display: inline-block;
@@ -617,9 +624,10 @@ body {
         width: auto;
         text-align: center;
 
-        img {
+        .fa {
           height: 20px; 
           text-align: center;
+          color: @green-color;
         }
       }
     }
@@ -646,13 +654,11 @@ body {
     }
 
     .close-btn {
-      display: inline-block;
-      height: 20px;
-      width: auto;
       float: right;
-      padding: 10px 15px;
-      img {
-        height: 20px; 
+      padding: 5px 10px;
+      .fa {
+        font-size: 30px;
+        color: @white-color;
       }
     }
   }
@@ -815,9 +821,10 @@ body {
           font-weight: 700;
         }
       }
-      img {
+      .fa {
         height: .5em;
         margin-right: .2em;
+        font-size: 20px;
       }
       p {
         display: inline-block;
@@ -911,7 +918,7 @@ body {
   }
 
   #content {
-    top: @status-height; 
+    top: @status-height;
     #sources-nav {
       height: 40px;
       width: 100%;
@@ -919,6 +926,18 @@ body {
       background-color: @green-color;
       font-family: @font-display;
       font-size: 12px;
+
+      .next-steward,
+      .previous-steward {
+        .fa {
+          color: @gray-color;
+          font-size: 24px;
+        }
+        .fa.active {
+          color: @white-color;
+        }
+      }
+
       .next-steward {
         position: relative;
         display: inline-block;
@@ -928,9 +947,6 @@ body {
         &:active {
           opacity: .75;
         }
-        img {
-          height: 20px; 
-        }
       }
 
       .previous-steward {
@@ -939,13 +955,9 @@ body {
         height: 20px;
         width: auto;
         padding: 10px 10px 10px 20px;
-        left: 10px;
         float: left;
         &:active {
           opacity: .75;
-        }
-        img {
-          height: 20px; 
         }
       }
 
@@ -1039,9 +1051,9 @@ body {
         }
 
         .phone-icon {
+          font-size: 30px;
+          color: @white-color;
           margin: 5px;
-          height: 30px;
-          width: auto;
         }
         a {
           font-family: @font-context;
