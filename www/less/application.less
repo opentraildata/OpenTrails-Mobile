@@ -294,9 +294,11 @@ body {
     z-index: @z-index-1;
   }
 
-  // handle changing of marker sizes when trail is selected
+  // Handle changing of marker sizes when a trailhead is selected.
   .trail-selected {
 
+    // Shrink size of marker icons and marker clusters.
+    // Margin offset needs to be negative half of the width/height
     .leaflet-marker-icon,
     .marker-cluster,
     .marker-cluster div
@@ -306,17 +308,20 @@ body {
       margin-left: -7px !important;
       margin-top: -7px !important;
     }
+    // Position marker cluster centers in shadow properly.
     .marker-cluster div
     {
       margin-left: 0 !important;
       margin-top: 0 !important;
 
+      // Hide numbers in marker clusters.
       > span
       {
         display:none;
       }
     }
 
+    // Don't shrink the selected trailhead.
     .leaflet-marker-icon[src="img/trailhead-marker-selected.png"]
     {
       margin-left: -17px !important;
