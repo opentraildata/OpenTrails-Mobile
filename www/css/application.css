@@ -603,7 +603,6 @@ body {
   position: relative;
   float: left;
   width: auto;
-  height: 12px;
   margin: .5em 0;
 }
 #trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-title {
@@ -689,7 +688,6 @@ body {
   font-weight: 700;
 }
 #trail-view .trail-and-trailhead-data .trail-data .fa {
-  height: .5em;
   margin-right: .2em;
   font-size: 20px;
 }
