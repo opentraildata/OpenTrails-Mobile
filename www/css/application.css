@@ -212,7 +212,8 @@ body {
 #map-view .trail-selected .marker-cluster div > span {
   display: none;
 }
-#map-view .trail-selected .leaflet-marker-icon[src="img/trailhead-marker-selected.png"] {
+#map-view .trail-selected .leaflet-marker-icon[src="img/trailhead-marker-selected.png"],
+#map-view .trail-selected .leaflet-marker-icon[src="img/trailhead-marker-selected@2x.png"] {
   margin-left: -17px !important;
   margin-top: -49px !important;
   width: 35px !important;
