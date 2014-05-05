@@ -53,7 +53,10 @@
       // steward exists
 
       function canNext () {
-        return index < ($scope.stewards.length - 1);
+        if ($scope.stewards)
+          return index < ($scope.stewards.length - 1);
+        else
+          return false;
       }
 
       $scope.canNext = canNext;
