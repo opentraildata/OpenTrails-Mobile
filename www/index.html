@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="js/lib/leaflet/MarkerCluster.Default.css">
     <link rel="stylesheet" type="text/css" href="js/lib/leaflet/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="css/application.css"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Lora:400,700|Merriweather+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
   </head>
 
@@ -22,13 +23,13 @@
 
         <div id="map-search">
           <a href="#" class="control" ng-click="toggleView('search');">
-            <img src="img/map-search@2x.png"/>
+            <i class="fa fa-search"></i>
           </a>
         </div>
 
         <div id="map-recenter">
           <a href="#" class="control" ng-click="recenter();">
-            <img src="img/map-location@2x.png"/>
+            <i class="fa fa-location-arrow"></i>
           </a>
         </div>
 
@@ -47,15 +48,13 @@
           <header>
             <nav id="sources-nav">
               <a href="#" class="previous-steward" ng-click="previous()">
-                <img src="img/chevron-left-white.png" ng-show="canPrevious()" ng-cloak/>
-                <img src="img/chevron-left-dark-green.png" ng-hide="canPrevious()" ng-cloak/>
+                <i class="fa fa-chevron-left" ng-class="{active: canPrevious()}"></i>
               </a>
               <div class="nav-text">
                 <p>1 of 3 Stewards</p>
               </div>
               <a href="#" class="next-steward" ng-click="next()">
-                <img class="" src="img/chevron-right-white.png" ng-show="canNext()" ng-cloak/>
-                <img class="" src="img/chevron-right-dark-green.png" ng-hide="canNext()" ng-cloak/>
+                <i class="fa fa-chevron-right" ng-class="{active: canNext()}"></i>
               </a>
             </nav>
             <section id="notification-source">
@@ -79,7 +78,7 @@
                 <a href="http://maps.apple.com/?saddr={{ geoposition.get('latitude') }},{{ geoposition.get('longitude') }}&daddr={{ steward.get('address') }}" target="_system">Get Directions</a>
                 <p class="source-phone">{{ steward.get('phone') }}</p>
                 <div class="source-call-btn">
-                  <img class="phone-icon" src="img/phone-white.png"></img>
+                  <i class="phone-icon fa fa-phone"></i>
                   <a href="tel:{{ steward.get('phone') }}">Call</a>
                 </div>
               </div>
@@ -117,29 +116,22 @@
           <div class="trail-trailhead">
             <div class="change-trail">
               <a href="#" class="previous-trail" ng-click="previousTrail()">
-                <img class="chevron chevron-left" src="img/chevron-left-white.png" ng-show="canPreviousTrail()" ng-cloak/>
-                <img class="chevron chevron-left" src="img/chevron-left-dark-green.png" ng-show="!canPreviousTrail()" ng-cloak/>
+                <i class="fa fa-chevron-left" ng-class="{active: canPreviousTrail()}"></i>
               </a>
-<!--                   <img class="trailhead-icon" src="img/marker.png"/></img> -->
               <p class="trailhead-index">{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
               <a href="#" class="next-trail" ng-click="nextTrail()">
-                <img class="chevron chevron-right" src="img/chevron-right-white.png" ng-show="canNextTrail()" ng-cloak/>
-                <img class="chevron chevron-right" src="img/chevron-right-dark-green.png" ng-show="!canNextTrail()" ng-cloak/>
+                <i class="fa fa-chevron-right" ng-class="{active: canNextTrail()}"></i>
               </a>
             </div>
           </div>
           <div class="more-btn-tab">
-            <a href="#" class="more-btn" ng-click="fullscreen = true" ng-show="!fullscreen" ng-cloak>
-                <img src="img/chevron-up-gray.png">
-            </a>
-            <a href="#" class="more-btn" ng-click="fullscreen = false" ng-show="fullscreen" ng-cloak>
-              <div>
-                <img src="img/chevron-down-gray.png">
-              </div>
+            <a href="#" class="more-btn" ng-click="fullscreen = !fullscreen">
+                <i class="fa fa-chevron-down" ng-show="fullscreen" ng-cloak></i>
+                <i class="fa fa-chevron-up" ng-show="!fullscreen" ng-cloak></i>
             </a>
           </div>
           <a href="#" class="close-btn" ng-click="closeTrailView()">
-            <img src="img/close-btn-white.png"></img>
+            <i class="fa fa-times"></i>
           </a>
         </div>
         <div class="trail-and-trailhead-data">
@@ -152,7 +144,7 @@
               <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
             </div>
             <div class="trailhead-title-field">
-              <img class="trailhead-icon" src="img/marker.png"/></img>
+              <i class="trailhead-icon fa fa-map-marker"></i>
               <p class="trailhead-title">{{ selectedTrailHead.get('name') }} Trailhead</p>
               <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">
                   Get Directions
@@ -184,12 +176,12 @@
               <p class="trail-subhead">Amenities at this Trailhead</p>
               <table class="amenities">
                 <tr>
-                  <td ng-show="selectedTrailHead.hasParking()"><img src="img/check.png"></img><p class="amenity"> Parking</p></td>
-                  <td ng-show="selectedTrailHead.hasWater()"><img src="img/check.png"><p class="amenity"> Drinking Water</p></td>
+                  <td ng-show="selectedTrailHead.hasParking()"><i class="fa fa-check"></i><p class="amenity"> Parking</p></td>
+                  <td ng-show="selectedTrailHead.hasWater()"><i class="fa fa-check"></i><p class="amenity"> Drinking Water</p></td>
                 </tr>
                 <tr>
-                  <td ng-show="selectedTrailHead.hasRestroom()"><img src="img/check.png"><p class="amenity"> Restrooms</p></td>
-                  <td ng-show="selectedTrailHead.hasKiosk()"><img src="img/check.png"><p class="amenity"> Info Kiosk</p></td>
+                  <td ng-show="selectedTrailHead.hasRestroom()"><i class="fa fa-check"></i><p class="amenity"> Restrooms</p></td>
+                  <td ng-show="selectedTrailHead.hasKiosk()"><i class="fa fa-check"></i><p class="amenity"> Info Kiosk</p></td>
                 </tr>
               </table>
               <p class="trail-subhead">Trail Description</p>
@@ -209,9 +201,11 @@
         <div id="header">
           <form class="search-form" ng-submit="search(searchKeywords, searchFilters)">
             <div class="search-input-container">
-              <span class="search-input-icon">&nbsp;</span>
+              <span class="search-input-icon"><i class="fa fa-search"></i></span>
               <input class="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
-              <a href="#" ng-click="clearSearch()"><img class="search-clear-btn" src="img/close-btn-gray.png"></a>
+              <a href="#" ng-click="clearSearch()" class="search-clear-btn">
+                <i class="fa fa-times"></i>
+              </a>
             </div>
           </form>
           <div class="filter-info">
@@ -270,25 +264,25 @@
       <div id="footer">
         <a href="#" ng-click="toggleView('trails')" ng-show="view !== 'map' && view !== 'map-layers' && view !== 'trails'">
           <div class="button button-map">
-            <img src="img/map@2x.png"/>
+            <i class="fa fa-map-marker"></i>
           </div>
         </a>
 
         <a href="#" ng-click="toggleView('search')" ng-show="view === 'map' || view === 'map-layers' || view === 'trails'" ng-cloak>
           <div class="button button-search">
-            <img src="img/search@2x.png"/>
+            <i class="fa fa-list-ul"></i>
           </div>
         </a>
 
         <a href="#" ng-click="toggleView('notifications-notices')">
           <div class="button button-info">
-            <img src="img/info@2x.png"/>
+            <i class="fa fa-envelope"></i>
           </div>
         </a>
 
         <a href="#" ng-click="toggleMapTileLayer()">
           <div class="button button-layer">
-            <img src="img/map-stack@2x.png"/>
+            <i class="fa fa-exchange"></i>
           </div>
         </a>
         <span class="stretch"></span>
