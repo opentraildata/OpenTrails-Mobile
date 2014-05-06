@@ -241,6 +241,7 @@
       function toggleMapTileLayer () {
         currentLayer = (currentLayer === "terrain" ? "satellite" : "terrain");
         mapTileLayer.setUrl(MapTileLayer.INDEX[currentLayer].url);
+        toggleView(TRAILS_VIEW);
       }
 
       $scope.toggleMapTileLayer = toggleMapTileLayer;
