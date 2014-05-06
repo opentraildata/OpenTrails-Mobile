@@ -822,9 +822,6 @@ body {
   padding-bottom: 10px;
 }
 #notifications-view #content #notification-source .source-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis;
   display: inline-block;
   position: relative;
   vertical-align: top;
@@ -834,6 +831,13 @@ body {
   width: 80%;
   margin: 0 0 0 0;
   height: 48px;
+}
+#notifications-view #content #notification-source .source-name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 #notifications-view #content #notification-source .source-logo {
   display: inline-block;
