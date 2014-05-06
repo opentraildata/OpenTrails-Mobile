@@ -67,10 +67,13 @@ body {
   padding: 20px 10px 0px 20px;
   vertical-align: top;
   display: inline-block;
-  *display: inline;
   zoom: 1;
-  width: 50px;
-  height: 50px;
+  padding: 15px 16px;
+  width: 30px;
+  color: #f6f6f6;
+}
+#footer .button:active {
+  opacity: .75;
 }
 #footer .stretch {
   width: 100%;
@@ -79,25 +82,15 @@ body {
   font-size: 0;
 }
 #footer .button-map .fa {
-  color: #f6f6f6;
   font-size: 36px;
   position: relative;
   left: 5px;
   top: -5px;
 }
-#footer .button-map .fa:active {
-  opacity: .75;
-}
 #footer .button-search .fa,
 #footer .button-info .fa,
 #footer .button-layer .fa {
-  color: #f6f6f6;
   font-size: 30px;
-}
-#footer .button-search .fa:active,
-#footer .button-info .fa:active,
-#footer .button-layer .fa:active {
-  opacity: .75;
 }
 /** Views **/
 #loading-view {
@@ -784,6 +777,16 @@ body {
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
 }
+#notifications-view #content #sources-nav .next-steward,
+#notifications-view #content #sources-nav .previous-steward {
+  padding: 8px 20px 0px 20px;
+  position: relative;
+  display: inline-block;
+}
+#notifications-view #content #sources-nav .next-steward:active,
+#notifications-view #content #sources-nav .previous-steward:active {
+  opacity: .75;
+}
 #notifications-view #content #sources-nav .next-steward .fa,
 #notifications-view #content #sources-nav .previous-steward .fa {
   color: #242424;
@@ -794,25 +797,10 @@ body {
   color: #f6f6f6;
 }
 #notifications-view #content #sources-nav .next-steward {
-  position: relative;
-  display: inline-block;
-  width: auto;
-  padding: 10px 20px 10px 10px;
   float: right;
 }
-#notifications-view #content #sources-nav .next-steward:active {
-  opacity: .75;
-}
 #notifications-view #content #sources-nav .previous-steward {
-  position: relative;
-  display: inline-block;
-  height: 20px;
-  width: auto;
-  padding: 10px 10px 10px 20px;
   float: left;
-}
-#notifications-view #content #sources-nav .previous-steward:active {
-  opacity: .75;
 }
 #notifications-view #content #sources-nav .nav-text {
   position: relative;
