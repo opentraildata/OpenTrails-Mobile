@@ -142,14 +142,18 @@ body {
     padding: 20px 10px 0px 20px;
     vertical-align: top;
     display: inline-block;
-    *display: inline;
     zoom: 1;
-    width: @button-width;
-    height: @button-height;
+    padding: 15px 16px;
+    width: 30px;
+    color: @white-color;
+
+    &:active {
+      opacity: .75;
+    }
   }
 
   .stretch {
-    width: 100%; 
+    width: 100%;
     display: inline-block;
     line-height: 0;
     font-size: 0;
@@ -157,14 +161,10 @@ body {
 
   .button-map {
     .fa {
-      color: @white-color;
       font-size: 36px;
       position: relative;
       left:5px;
       top: -5px;
-      &:active {
-        opacity: .75;
-      }
     }
   }
 
@@ -172,11 +172,7 @@ body {
   .button-info,
   .button-layer {
     .fa {
-      color: @white-color;
       font-size: 30px;
-      &:active {
-        opacity: .75;
-      }
     }
   }
 
@@ -927,6 +923,12 @@ body {
 
       .next-steward,
       .previous-steward {
+        padding: 8px 20px 0px 20px;
+        position: relative;
+        display: inline-block;
+        &:active {
+          opacity: .75;
+        }
         .fa {
           color: @gray-color;
           font-size: 24px;
@@ -937,26 +939,11 @@ body {
       }
 
       .next-steward {
-        position: relative;
-        display: inline-block;
-        width: auto;
-        padding: 10px 20px 10px 10px;
         float: right;
-        &:active {
-          opacity: .75;
-        }
       }
 
       .previous-steward {
-        position: relative;
-        display: inline-block;
-        height: 20px;
-        width: auto;
-        padding: 10px 10px 10px 20px;
         float: left;
-        &:active {
-          opacity: .75;
-        }
       }
 
       .nav-text {
