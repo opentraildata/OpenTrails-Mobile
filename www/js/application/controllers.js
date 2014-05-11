@@ -14,7 +14,7 @@
 
       // Instantiate variables
 
-      var index = 0;
+      var index = 0; // the currently showing steward.
 
       // Wait until all models have been
       // loaded to instantiate variables
@@ -26,16 +26,16 @@
 
       // Navigate to next steward
 
-      $scope.next = function () {
-        if ( canNext() ) {
+      $scope.nextSteward = function () {
+        if ( canNextSteward() ) {
           $scope.steward = $scope.stewards[++index];
         }
       }
 
       // Navigate to previous steward
 
-      $scope.previous = function () {
-        if ( canPrevious() ) {
+      $scope.previousSteward = function () {
+        if ( canPreviousSteward() ) {
           $scope.steward = $scope.stewards[--index];
         }
       }
@@ -43,23 +43,26 @@
       // Returns whether or not a previous
       // steward exists
 
-      function canPrevious () {
+      function canPreviousSteward () {
         return index > 0;
       }
-
-      $scope.canPrevious = canPrevious;
+      $scope.canPreviousSteward = canPreviousSteward;
 
       // Returns whether or not a subsequent
       // steward exists
 
-      function canNext () {
+      function canNextSteward () {
         if ($scope.stewards)
           return index < ($scope.stewards.length - 1);
         else
           return false;
       }
+      $scope.canNextSteward = canNextSteward;
 
-      $scope.canNext = canNext;
+      function currentStewardPosition() {
+        return index+1;
+      }
+      $scope.currentStewardPosition = currentStewardPosition;
 
       // Watch current steward, and set notifications
       // when it changes
