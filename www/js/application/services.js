@@ -1317,14 +1317,14 @@
   MapTrailHeadMarker.DeselectedIcon = new MapIcon({
     iconUrl: 'img/trailhead-marker-deselected.png',
     iconRetinaUrl: 'img/trailhead-marker-deselected@2x.png',
-    iconSize: [ 30, 30 ]
+    iconSize: [ 34, 34 ]
   });
 
   MapTrailHeadMarker.SelectedIcon = new MapIcon({
     iconUrl: 'img/trailhead-marker-selected.png',
     iconRetinaUrl: 'img/trailhead-marker-selected@2x.png',
-    iconSize: [ 35, 50 ],
-    iconAnchor: [17,49]
+    iconSize: [ 48, 48 ],
+    iconAnchor: [ 24, 24 ]
   });
 
   MapTrailHeadMarker.fromTrailHead = function (trailHead) {
