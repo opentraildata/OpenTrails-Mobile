@@ -416,6 +416,10 @@ body {
   text-align: center;
   left: 20px;
 }
+#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa.hidden,
+#trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa.hidden {
+  opacity: 0.0 !important;
+}
 #trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa,
 #trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa {
   margin-top: 9px;
