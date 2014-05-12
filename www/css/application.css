@@ -373,73 +373,64 @@ body {
   font-size: 22px;
 }
 /* Trail View - AJW*/
-/* Trail View - AJW*/
 #trail-view {
-  -webkit-transition: -webkit-transform 0.5s;
-  -moz-transition: -webkit-transform 0.5s;
-  -ms-transition: -webkit-transform 0.5s;
-  -o-transition: -webkit-transform 0.5s;
-  -webkit-transform: translate3d(0, 20px, 0);
-  /* Footer Height, Flush */
-  transform: translate3d(0px, 20px, 0);
   position: fixed;
-  width: 100%;
   background-color: #f6f6f6;
-  z-index: 4000;
-  top: 0;
-  bottom: 60px;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
   right: 0;
   left: 0;
+  margin-top: 20px;
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-box-sizing: border-box;
 }
 #trail-view.fullscreen {
-  -webkit-transform: translate3d(0, 20px, 0) !important;
+  top: 0 !important;
 }
-#trail-view .trail-nav {
-  display: inline-block;
+#trail-view.closed {
+  top: 100% !important;
+}
+#trail-view.transition {
+  -webkit-transition: top 0.5s;
+}
+#trail-view #trail-nav {
   position: relative;
   height: 2.5em;
   width: 100%;
   background-color: #5c795a;
   border-bottom: 5px solid #f6f6f6;
 }
-#trail-view .trail-nav .trail-trailhead {
+#trail-view #trail-nav .change-trail {
   display: inline-block;
   position: relative;
-  height: 100%;
-  vertical-align: middle;
-}
-#trail-view .trail-nav .trail-trailhead .change-trail {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: auto;
   text-align: center;
-  left: 20px;
+  margin-left: 20px;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa.hidden,
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa.hidden {
+#trail-view #trail-nav .change-trail .previous-trail .fa.hidden,
+#trail-view #trail-nav .change-trail .next-trail .fa.hidden {
   opacity: 0.0 !important;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa,
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa {
+#trail-view #trail-nav .change-trail .previous-trail .fa,
+#trail-view #trail-nav .change-trail .next-trail .fa {
   margin-top: 9px;
   font-size: 24px;
   color: #242424;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail .fa.active,
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail .fa.active {
+#trail-view #trail-nav .change-trail .previous-trail .fa.active,
+#trail-view #trail-nav .change-trail .next-trail .fa.active {
   color: #f6f6f6;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail {
+#trail-view #trail-nav .change-trail .previous-trail {
   display: inline-block;
   position: relative;
   padding-right: 10px;
   float: left;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail:active {
+#trail-view #trail-nav .change-trail .previous-trail:active {
   opacity: .75;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .previous-trail p {
+#trail-view #trail-nav .change-trail .previous-trail p {
   display: inline-block;
   position: relative;
   float: left;
@@ -447,7 +438,7 @@ body {
   font-size: 12px;
   font-weight: 400;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .trailhead-index {
+#trail-view #trail-nav .change-trail .trailhead-index {
   display: inline-block;
   position: relative;
   float: left;
@@ -458,15 +449,15 @@ body {
   color: #f6f6f6;
   margin: 1em 0 0 0;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail {
+#trail-view #trail-nav .change-trail .next-trail {
   display: inline-block;
   position: relative;
   padding-left: 8px;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail:active {
+#trail-view #trail-nav .change-trail .next-trail:active {
   opacity: .75;
 }
-#trail-view .trail-nav .trail-trailhead .change-trail .next-trail p {
+#trail-view #trail-nav .change-trail .next-trail p {
   display: inline-block;
   position: relative;
   float: right;
@@ -475,7 +466,7 @@ body {
   font-size: 12px;
   font-weight: 400;
 }
-#trail-view .trail-nav .more-btn-tab {
+#trail-view #trail-nav .more-btn-tab {
   display: block;
   position: absolute;
   left: 40%;
@@ -485,19 +476,19 @@ body {
   background-color: #f6f6f6;
   border-radius: 2px 2px 0 0;
 }
-#trail-view .trail-nav .more-btn-tab .more-btn {
+#trail-view #trail-nav .more-btn-tab .more-btn {
   display: block;
   height: auto;
   padding: 5% 0 10% 0;
   width: auto;
   text-align: center;
 }
-#trail-view .trail-nav .more-btn-tab .more-btn .fa {
+#trail-view #trail-nav .more-btn-tab .more-btn .fa {
   height: 20px;
   text-align: center;
   color: #5c795a;
 }
-#trail-view .trail-nav .more-btn-label {
+#trail-view #trail-nav .more-btn-label {
   display: inline-block;
   position: relative;
   font-family: 'Source Sans Pro', sans-serif;
@@ -506,7 +497,7 @@ body {
   margin: 1.25em 0 0 10px;
   color: #f6f6f6;
 }
-#trail-view .trail-nav .close-btn-label {
+#trail-view #trail-nav .close-btn-label {
   display: inline-block;
   position: relative;
   float: right;
@@ -516,51 +507,38 @@ body {
   margin: 1.25em 10px 0 0;
   color: #f6f6f6;
 }
-#trail-view .trail-nav .close-btn {
+#trail-view #trail-nav .close-btn {
   float: right;
   padding: 5px 10px;
 }
-#trail-view .trail-nav .close-btn .fa {
+#trail-view #trail-nav .close-btn .fa {
   font-size: 30px;
   color: #f6f6f6;
 }
-#trail-view .trail-and-trailhead-data {
-  position: absolute;
-  top: 45px;
-  /* green nav bar, plus hardware padding, plus border */
-  bottom: 0;
-  right: 0;
-  left: 0;
-  display: inline-block;
-  background-color: #f6f6f6;
-  overflow: auto;
+#trail-view #trail-and-trailhead-data {
+  padding: 0 20px;
+  height: 100%;
+  padding-bottom: 110px;
+  box-sizing: border-box;
+  background: #f6f6f6;
+  overflow: scroll;
   -webkit-overflow-scrolling: touch;
-  -webkit-transform: translate3d(0, 0, 0);
 }
-#trail-view .trail-and-trailhead-data .trail-data {
-  display: inline-block;
-  position: relative;
-  height: auto;
-  width: 100%;
-  background-color: #f6f6f6;
-}
-#trail-view .trail-and-trailhead-data .trail-data .trail-attributes {
-  display: inline-block;
-  position: relative;
+#trail-view #trail-and-trailhead-data #trail-data-header {
   vertical-align: middle;
   width: auto;
   margin: 0;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-attributes .trail-title {
+#trail-view #trail-and-trailhead-data #trail-data-header .trail-title {
   position: relative;
   display: inline-block;
   min-width: 75%;
   line-height: 1.2em;
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 22px;
-  margin: 10px 20px 0 20px;
+  margin: 10px 0px;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-attributes .trail-attribute-distance {
+#trail-view #trail-and-trailhead-data #trail-data-header .trail-attribute-distance {
   width: auto;
   vertical-align: top;
   padding-top: 10px;
@@ -569,12 +547,10 @@ body {
   display: inline-block;
   position: relative;
   margin-top: 0;
-  margin-left: 20px;
-  margin-right: 20px;
   margin-bottom: 10px;
   font-weight: 400;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-attributes .trail-attribute-length {
+#trail-view #trail-and-trailhead-data #trail-data-header .trail-attribute-length {
   width: auto;
   vertical-align: top;
   padding-top: 10px;
@@ -585,40 +561,36 @@ body {
   float: right;
   text-align: right;
   margin-top: 0;
-  margin-right: 20px;
   margin-bottom: 10px;
   font-weight: 400;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field {
+#trail-view #trail-and-trailhead-data .trailhead-title-field {
   display: block;
+  margin: 10px 0;
+  margin-bottom: 20px;
   position: relative;
-  height: 1em;
-  margin: 0 20px;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-icon {
+#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-icon {
   display: inline-block;
   position: relative;
-  float: left;
   width: auto;
-  margin: .5em 0;
+  margin-right: 10px;
+  vertical-align: middle;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-title {
-  position: relative;
-  display: inline-block;
+#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-title {
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
-  float: left;
-  width: auto;
-  max-width: 50%;
-  margin: .5em 10px;
-  font-weight: 700;
-}
-#trail-view .trail-and-trailhead-data .trail-data .trailhead-title-field .trailhead-address {
   display: inline-block;
   position: relative;
-  float: right;
   width: auto;
-  margin: .5em 0 1em 0;
+  max-width: 50%;
+  margin: 0;
+  font-weight: 700;
+  vertical-align: middle;
+}
+#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-address {
+  width: auto;
+  margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   padding: 6px;
@@ -626,19 +598,23 @@ body {
   border-radius: 2px;
   color: #f6f6f6;
   text-decoration: none;
+  margin-top: -13px;
+  position: absolute;
+  right: 0;
+  top: 50%;
 }
-#trail-view .trail-and-trailhead-data .trail-data .photo-box {
-  display: inline-block;
-  position: relative;
-  width: 100%;
+#trail-view #trail-and-trailhead-data .photo-box {
+  margin-left: -20px;
+  margin-right: -20px;
 }
-#trail-view .trail-and-trailhead-data .trail-data .photo-box img {
+#trail-view #trail-and-trailhead-data .photo-box img {
   height: auto;
   max-width: 100%;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-subhead {
-  display: inline-block;
-  position: relative;
+#trail-view #trail-and-trailhead-data .trailhead-data {
+  padding-top: 10px;
+}
+#trail-view #trail-and-trailhead-data .trailhead-data .trail-subhead {
   width: 100%;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
@@ -646,14 +622,14 @@ body {
   color: #a3a3a3;
   margin: 0;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-icons {
+#trail-view #trail-and-trailhead-data .trailhead-data .trail-icons {
   width: auto;
   display: inline-block;
   position: relative;
   text-align: justify;
   margin: 10px 0;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-icons .icon-box {
+#trail-view #trail-and-trailhead-data .trailhead-data .trail-icons .icon-box {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -661,21 +637,21 @@ body {
   margin-right: 20px;
   margin-bottom: 10px;
 }
-#trail-view .trail-and-trailhead-data .trail-data .trail-icons .icon-box .icon {
+#trail-view #trail-and-trailhead-data .trailhead-data .trail-icons .icon-box .icon {
   height: 100%;
   width: 100%;
 }
-#trail-view .trail-and-trailhead-data .trail-data .amenities {
+#trail-view #trail-and-trailhead-data .trailhead-data .amenities {
   display: inline-block;
   position: relative;
   width: 100%;
   margin: 10px 0;
   text-align: center;
 }
-#trail-view .trail-and-trailhead-data .trail-data .amenities td {
+#trail-view #trail-and-trailhead-data .trailhead-data .amenities td {
   text-align: left;
 }
-#trail-view .trail-and-trailhead-data .trail-data .amenities .amenity {
+#trail-view #trail-and-trailhead-data .trailhead-data .amenities .amenity {
   text-align: left;
   margin: 5px 20px 5px 0px;
   width: auto;
@@ -684,39 +660,29 @@ body {
   font-size: 12px;
   font-weight: 700;
 }
-#trail-view .trail-and-trailhead-data .trail-data .fa {
+#trail-view #trail-and-trailhead-data .trailhead-data .fa {
   margin-right: .2em;
   font-size: 20px;
 }
-#trail-view .trail-and-trailhead-data .trail-data p {
+#trail-view #trail-and-trailhead-data .trailhead-data p {
   display: inline-block;
   position: relative;
   line-height: 1.4em;
   font-weight: 400;
 }
-#trail-view .trail-and-trailhead-data .trailhead-data {
-  -webkit-transform: translate3d(0, 0, 0);
-  display: inline-block;
-  position: relative;
-  height: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  background-color: #f6f6f6;
-}
-#trail-view .trail-and-trailhead-data .trailhead-data .trail-body {
+#trail-view #trail-and-trailhead-data .trailhead-data .trail-body {
   font-family: 'Merriweather Sans', sans-serif, serif;
   font-size: 12px;
   font-weight: 400;
 }
-#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-steward {
+#trail-view #trail-and-trailhead-data .trailhead-data .trailhead-steward {
   position: relative;
   display: inline-block;
   width: 100%;
   margin-top: 10px;
   margin-bottom: 40px;
 }
-#trail-view .trail-and-trailhead-data .trailhead-data .trailhead-steward p {
+#trail-view #trail-and-trailhead-data .trailhead-data .trailhead-steward p {
   margin: 0;
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;

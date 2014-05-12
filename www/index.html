@@ -114,39 +114,36 @@
 
       </section>
 
-
-      <div id="trail-view" ng-show="view === 'trails'" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-class="{ fullscreen: fullscreen }" ng-cloak>
-        <div class="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
-          <div class="trail-trailhead">
-            <div class="change-trail">
-              <a href="#" class="previous-trail" ng-click="previousTrail()">
-                <i class="fa fa-chevron-left active" ng-class="{hidden:hasMoreTrails()}"></i>
-              </a>
-              <p class="trailhead-index">{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
-              <a href="#" class="next-trail" ng-click="nextTrail()">
-                <i class="fa fa-chevron-right active" ng-class="{hidden:hasMoreTrails()}"></i>
-              </a>
-            </div>
+      <section id="trail-view" class="transition closed" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-cloak>
+        <header id="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
+          <div class="change-trail">
+            <a href="#" class="previous-trail" ng-click="previousTrail()">
+              <i class="fa fa-chevron-left active" ng-class="{hidden:hasMoreTrails()}"></i>
+            </a>
+            <p class="trailhead-index">{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
+            <a href="#" class="next-trail" ng-click="nextTrail()">
+              <i class="fa fa-chevron-right active" ng-class="{hidden:hasMoreTrails()}"></i>
+            </a>
           </div>
           <div class="more-btn-tab">
-            <a href="#" class="more-btn" ng-click="fullscreen = !fullscreen">
-                <i class="fa fa-chevron-down" ng-show="fullscreen" ng-cloak></i>
-                <i class="fa fa-chevron-up" ng-show="!fullscreen" ng-cloak></i>
+            <a href="#" class="more-btn" ng-click="toggleTrailView()">
+                <i class="fa fa-chevron-down" ng-show="isFullscreen()" ng-cloak></i>
+                <i class="fa fa-chevron-up" ng-show="!isFullscreen()" ng-cloak></i>
             </a>
           </div>
           <a href="#" class="close-btn" ng-click="closeTrailView()">
             <i class="fa fa-times"></i>
           </a>
-        </div>
-        <div class="trail-and-trailhead-data">
-          <div class="trail-data">
-            <div class="trail-attributes">
-              <h3 class="trail-title">{{ selectedTrail.get('name') }}</h3>
-              <h5 class="trail-attribute-distance">
-                <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
-              </h5>
-              <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
-            </div>
+        </header>
+        <article id="trail-and-trailhead-data">
+          <header id="trail-data-header">
+            <h3 class="trail-title">{{ selectedTrail.get('name') }}</h3>
+            <h5 class="trail-attribute-distance">
+              <distance-from-trailhead trailhead="selectedTrailHead" position="geoposition"/>
+            </h5>
+            <h5 class="trail-attribute-length">{{ selectedTrail.getLength().toFixed(2) }} mi long</h5>
+          </header>
+          <section class="trail-data-content">
             <div class="trailhead-title-field">
               <i class="trailhead-icon fa fa-map-marker"></i>
               <p class="trailhead-title">{{ selectedTrailHead.get('name') }} Trailhead</p>
@@ -196,9 +193,9 @@
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </section>
+        </article>
+      </section>
 
       <div id="search-view" ng-show="view === 'search'" ng-cloak>
 

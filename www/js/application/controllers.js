@@ -112,12 +112,24 @@
     function ($scope, Map, Models, GeoPosition, GeoPositionMarker, MapTileLayer, MapTrailLayer, MapTrailHeadMarker, MapMarkerClusterGroup, TrailSearch, TrailsCanvasLayer) {
 
       //
-      // CONSTANTS
+      // "CONSTANTS"
       //
 
+      // Name of the views.
       var MAP_VIEW = 'map';
       var TRAILS_VIEW = 'trails';
+
       var USE_CANVAS_TRAILS = true;
+
+      // UI element heights used for calculating offsets.
+      var FOOTER_HEIGHT = document.getElementById('footer').offsetHeight;
+      var TRAIL_NAV_HEIGHT = document.getElementById('trail-nav').offsetHeight;
+
+      // DOM elements.
+      var mapContainerElm = document.getElementById('map-container');
+      var trailViewElm = document.getElementById('trail-view');
+      var trailDataHeaderElm = document.getElementById('trail-data-header');
+      var trailAndTrailheadDataElm = document.getElementById('trail-and-trailhead-data');
 
       //
       // VIEW LOGIC
@@ -135,7 +147,11 @@
       $scope.toggleView = toggleView;
 
       function showView (id) {
-        $scope.view = id;
+        if ($scope.view !== id) {
+          if ($scope.view === TRAILS_VIEW && id === MAP_VIEW)
+            closeTrailView();
+          $scope.view = id;
+        }
       }
 
       $scope.showView = showView;
@@ -148,24 +164,9 @@
         return tab === $scope.view;
       }
 
-      // prevent scrolling when not in fullscreen mode
-      document.getElementsByClassName('trail-and-trailhead-data')[0].addEventListener('touchmove', function (event) {
-        if (!$scope.fullscreen) {
-          event.preventDefault();
-        }
-      });
-
-      // when leaving fullscreen mode, make sure we scroll back to the top
-      $scope.$watch('fullscreen', function(value) {
-        if (!value) {
-          document.getElementsByClassName('trail-and-trailhead-data')[0].scrollTop = 0;
-        }
-      })
-
       //
       // MAP LOGIC
       //
-      var mapContainer = document.getElementById('map-container');
 
       Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
 
@@ -214,8 +215,8 @@
       var lastZoomClass; // The last zoom level class added
       function onMapZoom () {
         var zoomClass = 'map-zoom-'+Map.getZoom();
-        mapContainer.classList.remove(lastZoomClass);
-        mapContainer.classList.add(zoomClass);
+        mapContainerElm.classList.remove(lastZoomClass);
+        mapContainerElm.classList.add(zoomClass);
         lastZoomClass = zoomClass;
       }
 
@@ -309,7 +310,7 @@
 
           // Add initial zoom level class to map container
           lastZoomClass = 'map-zoom-'+Map.getZoom();
-          mapContainer.classList.add(lastZoomClass);
+          mapContainerElm.classList.add(lastZoomClass);
 
           // Add event listeners
           Map.on('click', onMapClick);
@@ -393,7 +394,13 @@
         $scope.selectedPhoto = $scope.selectedTrail.photo.first()
         $scope.selectedTrailHeadSteward = th.stewards.first();
 
-        mapContainer.classList.add('trail-selected');
+        mapContainerElm.classList.add('trail-selected');
+
+        // #HACK -- sets height of trail view dynamically
+        // based upon the height of its constituent elements.
+        // Let's find a more elegant solution for this.
+
+        setTimeout(setTrailViewOffset, 50);
       }
 
       $scope.selectTrailHead = selectTrailHead;
@@ -406,7 +413,7 @@
         $scope.selectedPhoto = null;
         $scope.selectedSteward = null;
 
-        mapContainer.classList.remove('trail-selected');
+        mapContainerElm.classList.remove('trail-selected');
       }
 
       function selectTrail (t) {
@@ -503,17 +510,6 @@
             deselectTrailLayer(layer);
           }
         });
-        if (value) {
-          showView(TRAILS_VIEW);
-        } else {
-          showView(MAP_VIEW);
-        }
-
-        // #HACK -- sets height of trail view dynamically
-        // based upon the height of its constituent elements.
-        // Let's find a more elegant solution for this.
-
-        setTimeout(setTrailViewOffset, 50);
       });
 
       $scope.nextTrail = function () {
@@ -521,6 +517,7 @@
         if ( index >= $scope.selectedTrails.length-1 )
           index = -1;
         $scope.selectedTrail = $scope.selectedTrails[++index];
+        setTimeout(setTrailViewOffset, 50);
       }
 
       $scope.previousTrail = function () {
@@ -534,26 +531,67 @@
         return ($scope.selectedTrails.length <= 1);
       }
 
-     function closeTrailView () {
-        $scope.fullscreen = false;
+      var _fullscreen = false; // whether the trail view is in fullscreen or not.
+      function toggleTrailView() {
+        (!_fullscreen) ? _fullscreenOn() : _fullscreenOff();
+      }
+
+      $scope.toggleTrailView = toggleTrailView;
+
+      // Switch fullscreen off.
+      function _fullscreenOff() {
+        _fullscreen = false;
+        trailViewElm.classList.remove('fullscreen');
+        // when leaving fullscreen mode, make sure we scroll back to the top.
+        trailAndTrailheadDataElm.scrollTop = 0;
+        trailAndTrailheadDataElm.addEventListener('touchmove',_touchMoveHandler);
+      }
+
+      // Switch fullscreen on.
+      function _fullscreenOn() {
+        trailViewElm.classList.add('fullscreen');
+        trailAndTrailheadDataElm.removeEventListener('touchmove',_touchMoveHandler);
+        _fullscreen = true;
+      }
+
+      // Prevent scrolling when not in fullscreen mode.
+      function _touchMoveHandler(evt) {
+        evt.preventDefault();
+      }
+
+      // @return [Boolean] Whether trails view is fullscreen or not.
+      function isFullscreen() {
+        return _fullscreen;
+      }
+
+      $scope.isFullscreen = isFullscreen;
+
+      function closeTrailView() {
+        trailViewElm.classList.add('closed');
+        if (_fullscreen) {
+          trailViewElm.style.webkitTransition = 'top 1s';
+          _fullscreenOff();
+        }
         deselectTrailHead($scope.selectedTrailHead);
+        trailViewElm.addEventListener( 'webkitTransitionEnd', _transitionFinished );
       }
 
       $scope.closeTrailView = closeTrailView;
 
-      function setTrailViewOffset() {
-          var trailView = document.getElementById('trail-view'),
-              footerHeight = document.getElementById('footer').offsetHeight,
-              attributesHeight = document.getElementsByClassName('trail-attributes')[0].offsetHeight,
-              trailNavHeight = document.getElementsByClassName('trail-nav')[0].offsetHeight,
-              viewportHeight = window.innerHeight,
-              initialOffset = viewportHeight - footerHeight - trailNavHeight - attributesHeight;
+      function _transitionFinished( evt ) {
+        trailViewElm.removeEventListener( 'webkitTransitionEnd', _transitionFinished );
+      }
 
-              trailView.style.webkitTransform = 'translate3d(0, ' + initialOffset + 'px, 0)';
+      function setTrailViewOffset() {
+        var trailHeaderHeight = trailDataHeaderElm.offsetHeight;
+        var calcValue = '-webkit-calc(100% - '+String(FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20)+'px)';
+        trailViewElm.style.top = calcValue;
+        trailViewElm.style.webkitTransition = 'top 0.5s';
+        trailViewElm.classList.remove('closed');
       };
 
 
-      function distance (th) {
+      function distance(th) {
         if (th) {
           return th.distanceFrom(GeoPosition.get('latitude'), GeoPosition.get('longitude'));
         }
