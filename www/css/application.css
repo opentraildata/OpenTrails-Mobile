@@ -198,10 +198,10 @@ body {
 #map-view .trail-selected .leaflet-marker-icon,
 #map-view .trail-selected .marker-cluster,
 #map-view .trail-selected .marker-cluster div {
-  width: 14px !important;
-  height: 14px !important;
-  margin-left: -7px !important;
-  margin-top: -7px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-left: -10px !important;
+  margin-top: -10px !important;
 }
 #map-view .trail-selected .marker-cluster div {
   margin-left: 0 !important;
@@ -212,10 +212,10 @@ body {
 }
 #map-view .trail-selected .leaflet-marker-icon[src="img/trailhead-marker-selected.png"],
 #map-view .trail-selected .leaflet-marker-icon[src="img/trailhead-marker-selected@2x.png"] {
-  margin-left: -17px !important;
-  margin-top: -49px !important;
-  width: 35px !important;
-  height: 50px !important;
+  margin-left: -24px !important;
+  margin-top: -24px !important;
+  width: 48px !important;
+  height: 48px !important;
 }
 /* SEARCH VIEW */
 #search-view #header {
