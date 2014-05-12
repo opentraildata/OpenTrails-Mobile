@@ -48,13 +48,13 @@
           <header>
             <nav id="sources-nav">
               <a href="#" class="previous-steward" ng-click="previousSteward()">
-                <i class="fa fa-chevron-left" ng-class="{active: canPreviousSteward()}"></i>
+                <i class="fa fa-chevron-left active"></i>
               </a>
               <div class="nav-text">
                 <p>{{currentStewardPosition()}} of {{ stewards.length }} Stewards</p>
               </div>
               <a href="#" class="next-steward" ng-click="nextSteward()">
-                <i class="fa fa-chevron-right" ng-class="{active: canNextSteward()}"></i>
+                <i class="fa fa-chevron-right active"></i>
               </a>
             </nav>
             <section id="notification-source">
@@ -120,11 +120,11 @@
           <div class="trail-trailhead">
             <div class="change-trail">
               <a href="#" class="previous-trail" ng-click="previousTrail()">
-                <i class="fa fa-chevron-left" ng-class="{active: canPreviousTrail()}"></i>
+                <i class="fa fa-chevron-left active" ng-class="{hidden:hasMoreTrails()}"></i>
               </a>
               <p class="trailhead-index">{{ selectedTrails.indexOf(selectedTrail) + 1 }} of {{ selectedTrails.length }}</p>
               <a href="#" class="next-trail" ng-click="nextTrail()">
-                <i class="fa fa-chevron-right" ng-class="{active: canNextTrail()}"></i>
+                <i class="fa fa-chevron-right active" ng-class="{hidden:hasMoreTrails()}"></i>
               </a>
             </div>
           </div>

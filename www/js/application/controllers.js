@@ -27,37 +27,18 @@
       // Navigate to next steward
 
       $scope.nextSteward = function () {
-        if ( canNextSteward() ) {
-          $scope.steward = $scope.stewards[++index];
-        }
+        if ( index >= $scope.stewards.length-1 )
+          index = -1;
+        $scope.steward = $scope.stewards[++index];
       }
 
       // Navigate to previous steward
 
       $scope.previousSteward = function () {
-        if ( canPreviousSteward() ) {
-          $scope.steward = $scope.stewards[--index];
-        }
+        if ( index <= 0 )
+          index = $scope.stewards.length;
+        $scope.steward = $scope.stewards[--index];
       }
-
-      // Returns whether or not a previous
-      // steward exists
-
-      function canPreviousSteward () {
-        return index > 0;
-      }
-      $scope.canPreviousSteward = canPreviousSteward;
-
-      // Returns whether or not a subsequent
-      // steward exists
-
-      function canNextSteward () {
-        if ($scope.stewards)
-          return index < ($scope.stewards.length - 1);
-        else
-          return false;
-      }
-      $scope.canNextSteward = canNextSteward;
 
       function currentStewardPosition() {
         return index+1;
@@ -537,32 +518,24 @@
 
       $scope.nextTrail = function () {
         var index  = $scope.selectedTrails.indexOf($scope.selectedTrail);
-        if ( canNextTrail() ) {
-          $scope.selectedTrail = $scope.selectedTrails[index + 1];
-        }
+        if ( index >= $scope.selectedTrails.length-1 )
+          index = -1;
+        $scope.selectedTrail = $scope.selectedTrails[++index];
       }
-
-      function canNextTrail () {
-        return $scope.selectedTrails.indexOf($scope.selectedTrail) < ($scope.selectedTrails.length - 1)
-      }
-
-      $scope.canNextTrail = canNextTrail;
 
       $scope.previousTrail = function () {
         var index = $scope.selectedTrails.indexOf($scope.selectedTrail);
-        if ( canPreviousTrail() ) {
-          $scope.selectedTrail = $scope.selectedTrails[index - 1];
-        }
+        if ( index <= 0 )
+          index = $scope.selectedTrails.length;
+        $scope.selectedTrail = $scope.selectedTrails[--index];
       }
 
-      function canPreviousTrail () {
-        return $scope.selectedTrails.indexOf($scope.selectedTrail) > 0;
+      $scope.hasMoreTrails = function () {
+        return ($scope.selectedTrails.length <= 1);
       }
 
-      $scope.canPreviousTrail = canPreviousTrail;
-
-      function closeTrailView () {
-        $scope.fullscreen = false; 
+     function closeTrailView () {
+        $scope.fullscreen = false;
         deselectTrailHead($scope.selectedTrailHead);
       }
 
