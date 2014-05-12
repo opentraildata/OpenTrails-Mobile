@@ -566,33 +566,31 @@ body {
 }
 #trail-view #trail-and-trailhead-data .trailhead-title-field {
   display: block;
+  margin: 10px 0;
+  margin-bottom: 20px;
   position: relative;
-  height: 1em;
 }
 #trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-icon {
   display: inline-block;
   position: relative;
-  float: left;
   width: auto;
-  margin: .5em 0;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 #trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-title {
-  position: relative;
-  display: inline-block;
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 12px;
-  float: left;
-  width: auto;
-  max-width: 50%;
-  margin: .5em 10px;
-  font-weight: 700;
-}
-#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-address {
   display: inline-block;
   position: relative;
-  float: right;
   width: auto;
-  margin: .5em 0 1em 0;
+  max-width: 50%;
+  margin: 0;
+  font-weight: 700;
+  vertical-align: middle;
+}
+#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-address {
+  width: auto;
+  margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   padding: 6px;
@@ -600,6 +598,10 @@ body {
   border-radius: 2px;
   color: #f6f6f6;
   text-decoration: none;
+  margin-top: -13px;
+  position: absolute;
+  right: 0;
+  top: 50%;
 }
 #trail-view #trail-and-trailhead-data .photo-box {
   margin-left: -20px;
