@@ -107,6 +107,10 @@
 
       $scope.geoposition = GeoPosition;
 
+      $scope.openInNativeMaps = function () {
+        window.open('maps:q='+$scope.steward.get('address'), '_system');
+      }
+
     }
 
   ]);
@@ -392,6 +396,13 @@
           });
         });
       }
+
+      function openTrailHeadInNativeMaps (trailhead) {
+        var position = $scope.selectedTrailHead.getLatLng();
+        window.open('maps:q='+position.join(','), '_system');
+      }
+
+      $scope.openTrailHeadInNativeMaps = openTrailHeadInNativeMaps;
 
       function selectTrailHead (th, t) {
         if (!th || ng.isUndefined(th)) return false;

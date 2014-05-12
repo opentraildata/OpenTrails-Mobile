@@ -79,7 +79,7 @@
             <section id="contact-view" ng-show="view === 'notifications-contact'" ng-cloak>
               <div class="contact-options">
                 <p class="source-address">Headquarters / Main Visitor Center: {{ steward.get('address') }}</p>
-                <a href="http://maps.apple.com/?saddr={{ geoposition.get('latitude') }},{{ geoposition.get('longitude') }}&daddr={{ steward.get('address') }}" target="_system">Get Directions</a>
+                <a href="#" ng-click="openInNativeMaps()">Get Directions</a>
                 <p class="source-phone">{{ steward.get('phone') }}</p>
                 <div class="source-call-btn">
                   <i class="phone-icon fa fa-phone"></i>
@@ -150,7 +150,7 @@
             <div class="trailhead-title-field">
               <i class="trailhead-icon fa fa-map-marker"></i>
               <p class="trailhead-title">{{ selectedTrailHead.get('name') }} Trailhead</p>
-              <a class="trailhead-address" href="http://maps.apple.com/?saddr={{geoposition.get('latitude')}},{{geoposition.get('longitude')}}&daddr={{selectedTrailHead.get('address')}}" target="_system">
+              <a class="trailhead-address" href="#" ng-click="openTrailHeadInNativeMaps()">
                   Get Directions
               </a>
             </div>
