@@ -305,7 +305,14 @@
 
           Models.TrailHead.query.each(renderTrailHeadMarker);
           trailHeadCluster.addTo(Map);
-          bindEvents();
+
+          // bind events
+          ng.forEach(trailHeadMarkers, function (marker) {
+            marker.on('click', function (e) {
+              onTrailHeadMarkerClick(marker);
+            });
+          });
+
           search('');
 
           // Add initial zoom level class to map container
@@ -369,14 +376,6 @@
         } else {
           $scope.$apply(function () { deselectTrailHead( record ) });
         }
-      }
-
-      function bindEvents () {
-        ng.forEach(trailHeadMarkers, function (marker) {
-          marker.on('mousedown', function (e) {
-            onTrailHeadMarkerClick(marker);
-          });
-        });
       }
 
       function openTrailHeadInNativeMaps (trailhead) {
