@@ -373,7 +373,7 @@
 
       function bindEvents () {
         ng.forEach(trailHeadMarkers, function (marker) {
-          marker.on('click', function (e) {
+          marker.on('mousedown', function (e) {
             onTrailHeadMarkerClick(marker);
           });
         });
@@ -569,11 +569,11 @@
       function closeTrailView() {
         trailViewElm.classList.add('closed');
         if (_fullscreen) {
-          trailViewElm.style.webkitTransition = 'top 1s';
+          trailViewElm.style.webkitTransition = '-webkit-transform 1s';
           _fullscreenOff();
         }
         deselectTrailHead($scope.selectedTrailHead);
-        trailViewElm.addEventListener( 'webkitTransitionEnd', _transitionFinished );
+        //trailViewElm.addEventListener( 'webkitTransitionEnd', _transitionFinished );
       }
 
       $scope.closeTrailView = closeTrailView;
@@ -584,9 +584,11 @@
 
       function setTrailViewOffset() {
         var trailHeaderHeight = trailDataHeaderElm.offsetHeight;
-        var calcValue = '-webkit-calc(100% - '+String(FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20)+'px)';
-        trailViewElm.style.top = calcValue;
-        trailViewElm.style.webkitTransition = 'top 0.5s';
+        //var calcValue = '-webkit-calc(100% - '+String(FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20)+'px)';
+        var viewportHeight = window.innerHeight;
+        var calcValue = viewportHeight - (FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20);
+        trailViewElm.style.webkitTransform = 'translate3d(0, '+calcValue+'px, 0)';
+        trailViewElm.style.webkitTransition = '-webkit-transform 0.5s';
         trailViewElm.classList.remove('closed');
       };
 

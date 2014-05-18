@@ -502,16 +502,18 @@ body {
 #trail-view {
 
   &.fullscreen {
-    top: 0 !important;
+    //top: 0 !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
   }
 
   &.closed {
-    top: 100% !important;
+    //top: 100% !important;
+    -webkit-transform: translate3d(0, 100%, 0) !important;
   }
 
-  &.transition {
-    -webkit-transition: top 0.5s;
-  }
+  &.transition{
+    -webkit-transition: -webkit-transform 0.5s
+  };
 
   position: fixed;
   background-color: @white-color;
@@ -520,8 +522,9 @@ body {
   z-index: @z-index-3;
   right: 0;
   left: 0;
+  top: 0;
   margin-top: 20px;
-  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 100%, 0);
   -webkit-box-sizing:border-box;
 
   #trail-nav {
