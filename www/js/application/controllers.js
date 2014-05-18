@@ -335,40 +335,6 @@
         trailHeadCluster.addLayer(marker);
       }
 
-      /*
-      function selectTrailHeadMarker (marker) {
-        if (marker) {
-          marker.select();
-          if (marker.selected) {
-            $scope.$apply(function() {
-              $scope.selected = marker;
-            });
-          }
-        }
-      }
-
-      function deselectTrailHeadMarker (marker) {
-        if (marker) {
-          marker.deselect();
-          $scope.$apply(function() {
-            $scope.selected = null;
-          });
-        }
-      }
-
-      function selectTrailLayer (layer) {
-        if (layer) {
-          layer.select();
-        }
-      }
-
-      function deselectTrailLayer (layer) {
-        if (layer) {
-          layer.deselect();
-        }
-      }
-      */
-
       function onTrailHeadMarkerClick (marker) {
         var record = marker.get('record');
         if ( record !== $scope.selectedTrailHead ) {
