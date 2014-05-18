@@ -6,8 +6,7 @@
     'trails.routes',
     'trails.controllers',
     'trails.services',
-    'trails.directives',
-    'angular-gestures'
+    'trails.directives'
   ]);
 
   var onDeviceReady = function () {

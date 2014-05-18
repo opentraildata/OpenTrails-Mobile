@@ -114,8 +114,8 @@
 
       </section>
 
-      <section id="trail-view" class="transition closed" hm-swipe-left="nextTrail()" hm-swipe-right="previousTrail()" ng-cloak>
-        <header id="trail-nav" hm-drag-up="drag($event)" hm-drag-down="drag($event)">
+      <section id="trail-view" class="transition closed" ng-cloak>
+        <header id="trail-nav">
           <div class="change-trail">
             <a href="#" class="previous-trail" ng-click="previousTrail()">
               <i class="fa fa-chevron-left active" ng-class="{hidden:hasMoreTrails()}"></i>
@@ -294,7 +294,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/lib/fastclick/fastclick.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular/angular-gestures.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
     <script type="text/javascript" src="js/lib/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="js/lib/leaflet/leaflet.markercluster.js"></script>
