@@ -303,15 +303,8 @@
             Models.Trail.query.each(renderTrailLayer);
           }
 
-          Models.TrailHead.query.each(renderTrailHeadMarker);
+          Models.TrailHead.query.each(_initializeTrailHeadMarker);
           trailHeadCluster.addTo(Map);
-
-          // bind events
-          ng.forEach(trailHeadMarkers, function (marker) {
-            marker.on('click', function (e) {
-              onTrailHeadMarkerClick(marker);
-            });
-          });
 
           search('');
 
@@ -329,13 +322,20 @@
         trailLayers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
       }
 
-      function renderTrailHeadMarker (t) {
+      // Initialize map marker and add events
+      function _initializeTrailHeadMarker (t) {
         var marker = MapTrailHeadMarker.fromTrailHead(t);
         trailHeadMarkers.push(marker);
         trailHeadCluster.addLayer(marker);
+
+        // Bind click event to marker.
+        // Use closure to retrieve original marker.
+        marker.delegate.on('click', function (e) {
+          _onTrailHeadMarkerClick(marker);
+        });
       }
 
-      function onTrailHeadMarkerClick (marker) {
+      function _onTrailHeadMarkerClick (marker) {
         var record = marker.get('record');
         if ( record !== $scope.selectedTrailHead ) {
           $scope.$apply(function () { selectTrailHead( record ) });
