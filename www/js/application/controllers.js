@@ -272,8 +272,6 @@
 
       $scope.setSearchFilter = setSearchFilter;
 
-      clearSearch();
-
       //
       // TRAIL LAYERS LOGIC
       //
@@ -306,7 +304,8 @@
           Models.TrailHead.query.each(_initializeTrailHeadMarker);
           trailHeadCluster.addTo(Map);
 
-          search('');
+          // Populate search results view with all results.
+          clearSearch();
 
           // Add initial zoom level class to map container
           lastZoomClass = 'map-zoom-'+Map.getZoom();
