@@ -214,20 +214,20 @@
           </div>
           <div class="trail-icons">
             <div class="icon-box first-filter" ng-click="setSearchFilter('canFoot')">
-              <img class="icon" src="img/foot-gray.png" ng-show="searchFilters.canFoot" ng-cloak>
-              <img class="icon" src="img/foot-light-gray.png" ng-hide="searchFilters.canFoot" ng-cloak>
+              <img class="icon" src="img/foot-gray.png" ng-show="searchFilters.isFiltered('canFoot')" ng-cloak>
+              <img class="icon" src="img/foot-light-gray.png" ng-hide="searchFilters.isFiltered('canFoot')" ng-cloak>
             </div>
             <div class="icon-box" ng-click="setSearchFilter('canBicycle')">
-              <img class="icon" src="img/bike-gray.png" ng-show="searchFilters.canBicycle" ng-cloak>
-              <img class="icon" src="img/bike-light-gray.png" ng-hide="searchFilters.canBicycle" ng-cloak>
+              <img class="icon" src="img/bike-gray.png" ng-show="searchFilters.isFiltered('canBicycle')" ng-cloak>
+              <img class="icon" src="img/bike-light-gray.png" ng-hide="searchFilters.isFiltered('canBicycle')" ng-cloak>
             </div>
             <div class="icon-box" ng-click="setSearchFilter('canHorse')">
-              <img class="icon" src="img/horse-gray.png" ng-show="searchFilters.canHorse" ng-cloak>
-              <img class="icon" src="img/horse-light-gray.png" ng-hide="searchFilters.canHorse" ng-cloak>
+              <img class="icon" src="img/horse-gray.png" ng-show="searchFilters.isFiltered('canHorse')" ng-cloak>
+              <img class="icon" src="img/horse-light-gray.png" ng-hide="searchFilters.isFiltered('canHorse')" ng-cloak>
             </div>
             <div class="icon-box" ng-click="setSearchFilter('canSki')">
-              <img class="icon" src="img/ski-gray.png" ng-show="searchFilters.canSki" ng-cloak>
-              <img class="icon" src="img/ski-light-gray.png" ng-hide="searchFilters.canSki" ng-click="setSearchFilter('canSki', true)" ng-cloak>
+              <img class="icon" src="img/ski-gray.png" ng-show="searchFilters.isFiltered('canSki')" ng-cloak>
+              <img class="icon" src="img/ski-light-gray.png" ng-hide="searchFilters.isFiltered('canSki')" ng-cloak>
             </div>
           </div>
         </div>

@@ -251,22 +251,27 @@
       function clearSearch () {
         $scope.lastSearch = null; 
         $scope.searchKeywords = null;
+
+        // Uses a bitmap for filter values so that all filter states can be
+        // stored in a single integer.
         $scope.searchFilters = {
-          canFoot: false,
-          canBicycle: false,
-          canHorse: false,
-          canSki: false
+          canFoot: 1,
+          canBicycle: 2,
+          canHorse: 4,
+          canSki: 8,
+          filterBitmap: 0,
+          isFiltered: function(value)
+          {
+            return this.filterBitmap & this[value];
+          }
         };
         $scope.search();
       }
 
       $scope.clearSearch = clearSearch;
 
-      var searchFilterState = false
-
       function setSearchFilter (key) {
-        searchFilterState = !searchFilterState;
-        $scope.searchFilters[key] = searchFilterState;
+        $scope.searchFilters.filterBitmap ^= $scope.searchFilters[key];
         search($scope.searchKeywords, $scope.searchFilters);
       }
 

@@ -175,7 +175,6 @@
 
   Query.prototype.groupBy = function (obj) {
     var results = {};
-
     ng.forEach(this.collection, function (record) {
       var value;
 
@@ -239,34 +238,33 @@
     var results = [];
 
     var trailheads = [];
+
     trailheads = trailheads.concat( TrailHead.query.where(nameQuery) );
     trailheads = trailheads.concat( TrailHead.query.where(descQuery) );
 
     var results = TrailHead.query.map(function (trailhead) {
       var trails;
 
-      if (trailheads.indexOf(trailhead) === -1) {
-        if (nameQuery.length > 0 || descQuery.length > 0) {
-          trails = []
-          trails = trails.concat( trailhead.trails.where(nameQuery).all() );
-          trails = trails.concat( trailhead.trails.where(descQuery).all() );
-          trails = utils.unique(trails);
-        } else {
-          trails = trailhead.trails.all();
-        }
+      if (trailheads.indexOf(trailhead) === -1 &&
+        (nameQuery.length > 0 || descQuery.length > 0)) {
+        trails = []
+        trails = trails.concat( trailhead.trails.where(nameQuery).all() );
+        trails = trails.concat( trailhead.trails.where(descQuery).all() );
+        trails = utils.unique(trails);
       } else {
         trails = trailhead.trails.all();
       }
 
       if (params.filters) {
-        trails = utils.select(trails, function (trail) {
-          var match = true; 
-          ng.forEach(utils.keys(params.filters), function (filter) {
-            var value = params.filters[filter];
-            if (value && !trail[filter]()) match = false;
-          });
-          return match;
-        }) 
+        var filteredTrails = [];
+        ng.forEach(trails,function(trail){
+          // Use bitwise AND operator to compare the currently toggled filters to
+          // those in the trail. If trail values are within the filters' values,
+          // there will be no change in the filters bitmap.
+          if ((params.filters.filterBitmap & trail.filterBitmap()) === params.filters.filterBitmap)
+            filteredTrails.push(trail);
+        });
+        trails = filteredTrails;
       }
 
       if (trails.length > 0) {
@@ -300,6 +298,7 @@
         filteredResults.push(result);
       }
     });
+
 
     return filteredResults;
   }
@@ -435,7 +434,6 @@
           value: this.get('id')
         }
       });
-
     },
 
     getLength: function () {
@@ -484,6 +482,18 @@
         if ( !ts.canWheelChair() ) result = false;
       });
       return result;
+    },
+
+    _bitmap : null,
+
+    filterBitmap : function () {
+      if (!this._bitmap) {
+        this._bitmap = this.canFoot()    ? this._bitmap |= 1 : this._bitmap;
+        this._bitmap = this.canBicycle() ? this._bitmap |= 2 : this._bitmap;
+        this._bitmap = this.canHorse()   ? this._bitmap |= 4 : this._bitmap;
+        this._bitmap = this.canSki()     ? this._bitmap |= 8 : this._bitmap;
+      }
+      return this._bitmap;
     },
 
     toGeoJson: function () {
@@ -616,7 +626,8 @@
 
       if (data.trailheads) {
         ng.forEach(data.trailheads, function (feature) {
-          results.push( new TrailHead( ng.extend({}, feature.properties, { geometry: feature.geometry }) ) );
+          feature.properties.geometry = feature.geometry;
+          results.push( new TrailHead( feature.properties ) );
         });
       }
 
@@ -726,7 +737,8 @@
 
       if (data.trailsegments) {
         ng.forEach(data.trailsegments, function (feature) {
-          results.push( new TrailSegment(ng.extend({}, feature.properties, { geometry: feature.geometry })) );
+          feature.properties.geometry = feature.geometry;
+          results.push( new TrailSegment(feature.properties) );
         });
       }
 
