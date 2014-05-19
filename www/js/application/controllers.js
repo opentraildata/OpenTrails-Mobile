@@ -364,8 +364,11 @@
         // #HACK -- sets height of trail view dynamically
         // based upon the height of its constituent elements.
         // Let's find a more elegant solution for this.
-
         setTimeout(setTrailViewOffset, 50);
+
+        // Set the view to the trail view.
+        // So when on the search view the view changes when a trail is clicked.
+        showView(TRAILS_VIEW);
       }
 
       $scope.selectTrailHead = selectTrailHead;
