@@ -1,6 +1,5 @@
-'use strict';
-
 (function (ng, fc) {
+  'use strict';
 
   var module = ng.module('trails', [
     'trails.routes',
@@ -11,7 +10,7 @@
 
   var onDeviceReady = function () {
     ng.bootstrap(document, ['trails']);
-  }
+  };
 
   document.addEventListener('deviceready', onDeviceReady, false);
 

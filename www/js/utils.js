@@ -1,4 +1,5 @@
 (function (ng) {
+  'use strict';
 
   //
   // UTILITIES
@@ -9,7 +10,7 @@
 
   Utils.prototype.numToRad = function (num) {
     return num * Math.PI / 180;
-  }
+  };
 
   Utils.prototype.haversine = function (lat1, lng1, lat2, lng2) {
     var dLat = utils.numToRad(lat2 - lat1),
@@ -19,7 +20,7 @@
         c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return (6372.8 * c) * 0.621371;
-  }
+  };
 
   Utils.prototype.defaults = function (obj) {
     ng.forEach(Array.prototype.slice.call(arguments, 1), function(source) {
@@ -30,7 +31,7 @@
       }
     });
     return obj;
-  }
+  };
 
   Utils.prototype.compact = function (arr) {
     var results = [];
@@ -38,7 +39,7 @@
       if (item !== null && item !== undefined) results.push(item);
     });
     return results;
-  }
+  };
 
   Utils.prototype.unique = function (arr) {
     var results = [];
@@ -46,21 +47,21 @@
       if (results.indexOf(item) === -1) results.push(item);
     });
     return results;
-  }
+  };
 
   Utils.prototype.has = function (obj,key) {
     return hasOwnProperty.call(obj, key);
-  }
+  };
 
   Utils.prototype.without = function (obj, keys) {
     var result = {};
     for (var key in obj) {
       if (keys.indexOf(key) === -1) {
-        result[key] = obj[key]
+        result[key] = obj[key];
       }
     }
     return result;
-  }
+  };
 
   Utils.prototype.map = function (arr, f) {
     var results = [];
@@ -70,7 +71,7 @@
     });
 
     return results;
-  }
+  };
 
   Utils.prototype.select = function (arr, f) {
     var results = [];
@@ -80,23 +81,25 @@
     });
 
     return results;
-  }
+  };
 
   Utils.prototype.keys = function (obj) {
     var keys = [];
     for (var key in obj) {
-      keys.push(key);
+      if (obj.hasOwnProperty(key))
+        keys.push(key);
     }
     return keys;
-  }
+  };
 
   Utils.prototype.values = function (obj) {
     var values = [];
     for (var key in obj) {
-      values.push(obj[key]);
+      if (obj.hasOwnProperty(key))
+        values.push(obj[key]);
     }
     return values;
-  }
+  };
 
   Utils.prototype.inherit = function(protoProps, staticProps) {
     var parent = this;
@@ -109,12 +112,12 @@
     ng.extend(child, parent, staticProps);
     var Surrogate = function(){ this.constructor = child; };
     Surrogate.prototype = parent.prototype;
-    child.prototype = new Surrogate;
+    child.prototype = new Surrogate();
     if (protoProps) ng.extend(child.prototype, protoProps);
     child.__super__ = parent.prototype;
     return child;
-  }
+  };
 
   window.utils = new Utils();
 
-})(angular)
+})(angular);

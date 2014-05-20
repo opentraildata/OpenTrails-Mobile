@@ -47,6 +47,8 @@ Then to view the application visit `localhost:8000/ios/www/` in your web browser
 
 If you work on the project and update the less file in `www/less/application.less` run `grunt less` to compile the CSS changes, or `grunt watch` to continuously compile the CSS changes while you work.
 
+You can check JavaScript code quality by running `grunt jshint`.
+
 ##Contribution
 
   * Fork the project.

@@ -1,6 +1,5 @@
-'use strict';
-
 (function (ng) {
+  'use strict';
 
   var module = ng.module('trails.controllers', []);
 
@@ -30,7 +29,7 @@
         if ( index >= $scope.stewards.length-1 )
           index = -1;
         $scope.steward = $scope.stewards[++index];
-      }
+      };
 
       // Navigate to previous steward
 
@@ -38,7 +37,7 @@
         if ( index <= 0 )
           index = $scope.stewards.length;
         $scope.steward = $scope.stewards[--index];
-      }
+      };
 
       function currentStewardPosition() {
         return index+1;
@@ -58,11 +57,11 @@
       $scope.selectedNotice = null;
       $scope.selectNotice = function (notification) {
         notification.markAsRead();
-        if ($scope.selectedNotice === notification) 
-          $scope.selectedNotice = null
+        if ($scope.selectedNotice === notification)
+          $scope.selectedNotice = null;
         else
           $scope.selectedNotice = notification;
-      }
+      };
 
       // Mark notification as read when closed
 
@@ -73,7 +72,7 @@
 
       // Immensely hackish & expensive way of tracking a
       // count of total unread notifications.
-      // TODO: Refactor this to update only when the 
+      // TODO: Refactor this to update only when the
       // closeNotification function is called.
       $scope.undeletedNotifications = function () {
         var numUndeleted = 0;
@@ -90,7 +89,7 @@
 
       $scope.openInNativeMaps = function () {
         window.open('maps:q='+$scope.steward.get('address'), '_system');
-      }
+      };
 
     }
 
@@ -162,7 +161,7 @@
       // Active tab in notifications.
       $scope.isActiveTab = function(tab) {
         return tab === $scope.view;
-      }
+      };
 
       //
       // MAP LOGIC
@@ -180,7 +179,7 @@
       positionMarker.addTo(Map);
 
       function onGeoPositionSuccess (position) {
-        positionMarker.setPosition([position.coords.latitude,position.coords.longitude])
+        positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
       }
 
@@ -249,7 +248,7 @@
       $scope.search = search;
 
       function clearSearch () {
-        $scope.lastSearch = null; 
+        $scope.lastSearch = null;
         $scope.searchKeywords = null;
 
         // Uses a bitmap for filter values so that all filter states can be
@@ -303,7 +302,7 @@
             })).addTo(Map.delegate);
           }
           else {
-            Models.Trail.query.each(renderTrailLayer);
+            Models.Trail.query.each(_renderTrailLayer);
           }
 
           Models.TrailHead.query.each(_initializeTrailHeadMarker);
@@ -322,7 +321,7 @@
         }
       }
 
-      function renderTrailLayer (t) {
+      function _renderTrailLayer (t) {
         trailLayers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
       }
 
@@ -342,11 +341,15 @@
       function _onTrailHeadMarkerClick (marker) {
         var record = marker.get('record');
         if ( record !== $scope.selectedTrailHead ) {
-          $scope.$apply(function () { selectTrailHead( record ) });
+          $scope.$apply(function () { selectTrailHead( record ); });
         } else {
-          $scope.$apply(function () { deselectTrailHead( record ) });
+          $scope.$apply(function () { deselectTrailHead( record ); });
         }
       }
+
+      // These two methods are only used if USE_CANVAS_TRAILS = false.
+      function selectTrailLayer (layer) { if (layer) layer.select(); }
+      function deselectTrailLayer (layer) { if (layer) layer.deselect(); }
 
       function openTrailHeadInNativeMaps (trailhead) {
         var position = $scope.selectedTrailHead.getLatLng();
@@ -360,7 +363,7 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        $scope.selectedPhoto = $scope.selectedTrail.photo.first()
+        $scope.selectedPhoto = $scope.selectedTrail.photo.first();
         $scope.selectedTrailHeadSteward = th.stewards.first();
 
         mapContainerElm.classList.add('trail-selected');
@@ -495,7 +498,7 @@
           index = -1;
         $scope.selectedTrail = $scope.selectedTrails[++index];
         setTimeout(setTrailViewOffset, 50);
-      }
+      };
 
       $scope.previousTrail = function () {
         var index = $scope.selectedTrails.indexOf($scope.selectedTrail);
@@ -503,11 +506,11 @@
           index = $scope.selectedTrails.length;
         $scope.selectedTrail = $scope.selectedTrails[--index];
         setTimeout(setTrailViewOffset, 50);
-      }
+      };
 
       $scope.hasMoreTrails = function () {
         return ($scope.selectedTrails.length <= 1);
-      }
+      };
 
       var _fullscreen = false; // whether the trail view is in fullscreen or not.
       function toggleTrailView() {
@@ -563,7 +566,7 @@
         trailViewElm.style.webkitTransform = 'translate3d(0, '+calcValue+'px, 0)';
         trailViewElm.style.webkitTransition = '-webkit-transform 0.5s';
         trailViewElm.classList.remove('closed');
-      };
+      }
 
 
       function distance(th) {

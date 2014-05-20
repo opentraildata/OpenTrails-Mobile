@@ -1,6 +1,8 @@
 angular.module('trails.services').factory('TrailsCanvasLayer', [
   'MapTrailLayer',
   function(MapTrailLayer) {
+    'use strict';
+
     var pixelRatio = window.devicePixelRatio || 1;
 
     /**
@@ -29,7 +31,7 @@ angular.module('trails.services').factory('TrailsCanvasLayer', [
        * true or false for whether to render a trail.
        **/
       filter: function(predicate) {
-        if (predicate != this._filter) {
+        if (predicate !== this._filter) {
           this._filter = predicate;
           this.redraw();
         }
@@ -41,7 +43,7 @@ angular.module('trails.services').factory('TrailsCanvasLayer', [
        * with styling from its `highlightStyle` option.
        **/
       highlight: function(trail) {
-        if (trail != this.highlighted) {
+        if (trail !== this.highlighted) {
           this.highlighted = this.trailLayerModels.filter(function(layer) {
             return layer.get('record') === trail;
           })[0];
@@ -140,7 +142,7 @@ angular.module('trails.services').factory('TrailsCanvasLayer', [
         var self = this;
         setTimeout(function() {
           self.trailLayers.forEach(function(layer) {
-            TrailsCanvasLayer.processLayer(layer, map)
+            TrailsCanvasLayer.processLayer(layer, map);
           });
         }, 2000);
 
