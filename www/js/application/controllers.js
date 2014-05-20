@@ -368,6 +368,11 @@
         // #HACK -- sets height of trail view dynamically
         // based upon the height of its constituent elements.
         // Let's find a more elegant solution for this.
+        // Using the present implementation setTrailViewOffset
+        // needs to fire when the angular template has finished
+        // rendering, so that the height of the template can be retrieve.
+        // Using a timeout is suggested here:
+        // http://stackoverflow.com/questions/11125078/is-there-a-post-render-callback-for-angular-js-directive
         setTimeout(setTrailViewOffset, 50);
 
         // Set the view to the trail view.
@@ -497,6 +502,7 @@
         if ( index <= 0 )
           index = $scope.selectedTrails.length;
         $scope.selectedTrail = $scope.selectedTrails[--index];
+        setTimeout(setTrailViewOffset, 50);
       }
 
       $scope.hasMoreTrails = function () {
@@ -545,20 +551,15 @@
           _fullscreenOff();
         }
         deselectTrailHead($scope.selectedTrailHead);
-        //trailViewElm.addEventListener( 'webkitTransitionEnd', _transitionFinished );
       }
 
       $scope.closeTrailView = closeTrailView;
 
-      function _transitionFinished( evt ) {
-        trailViewElm.removeEventListener( 'webkitTransitionEnd', _transitionFinished );
-      }
-
       function setTrailViewOffset() {
         var trailHeaderHeight = trailDataHeaderElm.offsetHeight;
-        //var calcValue = '-webkit-calc(100% - '+String(FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20)+'px)';
         var viewportHeight = window.innerHeight;
-        var calcValue = viewportHeight - (FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20);
+        var BOTTOM_PADDING = 20;
+        var calcValue = viewportHeight - (FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+BOTTOM_PADDING);
         trailViewElm.style.webkitTransform = 'translate3d(0, '+calcValue+'px, 0)';
         trailViewElm.style.webkitTransition = '-webkit-transform 0.5s';
         trailViewElm.classList.remove('closed');
