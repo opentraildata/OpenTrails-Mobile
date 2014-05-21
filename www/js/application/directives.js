@@ -1,6 +1,5 @@
-'use strict';
-
 (function (ng) {
+  'use strict';
 
   var module = ng.module('trails.directives', []);
 
@@ -26,12 +25,12 @@
               $scope.distance = value.distanceFrom(position.get('latitude'), position.get('longitude'));
             }
 
-          })
+          });
 
         },
 
         "template": "{{ distance.toFixed(2) }} mi away"
-      }
+      };
 
     }
 

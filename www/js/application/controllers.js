@@ -1,6 +1,5 @@
-'use strict';
-
 (function (ng) {
+  'use strict';
 
   var module = ng.module('trails.controllers', []);
 
@@ -30,7 +29,7 @@
         if ( index >= $scope.stewards.length-1 )
           index = -1;
         $scope.steward = $scope.stewards[++index];
-      }
+      };
 
       // Navigate to previous steward
 
@@ -38,7 +37,7 @@
         if ( index <= 0 )
           index = $scope.stewards.length;
         $scope.steward = $scope.stewards[--index];
-      }
+      };
 
       function currentStewardPosition() {
         return index+1;
@@ -58,11 +57,11 @@
       $scope.selectedNotice = null;
       $scope.selectNotice = function (notification) {
         notification.markAsRead();
-        if ($scope.selectedNotice === notification) 
-          $scope.selectedNotice = null
+        if ($scope.selectedNotice === notification)
+          $scope.selectedNotice = null;
         else
           $scope.selectedNotice = notification;
-      }
+      };
 
       // Mark notification as read when closed
 
@@ -73,7 +72,7 @@
 
       // Immensely hackish & expensive way of tracking a
       // count of total unread notifications.
-      // TODO: Refactor this to update only when the 
+      // TODO: Refactor this to update only when the
       // closeNotification function is called.
       $scope.undeletedNotifications = function () {
         var numUndeleted = 0;
@@ -90,7 +89,7 @@
 
       $scope.openInNativeMaps = function () {
         window.open('maps:q='+$scope.steward.get('address'), '_system');
-      }
+      };
 
     }
 
@@ -162,7 +161,7 @@
       // Active tab in notifications.
       $scope.isActiveTab = function(tab) {
         return tab === $scope.view;
-      }
+      };
 
       //
       // MAP LOGIC
@@ -180,7 +179,7 @@
       positionMarker.addTo(Map);
 
       function onGeoPositionSuccess (position) {
-        positionMarker.setPosition([position.coords.latitude,position.coords.longitude])
+        positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
       }
 
@@ -249,30 +248,33 @@
       $scope.search = search;
 
       function clearSearch () {
-        $scope.lastSearch = null; 
+        $scope.lastSearch = null;
         $scope.searchKeywords = null;
+
+        // Uses a bitmap for filter values so that all filter states can be
+        // stored in a single integer.
         $scope.searchFilters = {
-          canFoot: false,
-          canBicycle: false,
-          canHorse: false,
-          canSki: false
+          canFoot: 1,
+          canBicycle: 2,
+          canHorse: 4,
+          canSki: 8,
+          filterBitmap: 0,
+          isFiltered: function(value)
+          {
+            return this.filterBitmap & this[value];
+          }
         };
         $scope.search();
       }
 
       $scope.clearSearch = clearSearch;
 
-      var searchFilterState = false
-
       function setSearchFilter (key) {
-        searchFilterState = !searchFilterState;
-        $scope.searchFilters[key] = searchFilterState;
+        $scope.searchFilters.filterBitmap ^= $scope.searchFilters[key];
         search($scope.searchKeywords, $scope.searchFilters);
       }
 
       $scope.setSearchFilter = setSearchFilter;
-
-      clearSearch();
 
       //
       // TRAIL LAYERS LOGIC
@@ -300,13 +302,14 @@
             })).addTo(Map.delegate);
           }
           else {
-            Models.Trail.query.each(renderTrailLayer);
+            Models.Trail.query.each(_renderTrailLayer);
           }
 
-          Models.TrailHead.query.each(renderTrailHeadMarker);
+          Models.TrailHead.query.each(_initializeTrailHeadMarker);
           trailHeadCluster.addTo(Map);
-          bindEvents();
-          search('');
+
+          // Populate search results view with all results.
+          clearSearch();
 
           // Add initial zoom level class to map container
           lastZoomClass = 'map-zoom-'+Map.getZoom();
@@ -318,66 +321,35 @@
         }
       }
 
-      function renderTrailLayer (t) {
+      function _renderTrailLayer (t) {
         trailLayers.push( MapTrailLayer.fromTrail(t).addTo(Map) );
       }
 
-      function renderTrailHeadMarker (t) {
+      // Initialize map marker and add events
+      function _initializeTrailHeadMarker (t) {
         var marker = MapTrailHeadMarker.fromTrailHead(t);
         trailHeadMarkers.push(marker);
         trailHeadCluster.addLayer(marker);
-      }
 
-      /*
-      function selectTrailHeadMarker (marker) {
-        if (marker) {
-          marker.select();
-          if (marker.selected) {
-            $scope.$apply(function() {
-              $scope.selected = marker;
-            });
-          }
-        }
-      }
-
-      function deselectTrailHeadMarker (marker) {
-        if (marker) {
-          marker.deselect();
-          $scope.$apply(function() {
-            $scope.selected = null;
-          });
-        }
-      }
-
-      function selectTrailLayer (layer) {
-        if (layer) {
-          layer.select();
-        }
-      }
-
-      function deselectTrailLayer (layer) {
-        if (layer) {
-          layer.deselect();
-        }
-      }
-      */
-
-      function onTrailHeadMarkerClick (marker) {
-        var record = marker.get('record');
-        if ( record !== $scope.selectedTrailHead ) {
-          $scope.$apply(function () { selectTrailHead( record ) });
-        } else {
-          $scope.$apply(function () { deselectTrailHead( record ) });
-        }
-      }
-
-      function bindEvents () {
-        ng.forEach(trailHeadMarkers, function (marker) {
-          marker.on('click', function (e) {
-            onTrailHeadMarkerClick(marker);
-          });
+        // Bind click event to marker.
+        // Use closure to retrieve original marker.
+        marker.delegate.on('click', function (e) {
+          _onTrailHeadMarkerClick(marker);
         });
       }
+
+      function _onTrailHeadMarkerClick (marker) {
+        var record = marker.get('record');
+        if ( record !== $scope.selectedTrailHead ) {
+          $scope.$apply(function () { selectTrailHead( record ); });
+        } else {
+          $scope.$apply(function () { deselectTrailHead( record ); });
+        }
+      }
+
+      // These two methods are only used if USE_CANVAS_TRAILS = false.
+      function selectTrailLayer (layer) { if (layer) layer.select(); }
+      function deselectTrailLayer (layer) { if (layer) layer.deselect(); }
 
       function openTrailHeadInNativeMaps (trailhead) {
         var position = $scope.selectedTrailHead.getLatLng();
@@ -391,7 +363,7 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        $scope.selectedPhoto = $scope.selectedTrail.photo.first()
+        $scope.selectedPhoto = $scope.selectedTrail.photo.first();
         $scope.selectedTrailHeadSteward = th.stewards.first();
 
         mapContainerElm.classList.add('trail-selected');
@@ -399,8 +371,16 @@
         // #HACK -- sets height of trail view dynamically
         // based upon the height of its constituent elements.
         // Let's find a more elegant solution for this.
-
+        // Using the present implementation setTrailViewOffset
+        // needs to fire when the angular template has finished
+        // rendering, so that the height of the template can be retrieve.
+        // Using a timeout is suggested here:
+        // http://stackoverflow.com/questions/11125078/is-there-a-post-render-callback-for-angular-js-directive
         setTimeout(setTrailViewOffset, 50);
+
+        // Set the view to the trail view.
+        // So when on the search view the view changes when a trail is clicked.
+        showView(TRAILS_VIEW);
       }
 
       $scope.selectTrailHead = selectTrailHead;
@@ -518,18 +498,19 @@
           index = -1;
         $scope.selectedTrail = $scope.selectedTrails[++index];
         setTimeout(setTrailViewOffset, 50);
-      }
+      };
 
       $scope.previousTrail = function () {
         var index = $scope.selectedTrails.indexOf($scope.selectedTrail);
         if ( index <= 0 )
           index = $scope.selectedTrails.length;
         $scope.selectedTrail = $scope.selectedTrails[--index];
-      }
+        setTimeout(setTrailViewOffset, 50);
+      };
 
       $scope.hasMoreTrails = function () {
         return ($scope.selectedTrails.length <= 1);
-      }
+      };
 
       var _fullscreen = false; // whether the trail view is in fullscreen or not.
       function toggleTrailView() {
@@ -569,26 +550,23 @@
       function closeTrailView() {
         trailViewElm.classList.add('closed');
         if (_fullscreen) {
-          trailViewElm.style.webkitTransition = 'top 1s';
+          trailViewElm.style.webkitTransition = '-webkit-transform 1s';
           _fullscreenOff();
         }
         deselectTrailHead($scope.selectedTrailHead);
-        trailViewElm.addEventListener( 'webkitTransitionEnd', _transitionFinished );
       }
 
       $scope.closeTrailView = closeTrailView;
 
-      function _transitionFinished( evt ) {
-        trailViewElm.removeEventListener( 'webkitTransitionEnd', _transitionFinished );
-      }
-
       function setTrailViewOffset() {
         var trailHeaderHeight = trailDataHeaderElm.offsetHeight;
-        var calcValue = '-webkit-calc(100% - '+String(FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+20)+'px)';
-        trailViewElm.style.top = calcValue;
-        trailViewElm.style.webkitTransition = 'top 0.5s';
+        var viewportHeight = window.innerHeight;
+        var BOTTOM_PADDING = 20;
+        var calcValue = viewportHeight - (FOOTER_HEIGHT+TRAIL_NAV_HEIGHT+trailHeaderHeight+BOTTOM_PADDING);
+        trailViewElm.style.webkitTransform = 'translate3d(0, '+calcValue+'px, 0)';
+        trailViewElm.style.webkitTransition = '-webkit-transform 0.5s';
         trailViewElm.classList.remove('closed');
-      };
+      }
 
 
       function distance(th) {

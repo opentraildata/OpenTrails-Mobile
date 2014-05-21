@@ -45,10 +45,39 @@ module.exports = function(grunt) {
       dest: './platforms/ios/www/index.html',
       filter: 'isFile'
     } //html
-  } //copy
+  }, //copy
+  jshint: {
+    options: {
+      bitwise: false,
+      curly: false,
+      eqeqeq: true,
+      forin: true,
+      immed: true,
+      indent: 2,
+      latedef: true,
+      newcap: true,
+      noarg: true,
+      noempty: true,
+      nonew: true,
+      plusplus: false,
+      regexp: true,
+      undef: true,
+      strict: true,
+      trailing: true,
+      sub: true,
+      browser: true,
+      devel: true,
+      expr: true,
+      eqnull: true,
+      predef: ['angular','utils','FastClick','L'],
+      ignores: ['www/js/lib/**/*.js']
+    },
+    files: ['www/js/**/*.js']
+  } // jshint
   });
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 };

@@ -1,18 +1,16 @@
-'use strict';
-
 (function (ng, fc) {
+  'use strict';
 
   var module = ng.module('trails', [
     'trails.routes',
     'trails.controllers',
     'trails.services',
-    'trails.directives',
-    'angular-gestures'
+    'trails.directives'
   ]);
 
   var onDeviceReady = function () {
     ng.bootstrap(document, ['trails']);
-  }
+  };
 
   document.addEventListener('deviceready', onDeviceReady, false);
 

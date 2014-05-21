@@ -1,6 +1,5 @@
-'use strict';
-
 (function (ng) {
+  'use strict';
 
   //
   // CONFIGURATION
@@ -20,17 +19,18 @@
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
     SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/examples.map-qfyrx5r8/{z}/{x}/{y}.png"
-  }
+  };
 
   //
   // MODEL DEFINITION
   //
 
   function Model (attrs) {
-    this.attributes = {}
+    this.attributes = {};
     if ( ng.isObject(attrs) ) {
       for (var key in this.defaults) {
-        this.attributes[key] = attrs[key] || this.defaults[key];
+        if (this.defaults.hasOwnProperty(key))
+          this.attributes[key] = attrs[key] || this.defaults[key];
       }
     } else {
       this.attributes = utils.defaults(this.attributes, this.defaults);
@@ -73,7 +73,7 @@
       if ( ng.isString(lhs) && ng.isString(rhs) ) {
         lhs = lhs.toLowerCase();
         rhs = rhs.toLowerCase();
-        return lhs.indexOf(rhs) !== -1
+        return lhs.indexOf(rhs) !== -1;
       } else {
         return false;
       }
@@ -82,7 +82,7 @@
       if ( ng.isString(lhs) && ng.isString(rhs) ) {
         lhs = lhs.toLowerCase();
         rhs = rhs.toLowerCase();
-        return lhs.indexOf(rhs) === -1
+        return lhs.indexOf(rhs) === -1;
       } else {
         return false;
       }
@@ -103,19 +103,19 @@
     },
     "in": function (lhs, rhs) {
       if ( ng.isArray(rhs) ) {
-        return rhs.indexOf(lhs) !== -1
+        return rhs.indexOf(lhs) !== -1;
       }
     },
     "notIn": function (lhs, rhs) {
       if ( ng.isArray(rhs) ) {
-        return rhs.indexOf(lhs) === -1
+        return rhs.indexOf(lhs) === -1;
       }
     }
-  }
+  };
 
   Query.findEvaluator = function (id) {
     return Query.EVALUATORS[id] || ng.noop;
-  }
+  };
 
   Query.perform = function (record, param) {
     var evaluator = Query.findEvaluator(param.evaluator),
@@ -123,16 +123,16 @@
         rhs = param.value;
 
     return !!evaluator(lhs, rhs);
-  }
+  };
 
   Query.prototype.initialize = function (collection) {
     this.setCollection(collection);
-  }
+  };
 
   Query.prototype.setCollection = function (collection) {
     if (!ng.isArray(collection)) collection = [];
     this.collection = collection;
-  }
+  };
 
   Query.prototype.where = function (params) {
     var results = [];
@@ -146,15 +146,15 @@
     });
 
     return new Query(results);
-  }
+  };
 
   Query.prototype.find = function (params) {
     return this.where(params).first();
-  }
+  };
 
   Query.prototype.sort = function (func) {
     return new Query(this.collection.sort(func));
-  }
+  };
 
   Query.prototype.sortBy = function (attr, dir) {
     var ASC = 'ASC';
@@ -168,14 +168,13 @@
       } else {
         return true;
       }
-    })
+    });
 
     return new Query(results);
-  }
+  };
 
   Query.prototype.groupBy = function (obj) {
     var results = {};
-
     ng.forEach(this.collection, function (record) {
       var value;
 
@@ -192,31 +191,31 @@
     });
 
     return results;
-  }
+  };
 
   Query.prototype.first = function () {
     return this.collection[0];
-  }
+  };
 
   Query.prototype.last = function () {
     return this.collection[this.collection.length - 1];
-  }
+  };
 
   Query.prototype.all = function () {
     return this.collection;
-  }
+  };
 
   Query.prototype.count = function () {
     return this.collection.length;
-  }
+  };
 
   Query.prototype.each = function (f) {
     return ng.forEach(this.collection, f);
-  }
+  };
 
   Query.prototype.map = function (f) {
     return utils.map(this.collection, f);
-  }
+  };
 
   //
   // TRAILSEARCH
@@ -236,37 +235,34 @@
       descQuery.push({ key: 'descriptn', evaluator: 'contains', value: params.keywords });
     }
 
-    var results = [];
-
     var trailheads = [];
+
     trailheads = trailheads.concat( TrailHead.query.where(nameQuery) );
     trailheads = trailheads.concat( TrailHead.query.where(descQuery) );
 
     var results = TrailHead.query.map(function (trailhead) {
       var trails;
 
-      if (trailheads.indexOf(trailhead) === -1) {
-        if (nameQuery.length > 0 || descQuery.length > 0) {
-          trails = []
-          trails = trails.concat( trailhead.trails.where(nameQuery).all() );
-          trails = trails.concat( trailhead.trails.where(descQuery).all() );
-          trails = utils.unique(trails);
-        } else {
-          trails = trailhead.trails.all();
-        }
+      if (trailheads.indexOf(trailhead) === -1 &&
+        (nameQuery.length > 0 || descQuery.length > 0)) {
+        trails = [];
+        trails = trails.concat( trailhead.trails.where(nameQuery).all() );
+        trails = trails.concat( trailhead.trails.where(descQuery).all() );
+        trails = utils.unique(trails);
       } else {
         trails = trailhead.trails.all();
       }
 
       if (params.filters) {
-        trails = utils.select(trails, function (trail) {
-          var match = true; 
-          ng.forEach(utils.keys(params.filters), function (filter) {
-            var value = params.filters[filter];
-            if (value && !trail[filter]()) match = false;
-          });
-          return match;
-        }) 
+        var filteredTrails = [];
+        ng.forEach(trails,function(trail){
+          // Use bitwise AND operator to compare the currently toggled filters to
+          // those in the trail. If trail values are within the filters' values,
+          // there will be no change in the filters bitmap.
+          if ((params.filters.filterBitmap & trail.filterBitmap()) === params.filters.filterBitmap)
+            filteredTrails.push(trail);
+        });
+        trails = filteredTrails;
       }
 
       if (trails.length > 0) {
@@ -293,7 +289,7 @@
           uniqueTrails.push(trail);
           resultTrails.push(trail);
         }
-      })
+      });
 
       if (resultTrails.length > 0) {
         result.trails = resultTrails;
@@ -301,8 +297,9 @@
       }
     });
 
+
     return filteredResults;
-  }
+  };
 
   //
   // SEARCHRESULT MODEL
@@ -323,7 +320,7 @@
     }
 
     return dist;
-  }
+  };
 
   //
   // ASSOCIATION MODEL
@@ -378,14 +375,14 @@
     },
 
     toQuery: function () {
-     var foreign = this.get('foreign'),
-         scope = this.get('scope');
+      var foreign = this.get('foreign'),
+      scope = this.get('scope');
       return foreign.query.where(scope);
     },
 
     perform: function (name, args) {
       var query = this.toQuery();
-      return query[name].apply(query, args)
+      return query[name].apply(query, args);
     }
 
   });
@@ -435,7 +432,6 @@
           value: this.get('id')
         }
       });
-
     },
 
     getLength: function () {
@@ -486,6 +482,18 @@
       return result;
     },
 
+    _bitmap : null,
+
+    filterBitmap : function () {
+      if (!this._bitmap) {
+        this._bitmap = this.canFoot()    ? this._bitmap |= 1 : this._bitmap;
+        this._bitmap = this.canBicycle() ? this._bitmap |= 2 : this._bitmap;
+        this._bitmap = this.canHorse()   ? this._bitmap |= 4 : this._bitmap;
+        this._bitmap = this.canSki()     ? this._bitmap |= 8 : this._bitmap;
+      }
+      return this._bitmap;
+    },
+
     toGeoJson: function () {
       var features = this.trailSegments.map(function (trailSegment) {
         return trailSegment.toGeoJson();
@@ -493,7 +501,7 @@
       return {
         "type": "FeatureCollection",
         "features": features
-      }
+      };
     }
 
   }, {
@@ -605,7 +613,7 @@
         "type": 'Feature',
         "properties": properties,
         "geometry": geometry
-      }
+      };
     }
   }, {
 
@@ -616,7 +624,8 @@
 
       if (data.trailheads) {
         ng.forEach(data.trailheads, function (feature) {
-          results.push( new TrailHead( ng.extend({}, feature.properties, { geometry: feature.geometry }) ) );
+          feature.properties.geometry = feature.geometry;
+          results.push( new TrailHead( feature.properties ) );
         });
       }
 
@@ -666,7 +675,7 @@
 
         for (var i = 0; i < obj.length; i++) {
           if ( ng.isArray(obj[i][0]) ) {
-            total = calc(obj[i], total)
+            total = calc(obj[i], total);
           } else {
             var j = i + 1;
 
@@ -674,7 +683,7 @@
 
             var a = obj[i];
             var b = obj[j];
-            var dist = utils.haversine(a[1], a[0], b[1], b[0])
+            var dist = utils.haversine(a[1], a[0], b[1], b[0]);
 
             total = total + dist;
           }
@@ -714,7 +723,7 @@
         "type": 'Feature',
         "properties": properties,
         "geometry": geometry
-      }
+      };
     }
 
   }, {
@@ -726,7 +735,8 @@
 
       if (data.trailsegments) {
         ng.forEach(data.trailsegments, function (feature) {
-          results.push( new TrailSegment(ng.extend({}, feature.properties, { geometry: feature.geometry })) );
+          feature.properties.geometry = feature.geometry;
+          results.push( new TrailSegment(feature.properties) );
         });
       }
 
@@ -928,7 +938,7 @@
     },
 
     toArray: function () {
-      return [this.get('latitude'),this.get('longitude')]
+      return [this.get('latitude'),this.get('longitude')];
     }
 
   });
@@ -1102,7 +1112,7 @@
       name: "Satellite",
       url: Configuration.SATELLITE_MAP_TILE_ENDPOINT
     }
-  }
+  };
 
   var MapTileLayer = MapLayer.inherit({
 
@@ -1249,7 +1259,7 @@
     },
 
     initialize: function () {
-      this.delegate = L.circleMarker(this.get('position'), this.get('options'))
+      this.delegate = L.circleMarker(this.get('position'), this.get('options'));
     }
 
   });
@@ -1329,7 +1339,7 @@
 
   MapTrailHeadMarker.fromTrailHead = function (trailHead) {
     return new MapTrailHeadMarker({ position: trailHead.getLatLng(), record: trailHead });
-  }
+  };
 
   //
   // MAPTRAILLAYER MODEL
@@ -1379,7 +1389,7 @@
 
   MapTrailLayer.fromTrail = function (trail) {
     return new MapTrailLayer({ geojson: trail.toGeoJson(), record: trail });
-  }
+  };
 
 
   //
@@ -1481,7 +1491,7 @@
         "Steward": Steward,
         "Notification": Notification,
         "Photo": Photo
-      }
+      };
 
       Models.loaded = function () {
         var loaded = true;
@@ -1489,18 +1499,18 @@
         for (var i = 0; i < LOADABLE.length; i++) {
           var model = LOADABLE[i];
           if (!Models[model].loaded) {
-            loaded = false; 
+            loaded = false;
             break;
           }
         }
 
         return loaded;
-      }
+      };
 
       function loadModel (model, key, url) {
-        var data;
+        var data = window.localStorage.getItem(key);
 
-        if (data = window.localStorage.getItem(key)) {
+        if (data) {
           model.load( JSON.parse(data) );
         } else {
           $http.get(url).then(

@@ -1,6 +1,5 @@
-'use strict';
-
 (function (ng) {
+  'use strict';
 
   var module = ng.module('trails.routes', [ 'ngRoute' ]);
 
