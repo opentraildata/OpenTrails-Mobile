@@ -1,0 +1,3 @@
+[submodule "bin/tile-utils"]
+	path = bin/tile-utils
+	url = git@github.com:rclosner/tile-utils.git
