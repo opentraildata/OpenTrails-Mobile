@@ -35,6 +35,8 @@ body {
   weight: 300;
   overflow-y: hidden;
   z-index: 3000;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 #content {
   position: fixed;
@@ -218,7 +220,7 @@ body {
 }
 /* SEARCH VIEW */
 #search-view #header {
-  height: 140px;
+  height: 141px;
   background-color: #f6f6f6;
   color: #242424;
   border-bottom: 1px solid #242424;
@@ -226,7 +228,6 @@ body {
 #search-view #header .search-form {
   width: 100%;
   height: auto;
-  padding: 0px 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -249,6 +250,7 @@ body {
   position: absolute;
 }
 #search-view #header .search-form .search-input-container .search-input {
+  -webkit-appearance: none;
   border-radius: 3px;
   width: 100%;
   color: #242424;
@@ -266,8 +268,7 @@ body {
   font-size: 24px;
 }
 #search-view #header .filter-info {
-  margin: 0px 0 10px 20px;
-  width: 100%;
+  margin: 0 0 10px;
   height: 1em;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
@@ -275,14 +276,14 @@ body {
 }
 #search-view #header .trail-icons {
   width: 100%;
-  text-align: justify;
+  display: -webkit-flex;
+  -webkit-justify-content: space-between;
 }
 #search-view #header .trail-icons .icon-box {
   display: inline-block;
   text-align: center;
   width: 50px;
   height: 50px;
-  margin: 0 0 0 20px;
   background-color: #ffffff;
   border-radius: 2px;
   border: 1px solid #a3a3a3;
@@ -291,9 +292,6 @@ body {
   text-align: center;
   height: 60%;
   margin-top: 20%;
-}
-#search-view #header .trail-icons .first-filter {
-  margin: 0 0 0 20px;
 }
 #search-view #header .trail-icons .trail-icons:after {
   content: "";
