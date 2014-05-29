@@ -120,6 +120,9 @@
 
       var USE_CANVAS_TRAILS = true;
 
+      // Default search message when no filters are selected.
+      var DEFAULT_SEARCH_MESSAGE = "All Activities";
+
       // UI element heights used for calculating offsets.
       var FOOTER_HEIGHT = document.getElementById('footer').offsetHeight;
       var TRAIL_NAV_HEIGHT = document.getElementById('trail-nav').offsetHeight;
@@ -129,6 +132,7 @@
       var trailViewElm = document.getElementById('trail-view');
       var trailDataHeaderElm = document.getElementById('trail-data-header');
       var trailAndTrailheadDataElm = document.getElementById('trail-and-trailhead-data');
+      var searchResultsElm = document.querySelector("#content .search-results");
 
       //
       // VIEW LOGIC
@@ -243,6 +247,8 @@
       function search (keywords, filters) {
         $scope.lastSearch = keywords;
         $scope.searchResults = TrailSearch.perform({ keywords: keywords, filters: filters, position: GeoPosition });
+
+        searchResultsElm.scrollTop = 0;
       }
 
       $scope.search = search;
@@ -264,6 +270,8 @@
             return this.filterBitmap & this[value];
           }
         };
+
+        $scope.searchResultsMessage = DEFAULT_SEARCH_MESSAGE;
         $scope.search();
       }
 
@@ -271,6 +279,23 @@
 
       function setSearchFilter (key) {
         $scope.searchFilters.filterBitmap ^= $scope.searchFilters[key];
+
+        var bitmap = $scope.searchFilters.filterBitmap;
+        var msgArray = [];
+        if (bitmap & $scope.searchFilters.canFoot )
+          msgArray.push("Hiking");
+        if (bitmap & $scope.searchFilters.canBicycle )
+          msgArray.push("Biking");
+        if (bitmap & $scope.searchFilters.canHorse )
+          msgArray.push("Horse Riding");
+        if (bitmap & $scope.searchFilters.canSki )
+          msgArray.push("XC Skiing");
+
+        if (msgArray.length > 0)
+          $scope.searchResultsMessage = msgArray.join(", ");
+        else
+          $scope.searchResultsMessage = DEFAULT_SEARCH_MESSAGE;
+
         search($scope.searchKeywords, $scope.searchFilters);
       }
 
