@@ -129,6 +129,7 @@
       var trailViewElm = document.getElementById('trail-view');
       var trailDataHeaderElm = document.getElementById('trail-data-header');
       var trailAndTrailheadDataElm = document.getElementById('trail-and-trailhead-data');
+      var searchResultsElm = document.querySelector("#content .search-results");
 
       //
       // VIEW LOGIC
@@ -243,6 +244,8 @@
       function search (keywords, filters) {
         $scope.lastSearch = keywords;
         $scope.searchResults = TrailSearch.perform({ keywords: keywords, filters: filters, position: GeoPosition });
+
+        searchResultsElm.scrollTop = 0;
       }
 
       $scope.search = search;
