@@ -1,6 +1,6 @@
 /** Variables **/
 
-@white-color: #f6f6f6; 
+@white-color: #f6f6f6;
 @gray-color: #242424;
 @blue-color: #4A90E2;
 @red-color: #D0021B;
@@ -99,7 +99,7 @@ body {
   text-justify: distribute-all-lines;
 
   a {
-    text-decoration: none; 
+    text-decoration: none;
     color: @gray-color;
     &:active {
       opacity: .75;
@@ -147,7 +147,6 @@ body {
 }
 
 /** Views **/
-
 #loading-view {
   z-index: @z-index-7;
   position: absolute;
@@ -158,7 +157,12 @@ body {
   background-size: cover;
   background-image: url(../img/loading-screen.jpg);
   pointer-events: none;
-  display: none; // hide loading-view for now
+
+  &.fadeout {
+    opacity:0;
+    -webkit-transition: opacity 0.5s ease-in-out;
+  }
+
   h1 {
     display: block;
     text-align: center;
@@ -178,7 +182,7 @@ body {
 #map-view {
 
   #map-search {
-    position: relative; 
+    position: relative;
     top: 30px;
     left: 10px;
     float: left;
@@ -201,7 +205,7 @@ body {
   }
 
   #map-recenter {
-    position: relative; 
+    position: relative;
     top: 30px;
     float: right;
     z-index: @z-index-3;
@@ -389,13 +393,13 @@ body {
   #content {
     top: 162px;
     .search-results {
-      width: 100%; 
+      width: 100%;
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       height: 340px;
       margin-bottom: 30px;
       .search-info {
-        width: 100%; 
+        width: 100%;
         height: 20px;
         padding: 10px 0 5px 0;
         color: darken(@green-color, 50%);
@@ -430,19 +434,19 @@ body {
 
         .name {
           height: auto;
-          float: left; 
+          float: left;
           max-width: 60%;
         }
 
         .distance {
           height: auto;
-          float: right; 
+          float: right;
         }
 
       }
 
       .search-subresults {
-        background-color: @white-color; 
+        background-color: @white-color;
         p {
           border-bottom: 1px solid @gray-color;
           font-family: @font-display;
@@ -452,7 +456,7 @@ body {
           padding: 15px;
         }
         a {
-          text-decoration: none; 
+          text-decoration: none;
           color: @gray-color;
           font-family: @font-display;
           font-size: @large-font;
@@ -584,7 +588,7 @@ body {
         text-align: center;
 
         .fa {
-          height: 20px; 
+          height: 20px;
           text-align: center;
           color: @green-color;
         }
@@ -1105,12 +1109,12 @@ body {
 
 #notification-sources {
   .source {
-    border-bottom: 1px solid @gray-color; 
+    border-bottom: 1px solid @gray-color;
     display: inline-block;
     width: 100%;
 
     .col-left {
-      width: 40px; 
+      width: 40px;
       display: inline-block;
     }
 
@@ -1119,62 +1123,62 @@ body {
 
       h3 {
         font-family: @font-display;
-        font-size: 13px; 
+        font-size: 13px;
       }
     }
-  } 
+  }
 }
 
 /** Device Specific Styles **/
 
 // iPhone 5 in Portrait and Landscape
 
-@media only screen 
-and (min-device-width : 320px) 
+@media only screen
+and (min-device-width : 320px)
 and (max-device-width : 568px) {
 
 }
 
 // iPhone 5 in Landscape
 
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
 and (orientation : landscape) {
 
 }
 
 // iPhone 5 in Portrait
 
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
 and (orientation : portrait) {
 
 }
 
 // iPhone 2G-4S in Portrait and Landscape
 
-@media only screen 
-and (min-device-width : 320px) 
+@media only screen
+and (min-device-width : 320px)
 and (max-device-width : 480px) {
 
 }
 
 // iPhone 2G-4S in Landscape
 
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
 and (orientation : landscape) {
 
 }
 
 // iPhone 2G-4S in Portrait
 
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
 and (orientation : portrait) {
 
 }
