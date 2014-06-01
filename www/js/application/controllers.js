@@ -195,12 +195,19 @@
         positionMarker.removeFrom(Map);
       }
 
-      navigator.geolocation.watchPosition(
-        onGeoPositionSuccess,
-        onGeoPositionError
-      );
+      // Wait till device is ready before watching geolocation position.
+      // See http://stackoverflow.com/questions/1673579/location-permission-alert-on-iphone-with-phonegap
+      document.addEventListener("deviceready", _onDeviceReady, false);
 
-      $scope.geoposition = GeoPosition;
+      function _onDeviceReady(evt) {
+        navigator.geolocation.watchPosition(
+          onGeoPositionSuccess,
+          onGeoPositionError
+        );
+
+        $scope.geoposition = GeoPosition;
+        document.removeEventListener("deviceready", _onDeviceReady, false);
+      }
 
       function recenter () {
         Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
