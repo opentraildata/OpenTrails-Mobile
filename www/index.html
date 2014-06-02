@@ -200,10 +200,10 @@
       <div id="search-view" ng-show="view === 'search'" ng-cloak>
 
         <div id="header">
-          <form class="search-form" ng-submit="search(searchKeywords, searchFilters)">
+          <form id="search-form" ng-submit="search(searchKeywords, searchFilters)">
             <div class="search-input-container">
               <span class="search-input-icon"><i class="fa fa-search"></i></span>
-              <input class="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
+              <input id="search-input" type="search" ng-model="searchKeywords" value="{{searchKeywords}}" placeholder="Search">
               <a href="#" ng-click="clearSearch()" class="search-clear-btn">
                 <i class="fa fa-times"></i>
               </a>
@@ -235,13 +235,12 @@
 
         <div id="content">
 
-          <div class="search-info" ng-if="lastSearch.length > 0">
-            <span>Found {{ searchResults.length }} Results For '{{ lastSearch }}'</span>
-          </div>
-
           <div class="search-results">
             <div class="search-info" ng-if="!lastSearch || lastSearch.length === 0">
               <span>Found {{ searchResults.length }} Trails Near You</span>
+            </div>
+            <div class="search-info" ng-if="lastSearch.length > 0">
+              <span>Found {{ searchResults.length }} Results For '{{ lastSearch }}'</span>
             </div>
             <div class="search-result" ng-repeat="result in searchResults">
               <div class="search-result-header-outer">

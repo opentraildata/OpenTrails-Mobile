@@ -133,6 +133,8 @@
       var trailDataHeaderElm = document.getElementById('trail-data-header');
       var trailAndTrailheadDataElm = document.getElementById('trail-and-trailhead-data');
       var searchResultsElm = document.querySelector("#content .search-results");
+      var searchFormElm = document.getElementById('search-form');
+      var searchInputElm = document.getElementById('search-input');
 
       //
       // VIEW LOGIC
@@ -343,7 +345,13 @@
           // Add event listeners
           Map.on('click', onMapClick);
           Map.on('zoomend', onMapZoom);
+
+          searchFormElm.addEventListener('submit', _searchFormSubmitted, false);
         }
+      }
+
+      function _searchFormSubmitted(evt) {
+        searchInputElm.blur();
       }
 
       function _renderTrailLayer (t) {
