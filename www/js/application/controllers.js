@@ -17,10 +17,10 @@
 
       // Wait until all models have been
       // loaded to instantiate variables
-
-      $scope.$watch(Models.loaded, function (value) {
+      var unwatchLoaded = $scope.$watch(Models.loaded, function (value) {
         $scope.stewards = Models.Steward.query.all();
         $scope.steward  = $scope.stewards[index];
+        unwatchLoaded();
       });
 
       // Navigate to next steward
@@ -318,8 +318,10 @@
       $scope.selectedTrails = [];
 
       var trailsLayer;
+      $scope.appLoaded = false;
       function onLoad (loaded) {
         if (loaded) {
+          $scope.appLoaded = true;
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
 
@@ -345,8 +347,9 @@
           // Add event listeners
           Map.on('click', onMapClick);
           Map.on('zoomend', onMapZoom);
-
-          searchFormElm.addEventListener('submit', _searchFormSubmitted, false);
+          // searchFormElm.addEventListener('submit', _searchFormSubmitted, false);
+          // ^^ commented out in merge conflict resolution. - AJW
+          unwatchLoaded();
         }
       }
 
@@ -612,7 +615,7 @@
 
       // On Load
 
-      $scope.$watch(Models.loaded, onLoad);
+      var unwatchLoaded = $scope.$watch(Models.loaded, onLoad);
     }
 
   ]);
