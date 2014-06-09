@@ -78,12 +78,15 @@
 
             <section id="contact-view" ng-show="view === 'notifications-contact'" ng-cloak>
               <div class="contact-options">
-                <p class="source-address">Headquarters / Main Visitor Center: {{ steward.get('address') }}</p>
-                <a href="#" ng-click="openInNativeMaps()">Get Directions</a>
-                <p class="source-phone">{{ steward.get('phone') }}</p>
-                <div class="source-call-btn">
-                  <i class="phone-icon fa fa-phone"></i>
-                  <a href="tel:{{ steward.get('phone') }}">Call</a>
+                <div class="contact-options-row">
+                  <p class="contact-options-subhead">Headquarters / Main Visitor Center:</p>
+                  <p class="source-address" placeholder="123 Easy Street">{{ steward.get('address') }}</p>
+                  <a class="source-btn" href="#" ng-click="openInNativeMaps()">Get Directions</a>
+                </div>
+                <div class="contact-options-row">
+                  <p class="contact-options-subhead">Visitor Information Phone Number:</p>
+                  <p class="source-phone" ng-disabled>{{ steward.get('phone') }}</p>
+                    <a class="source-btn" href="tel:{{ steward.get('phone') }}">Call</a>
                 </div>
               </div>
               <div class="source-splash-img">
@@ -186,7 +189,7 @@
                 </tr>
               </table>
               <p class="trail-subhead">Trail Description</p>
-              <p class="trail-body">{{ selectedTrail.get('descriptn') }}</p>
+              <p class="trail-body" placeholder="No description yet">No description for this trail yet. {{ selectedTrail.get('descriptn') }}</p>
               <div class="trailhead-steward">
                 <p>
                   Managed by {{ selectedTrailHeadSteward.get('name') }}

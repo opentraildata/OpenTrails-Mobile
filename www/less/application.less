@@ -340,6 +340,7 @@ body {
         }
         #search-input {
           -webkit-appearance: none;
+          border: 1px solid @gray-color;
           border-radius: 3px;
           width: 100%;
           color: @gray-color;
@@ -638,6 +639,7 @@ body {
       vertical-align: middle;
       width: auto;
       margin: 0;
+      border-bottom: 1px solid @white-color;
       .trail-title {
         position: relative;
         display: inline-block;
@@ -650,19 +652,19 @@ body {
       .trail-attribute-distance {
         width: auto;
         vertical-align: top;
-        padding-top: 10px;
+        padding-top: 5px;
         font-family: @font-context;
         font-size: @small-font;
         display: inline-block;
         position: relative;
         margin-top: 0;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         font-weight: 400;
       }
       .trail-attribute-length {
         width: auto;
         vertical-align: top;
-        padding-top: 10px;
+        padding-top: 5px;
         font-family: @font-context;
         font-size: @small-font;
         display: inline-block;
@@ -670,15 +672,16 @@ body {
         float: right;
         text-align: right;
         margin-top: 0;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         font-weight: 400;
       }
     }
     .trailhead-title-field {
       display: block;
-      margin: 10px 0;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      padding-top: 15px;
       position: relative;
+      border-top: 1px solid @light-gray-color;
       .trailhead-icon {
         display: inline-block;
         position: relative;
@@ -707,10 +710,8 @@ body {
         border-radius: 2px;
         color: @white-color;
         text-decoration: none;
-        margin-top: -13px;
         position: absolute;
         right: 0;
-        top: 50%;
       }
     }
     .photo-box {
@@ -784,13 +785,15 @@ body {
         font-family: @font-display, serif;
         font-size: @small-font;
         font-weight: 400;
+        margin-bottom: 15px;
       }
       .trailhead-steward {
         position: relative;
         display: inline-block;
         width: 100%;
-        margin-top: 10px;
+        padding-top: 15px;
         margin-bottom: 40px;
+        border-top: 1px solid @light-gray-color;
         p {
           margin: 0;
           font-family: @font-display;
@@ -952,66 +955,59 @@ body {
 
       .contact-options {
         box-sizing: border-box;
-        background: #fff;
         border-radius: 2px;
         text-align: left;
-        padding: 10px;
+        padding: 0;
         width: 100%;
         margin-bottom: 10px;
-        font-family: @font-context;
         font-size: @small-font;
         position: relative;
         z-index: @z-index-2;
-        .source-address {
-          max-width: 60%;
-        }
-        .source-phone {
-          max-width: 60%;
-        }
-      }
-      .source-call-btn {
-        position: relative;
-        background-color: @blue-color;
-        border-radius: 2px;
-        display: inline-block;
-        padding-right: 10px;
-        cursor: pointer;
 
-        > *
-        {
-          vertical-align: middle;
+        .contact-options-row {
+          width: 100%;
+          height: auto;
           display: inline-block;
-        }
+          margin-top: 15px;
 
-        .phone-icon {
-          font-size: 30px;
-          color: @white-color;
-          margin: 5px;
+          .contact-options-subhead {
+            width: 100%;
+            font-family: @font-context;
+            font-size: 12px;
+            font-weight: 400;
+            color: @light-gray-color;
+            margin: 0;
+          }
         }
-        a {
-          font-family: @font-context;
-          font-size: @small-font;
-          color: @white-color;
-          text-decoration: none;
-        }
-        .call-btn-label {
-          font-family: @font-display;
-          font-size: @large-font;
-          color: @white-color;
-        }
-        z-index: @z-index-2;
       }
-      .source-splash-img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: -webkit-gradient(linear, 0 top, 0 bottom, from(rgba(246,246,246,1)), to(rgba(246,246,246,0))), url(../img/splash-agency-contact.jpg);
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        z-index: @z-index-1;
+      .source-address {
+        font-size: @small-font;
+        display: inline-block;
+        width: auto;
+        font-weight: 800;
+      }
+      .source-phone {
+        font-size: @small-font;
+        display: inline-block;
+        width: auto;
+        font-weight: 800;
+        text-decoration: none;
+      }
+      .source-btn {
+        width: 100%;
+        height: 3em;
+        display: inline-block;
+        background-color: @blue-color;
+        font-family: @font-display;
+        font-size: @small-font;
+        color: @white-color;
+        text-decoration: none;
+        line-height: 3em;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 2px;
+        cursor: pointer;
+        z-index: @z-index-2;
       }
     }
     #notification-list {
