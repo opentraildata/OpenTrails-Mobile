@@ -110,7 +110,7 @@ body {
 }
 #loading-view.fadeout {
   opacity: 0;
-  -webkit-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 2s ease-in-out;
 }
 #loading-view h1 {
   display: block;
@@ -862,13 +862,11 @@ body {
   font-size: 12px;
   display: inline-block;
   width: auto;
-  font-weight: 800;
 }
 #notifications-view #content #contact-view .source-phone {
   font-size: 12px;
   display: inline-block;
   width: auto;
-  font-weight: 800;
   text-decoration: none;
 }
 #notifications-view #content #contact-view .source-btn {
