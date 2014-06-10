@@ -38,8 +38,8 @@
       </div>
 
       <div id="loading-view" ng-class="{fadeout:appLoaded}">
-        <h1>To The Trails</h1>
-        <h4>Northeast Ohio</h4>
+        <h1 class="title">To The Trails</h1>
+        <h4 class="subtitle">Northeast Ohio</h4>
       </div>
 
       <section id="notifications-view" ng-show="view === 'notifications-notices' || view === 'notifications-contact'" ng-controller="NotificationsCtrl" ng-cloak>
@@ -85,11 +85,9 @@
                 </div>
                 <div class="contact-options-row">
                   <p class="contact-options-subhead">Visitor Information Phone Number:</p>
-                  <p class="source-phone" ng-disabled>{{ steward.get('phone') }}</p>
-                    <a class="source-btn" href="tel:{{ steward.get('phone') }}">Call</a>
+                  <p class="source-phone">{{ steward.get('phone') }}</p>
+                  <a class="source-btn" href="tel:{{ steward.get('phone') }}">Call</a>
                 </div>
-              </div>
-              <div class="source-splash-img">
               </div>
             </section>
 
@@ -150,7 +148,7 @@
             <div class="trailhead-title-field">
               <i class="trailhead-icon fa fa-map-marker"></i>
               <p class="trailhead-title">{{ selectedTrailHead.get('name') }} Trailhead</p>
-              <a class="trailhead-address" href="#" ng-click="openTrailHeadInNativeMaps()">
+              <a class="trailhead-directions" href="#" ng-click="openTrailHeadInNativeMaps()">
                   Get Directions
               </a>
             </div>

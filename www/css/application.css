@@ -11,6 +11,9 @@ body {
   width: 100%;
   height: 100%;
 }
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 /** Layout **/
 #main {
   width: 100%;
@@ -111,6 +114,7 @@ body {
 }
 #loading-view h1 {
   display: block;
+  font-family: 'Merriweather Sans', sans-serif sans-serif;
   text-align: center;
   width: auto;
   margin: 2em auto .25em auto;
@@ -118,6 +122,7 @@ body {
 }
 #loading-view h4 {
   display: block;
+  font-family: 'Merriweather Sans', sans-serif sans-serif;
   text-align: center;
   width: auto;
   margin: .1em auto;
@@ -309,11 +314,10 @@ body {
   width: 100%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  position: absolute;
-  bottom: 0;
-  top: 0;
+  height: 340px;
+  margin-bottom: 30px;
 }
-#search-view #content .search-info {
+#search-view #content .search-results .search-info {
   width: 100%;
   height: 20px;
   padding: 10px 0 5px 0;
@@ -526,6 +530,7 @@ body {
   vertical-align: middle;
   width: auto;
   margin: 0;
+  border-bottom: 1px solid #f6f6f6;
 }
 #trail-view #trail-and-trailhead-data #trail-data-header .trail-title {
   position: relative;
@@ -564,7 +569,7 @@ body {
 }
 #trail-view #trail-and-trailhead-data .trailhead-title-field {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   padding-top: 15px;
   position: relative;
   border-top: 1px solid #a3a3a3;
@@ -587,12 +592,12 @@ body {
   font-weight: 700;
   vertical-align: middle;
 }
-#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-address {
+#trail-view #trail-and-trailhead-data .trailhead-title-field .trailhead-directions {
   width: auto;
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
-  padding: 6px;
+  padding: 5px;
   background-color: #4a90e2;
   border-radius: 2px;
   color: #f6f6f6;
@@ -678,7 +683,7 @@ body {
   display: inline-block;
   width: 100%;
   padding-top: 15px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   border-top: 1px solid #a3a3a3;
 }
 #trail-view #trail-and-trailhead-data .trailhead-data .trailhead-steward p {

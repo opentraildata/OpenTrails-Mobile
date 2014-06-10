@@ -1353,11 +1353,11 @@
       geojson: null,
       options: {
         style: {
-          color: "#CFA682",
+          color: "#e29c4a",
           opacity: 1
         },
         highlightStyle: {
-          color: "#F26522",
+          color: "#e2504a",
           opacity: 1
         },
         smoothFactor: 2
