@@ -1,11 +1,11 @@
-Trails Mobile
+OpenTrails Mobile
 =============
 
-Trails Mobile is a [PhoneGap/Cordova](https://github.com/phonegap) app designed to offer trail visitors a useful map of the trail system in their region, offline, across devices. 
+OpenTrails Mobile is a [PhoneGap/Cordova](https://github.com/phonegap) app designed to offer trail visitors a useful map of the trail system in their region, offline, across devices. 
 
-Trails Mobile is a reference implementation of [OpenTrails (the Open Trail System Specification)](http://codeforamerica.org/specifications/trails), a data format developed by Code for America partners in Northeast Ohio, with guidance from the National Recration and Parks Association, [GreenInfo Network](https://github.com/greeninfo), and [ESRI R&D in Portland](https://github.com/esripdx), among many others. Trails Mobile can be configured to consume OpenTrails from the API of your choice.
+OpenTrails Mobile is a reference implementation of [OpenTrails (the Open Trail System Specification)](http://codeforamerica.org/specifications/trails), a data format developed by Code for America partners in Northeast Ohio, with guidance from the National Recration and Parks Association, [GreenInfo Network](https://github.com/greeninfo), and [ESRI R&D in Portland](https://github.com/esripdx), among many others. OpenTrails Mobile can be configured to consume OpenTrails from the API of your choice.
 
-At present, Trails Mobile has only been thoroughly tested on iOS devices. 
+At present, OpenTrails Mobile has only been thoroughly tested on iOS devices. 
 
 ![to-the-trails-screens](https://cloud.githubusercontent.com/assets/2983464/3578741/31691f04-0bb0-11e4-93aa-f72f09a88a50.png)
 
