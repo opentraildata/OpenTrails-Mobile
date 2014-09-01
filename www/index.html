@@ -80,7 +80,8 @@
               <div class="contact-options">
                 <div class="contact-options-row">
                   <p class="contact-options-subhead">Headquarters / Main Visitor Center:</p>
-                  <p class="source-address" placeholder="123 Easy Street">{{ steward.get('address') }}</p>
+                  <p class="source-address" placeholder="123 Easy Street" ng-if="steward.get('address').length > 0">{{ steward.get('address') }}</p>
+                  <p class="source-address" placeholder="123 Easy Street" ng-if="steward.get('address').length == 0">No address available for this organization.</p>
                   <a class="source-btn" href="#" ng-click="openInNativeMaps()">Get Directions</a>
                 </div>
                 <div class="contact-options-row">
