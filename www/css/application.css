@@ -613,6 +613,15 @@ body {
   height: auto;
   max-width: 100%;
 }
+#trail-view #trail-and-trailhead-data .photo-box .img-placeholder {
+  height: 125px;
+  max-width: 100%;
+  background-color: white;
+  text-align: center;
+  font-size: 12px;
+  color: #a3a3a3;
+  line-height: 125px;
+}
 #trail-view #trail-and-trailhead-data .trailhead-data {
   padding-top: 10px;
 }
