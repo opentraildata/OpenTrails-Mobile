@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="js/lib/leaflet/MarkerCluster.Default.css">
     <link rel="stylesheet" type="text/css" href="js/lib/leaflet/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="css/application.css"/>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <!-- <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Lora:400,700|Merriweather+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
   </head>
 
@@ -80,7 +81,8 @@
               <div class="contact-options">
                 <div class="contact-options-row">
                   <p class="contact-options-subhead">Headquarters / Main Visitor Center:</p>
-                  <p class="source-address" placeholder="123 Easy Street">{{ steward.get('address') }}</p>
+                  <p class="source-address" placeholder="123 Easy Street" ng-if="steward.get('address').length > 0">{{ steward.get('address') }}</p>
+                  <p class="source-address" placeholder="123 Easy Street" ng-if="steward.get('address').length == 0">No address available for this organization.</p>
                   <a class="source-btn" href="#" ng-click="openInNativeMaps()">Get Directions</a>
                 </div>
                 <div class="contact-options-row">
