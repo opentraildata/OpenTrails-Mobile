@@ -68,7 +68,8 @@
               </div>
               <nav class="notification-tabs">
                 <ul>
-                  <li ng-click="showView('notifications-notices')" class="tab" ng-class="{active:isActiveTab('notifications-notices')}">Notices</li><li ng-click="showView('notifications-contact')" class="tab" ng-class="{active:isActiveTab('notifications-contact')}">Contact</li>
+                  <!-- <li ng-click="showView('notifications-notices')" class="tab" ng-class="{active:isActiveTab('notifications-notices')}">Notices</li> -->
+                  <li class="tab" ng-class="{active:isActiveTab('notifications-notices')}">Notices</li><li ng-click="showView('notifications-contact')" class="tab" ng-class="{active:isActiveTab('notifications-contact')}">Contact</li>
                 </ul>
               </nav>
             </section>
@@ -275,7 +276,7 @@
           </div>
         </a>
 
-        <a href="#" ng-click="toggleView('notifications-notices')">
+        <a href="#" ng-click="toggleView('notifications-contact')">
           <div class="button button-info">
             <i class="fa fa-envelope"></i>
           </div>
