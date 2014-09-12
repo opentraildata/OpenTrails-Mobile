@@ -22,9 +22,6 @@
     <feature name="TestFlightSDK">
         <param name="ios-package" value="CDVTestFlight" />
     </feature>
-    <feature name="Geolocation">
-        <param name="ios-package" value="CDVLocation" />
-    </feature>
     <name>Trails</name>
     <description>
       Trails Mobile is a multi-device application that allows users of trails to cache trail information offline.
@@ -35,4 +32,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
 </widget>
