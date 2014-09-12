@@ -199,20 +199,21 @@
 
       // Wait till device is ready before watching geolocation position.
       // See http://stackoverflow.com/questions/1673579/location-permission-alert-on-iphone-with-phonegap
-      document.addEventListener("deviceready", _onDeviceReady, false);
+      
 
-      function _onDeviceReady(evt) {        
-        
-       
-      }
 
       function recenter () {
-        navigator.geolocation.getCurrentPosition(
-          onGeoPositionSuccess,
-          onGeoPositionError
-        );
 
-        $scope.geoposition = GeoPosition;
+        document.addEventListener("deviceready", function(){          
+          console.log('Device Ready!');
+          navigator.geolocation.getCurrentPosition(
+            onGeoPositionSuccess,
+            onGeoPositionError
+          );
+
+          $scope.geoposition = GeoPosition;
+        }, false);
+        
         
       }
 
