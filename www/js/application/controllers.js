@@ -188,12 +188,13 @@
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
         console.log('Geolocated user!');
-        recenter();
+        Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
       }
 
       function onGeoPositionError (err) {
         console.log('Error: Could not geolocate user');
-        positionMarker.removeFrom(Map);
+        Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
+        positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
       }
 
       // Wait till device is ready before watching geolocation position.
@@ -201,17 +202,18 @@
       document.addEventListener("deviceready", _onDeviceReady, false);
 
       function _onDeviceReady(evt) {        
+        
+       
+      }
+
+      function recenter () {
         navigator.geolocation.getCurrentPosition(
           onGeoPositionSuccess,
           onGeoPositionError
         );
 
         $scope.geoposition = GeoPosition;
-        document.removeEventListener("deviceready", _onDeviceReady, false);
-      }
-
-      function recenter () {
-        Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
+        
       }
 
       $scope.recenter = recenter;
