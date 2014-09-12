@@ -188,6 +188,7 @@
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
         console.log('Geolocated user!');
+        recenter();
       }
 
       function onGeoPositionError (err) {
@@ -199,8 +200,8 @@
       // See http://stackoverflow.com/questions/1673579/location-permission-alert-on-iphone-with-phonegap
       document.addEventListener("deviceready", _onDeviceReady, false);
 
-      function _onDeviceReady(evt) {
-        navigator.geolocation.watchPosition(
+      function _onDeviceReady(evt) {        
+        navigator.geolocation.getCurrentPosition(
           onGeoPositionSuccess,
           onGeoPositionError
         );
