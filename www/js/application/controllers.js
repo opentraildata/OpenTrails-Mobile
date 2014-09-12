@@ -187,6 +187,7 @@
       function onGeoPositionSuccess (position) {
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
+        console.log('Geolocated user!');
       }
 
       function onGeoPositionError (err) {

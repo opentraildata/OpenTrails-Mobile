@@ -38,7 +38,10 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		C9AE7FCF762F4CFC92410BCA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5D5B8BDCE04A2B97413D19 /* libz.dylib */; };
+		0CBA68BCCDAF46799A8CF5DE /* CDVTestFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = E415A9AC326C4B43AF72F634 /* CDVTestFlight.m */; };
+		9918351FB5A649E38723ABBE /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE32F3C0AA7B418F98250D00 /* libTestFlight.a */; };
+		5406A450C8DC468A80CFE4EC /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 24690F5913624A88B9BF4E06 /* CDVLocation.m */; };
+		ACF28E05B4684BBEA3B38534 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5122C6818D8843AFAE7E0D89 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +106,15 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Trails/config.xml"; sourceTree = "<group>"; };
-		3E5D5B8BDCE04A2B97413D19 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		E415A9AC326C4B43AF72F634 /* CDVTestFlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVTestFlight.m"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		BE32F3C0AA7B418F98250D00 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libTestFlight.a"; path = "Trails/Plugins/com.testflightapp.cordova-plugin/libTestFlight.a"; sourceTree = "<group>"; fileEncoding = 4; };
+		77316A31756B49A29C935E10 /* TestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight.h"; path = "com.testflightapp.cordova-plugin/TestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3B6CA9FCAA1F40B6960A90DB /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+AsyncLogging.h"; path = "com.testflightapp.cordova-plugin/TestFlight+AsyncLogging.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		4A1480931F0E40EF837EC081 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "com.testflightapp.cordova-plugin/TestFlight+ManualSessions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		11AFD1BC77024537A867FA65 /* CDVTestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVTestFlight.h"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		24690F5913624A88B9BF4E06 /* CDVLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocation.m"; path = "org.apache.cordova.geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		1BFCD832EAED499E9D579602 /* CDVLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocation.h"; path = "org.apache.cordova.geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5122C6818D8843AFAE7E0D89 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +127,8 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
-				C9AE7FCF762F4CFC92410BCA /* libz.dylib in Frameworks */,
+				9918351FB5A649E38723ABBE /* libTestFlight.a in Frameworks */,
+				ACF28E05B4684BBEA3B38534 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +222,8 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
-				3E5D5B8BDCE04A2B97413D19 /* libz.dylib */,
+				BE32F3C0AA7B418F98250D00 /* libTestFlight.a */,
+				5122C6818D8843AFAE7E0D89 /* libz.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,6 +239,13 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				E415A9AC326C4B43AF72F634 /* CDVTestFlight.m */,
+				77316A31756B49A29C935E10 /* TestFlight.h */,
+				3B6CA9FCAA1F40B6960A90DB /* TestFlight+AsyncLogging.h */,
+				4A1480931F0E40EF837EC081 /* TestFlight+ManualSessions.h */,
+				11AFD1BC77024537A867FA65 /* CDVTestFlight.h */,
+				24690F5913624A88B9BF4E06 /* CDVLocation.m */,
+				1BFCD832EAED499E9D579602 /* CDVLocation.h */,
 			);
 			name = Plugins;
 			path = "Trails/Plugins";
@@ -420,6 +440,8 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
+				0CBA68BCCDAF46799A8CF5DE /* CDVTestFlight.m in Sources */,
+				5406A450C8DC468A80CFE4EC /* CDVLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +521,10 @@
 				);
 				PRODUCT_NAME = "Trails";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Trails/Plugins/com.testflightapp.cordova-plugin\"",
+				);
 			};
 			name = Debug;
 		};
@@ -530,6 +556,10 @@
 				);
 				PRODUCT_NAME = "Trails";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Trails/Plugins/com.testflightapp.cordova-plugin\"",
+				);
 			};
 			name = Release;
 		};

@@ -25,4 +25,7 @@
   <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
 
   <access origin="*" subdomains="true" />
+  <feature name="Geolocation">
+      <param name="ios-package" value="CDVLocation" />
+  </feature>  
 </widget>

@@ -6,8 +6,8 @@
   //
 
   var Configuration = {
-    MIN_ZOOM_LEVEL: 10,
-    MAX_ZOOM_LEVEL: 14,
+    MIN_ZOOM_LEVEL: 4,
+    MAX_ZOOM_LEVEL: 16,
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
     DEFAULT_ZOOM_LEVEL: 13,
     DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
@@ -980,8 +980,7 @@
       options: {
         "zoomControl": false,
         "minZoom": Configuration.MIN_ZOOM_LEVEL,
-        "maxZoom": Configuration.MAX_ZOOM_LEVEL,
-        "maxBounds": L.latLngBounds(Configuration.MAX_BOUNDS)
+        "maxZoom": Configuration.MAX_ZOOM_LEVEL
       }
     },
 
