@@ -11,13 +11,10 @@
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
     DEFAULT_ZOOM_LEVEL: 13,
     DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
-    // TRAIL_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trails.json",
+    TRAIL_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3881/opentrails/named_trails",
     // TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.JSON",
-    // TRAILSEGMENT_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailsegments.json",
-    // STEWARD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/stewards.json",
-    TRAIL_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/named_trails.csv",
-    TRAILHEAD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/trailheads.geojson",
-    TRAILSEGMENT_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/trail_segments.geojson",
+    TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.json",
+    TRAILSEGMENT_DATA_ENDPOINT: "https://trailheadlabs-outerspatial-staging.s3.amazonaws.com/uploads/organization/trail_segments_file/3881/3881_trail_segments.geojson",
     STEWARD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/stewards.csv",
 
     NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
@@ -401,9 +398,9 @@
     defaults: {
       "id": null,
       "name": null,
-      "segmentIds": null,
-      "descriptn": null,
-      "partOf": null
+      "segment_ids": null,
+      "description": null,
+      "part_of": null
     },
 
     initialize: function () {
@@ -414,7 +411,7 @@
         scope: {
           key: 'id',
           evaluator: 'in',
-          value: this.get('segmentIds')
+          value: this.get('segment_ids')
         }
       });
 
@@ -516,9 +513,13 @@
     load: function (data) {
       var results = [];
 
-      if (data.trails) {
-        ng.forEach(data.trails, function (trail) {
-          if (trail.segmentIds.length) {
+      if (data) {
+        ng.forEach(data, function (trail) {
+          if (trail.segment_ids.length) {
+            if(trail.outerspatial){
+              trail.id = trail.outerspatial.id;
+              trail.segment_ids = trail.outerspatial.segment_ids;
+            }
             results.push( new Trail(trail) );
           }
         });
@@ -649,15 +650,15 @@
     defaults: {
       "id": null,
       "name": null,
-      "stewardId": null,
+      "steward_id": null,
       "highway": null,
-      "motorVehicles": null,
+      "motor_vehicles": null,
       "foot": null,
       "bicycle": null,
       "horse": null,
       "ski": null,
-      "wheelChair": null,
-      "osmTags": null,
+      "wheel_chair": null,
+      "osm_tags": null,
       "geometry": null
     },
 
@@ -666,7 +667,7 @@
         primary: this,
         foreign: Trail,
         scope: {
-          key: 'trailSegmentIds',
+          key: 'segment_ids',
           evaluator: 'includes',
           value: this.get('id')
         }
@@ -738,10 +739,17 @@
     load: function (data) {
       var results = [];
 
-      if (data.trailsegments) {
-        ng.forEach(data.trailsegments, function (feature) {
+      if (data.features) {
+
+        ng.forEach(data.features, function (feature) {          
+          if(feature.properties.outerspatial){
+            feature.properties.id = feature.properties.outerspatial.id;
+            feature.properties.steward_id = feature.properties.outerspatial.steward_id;            
+          }
+
           feature.properties.geometry = feature.geometry;
           results.push( new TrailSegment(feature.properties) );
+          
         });
       }
 
@@ -1551,8 +1559,8 @@
       }
 
       function loadModel (model, key, url) {
-        var data = window.localStorage.getItem(key);
-
+        // var data = window.localStorage.getItem(key);
+        var data = false;
         if (data) {
           model.load( JSON.parse(data) );
         } else {
@@ -1562,7 +1570,7 @@
               if (key == "TrailData" || key == "StewardData") {
                 data = parseCSV(data);
               }
-              window.localStorage.setItem(key, JSON.stringify(data) );
+              // window.localStorage.setItem(key, JSON.stringify(data) );
               model.load(data);
             }
           );
