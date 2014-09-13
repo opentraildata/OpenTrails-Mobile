@@ -11,11 +11,10 @@
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
     DEFAULT_ZOOM_LEVEL: 13,
     DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
-    TRAIL_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3881/opentrails/named_trails",
-    // TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.JSON",
-    TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.json",
-    TRAILSEGMENT_DATA_ENDPOINT: "https://trailheadlabs-outerspatial-staging.s3.amazonaws.com/uploads/organization/trail_segments_file/3881/3881_trail_segments.geojson",
-    STEWARD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/stewards.csv",
+    TRAIL_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/named_trails",
+    TRAILHEAD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/trailheads",
+    TRAILSEGMENT_DATA_ENDPOINT: "https://trailheadlabs-outerspatial-staging.s3.amazonaws.com/uploads/organization/trail_segments_file/3885/3885_trail_segments.geojson",
+    STEWARD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/stewards",
 
     NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
@@ -415,16 +414,6 @@
         }
       });
 
-      this.trailHeads = new Association({
-        primary: this,
-        foreign: TrailHead,
-        scope: {
-          key: 'trailIds',
-          evaluator: 'includes',
-          value: this.get('id')
-        }
-      });
-
       this.photo = new Association({
         primary: this,
         foreign: Photo,
@@ -540,9 +529,8 @@
     defaults: {
       "id": null,
       "name": null,
-      "trailIds": null,
-      "stewardId": null,
-      "parkName": null,
+      "segment_ids": null,
+      "steward_id": null,      
       "address": null,
       "parking": null,
       "kiosk": null,
@@ -551,13 +539,14 @@
     },
 
     initialize: function () {
-      this.trails = new Association({
+
+      this.trailSegments = new Association({
         primary: this,
-        foreign: Trail,
+        foreign: TrailSegment,
         scope: {
           key: 'id',
           evaluator: 'in',
-          value: this.get('trailIds')
+          value: this.get('segment_ids')
         }
       });
 
@@ -567,7 +556,7 @@
         scope: {
           key: 'id',
           evaluator: 'in',
-          value: this.get('stewardId')
+          value: this.get('steward_id')
         }
       });
 
@@ -628,9 +617,14 @@
     load: function (data) {
       var results = [];
 
-      if (data.trailheads) {
-        ng.forEach(data.trailheads, function (feature) {
+      if (data.features) {
+        ng.forEach(data.features, function (feature) {
           feature.properties.geometry = feature.geometry;
+          if(feature.properties.outerspatial){
+            feature.properties.id = feature.properties.outerspatial.id;
+            feature.properties.steward_id = feature.properties.outerspatial.steward_id;
+            feature.properties.segment_ids = feature.properties.outerspatial.segment_ids;
+          }
           results.push( new TrailHead( feature.properties ) );
         });
       }
@@ -672,6 +666,17 @@
           value: this.get('id')
         }
       });
+
+      this.trailHeads = new Association({
+        primary: this,
+        foreign: TrailHead,
+        scope: {
+          key: 'segment_ids',
+          evaluator: 'includes',
+          value: this.get('id')
+        }
+      });
+
     },
 
     getLength: function () {
