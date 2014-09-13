@@ -723,11 +723,13 @@ body {
   margin: 0;
   padding: 0;
   border-radius: 2px;
-  border: 1px solid #5c795a;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f2f2), color-stop(100%, #ffffff));
+  /*border: 1px solid #5c795a;*/
+  /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f2f2), color-stop(100%, #ffffff));*/
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f2f2f2 0%, #ffffff 100%);
+  /*background: -webkit-linear-gradient(top, #f2f2f2 0%, #ffffff 100%);*/
   /* Chrome10+,Safari5.1+ */
+  border: 1px solid #ccc;
+  color: #ccc;
 }
 #notifications-view .notification-tabs li {
   list-style: none;
@@ -741,7 +743,7 @@ body {
   -webkit-box-sizing: border-box;
   text-align: center;
   width: 50%;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 #notifications-view .notification-tabs .tab.active {
   color: #fff;
