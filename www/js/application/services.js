@@ -11,10 +11,15 @@
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
     DEFAULT_ZOOM_LEVEL: 13,
     DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
-    TRAIL_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trails.json",
-    TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.json",
-    TRAILSEGMENT_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailsegments.json",
-    STEWARD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/stewards.json",
+    // TRAIL_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trails.json",
+    // TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.JSON",
+    // TRAILSEGMENT_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailsegments.json",
+    // STEWARD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/stewards.json",
+    TRAIL_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/named_trails.csv",
+    TRAILHEAD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/trailheads.geojson",
+    TRAILSEGMENT_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/trail_segments.geojson",
+    STEWARD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/stewards.csv",
+
     NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
@@ -1506,6 +1511,45 @@
         return loaded;
       };
 
+      function parseCSV(strData, strDelimiter) {
+        strDelimiter = (strDelimiter || ",");
+        var objPattern = new RegExp((
+          "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+          "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+          "([^\"\\" + strDelimiter + "\\r\\n]*))"), "gi"
+        );
+        var arrData = [[]];
+        var arrMatches = null;
+
+        while (arrMatches = objPattern.exec(strData)) {
+            var strMatchedDelimiter = arrMatches[1];
+            if (strMatchedDelimiter.length && (strMatchedDelimiter != strDelimiter)) {
+              arrData.push([]);
+            }
+            if (arrMatches[2]) {
+              var strMatchedValue = arrMatches[2].replace(
+              new RegExp("\"\"", "g"), "\"");
+            } else {
+              var strMatchedValue = arrMatches[3];
+            }
+            arrData[arrData.length - 1].push(strMatchedValue);
+        }
+
+        var objArray = [];
+        for (var i = 1; i < arrData.length; i++) {
+          objArray[i - 1] = {};
+          for (var k = 0; k < arrData[0].length && k < arrData[i].length; k++) {
+            var key = arrData[0][k];
+            if (key == "segment_ids") {
+              arrData[i][k] = arrData[i][k].split(";");
+            }
+            objArray[i - 1][key] = arrData[i][k]
+          }
+        }
+
+        return objArray;
+      }
+
       function loadModel (model, key, url) {
         var data = window.localStorage.getItem(key);
 
@@ -1515,6 +1559,9 @@
           $http.get(url).then(
             function (res) {
               data = res.data;
+              if (key == "TrailData" || key == "StewardData") {
+                data = parseCSV(data);
+              }
               window.localStorage.setItem(key, JSON.stringify(data) );
               model.load(data);
             }
