@@ -9,13 +9,15 @@
     MIN_ZOOM_LEVEL: 4,
     MAX_ZOOM_LEVEL: 16,
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
-    DEFAULT_ZOOM_LEVEL: 13,
-    DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
+    DEFAULT_ZOOM_LEVEL: 10,
+    // Ohio
+    // DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
+    // Boulder
+    DEFAULT_MAP_CENTER: [ 40.0293099,-105.2399774 ],
     TRAIL_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/named_trails",
     TRAILHEAD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/trailheads",
     TRAILSEGMENT_DATA_ENDPOINT: "https://trailheadlabs-outerspatial-staging.s3.amazonaws.com/uploads/organization/trail_segments_file/3885/3885_trail_segments.geojson",
     STEWARD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/stewards",
-
     NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
@@ -91,6 +93,13 @@
     "includes": function (lhs, rhs) {
       if ( ng.isArray(lhs) ) {
         return lhs.indexOf(rhs) !== -1;
+      } else {
+        return false;
+      }
+    },
+    "intersects": function (lhs, rhs) {
+      if ( ng.isArray(lhs) ) {
+        return _.intersection(lhs,rhs).length !== 0;
       } else {
         return false;
       }
@@ -252,6 +261,9 @@
         trails = utils.unique(trails);
       } else {
         trails = trailhead.trails.all();
+        // trails = trailhead.trailSegments.all().map(function(trailSegment){
+        //   trailSegment.trails.all();
+        // });
       }
 
       if (params.filters) {
@@ -549,6 +561,17 @@
           value: this.get('segment_ids')
         }
       });
+
+      this.trails = new Association({
+        primary: this,
+        foreign: Trail,
+        scope: {
+          key: 'segment_ids',
+          evaluator: 'intersects',
+          value: this.get('segment_ids')
+        }
+      });
+
 
       this.stewards = new Association({
         primary: this,
@@ -1572,9 +1595,9 @@
           $http.get(url).then(
             function (res) {
               data = res.data;
-              if (key == "TrailData" || key == "StewardData") {
-                data = parseCSV(data);
-              }
+              // if (key == "TrailData" || key == "StewardData") {
+              //   data = parseCSV(data);
+              // }
               // window.localStorage.setItem(key, JSON.stringify(data) );
               model.load(data);
             }

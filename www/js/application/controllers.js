@@ -211,7 +211,7 @@
             onGeoPositionError
           );
 
-          $scope.geoposition = GeoPosition;
+          $scope.position = GeoPosition;
         }, false);
         
         
@@ -411,7 +411,7 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        $scope.selectedPhoto = $scope.selectedTrail.photo.first();
+        // $scope.selectedPhoto = $scope.selectedTrail.photo.first();
         $scope.selectedTrailHeadSteward = th.stewards.first();
 
         mapContainerElm.classList.add('trail-selected');
