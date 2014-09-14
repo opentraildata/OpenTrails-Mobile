@@ -578,7 +578,7 @@
         foreign: Steward,
         scope: {
           key: 'id',
-          evaluator: 'in',
+          evaluator: 'equals',
           value: this.get('steward_id')
         }
       });
@@ -586,19 +586,19 @@
     },
 
     hasWater: function () {
-      return (this.get('water') || '').toLowerCase() !== 'n';
+      return (this.get('water') || '').toLowerCase() === 'yes';
     },
 
     hasParking: function () {
-      return (this.get('parking') || '').toLowerCase() !== 'n';
+      return (this.get('parking') || '').toLowerCase() === 'yes';
     },
 
     hasKiosk: function () {
-      return (this.get('kiosk') || '').toLowerCase() !== 'n';
+      return (this.get('kiosk') || '').toLowerCase() === 'yes';
     },
 
     hasRestroom: function () {
-      return (this.get('restroom') || '').toLowerCase() !== 'n';
+      return (this.get('restroom') || '').toLowerCase() === 'yes';
     },
 
     distanceFrom: function (lat, lng) {
@@ -730,23 +730,23 @@
     },
 
     canFoot: function () {
-      return (this.get('foot') || '').toLowerCase() !== 'n';
+      return (this.get('foot') || '').toLowerCase() === 'yes';
     },
 
     canBicycle: function () {
-      return (this.get('bicycle') || '').toLowerCase() !== 'n';
+      return (this.get('bicycle') || '').toLowerCase() === 'yes';
     },
 
     canHorse: function () {
-      return (this.get('horse') || '').toLowerCase() !== 'n';
+      return (this.get('horse') || '').toLowerCase() === 'yes';
     },
 
     canSki: function () {
-      return (this.get('ski') || '').toLowerCase() !== 'n';
+      return (this.get('ski') || '').toLowerCase() === 'yes';
     },
 
     canWheelChair: function () {
-      return (this.get('wheelchair') || '').toLowerCase() !== 'n';
+      return (this.get('wheelchair') || '').toLowerCase() === 'yes';
     },
 
     toGeoJson: function () {
@@ -848,10 +848,10 @@
     initialize: function () {
       this.trailHeads = new Association({
         primary: this,
-        foreign: Steward,
+        foreign: TrailHead,
         scope: {
-          key: 'stewardId',
-          evaluator: 'includes',
+          key: 'steward_id',
+          evaluator: 'equals',
           value: this.get('id')
         }
       });
@@ -860,7 +860,7 @@
         primary: this,
         foreign: Notification,
         scope: {
-          key: 'stewardId',
+          key: 'steward_id',
           evaluator: 'equals',
           value: this.get('id')
         }
@@ -874,8 +874,11 @@
     load: function (data) {
       var results = [];
 
-      if (data.stewards) {
-        ng.forEach(data.stewards, function (steward) {
+      if (data.length) {
+        ng.forEach(data, function (steward) {
+          if(steward.outerspatial){
+            steward.id = steward.outerspatial.id;
+          }
           results.push( new Steward(steward) );
         });
       }
@@ -895,7 +898,7 @@
       "id": null,
       "title": null,
       "body": null,
-      "stewardId": null,
+      "steward_id": null,
       "type": null,
       "createdAt": null,
       "read": false,
