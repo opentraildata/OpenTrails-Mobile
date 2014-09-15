@@ -183,8 +183,8 @@
       });
 
       positionMarker.addTo(Map);
-      
-      GeoPosition.set(positionMarker.getPosition());
+            
+      GeoPosition.set({latitude: Map.getCenter().lat,longitude: Map.getCenter().lng});
       
       function onGeoPositionSuccess (position) {
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
@@ -197,7 +197,7 @@
         console.log('Error: Could not geolocate user');
         Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
         // positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
-        GeoPosition.set(positionMarker.getPosition());
+        // GeoPosition.set({latitude: Map.getCenter().lat,longitude: Map.getCenter().lng});
       }
 
       // Wait till device is ready before watching geolocation position.
