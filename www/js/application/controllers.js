@@ -183,7 +183,9 @@
       });
 
       positionMarker.addTo(Map);
-
+      
+      GeoPosition.set(positionMarker.getPosition());
+      
       function onGeoPositionSuccess (position) {
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
@@ -194,7 +196,8 @@
       function onGeoPositionError (err) {
         console.log('Error: Could not geolocate user');
         Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
-        positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
+        // positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
+        GeoPosition.set(positionMarker.getPosition());
       }
 
       // Wait till device is ready before watching geolocation position.
@@ -211,12 +214,12 @@
             onGeoPositionError
           );
 
-          $scope.position = GeoPosition;
+          
         }, false);
         
         
       }
-
+      $scope.geoposition = GeoPosition;
       $scope.recenter = recenter;
 
       //

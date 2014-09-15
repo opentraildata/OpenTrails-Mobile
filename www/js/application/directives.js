@@ -21,7 +21,7 @@
           var position = $scope.position;
 
           $scope.$watch('trailhead', function (value) {
-            if (value && position) {
+            if (value) {
               $scope.distance = value.distanceFrom(position.get('latitude'), position.get('longitude'));
             }
 
