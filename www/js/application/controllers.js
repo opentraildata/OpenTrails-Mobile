@@ -18,9 +18,12 @@
       // Wait until all models have been
       // loaded to instantiate variables
       var unwatchLoaded = $scope.$watch(Models.loaded, function (value) {
-        $scope.stewards = Models.Steward.query.all();
-        $scope.steward  = $scope.stewards[index];
-        unwatchLoaded();
+        if(Models.loaded()) {
+          $scope.stewards = Models.Steward.query.all();
+          $scope.steward  = $scope.stewards[index];
+          unwatchLoaded();
+        } 
+        
       });
 
       // Navigate to next steward

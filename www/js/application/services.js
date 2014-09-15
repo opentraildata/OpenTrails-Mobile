@@ -18,7 +18,7 @@
     TRAILHEAD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/trailheads",
     TRAILSEGMENT_DATA_ENDPOINT: "https://trailheadlabs-outerspatial-staging.s3.amazonaws.com/uploads/organization/trail_segments_file/3885/3885_trail_segments.geojson",
     STEWARD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/stewards",
-    NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
+    NOTIFICATION_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/notifications",
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
     SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/codeforamerica.iad4p3a2{z}/{x}/{y}.png"
@@ -860,7 +860,7 @@
         primary: this,
         foreign: Notification,
         scope: {
-          key: 'steward_id',
+          key: 'source_id',
           evaluator: 'equals',
           value: this.get('id')
         }
@@ -898,9 +898,9 @@
       "id": null,
       "title": null,
       "body": null,
-      "steward_id": null,
-      "type": null,
-      "createdAt": null,
+      "source_id": null,
+      "level": null,
+      "created_at": null,
       "read": false,
       "deleted": false
     },
@@ -944,7 +944,7 @@
     getCreatedAt: function () {
       // Return the creation date as a timestamp
       // so view can format it per https://docs.angularjs.org/api/ng/filter/date#example
-      return new Date(this.get('createdAt')).getTime();
+      return new Date(this.get('created_at')).getTime();
     }
 
   }, {
@@ -954,8 +954,8 @@
     load: function (data) {
       var results = [];
 
-      if (data.notifications) {
-        ng.forEach(data.notifications, function (notification) {
+      if (data.data) {
+        ng.forEach(data.data, function (notification) {
           results.push( new Notification(notification) );
         });
       }
