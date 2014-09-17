@@ -5,6 +5,10 @@
   // CONFIGURATION
   //
 
+  var LOCALHOST = "http://localhost:3000";
+  var STAGING = "http://staging.outerspatial.com";
+  var PRODUCTION = "http://www.outerspatial.com";
+  var BASE_ENDPOINT = PRODUCTION + '/api/v0/applications/1';
   var Configuration = {
     MIN_ZOOM_LEVEL: 4,
     MAX_ZOOM_LEVEL: 16,
@@ -14,11 +18,11 @@
     // DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
     // Boulder
     DEFAULT_MAP_CENTER: [ 40.0293099,-105.2399774 ],
-    TRAIL_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/named_trails",
-    TRAILHEAD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/trailheads",
-    TRAILSEGMENT_DATA_ENDPOINT: "https://trailheadlabs-outerspatial-staging.s3.amazonaws.com/uploads/organization/trail_segments_file/3885/3885_trail_segments.geojson",
-    STEWARD_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/opentrails/stewards",
-    NOTIFICATION_DATA_ENDPOINT: "http://staging.outerspatial.com/api/v0/organizations/3885/notifications",
+    TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/trails?opentrails=true&per_page=200',
+    TRAILHEAD_DATA_ENDPOINT: BASE_ENDPOINT + "/trailheads?opentrails=true&per_page=200",
+    TRAILSEGMENT_DATA_ENDPOINT: BASE_ENDPOINT + "/trail_segments?opentrails=true&simplify=3&per_page=200",
+    STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/organizations?opentrails=true",
+    NOTIFICATION_DATA_ENDPOINT: BASE_ENDPOINT + "/notifications?per_page=200",
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
     SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/codeforamerica.iad4p3a2{z}/{x}/{y}.png"
@@ -511,23 +515,25 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
       if (data) {
         ng.forEach(data, function (trail) {
+          if(trail.outerspatial){
+            trail.id = trail.outerspatial.id;
+            trail.segment_ids = trail.outerspatial.segment_ids;
+          }
           if (trail.segment_ids.length) {
-            if(trail.outerspatial){
-              trail.id = trail.outerspatial.id;
-              trail.segment_ids = trail.outerspatial.segment_ids;
-            }
             results.push( new Trail(trail) );
           }
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage) {
+        this.loaded = true;
+      }
     }
 
   });
@@ -542,7 +548,7 @@
       "id": null,
       "name": null,
       "segment_ids": null,
-      "steward_id": null,      
+      "steward_id": null,
       "address": null,
       "parking": null,
       "kiosk": null,
@@ -637,8 +643,8 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
       if (data.features) {
         ng.forEach(data.features, function (feature) {
@@ -653,7 +659,10 @@
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -764,25 +773,28 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
       if (data.features) {
 
-        ng.forEach(data.features, function (feature) {          
+        ng.forEach(data.features, function (feature) {
           if(feature.properties.outerspatial){
             feature.properties.id = feature.properties.outerspatial.id;
-            feature.properties.steward_id = feature.properties.outerspatial.steward_id;            
+            feature.properties.steward_id = feature.properties.outerspatial.steward_id;
           }
 
           feature.properties.geometry = feature.geometry;
           results.push( new TrailSegment(feature.properties) );
-          
+
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -817,8 +829,8 @@
   {
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
       if (data.photos) {
         ng.forEach(data.photos, function (photo) {
@@ -827,7 +839,10 @@
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
   });
 
@@ -871,8 +886,8 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
       if (data.length) {
         ng.forEach(data, function (steward) {
@@ -884,7 +899,10 @@
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -951,8 +969,8 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
       if (data.data) {
         ng.forEach(data.data, function (notification) {
@@ -961,7 +979,10 @@
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -1589,20 +1610,35 @@
         return objArray;
       }
 
-      function loadModel (model, key, url) {
+      function loadModel (model, key, url, page) {
         // var data = window.localStorage.getItem(key);
         var data = false;
         if (data) {
           model.load( JSON.parse(data) );
         } else {
-          $http.get(url).then(
+          var pageUrl = url;
+          if(page){
+            pageUrl = url + "&page=" + page;
+          }
+          $http.get(pageUrl).then(
             function (res) {
               data = res.data;
               // if (key == "TrailData" || key == "StewardData") {
               //   data = parseCSV(data);
               // }
               // window.localStorage.setItem(key, JSON.stringify(data) );
-              model.load(data);
+              if(data.paging) {
+
+                if(!data.paging.last_page) {
+                  model.load(data.data,false);
+                  var nextPage = data.paging.current_page+1;
+                  loadModel(model,key,url,nextPage);
+                } else {
+                  model.load(data.data,true);
+                }
+              } else {
+                model.load(data,true);
+              }
             }
           );
         }
