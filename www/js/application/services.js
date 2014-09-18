@@ -18,10 +18,10 @@
     // DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
     // Boulder
     DEFAULT_MAP_CENTER: [ 40.0293099,-105.2399774 ],
-    TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/trails?opentrails=true&per_page=200',
-    TRAILHEAD_DATA_ENDPOINT: BASE_ENDPOINT + "/trailheads?opentrails=true&per_page=200",
-    TRAILSEGMENT_DATA_ENDPOINT: BASE_ENDPOINT + "/trail_segments?opentrails=true&simplify=3&per_page=200",
-    STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/organizations?opentrails=true",
+    TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/cached_trails',
+    TRAILHEAD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trailheads",
+    TRAILSEGMENT_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trail_segments",
+    STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_stewards",
     NOTIFICATION_DATA_ENDPOINT: BASE_ENDPOINT + "/notifications?per_page=200",
     PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
@@ -1646,6 +1646,7 @@
 
       loadModel(Trail, "TrailData", Configuration.TRAIL_DATA_ENDPOINT);
       loadModel(TrailHead, "TrailHeadData", Configuration.TRAILHEAD_DATA_ENDPOINT);
+      // loadModel(TrailSegment, "TrailSegmentData", 'data/trail_segments.json');
       loadModel(TrailSegment, "TrailSegmentData", Configuration.TRAILSEGMENT_DATA_ENDPOINT);
       loadModel(Steward, "StewardData", Configuration.STEWARD_DATA_ENDPOINT);
       loadModel(Notification, "NotificationData", Configuration.NOTIFICATION_DATA_ENDPOINT);
