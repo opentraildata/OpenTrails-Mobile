@@ -163,9 +163,9 @@ angular.module('trails.services').factory('TrailsCanvasLayer', [
     function layerProjection(layer, map) {
       if (!layer.simplified) {
         layer.simplified = layer.getLatLngs().map(function(line) {
-          return L.LineUtil.simplify(line.map(function(coordinate) {
+          return line.map(function(coordinate) {
             return map.project(coordinate, 15);
-          }), 2);
+          });
         });
       }
       return layer.simplified;
