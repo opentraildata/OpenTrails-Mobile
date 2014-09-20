@@ -155,8 +155,8 @@
               </a>
             </div>
             <div class="photo-box">
-              <!-- <img src="img/photo.png"><img> -->
-              <div class="img-placeholder">No image available</div>
+              <img ng-if="selectedPhoto.get('url')" style="width:100%" ng-src="{{ selectedPhoto.get('url') }}"><img>
+              <div ng-if="!selectedPhoto.get('url')" class="img-placeholder">No image available</div>
             </div>
             <div class="trailhead-data">
               <p class="trail-subhead">Trail Activities</p>

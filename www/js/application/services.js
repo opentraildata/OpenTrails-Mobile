@@ -8,7 +8,7 @@
   var LOCALHOST = "http://localhost:3000";
   var STAGING = "http://staging.outerspatial.com";
   var PRODUCTION = "http://www.outerspatial.com";
-  var BASE_ENDPOINT = PRODUCTION + '/api/v0/applications/1';
+  var BASE_ENDPOINT = LOCALHOST + '/api/v0/applications/1';
   var Configuration = {
     MIN_ZOOM_LEVEL: 4,
     MAX_ZOOM_LEVEL: 16,
@@ -23,7 +23,7 @@
     TRAILSEGMENT_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trail_segments",
     STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_stewards",
     NOTIFICATION_DATA_ENDPOINT: BASE_ENDPOINT + "/notifications?per_page=200",
-    PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
+    PHOTO_DATA_ENDPOINT: BASE_ENDPOINT + "/images?per_page=200",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
     SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/codeforamerica.iad4p3a2{z}/{x}/{y}.png"
   };
@@ -430,12 +430,12 @@
         }
       });
 
-      this.photo = new Association({
+      this.photos = new Association({
         primary: this,
         foreign: Photo,
         scope: {
-          key: 'trailId',
-          evaluator: 'equals',
+          key: 'trail_ids',
+          evaluator: 'includes',
           value: this.get('id')
         }
       });
@@ -807,19 +807,19 @@
 
     defaults: {
       "id": null,
-      "trailId": null,
+      "trail_ids": null,
       "url": null
     },
 
     initialize: function () {
 
-      this.trail = new Association({
+      this.trails = new Association({
         primary: this,
         foreign: Trail,
         scope: {
           key: 'id',
-          evaluator: 'equals',
-          value: this.get('trailId')
+          evaluator: 'in',
+          value: this.get('trail_ids')
         }
       });
 
@@ -832,8 +832,8 @@
     load: function (data,lastPage) {
       var results = this.query.collection || [];
 
-      if (data.photos) {
-        ng.forEach(data.photos, function (photo) {
+      if (data) {
+        ng.forEach(data, function (photo) {
           results.push( new Photo(photo) );
         });
       }
@@ -1542,8 +1542,6 @@
 
     function ($http) {
 
-      var HOST = "http://morning-peak-3686.herokuapp.com";
-
       var LOADABLE = [
         "TrailHead", "Trail", "TrailSegment", "Steward","Notification"
       ];
@@ -1646,7 +1644,6 @@
 
       loadModel(Trail, "TrailData", Configuration.TRAIL_DATA_ENDPOINT);
       loadModel(TrailHead, "TrailHeadData", Configuration.TRAILHEAD_DATA_ENDPOINT);
-      // loadModel(TrailSegment, "TrailSegmentData", 'data/trail_segments.json');
       loadModel(TrailSegment, "TrailSegmentData", Configuration.TRAILSEGMENT_DATA_ENDPOINT);
       loadModel(Steward, "StewardData", Configuration.STEWARD_DATA_ENDPOINT);
       loadModel(Notification, "NotificationData", Configuration.NOTIFICATION_DATA_ENDPOINT);

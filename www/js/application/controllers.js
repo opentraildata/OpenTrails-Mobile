@@ -22,8 +22,8 @@
           $scope.stewards = Models.Steward.query.all();
           $scope.steward  = $scope.stewards[index];
           unwatchLoaded();
-        } 
-        
+        }
+
       });
 
       // Navigate to next steward
@@ -186,9 +186,9 @@
       });
 
       positionMarker.addTo(Map);
-            
+
       GeoPosition.set({latitude: Map.getCenter().lat,longitude: Map.getCenter().lng});
-      
+
       function onGeoPositionSuccess (position) {
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
@@ -205,22 +205,22 @@
 
       // Wait till device is ready before watching geolocation position.
       // See http://stackoverflow.com/questions/1673579/location-permission-alert-on-iphone-with-phonegap
-      
+
 
 
       function recenter () {
 
-        document.addEventListener("deviceready", function(){          
+        document.addEventListener("deviceready", function(){
           console.log('Device Ready!');
           navigator.geolocation.getCurrentPosition(
             onGeoPositionSuccess,
             onGeoPositionError
           );
 
-          
+
         }, false);
-        
-        
+
+
       }
       $scope.geoposition = GeoPosition;
       $scope.recenter = recenter;
@@ -417,7 +417,7 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        // $scope.selectedPhoto = $scope.selectedTrail.photo.first();
+        $scope.selectedPhoto = $scope.selectedTrail.photos.first();
         $scope.selectedTrailHeadSteward = th.stewards.first();
 
         mapContainerElm.classList.add('trail-selected');
@@ -453,7 +453,7 @@
       function selectTrail (t) {
         if (!t || ng.isUndefined(t)) return false;
         $scope.selectedTrail = t;
-        $scope.selectedPhoto = t.photo.first();
+        $scope.selectedPhoto = t.photos.first();
       }
 
       $scope.selectTrail = selectTrail;
