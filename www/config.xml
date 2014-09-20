@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.codeforamerica.tothetrails" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.codeforamerica.tothetrails" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
 
   <preference name="phonegap-version" value="3.3.0" />
   <preference name="orientation" value="portrait" />
@@ -7,7 +7,7 @@
   <name>OpenTrails Mobile</name>
 
   <description>
-    An offline trail mapping application
+    A trail navigation application built on the OpenTrails data standard.
   </description>
 
   <author email="ryanc@codeforamerica.org" href="http://codeforamerica.org">
@@ -27,5 +27,5 @@
   <access origin="*" subdomains="true" />
   <feature name="Geolocation">
       <param name="ios-package" value="CDVLocation" />
-  </feature>  
+  </feature>
 </widget>
