@@ -1044,6 +1044,7 @@
       el: 'map-container',
       options: {
         "zoomControl": false,
+        "detectRetina": true,
         "minZoom": Configuration.MIN_ZOOM_LEVEL,
         "maxZoom": Configuration.MAX_ZOOM_LEVEL
       }
