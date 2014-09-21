@@ -10,8 +10,8 @@
   var PRODUCTION = "http://www.outerspatial.com";
   var BASE_ENDPOINT = PRODUCTION + '/api/v0/applications/1';
   var Configuration = {
-    MIN_ZOOM_LEVEL: 4,
-    MAX_ZOOM_LEVEL: 16,
+    MIN_ZOOM_LEVEL: 0,
+    MAX_ZOOM_LEVEL: 18,
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
     DEFAULT_ZOOM_LEVEL: 10,
     // Ohio
