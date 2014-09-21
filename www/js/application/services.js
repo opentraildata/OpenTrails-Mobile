@@ -5,25 +5,27 @@
   // CONFIGURATION
   //
 
+  var LOCALHOST = "http://localhost:3000";
+  var STAGING = "http://staging.outerspatial.com";
+  var PRODUCTION = "http://www.outerspatial.com";
+  var BASE_ENDPOINT = PRODUCTION + '/api/v0/applications/1';
   var Configuration = {
-    MIN_ZOOM_LEVEL: 4,
-    MAX_ZOOM_LEVEL: 16,
+    MIN_ZOOM_LEVEL: 1,
+    MAX_ZOOM_LEVEL: 18,
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
-    DEFAULT_ZOOM_LEVEL: 13,
-    DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
-    // TRAIL_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trails.json",
-    // TRAILHEAD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailheads.JSON",
-    // TRAILSEGMENT_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/trailsegments.json",
-    // STEWARD_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/stewards.json",
-    TRAIL_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/named_trails.csv",
-    TRAILHEAD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/trailheads.geojson",
-    TRAILSEGMENT_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/trail_segments.geojson",
-    STEWARD_DATA_ENDPOINT: "http://www.outerspatial.com/organizations/cleveland-metro-parks/opentrails/stewards.csv",
-
-    NOTIFICATION_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/notifications.json",
-    PHOTO_DATA_ENDPOINT: "http://morning-peak-3686.herokuapp.com/photos.json",
-    TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/codeforamerica.map-j35lxf9d/{z}/{x}/{y}.png",
-    SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/codeforamerica.iad4p3a2{z}/{x}/{y}.png"
+    DEFAULT_ZOOM_LEVEL: 10,
+    // Ohio
+    // DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
+    // Boulder
+    DEFAULT_MAP_CENTER: [ 40.0293099,-105.2399774 ],
+    TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/cached_trails',
+    TRAILHEAD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trailheads",
+    TRAILSEGMENT_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trail_segments",
+    STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_stewards",
+    NOTIFICATION_DATA_ENDPOINT: BASE_ENDPOINT + "/notifications?per_page=200",
+    PHOTO_DATA_ENDPOINT: BASE_ENDPOINT + "/images?per_page=200",
+    TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/trailheadlabs.b9b3498e/{z}/{x}/{y}.png",
+    SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/trailheadlabs.jih1cig0/{z}/{x}/{y}.png"
   };
 
   //
@@ -95,6 +97,13 @@
     "includes": function (lhs, rhs) {
       if ( ng.isArray(lhs) ) {
         return lhs.indexOf(rhs) !== -1;
+      } else {
+        return false;
+      }
+    },
+    "intersects": function (lhs, rhs) {
+      if ( ng.isArray(lhs) ) {
+        return _.intersection(lhs,rhs).length !== 0;
       } else {
         return false;
       }
@@ -256,6 +265,9 @@
         trails = utils.unique(trails);
       } else {
         trails = trailhead.trails.all();
+        // trails = trailhead.trailSegments.all().map(function(trailSegment){
+        //   trailSegment.trails.all();
+        // });
       }
 
       if (params.filters) {
@@ -401,9 +413,9 @@
     defaults: {
       "id": null,
       "name": null,
-      "segmentIds": null,
-      "descriptn": null,
-      "partOf": null
+      "segment_ids": null,
+      "description": null,
+      "part_of": null
     },
 
     initialize: function () {
@@ -414,26 +426,16 @@
         scope: {
           key: 'id',
           evaluator: 'in',
-          value: this.get('segmentIds')
+          value: this.get('segment_ids')
         }
       });
 
-      this.trailHeads = new Association({
-        primary: this,
-        foreign: TrailHead,
-        scope: {
-          key: 'trailIds',
-          evaluator: 'includes',
-          value: this.get('id')
-        }
-      });
-
-      this.photo = new Association({
+      this.photos = new Association({
         primary: this,
         foreign: Photo,
         scope: {
-          key: 'trailId',
-          evaluator: 'equals',
+          key: 'trail_ids',
+          evaluator: 'includes',
           value: this.get('id')
         }
       });
@@ -513,19 +515,25 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
-      if (data.trails) {
-        ng.forEach(data.trails, function (trail) {
-          if (trail.segmentIds.length) {
+      if (data) {
+        ng.forEach(data, function (trail) {
+          if(trail.outerspatial){
+            trail.id = trail.outerspatial.id;
+            trail.segment_ids = trail.outerspatial.segment_ids;
+          }
+          if (trail.segment_ids.length) {
             results.push( new Trail(trail) );
           }
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage) {
+        this.loaded = true;
+      }
     }
 
   });
@@ -539,9 +547,8 @@
     defaults: {
       "id": null,
       "name": null,
-      "trailIds": null,
-      "stewardId": null,
-      "parkName": null,
+      "segment_ids": null,
+      "steward_id": null,
       "address": null,
       "parking": null,
       "kiosk": null,
@@ -550,42 +557,54 @@
     },
 
     initialize: function () {
+
+      this.trailSegments = new Association({
+        primary: this,
+        foreign: TrailSegment,
+        scope: {
+          key: 'id',
+          evaluator: 'in',
+          value: this.get('segment_ids')
+        }
+      });
+
       this.trails = new Association({
         primary: this,
         foreign: Trail,
         scope: {
-          key: 'id',
-          evaluator: 'in',
-          value: this.get('trailIds')
+          key: 'segment_ids',
+          evaluator: 'intersects',
+          value: this.get('segment_ids')
         }
       });
+
 
       this.stewards = new Association({
         primary: this,
         foreign: Steward,
         scope: {
           key: 'id',
-          evaluator: 'in',
-          value: this.get('stewardId')
+          evaluator: 'equals',
+          value: this.get('steward_id')
         }
       });
 
     },
 
     hasWater: function () {
-      return (this.get('water') || '').toLowerCase() !== 'n';
+      return (this.get('water') || '').toLowerCase() === 'yes';
     },
 
     hasParking: function () {
-      return (this.get('parking') || '').toLowerCase() !== 'n';
+      return (this.get('parking') || '').toLowerCase() === 'yes';
     },
 
     hasKiosk: function () {
-      return (this.get('kiosk') || '').toLowerCase() !== 'n';
+      return (this.get('kiosk') || '').toLowerCase() === 'yes';
     },
 
     hasRestroom: function () {
-      return (this.get('restroom') || '').toLowerCase() !== 'n';
+      return (this.get('restroom') || '').toLowerCase() === 'yes';
     },
 
     distanceFrom: function (lat, lng) {
@@ -624,18 +643,26 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
-      if (data.trailheads) {
-        ng.forEach(data.trailheads, function (feature) {
+      if (data.features) {
+        ng.forEach(data.features, function (feature) {
           feature.properties.geometry = feature.geometry;
+          if(feature.properties.outerspatial){
+            feature.properties.id = feature.properties.outerspatial.id;
+            feature.properties.steward_id = feature.properties.outerspatial.steward_id;
+            feature.properties.segment_ids = feature.properties.outerspatial.segment_ids;
+          }
           results.push( new TrailHead( feature.properties ) );
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -649,15 +676,15 @@
     defaults: {
       "id": null,
       "name": null,
-      "stewardId": null,
+      "steward_id": null,
       "highway": null,
-      "motorVehicles": null,
+      "motor_vehicles": null,
       "foot": null,
       "bicycle": null,
       "horse": null,
       "ski": null,
-      "wheelChair": null,
-      "osmTags": null,
+      "wheel_chair": null,
+      "osm_tags": null,
       "geometry": null
     },
 
@@ -666,11 +693,22 @@
         primary: this,
         foreign: Trail,
         scope: {
-          key: 'trailSegmentIds',
+          key: 'segment_ids',
           evaluator: 'includes',
           value: this.get('id')
         }
       });
+
+      this.trailHeads = new Association({
+        primary: this,
+        foreign: TrailHead,
+        scope: {
+          key: 'segment_ids',
+          evaluator: 'includes',
+          value: this.get('id')
+        }
+      });
+
     },
 
     getLength: function () {
@@ -701,23 +739,23 @@
     },
 
     canFoot: function () {
-      return (this.get('foot') || '').toLowerCase() !== 'n';
+      return (this.get('foot') || '').toLowerCase() === 'yes';
     },
 
     canBicycle: function () {
-      return (this.get('bicycle') || '').toLowerCase() !== 'n';
+      return (this.get('bicycle') || '').toLowerCase() === 'yes';
     },
 
     canHorse: function () {
-      return (this.get('horse') || '').toLowerCase() !== 'n';
+      return (this.get('horse') || '').toLowerCase() === 'yes';
     },
 
     canSki: function () {
-      return (this.get('ski') || '').toLowerCase() !== 'n';
+      return (this.get('ski') || '').toLowerCase() === 'yes';
     },
 
     canWheelChair: function () {
-      return (this.get('wheelchair') || '').toLowerCase() !== 'n';
+      return (this.get('wheelchair') || '').toLowerCase() === 'yes';
     },
 
     toGeoJson: function () {
@@ -735,18 +773,28 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
-      if (data.trailsegments) {
-        ng.forEach(data.trailsegments, function (feature) {
+      if (data.features) {
+
+        ng.forEach(data.features, function (feature) {
+          if(feature.properties.outerspatial){
+            feature.properties.id = feature.properties.outerspatial.id;
+            feature.properties.steward_id = feature.properties.outerspatial.steward_id;
+          }
+
           feature.properties.geometry = feature.geometry;
           results.push( new TrailSegment(feature.properties) );
+
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -759,19 +807,19 @@
 
     defaults: {
       "id": null,
-      "trailId": null,
+      "trail_ids": null,
       "url": null
     },
 
     initialize: function () {
 
-      this.trail = new Association({
+      this.trails = new Association({
         primary: this,
         foreign: Trail,
         scope: {
           key: 'id',
-          evaluator: 'equals',
-          value: this.get('trailId')
+          evaluator: 'in',
+          value: this.get('trail_ids')
         }
       });
 
@@ -781,17 +829,20 @@
   {
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
-      if (data.photos) {
-        ng.forEach(data.photos, function (photo) {
+      if (data) {
+        ng.forEach(data, function (photo) {
           results.push( new Photo(photo) );
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
   });
 
@@ -812,10 +863,10 @@
     initialize: function () {
       this.trailHeads = new Association({
         primary: this,
-        foreign: Steward,
+        foreign: TrailHead,
         scope: {
-          key: 'stewardId',
-          evaluator: 'includes',
+          key: 'steward_id',
+          evaluator: 'equals',
           value: this.get('id')
         }
       });
@@ -824,7 +875,7 @@
         primary: this,
         foreign: Notification,
         scope: {
-          key: 'stewardId',
+          key: 'source_id',
           evaluator: 'equals',
           value: this.get('id')
         }
@@ -835,17 +886,23 @@
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
-      if (data.stewards) {
-        ng.forEach(data.stewards, function (steward) {
+      if (data.length) {
+        ng.forEach(data, function (steward) {
+          if(steward.outerspatial){
+            steward.id = steward.outerspatial.id;
+          }
           results.push( new Steward(steward) );
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -859,9 +916,9 @@
       "id": null,
       "title": null,
       "body": null,
-      "stewardId": null,
-      "type": null,
-      "createdAt": null,
+      "source_id": null,
+      "level": null,
+      "created_at": null,
       "read": false,
       "deleted": false
     },
@@ -905,24 +962,27 @@
     getCreatedAt: function () {
       // Return the creation date as a timestamp
       // so view can format it per https://docs.angularjs.org/api/ng/filter/date#example
-      return new Date(this.get('createdAt')).getTime();
+      return new Date(this.get('created_at')).getTime();
     }
 
   }, {
 
     query: new Query(),
 
-    load: function (data) {
-      var results = [];
+    load: function (data,lastPage) {
+      var results = this.query.collection || [];
 
-      if (data.notifications) {
-        ng.forEach(data.notifications, function (notification) {
+      if (data.data) {
+        ng.forEach(data.data, function (notification) {
           results.push( new Notification(notification) );
         });
       }
 
       this.query.setCollection(results);
-      this.loaded = true;
+      if(lastPage){
+        this.loaded = true;
+      }
+
     }
 
   });
@@ -984,6 +1044,7 @@
       el: 'map-container',
       options: {
         "zoomControl": false,
+        "detectRetina": true,
         "minZoom": Configuration.MIN_ZOOM_LEVEL,
         "maxZoom": Configuration.MAX_ZOOM_LEVEL
       }
@@ -1482,8 +1543,6 @@
 
     function ($http) {
 
-      var HOST = "http://morning-peak-3686.herokuapp.com";
-
       var LOADABLE = [
         "TrailHead", "Trail", "TrailSegment", "Steward","Notification"
       ];
@@ -1550,20 +1609,35 @@
         return objArray;
       }
 
-      function loadModel (model, key, url) {
-        var data = window.localStorage.getItem(key);
-
+      function loadModel (model, key, url, page) {
+        // var data = window.localStorage.getItem(key);
+        var data = false;
         if (data) {
           model.load( JSON.parse(data) );
         } else {
-          $http.get(url).then(
+          var pageUrl = url;
+          if(page){
+            pageUrl = url + "&page=" + page;
+          }
+          $http.get(pageUrl).then(
             function (res) {
               data = res.data;
-              if (key == "TrailData" || key == "StewardData") {
-                data = parseCSV(data);
+              // if (key == "TrailData" || key == "StewardData") {
+              //   data = parseCSV(data);
+              // }
+              // window.localStorage.setItem(key, JSON.stringify(data) );
+              if(data.paging) {
+
+                if(!data.paging.last_page) {
+                  model.load(data.data,false);
+                  var nextPage = data.paging.current_page+1;
+                  loadModel(model,key,url,nextPage);
+                } else {
+                  model.load(data.data,true);
+                }
+              } else {
+                model.load(data,true);
               }
-              window.localStorage.setItem(key, JSON.stringify(data) );
-              model.load(data);
             }
           );
         }

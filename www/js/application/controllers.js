@@ -18,9 +18,12 @@
       // Wait until all models have been
       // loaded to instantiate variables
       var unwatchLoaded = $scope.$watch(Models.loaded, function (value) {
-        $scope.stewards = Models.Steward.query.all();
-        $scope.steward  = $scope.stewards[index];
-        unwatchLoaded();
+        if(Models.loaded()) {
+          $scope.stewards = Models.Steward.query.all();
+          $scope.steward  = $scope.stewards[index];
+          unwatchLoaded();
+        }
+
       });
 
       // Navigate to next steward
@@ -184,6 +187,8 @@
 
       positionMarker.addTo(Map);
 
+      GeoPosition.set({latitude: Map.getCenter().lat,longitude: Map.getCenter().lng});
+
       function onGeoPositionSuccess (position) {
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         GeoPosition.set(position.coords);
@@ -194,29 +199,30 @@
       function onGeoPositionError (err) {
         console.log('Error: Could not geolocate user');
         Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
-        positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
+        // positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
+        // GeoPosition.set({latitude: Map.getCenter().lat,longitude: Map.getCenter().lng});
       }
 
       // Wait till device is ready before watching geolocation position.
       // See http://stackoverflow.com/questions/1673579/location-permission-alert-on-iphone-with-phonegap
-      
+
 
 
       function recenter () {
 
-        document.addEventListener("deviceready", function(){          
+        document.addEventListener("deviceready", function(){
           console.log('Device Ready!');
           navigator.geolocation.getCurrentPosition(
             onGeoPositionSuccess,
             onGeoPositionError
           );
 
-          $scope.geoposition = GeoPosition;
-        }, false);
-        
-        
-      }
 
+        }, false);
+
+
+      }
+      $scope.geoposition = GeoPosition;
       $scope.recenter = recenter;
 
       //
@@ -337,6 +343,9 @@
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
 
+          Models.TrailHead.query.each(_initializeTrailHeadMarker);
+          trailHeadCluster.addTo(Map);
+
           if (USE_CANVAS_TRAILS) {
             trailsLayer = (new TrailsCanvasLayer({
               trails: Models.Trail.query.all()
@@ -346,8 +355,6 @@
             Models.Trail.query.each(_renderTrailLayer);
           }
 
-          Models.TrailHead.query.each(_initializeTrailHeadMarker);
-          trailHeadCluster.addTo(Map);
 
           // Populate search results view with all results.
           clearSearch();
@@ -411,7 +418,7 @@
         $scope.selectedTrailHead = th;
         $scope.selectedTrails = th.trails.all();
         $scope.selectedTrail = t || th.trails.first();
-        $scope.selectedPhoto = $scope.selectedTrail.photo.first();
+        $scope.selectedPhoto = $scope.selectedTrail.photos.first();
         $scope.selectedTrailHeadSteward = th.stewards.first();
 
         mapContainerElm.classList.add('trail-selected');
@@ -447,7 +454,7 @@
       function selectTrail (t) {
         if (!t || ng.isUndefined(t)) return false;
         $scope.selectedTrail = t;
-        $scope.selectedPhoto = t.photo.first();
+        $scope.selectedPhoto = t.photos.first();
       }
 
       $scope.selectTrail = selectTrail;

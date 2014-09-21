@@ -39,8 +39,8 @@
       </div>
 
       <div id="loading-view" ng-class="{fadeout:appLoaded}">
-        <h1 class="title">To The Trails</h1>
-        <h4 class="subtitle">Northeast Ohio</h4>
+<!--         <h1 class="title">OpenTrails Mobile</h1> -->
+        <!-- <h4 class="subtitle">0.0.3</h4> -->
       </div>
 
       <section id="notifications-view" ng-show="view === 'notifications-notices' || view === 'notifications-contact'" ng-controller="NotificationsCtrl" ng-cloak>
@@ -155,8 +155,8 @@
               </a>
             </div>
             <div class="photo-box">
-              <!-- <img src="img/photo.png"><img> -->
-              <div class="img-placeholder">No image available</div>
+              <img ng-if="selectedPhoto.get('url')" style="width:100%" ng-src="{{ selectedPhoto.get('url') }}"><img>
+              <div ng-if="!selectedPhoto.get('url')" class="img-placeholder">No image available</div>
             </div>
             <div class="trailhead-data">
               <p class="trail-subhead">Trail Activities</p>
@@ -294,6 +294,7 @@
 
     </div>
 
+    <script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/lib/fastclick/fastclick.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>

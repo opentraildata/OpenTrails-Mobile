@@ -23,21 +23,13 @@
                             "count": 1
                         }
                     ],
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
-                            "count": 1
-                        }
-                    ]
+                    "/*": []
                 }
             }
         }
     },
     "installed_plugins": {
         "com.testflightapp.cordova-plugin": {
-            "PACKAGE_NAME": "org.codeforamerica.trails"
-        },
-        "org.apache.cordova.geolocation": {
             "PACKAGE_NAME": "org.codeforamerica.trails"
         }
     },
