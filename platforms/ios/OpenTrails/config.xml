@@ -29,7 +29,6 @@
     A trail navigation application built on the OpenTrails data standard.
   </description>
     <icon src="icon.png" />
-    <gap:splash src="splash.png" />
     <author email="jereme@trailheadlabs.com" href="http://trailheadlabs.com">
     Trailhead Labs
   </author>
