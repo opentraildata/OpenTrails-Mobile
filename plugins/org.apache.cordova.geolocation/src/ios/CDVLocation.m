@@ -31,12 +31,6 @@
 #pragma mark -
 #pragma mark Categories
 
-@interface CLHeading (JSONMethods)
-
-- (NSString*)JSONRepresentation;
-
-@end
-
 @implementation CDVLocationData
 
 @synthesize locationStatus, locationInfo, locationCallbacks, watchCallbacks;
@@ -132,8 +126,9 @@
     __locationStarted = YES;
     if (enableHighAccuracy) {
         __highAccuracyEnabled = YES;
-        // Set to distance filter to "none" - which should be the minimum for best results.
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        // Set distance filter to 5 for a high accuracy. Setting it to "kCLDistanceFilterNone" could provide a
+        // higher accuracy, but it's also just spamming the callback with useless reports which drain the battery.
+        self.locationManager.distanceFilter = 5;
         // Set desired accuracy to Best.
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     } else {
@@ -293,7 +288,7 @@
 {
     NSMutableDictionary* posError = [NSMutableDictionary dictionaryWithCapacity:2];
 
-    [posError setObject:[NSNumber numberWithInt:errorCode] forKey:@"code"];
+    [posError setObject:[NSNumber numberWithUnsignedInteger:errorCode] forKey:@"code"];
     [posError setObject:message ? message:@"" forKey:@"message"];
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:posError];
 

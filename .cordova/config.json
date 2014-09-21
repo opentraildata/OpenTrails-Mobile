@@ -1,1 +1,11 @@
-{"lib":{"www":{"id":"phonegap","version":"3.3.0","uri":"https://github.com/rclosner/trails-mobile"}},"id":"com.codeforamerica.trails","name":"ToTheTrails"}
+{
+    "lib": {
+        "www": {
+            "id": "phonegap",
+            "version": "3.3.0",
+            "uri": "https://github.com/rclosner/trails-mobile"
+        }
+    },
+    "id": "com.codeforamerica.trails",
+    "name": "ToTheTrails"
+}

@@ -18,7 +18,7 @@
  * under the License.
  *
 */
-
+           
 // latest geolocation spec can be found here: http://www.w3.org/TR/geolocation-API/
 
 var idsMap = {};
@@ -37,7 +37,7 @@ module.exports = {
     },
 
     addWatch: function(success, error, args) {
-        var geo = cordova.require('cordova/modulemapper').getOriginalSymbol(window, 'navigator.geolocation');
+        var geo = cordova.require('cordova/modulemapper').getOriginalSymbol(window, 'navigator.geolocation');        
         var id = args[0];
         var nativeId = geo.watchPosition(success, error, {
             enableHighAccuracy: args[1]
@@ -61,4 +61,4 @@ module.exports = {
     }
 };
 
-require("cordova/firefoxos/commandProxy").add("Geolocation", module.exports);
+require("cordova/exec/proxy").add("Geolocation", module.exports);

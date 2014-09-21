@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.codeforamerica.tothetrails" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
 
-  <preference name="phonegap-version" value="3.3.0" />
+  <preference name="phonegap-version" value="3.5.0" />
   <preference name="orientation" value="portrait" />
 
   <name>OpenTrails Mobile</name>

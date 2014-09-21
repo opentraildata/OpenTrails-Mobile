@@ -52,3 +52,26 @@
 * add ubuntu platform support
 * CB-5326 adding FFOS permission and updating supported platforms
 * CB-5729 [BlackBerry10] Update GeolocationProxy to return collapsed object
+
+### 0.3.7 (Apr 17, 2014)
+* CB-6422: [windows8] use cordova/exec/proxy
+* CB-6212: [iOS] fix warnings compiled under arm64 64-bit
+* CB-5977: [android] Removing the Android Geolocation Code.  Mission Accomplished.
+* CB-6460: Update license headers
+* Add NOTICE file
+
+### 0.3.8 (Jun 05, 2014)
+* CB-6127 Spanish and French Translations added. Github close #14
+* CB-6804 Add license
+* CB-5416 - Adding support for auto-managing permissions
+* CB-6491 add CONTRIBUTING.md
+* pass by only coords
+* proper implementation for firefoxos
+* call FxOS's getCurrentProxy added
+
+### 0.3.9 (Aug 06, 2014)
+* **FFOS** update GeolocationProxy.js
+* CB-7187 ios: Add explicit dependency on CoreLocation.framework
+* CB-7187 Delete unused #import of CDVShared.h
+* CB-6127 Updated translations for docs
+* ios: Changed distanceFilter from none to 5 meters, prevents it from spamming the callback even though nothing changed.
