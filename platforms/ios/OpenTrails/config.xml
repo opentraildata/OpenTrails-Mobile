@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.codeforamerica.tothetrails" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.trailheadlabs.opentrails" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
@@ -28,7 +28,7 @@
     <description>
     A trail navigation application built on the OpenTrails data standard.
   </description>
-    <author email="ryanc@codeforamerica.org" href="http://codeforamerica.org">
+    <author email="jereme@trailheadlabs.com" href="http://trailheadlabs.com">
     Code for America
   </author>
     <preference name="DisallowOverscroll" value="true" />
@@ -38,6 +38,7 @@
     <gap:plugin name="org.apache.cordova.file" version="0.2.4" />
     <gap:plugin name="org.apache.cordova.file-transfer" version="0.3.3" />
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
     <access origin="*" subdomains="true" />
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />

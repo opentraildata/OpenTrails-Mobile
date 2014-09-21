@@ -338,10 +338,14 @@
       var trailsLayer;
       $scope.appLoaded = false;
       function onLoad (loaded) {
+        $scope.appLoaded = true;
         if (loaded) {
           $scope.appLoaded = true;
           $scope.stewards = Models.Steward.query.all();
           $scope.selectedSteward = Models.Steward.query.first();
+
+          Models.TrailHead.query.each(_initializeTrailHeadMarker);
+          trailHeadCluster.addTo(Map);
 
           if (USE_CANVAS_TRAILS) {
             trailsLayer = (new TrailsCanvasLayer({
@@ -352,8 +356,6 @@
             Models.Trail.query.each(_renderTrailLayer);
           }
 
-          Models.TrailHead.query.each(_initializeTrailHeadMarker);
-          trailHeadCluster.addTo(Map);
 
           // Populate search results view with all results.
           clearSearch();
