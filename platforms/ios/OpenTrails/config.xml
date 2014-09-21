@@ -28,6 +28,8 @@
     <description>
     A trail navigation application built on the OpenTrails data standard.
   </description>
+    <icon src="icon.png" />
+    <gap:splash src="splash.png" />
     <icon gap:platform="ios" height="60" src="www/res/icons/icon-60.png" width="60" />
     <icon gap:platform="ios" height="120" src="www/res/icons/icon-60@2x.png" width="120" />
     <icon gap:platform="ios" height="76" src="www/res/icons/icon-76.png" width="76" />
@@ -42,8 +44,7 @@
     <icon gap:platform="ios" height="58" src="www/res/icons/icon-small@2x.png" width="58" />
     <icon gap:platform="ios" height="50" src="www/res/icons/icon-50.png" width="50" />
     <icon gap:platform="ios" height="100" src="www/res/icons/icon-50@2x.png" width="100" />
-    <gap:splash gap:platform="ios" height="1136" src="www/res/screens/Default-568h@2x~iphone.png" width="640" />
-    <author email="jereme@trailheadlabs.com" href="http://trailheadlabs.com">
+    <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
   </author>
     <preference name="DisallowOverscroll" value="true" />
