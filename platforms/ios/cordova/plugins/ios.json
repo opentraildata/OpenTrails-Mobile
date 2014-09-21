@@ -7,7 +7,7 @@
         "files": {
             "framework": {
                 "parents": {
-                    "libz.dylib": [
+                    "CoreLocation.framework": [
                         {
                             "xml": "false",
                             "count": 1
@@ -17,20 +17,19 @@
             },
             "config.xml": {
                 "parents": {
-                    "/widget": [
+                    "/*": [
                         {
-                            "xml": "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>",
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
                         }
-                    ],
-                    "/*": []
+                    ]
                 }
             }
         }
     },
     "installed_plugins": {
-        "com.testflightapp.cordova-plugin": {
-            "PACKAGE_NAME": "org.codeforamerica.trails"
+        "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "com.codeforamerica.tothetrails"
         }
     },
     "dependent_plugins": {}

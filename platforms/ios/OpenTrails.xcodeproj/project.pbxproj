@@ -40,8 +40,8 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		0CBA68BCCDAF46799A8CF5DE /* CDVTestFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = E415A9AC326C4B43AF72F634 /* CDVTestFlight.m */; };
 		9918351FB5A649E38723ABBE /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE32F3C0AA7B418F98250D00 /* libTestFlight.a */; };
-		5406A450C8DC468A80CFE4EC /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 24690F5913624A88B9BF4E06 /* CDVLocation.m */; };
 		ACF28E05B4684BBEA3B38534 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5122C6818D8843AFAE7E0D89 /* libz.dylib */; };
+		ADC46785719141228FB256B3 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5BE5408E8E4E209F887565 /* CDVLocation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,9 +112,9 @@
 		3B6CA9FCAA1F40B6960A90DB /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+AsyncLogging.h"; path = "com.testflightapp.cordova-plugin/TestFlight+AsyncLogging.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		4A1480931F0E40EF837EC081 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "com.testflightapp.cordova-plugin/TestFlight+ManualSessions.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		11AFD1BC77024537A867FA65 /* CDVTestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVTestFlight.h"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		24690F5913624A88B9BF4E06 /* CDVLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocation.m"; path = "org.apache.cordova.geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		1BFCD832EAED499E9D579602 /* CDVLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocation.h"; path = "org.apache.cordova.geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		5122C6818D8843AFAE7E0D89 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		CD5BE5408E8E4E209F887565 /* CDVLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocation.m"; path = "org.apache.cordova.geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		7BD001DD5A81403E91233727 /* CDVLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocation.h"; path = "org.apache.cordova.geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,8 +244,8 @@
 				3B6CA9FCAA1F40B6960A90DB /* TestFlight+AsyncLogging.h */,
 				4A1480931F0E40EF837EC081 /* TestFlight+ManualSessions.h */,
 				11AFD1BC77024537A867FA65 /* CDVTestFlight.h */,
-				24690F5913624A88B9BF4E06 /* CDVLocation.m */,
-				1BFCD832EAED499E9D579602 /* CDVLocation.h */,
+				CD5BE5408E8E4E209F887565 /* CDVLocation.m */,
+				7BD001DD5A81403E91233727 /* CDVLocation.h */,
 			);
 			name = Plugins;
 			path = "OpenTrails/Plugins";
@@ -441,7 +441,7 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				0CBA68BCCDAF46799A8CF5DE /* CDVTestFlight.m in Sources */,
-				5406A450C8DC468A80CFE4EC /* CDVLocation.m in Sources */,
+				ADC46785719141228FB256B3 /* CDVLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
