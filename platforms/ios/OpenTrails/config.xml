@@ -28,22 +28,21 @@
     <description>
     A trail navigation application built on the OpenTrails data standard.
   </description>
-    <icon src="icon.png" />
-    <icon gap:platform="ios" height="60" src="res/icons/icon-60.png" width="60" />
-    <icon gap:platform="ios" height="120" src="res/icons/icon-60@2x.png" width="120" />
-    <icon gap:platform="ios" height="76" src="res/icons/icon-76.png" width="76" />
-    <icon gap:platform="ios" height="152" src="res/icons/icon-76@2x.png" width="152" />
-    <icon gap:platform="ios" height="40" src="res/icons/icon-40.png" width="40" />
-    <icon gap:platform="ios" height="80" src="res/icons/icon-40@2x.png" width="80" />
-    <icon gap:platform="ios" height="57" src="res/icons/icon.png" width="57" />
-    <icon gap:platform="ios" height="114" src="res/icons/icon@2x.png" width="114" />
-    <icon gap:platform="ios" height="72" src="res/icons/icon-72.png" width="72" />
-    <icon gap:platform="ios" height="144" src="res/icons/icon-72@2x.png" width="144" />
-    <icon gap:platform="ios" height="29" src="res/icons/icon-small.png" width="29" />
-    <icon gap:platform="ios" height="58" src="res/icons/icon-small@2x.png" width="58" />
-    <icon gap:platform="ios" height="50" src="res/icons/icon-50.png" width="50" />
-    <icon gap:platform="ios" height="100" src="res/icons/icon-50@2x.png" width="100" />
-    <gap:splash gap:platform="ios" height="1136" src="res/screens/Default-568h@2x.png" width="640" />
+    <icon gap:platform="ios" height="60" src="www/res/icons/icon-60.png" width="60" />
+    <icon gap:platform="ios" height="120" src="www/res/icons/icon-60@2x.png" width="120" />
+    <icon gap:platform="ios" height="76" src="www/res/icons/icon-76.png" width="76" />
+    <icon gap:platform="ios" height="152" src="www/res/icons/icon-76@2x.png" width="152" />
+    <icon gap:platform="ios" height="40" src="www/res/icons/icon-40.png" width="40" />
+    <icon gap:platform="ios" height="80" src="www/res/icons/icon-40@2x.png" width="80" />
+    <icon gap:platform="ios" height="57" src="www/res/icons/icon.png" width="57" />
+    <icon gap:platform="ios" height="114" src="www/res/icons/icon@2x.png" width="114" />
+    <icon gap:platform="ios" height="72" src="www/res/icons/icon-72.png" width="72" />
+    <icon gap:platform="ios" height="144" src="www/res/icons/icon-72@2x.png" width="144" />
+    <icon gap:platform="ios" height="29" src="www/res/icons/icon-small.png" width="29" />
+    <icon gap:platform="ios" height="58" src="www/res/icons/icon-small@2x.png" width="58" />
+    <icon gap:platform="ios" height="50" src="www/res/icons/icon-50.png" width="50" />
+    <icon gap:platform="ios" height="100" src="www/res/icons/icon-50@2x.png" width="100" />
+    <gap:splash gap:platform="ios" height="1136" src="www/res/screens/Default-568h@2x~iphone.png" width="640" />
     <author email="jereme@trailheadlabs.com" href="http://trailheadlabs.com">
     Trailhead Labs
   </author>
