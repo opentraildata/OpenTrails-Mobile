@@ -338,7 +338,6 @@
       var trailsLayer;
       $scope.appLoaded = false;
       function onLoad (loaded) {
-        $scope.appLoaded = true;
         if (loaded) {
           $scope.appLoaded = true;
           $scope.stewards = Models.Steward.query.all();
