@@ -43,7 +43,7 @@
   <icon src="res/icons/icon-50.png" gap:platform="ios" width="50" height="50" />
   <icon src="res/icons/icon-50@2x.png" gap:platform="ios" width="100" height="100" />
 
-  <author email="jereme@trailheadlabs.com" href="http://trailheadlabs.com">
+  <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
   </author>
 
