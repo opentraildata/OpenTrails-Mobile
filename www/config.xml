@@ -23,6 +23,7 @@
   <gap:plugin name="org.apache.cordova.file" version="0.2.4" />
   <gap:plugin name="org.apache.cordova.file-transfer" version="0.3.3" />
   <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
+  <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
 
   <access origin="*" subdomains="true" />
   <feature name="Geolocation">
