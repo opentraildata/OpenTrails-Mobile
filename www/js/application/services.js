@@ -8,7 +8,7 @@
   var LOCALHOST = "http://localhost:3000";
   var STAGING = "http://staging.outerspatial.com";
   var PRODUCTION = "http://www.outerspatial.com";
-  var BASE_ENDPOINT = PRODUCTION + '/api/v0/applications/1';
+  var BASE_ENDPOINT = PRODUCTION + '/api/v0/applications/4';
   var Configuration = {
     MIN_ZOOM_LEVEL: 1,
     MAX_ZOOM_LEVEL: 18,
