@@ -49,7 +49,7 @@
       </dict>
     </dict>
     <key>CFBundleIdentifier</key>
-    <string>com.trailheadlabs.opentrails</string>
+    <string>com.trailheadlabs.summit</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -59,7 +59,7 @@
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>0.1.1</string>
+    <string>0.0.1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMainNibFile</key>
@@ -78,6 +78,6 @@
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.1</string>
+    <string>0.0.1</string>
   </dict>
 </plist>

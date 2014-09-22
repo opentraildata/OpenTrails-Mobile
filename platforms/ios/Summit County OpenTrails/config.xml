@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.trailheadlabs.opentrails" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.trailheadlabs.summit" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
@@ -24,25 +24,11 @@
     </feature>
     <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="portrait" />
-    <name>OpenTrails</name>
+    <name>Summit County OpenTrails</name>
     <description>
     A trail navigation application built on the OpenTrails data standard.
   </description>
     <icon src="icon.png" />
-    <icon gap:platform="ios" height="60" src="res/icons/icon-60.png" width="60" />
-    <icon gap:platform="ios" height="120" src="res/icons/icon-60@2x.png" width="120" />
-    <icon gap:platform="ios" height="76" src="res/icons/icon-76.png" width="76" />
-    <icon gap:platform="ios" height="152" src="res/icons/icon-76@2x.png" width="152" />
-    <icon gap:platform="ios" height="40" src="res/icons/icon-40.png" width="40" />
-    <icon gap:platform="ios" height="80" src="res/icons/icon-40@2x.png" width="80" />
-    <icon gap:platform="ios" height="57" src="res/icons/icon.png" width="57" />
-    <icon gap:platform="ios" height="114" src="res/icons/icon@2x.png" width="114" />
-    <icon gap:platform="ios" height="72" src="res/icons/icon-72.png" width="72" />
-    <icon gap:platform="ios" height="144" src="res/icons/icon-72@2x.png" width="144" />
-    <icon gap:platform="ios" height="29" src="res/icons/icon-small.png" width="29" />
-    <icon gap:platform="ios" height="58" src="res/icons/icon-small@2x.png" width="58" />
-    <icon gap:platform="ios" height="50" src="res/icons/icon-50.png" width="50" />
-    <icon gap:platform="ios" height="100" src="res/icons/icon-50@2x.png" width="100" />
     <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
   </author>
