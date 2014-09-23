@@ -832,7 +832,7 @@
     load: function (data,lastPage) {
       var results = this.query.collection || [];
 
-      if (data) {
+      if (data.length) {
         ng.forEach(data, function (photo) {
           results.push( new Photo(photo) );
         });
@@ -972,8 +972,9 @@
     load: function (data,lastPage) {
       var results = this.query.collection || [];
 
-      if (data.data) {
-        ng.forEach(data.data, function (notification) {
+      if (data.length) {
+        ng.forEach(data, function (notification) {
+          notification.source_id = notification.source.id;
           results.push( new Notification(notification) );
         });
       }
