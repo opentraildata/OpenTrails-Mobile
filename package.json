@@ -1,6 +1,6 @@
 {
   "name": "trails-mobile",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A mobile application for viewing trail map data offline",
   "dependencies": {
     "grunt": "~0.4.4",
@@ -9,7 +9,7 @@
     "grunt-contrib-copy" : "~0.5.0",
     "grunt-contrib-clean" : "~0.4.1",
     "grunt-contrib-jshint" : "~0.9.2",
-    "cordova": "~3.5.0",
+    "cordova": "~3.6.0",
     "ios-sim": "~1.9.0"
   },
   "devDependencies": {},
