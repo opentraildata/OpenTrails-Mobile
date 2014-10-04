@@ -22,7 +22,7 @@
     <feature name="TestFlightSDK">
         <param name="ios-package" value="CDVTestFlight" />
     </feature>
-    <preference name="phonegap-version" value="3.6.0" />
+    <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="portrait" />
     <name>OpenTrails</name>
     <description>
@@ -55,4 +55,7 @@
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
     <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
     <access origin="*" subdomains="true" />
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
 </widget>
