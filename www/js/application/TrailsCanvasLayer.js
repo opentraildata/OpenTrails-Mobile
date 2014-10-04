@@ -136,18 +136,6 @@ angular.module('trails.services').factory('TrailsCanvasLayer', [
         }, this);
       },
 
-      onAdd: function(map) {
-        // We don't want to calculate *everything* right away, but after a
-        // quick breather, we will (so future panning is speedy)
-        var self = this;
-        setTimeout(function() {
-          self.trailLayers.forEach(function(layer) {
-            TrailsCanvasLayer.processLayer(layer, map);
-          });
-        }, 2000);
-
-        return L.TileLayer.Canvas.prototype.onAdd.apply(this, arguments);
-      }
     });
 
     // Internal. Used to lazily retrieve and cache the bounds of a layer.
