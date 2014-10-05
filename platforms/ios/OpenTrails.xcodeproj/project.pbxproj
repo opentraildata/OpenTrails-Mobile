@@ -38,9 +38,9 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		45F00E1FBC52420AB83A2A5F /* CDVTestFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DB61FCC79F4F9E9971549C /* CDVTestFlight.m */; };
-		724CDC0EE14C48119B44A041 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB177C4172584814A07FFDCC /* libTestFlight.a */; };
-		EC18AAFCFE6445E28FD161EE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B49FA5D2F549F4A5ACB143 /* libz.dylib */; };
+		55EBB084AF384450BFBB5EEB /* CDVTestFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 8835DA03D49D4409AA9DCC85 /* CDVTestFlight.m */; };
+		083D022A31264E6DBEB0165B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C35A3E0B8484B219A8D7C19 /* libTestFlight.a */; };
+		5B46B6F74AC246EAA252B0D6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3665362B54FD0BE3018FD /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,13 +105,13 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "OpenTrails/config.xml"; sourceTree = "<group>"; };
-		23DB61FCC79F4F9E9971549C /* CDVTestFlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVTestFlight.m"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		CB177C4172584814A07FFDCC /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libTestFlight.a"; path = "OpenTrails/Plugins/com.testflightapp.cordova-plugin/libTestFlight.a"; sourceTree = "<group>"; fileEncoding = 4; };
-		1660AE3B34014C1A8D9F1044 /* TestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight.h"; path = "com.testflightapp.cordova-plugin/TestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		B0339E56228A47B89CBBACCB /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+AsyncLogging.h"; path = "com.testflightapp.cordova-plugin/TestFlight+AsyncLogging.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		192B4861D75846FC81477FCA /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "com.testflightapp.cordova-plugin/TestFlight+ManualSessions.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		3631007E007A4E6784325643 /* CDVTestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVTestFlight.h"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		73B49FA5D2F549F4A5ACB143 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		8835DA03D49D4409AA9DCC85 /* CDVTestFlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVTestFlight.m"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		2C35A3E0B8484B219A8D7C19 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libTestFlight.a"; path = "OpenTrails/Plugins/com.testflightapp.cordova-plugin/libTestFlight.a"; sourceTree = "<group>"; fileEncoding = 4; };
+		8E771827DA104DF59034E6B3 /* TestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight.h"; path = "com.testflightapp.cordova-plugin/TestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		CEF1E29BD26F46279182F23F /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+AsyncLogging.h"; path = "com.testflightapp.cordova-plugin/TestFlight+AsyncLogging.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		C785DFDD18494112BFF88155 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "com.testflightapp.cordova-plugin/TestFlight+ManualSessions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		34102AE773DE4B32ADBDC147 /* CDVTestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVTestFlight.h"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		4DE3665362B54FD0BE3018FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +124,8 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
-				724CDC0EE14C48119B44A041 /* libTestFlight.a in Frameworks */,
-				EC18AAFCFE6445E28FD161EE /* libz.dylib in Frameworks */,
+				083D022A31264E6DBEB0165B /* libTestFlight.a in Frameworks */,
+				5B46B6F74AC246EAA252B0D6 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,8 +219,8 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
-				CB177C4172584814A07FFDCC /* libTestFlight.a */,
-				73B49FA5D2F549F4A5ACB143 /* libz.dylib */,
+				2C35A3E0B8484B219A8D7C19 /* libTestFlight.a */,
+				4DE3665362B54FD0BE3018FD /* libz.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -236,11 +236,11 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				23DB61FCC79F4F9E9971549C /* CDVTestFlight.m */,
-				1660AE3B34014C1A8D9F1044 /* TestFlight.h */,
-				B0339E56228A47B89CBBACCB /* TestFlight+AsyncLogging.h */,
-				192B4861D75846FC81477FCA /* TestFlight+ManualSessions.h */,
-				3631007E007A4E6784325643 /* CDVTestFlight.h */,
+				8835DA03D49D4409AA9DCC85 /* CDVTestFlight.m */,
+				8E771827DA104DF59034E6B3 /* TestFlight.h */,
+				CEF1E29BD26F46279182F23F /* TestFlight+AsyncLogging.h */,
+				C785DFDD18494112BFF88155 /* TestFlight+ManualSessions.h */,
+				34102AE773DE4B32ADBDC147 /* CDVTestFlight.h */,
 			);
 			name = Plugins;
 			path = "OpenTrails/Plugins";
@@ -435,7 +435,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				45F00E1FBC52420AB83A2A5F /* CDVTestFlight.m in Sources */,
+				55EBB084AF384450BFBB5EEB /* CDVTestFlight.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

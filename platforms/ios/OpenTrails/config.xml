@@ -43,6 +43,8 @@
     <icon gap:platform="ios" height="58" src="www/res/icons/icon-small@2x.png" width="58" />
     <icon gap:platform="ios" height="50" src="www/res/icons/icon-50.png" width="50" />
     <icon gap:platform="ios" height="100" src="www/res/icons/icon-50@2x.png" width="100" />
+    <gap:splash gap:platform="ios" height="960" src="www/res/screens/ios/screen-iphone-portrait-2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="1136" src="www/res/screens/ios/screen-iphone-portrait-568h-2x.png" width="640" />
     <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
   </author>
@@ -54,6 +56,7 @@
     <gap:plugin name="org.apache.cordova.file-transfer" version="0.3.3" />
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
     <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
     <access origin="*" subdomains="true" />
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
