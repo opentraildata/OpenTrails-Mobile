@@ -41,6 +41,7 @@
 		55EBB084AF384450BFBB5EEB /* CDVTestFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 8835DA03D49D4409AA9DCC85 /* CDVTestFlight.m */; };
 		083D022A31264E6DBEB0165B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C35A3E0B8484B219A8D7C19 /* libTestFlight.a */; };
 		5B46B6F74AC246EAA252B0D6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE3665362B54FD0BE3018FD /* libz.dylib */; };
+		985C6E087B63450084587993 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7C24607396431A9DB5658C /* CDVSplashScreen.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,8 @@
 		C785DFDD18494112BFF88155 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "com.testflightapp.cordova-plugin/TestFlight+ManualSessions.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		34102AE773DE4B32ADBDC147 /* CDVTestFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVTestFlight.h"; path = "com.testflightapp.cordova-plugin/CDVTestFlight.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		4DE3665362B54FD0BE3018FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		5A7C24607396431A9DB5658C /* CDVSplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSplashScreen.m"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		B16C882F0B3C4544A32EDADD /* CDVSplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSplashScreen.h"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +244,8 @@
 				CEF1E29BD26F46279182F23F /* TestFlight+AsyncLogging.h */,
 				C785DFDD18494112BFF88155 /* TestFlight+ManualSessions.h */,
 				34102AE773DE4B32ADBDC147 /* CDVTestFlight.h */,
+				5A7C24607396431A9DB5658C /* CDVSplashScreen.m */,
+				B16C882F0B3C4544A32EDADD /* CDVSplashScreen.h */,
 			);
 			name = Plugins;
 			path = "OpenTrails/Plugins";
@@ -436,6 +441,7 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				55EBB084AF384450BFBB5EEB /* CDVTestFlight.m in Sources */,
+				985C6E087B63450084587993 /* CDVSplashScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

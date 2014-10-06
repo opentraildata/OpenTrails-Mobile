@@ -35,9 +35,9 @@
   <icon src="www/res/icons/icon-50.png" gap:platform="ios" width="50" height="50" />
   <icon src="www/res/icons/icon-50@2x.png" gap:platform="ios" width="100" height="100" />
 
-  <gap:splash src="www/res/screens/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
+  <gap:splash src="www/res/splash/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
 
-  <gap:splash src="www/res/screens/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
+  <gap:splash src="www/res/splash/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
 
   <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
@@ -53,6 +53,7 @@
   <gap:plugin name="org.apache.cordova.file-transfer" version="0.3.3" />
   <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
   <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
+  <gap:plugin name="org.apache.cordova.splashscreen" />
 
   <access origin="*" subdomains="true" />
 

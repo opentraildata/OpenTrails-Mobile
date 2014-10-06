@@ -12,6 +12,12 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -22,6 +28,12 @@
                             "xml": "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>",
                             "count": 1
                         }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -29,6 +41,9 @@
     },
     "installed_plugins": {
         "com.testflightapp.cordova-plugin": {
+            "PACKAGE_NAME": "com.trailheadlabs.opentrails"
+        },
+        "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "com.trailheadlabs.opentrails"
         }
     },
