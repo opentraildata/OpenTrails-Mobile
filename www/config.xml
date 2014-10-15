@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.trailheadlabs.opentrails" version="0.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.trailheadlabs.opentrails" version="0.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
 
   <preference name="phonegap-version" value="3.5.0" />
   <preference name="orientation" value="portrait" />
@@ -35,6 +35,12 @@
   <icon src="res/icons/icon-50.png" gap:platform="ios" width="50" height="50" />
   <icon src="res/icons/icon-50@2x.png" gap:platform="ios" width="100" height="100" />
 
+  <!-- iPhone and iPod touch -->
+  <gap:splash src="res/screens/ios/Default.png" gap:platform="ios" width="320" height="480" />
+  <gap:splash src="res/screens/ios/Default@2x.png" gap:platform="ios" width="640" height="960" />
+
+  <!-- iPhone 5 / iPod Touch (5th Generation) -->
+  <gap:splash src="res/screens/ios/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
 
   <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
