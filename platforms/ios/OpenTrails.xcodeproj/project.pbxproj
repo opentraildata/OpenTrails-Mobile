@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		083D022A31264E6DBEB0165B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C35A3E0B8484B219A8D7C19 /* libTestFlight.a */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
