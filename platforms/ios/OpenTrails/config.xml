@@ -47,6 +47,7 @@
     <icon gap:platform="ios" height="58" src="www/res/icons/icon-small@2x.png" width="58" />
     <icon gap:platform="ios" height="50" src="www/res/icons/icon-50.png" width="50" />
     <icon gap:platform="ios" height="100" src="www/res/icons/icon-50@2x.png" width="100" />
+    <icon gap:platform="ios" height="120" src="www/res/icons/icon-120.png" width="120" />
     <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
   </author>
