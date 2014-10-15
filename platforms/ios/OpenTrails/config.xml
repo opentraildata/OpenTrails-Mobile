@@ -47,9 +47,8 @@
     <icon gap:platform="ios" height="58" src="www/res/icons/icon-small@2x.png" width="58" />
     <icon gap:platform="ios" height="50" src="www/res/icons/icon-50.png" width="50" />
     <icon gap:platform="ios" height="100" src="www/res/icons/icon-50@2x.png" width="100" />
-    <gap:splash gap:platform="ios" height="960" src="www/res/splash/ios/screen-iphone-portrait-3x.png" width="640" />
-    <gap:splash gap:platform="ios" height="960" src="www/res/splash/ios/screen-iphone-portrait-2x.png" width="640" />
-    <gap:splash gap:platform="ios" height="1136" src="www/res/splash/ios/screen-iphone-portrait-568h-2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="960" src="www/res/screens/ios/Default@2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="1136" src="www/res/screens/ios/Default-568h@2x.png" width="640" />
     <author email="jereme@trailheadlabs.com" href="http://www.trailheadlabs.com">
     Trailhead Labs
   </author>
