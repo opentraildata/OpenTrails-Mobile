@@ -1186,7 +1186,7 @@
       url: TILE_LAYERS.terrain.url,
       options: {
         "detectRetina": true,
-        "attribution": '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        "attribution": '&copy; OpenStreetMap contributors'
       }
     },
 
