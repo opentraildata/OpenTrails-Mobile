@@ -25,7 +25,10 @@
     NOTIFICATION_DATA_ENDPOINT: BASE_ENDPOINT + "/notifications?per_page=200",
     PHOTO_DATA_ENDPOINT: BASE_ENDPOINT + "/images?per_page=200",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/trailheadlabs.b9b3498e/{z}/{x}/{y}.png",
-    SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/trailheadlabs.jih1cig0/{z}/{x}/{y}.png"
+    SATELLITE_MAP_TILE_ENDPOINT: "https://{s}.tiles.mapbox.com/v3/trailheadlabs.jih1cig0/{z}/{x}/{y}.png",
+
+    LEAFLET_ATTRIBUTION: '<a href="#" onclick="window.open(\'http://leafletjs.com\',\'_system\')">Leaflet</a>',
+    OSM_ATTRIBUTION: '&copy; <a href="#" onclick="window.open(\'http://osm.org/copyright\',\'_system\')">OpenStreetMap</a> contributors'
   };
 
   //
@@ -1053,6 +1056,7 @@
 
     initialize: function () {
       this.delegate = L.map( this.get('el'), this.get('options') );
+      this.delegate.attributionControl.setPrefix(Configuration.LEAFLET_ATTRIBUTION);
     },
 
     setView: function (position, zoom) {
@@ -1186,7 +1190,7 @@
       url: TILE_LAYERS.terrain.url,
       options: {
         "detectRetina": true,
-        "attribution": '&copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+        "attribution": Configuration.OSM_ATTRIBUTION
       }
     },
 

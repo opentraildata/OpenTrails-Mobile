@@ -408,7 +408,10 @@
 
       function openTrailHeadInNativeMaps (trailhead) {
         var position = $scope.selectedTrailHead.getLatLng();
-        window.open('maps:q='+position.join(','), '_system');
+        CanOpen('comgooglemaps://', function(isInstalled) {
+          var urlPrefix = isInstalled ? 'comgooglemaps://' : 'https://maps.google.com';
+          window.open(urlPrefix+'?daddr='+position.join(','), '_system');
+        });
       }
 
       $scope.openTrailHeadInNativeMaps = openTrailHeadInNativeMaps;
