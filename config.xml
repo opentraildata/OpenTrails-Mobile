@@ -55,15 +55,13 @@
   <gap:plugin name="org.apache.cordova.dialogs"/>
   <gap:plugin name="org.apache.cordova.geolocation"/>
   <gap:plugin name="org.apache.cordova.splashscreen" />
-  <gap:plugin name="com.philmerrell.cordova.canopen" />
   <gap:plugin name="org.apache.cordova.inappbrowser" />
-
-  <access origin="*" subdomains="true" />
+  <gap:plugin name="com.ohh2ahh.plugins.appavailability" />
 
   <feature name="Geolocation">
       <param name="ios-package" value="CDVLocation" />
   </feature>
-   <feature name="CanOpen">
-      <param name="ios-package" value="CanOpen" />
-  </feature>
+
+  <access origin="*" subdomains="true" />
+
 </widget>
