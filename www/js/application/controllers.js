@@ -408,10 +408,20 @@
 
       function openTrailHeadInNativeMaps (trailhead) {
         var position = $scope.selectedTrailHead.getLatLng();
-        CanOpen('comgooglemaps://', function(isInstalled) {
-          var urlPrefix = isInstalled ? 'comgooglemaps://' : 'https://maps.google.com';
-          window.open(urlPrefix+'?daddr='+position.join(','), '_system');
-        });
+
+        appAvailability.check(
+            'comgooglemaps://', // URI Scheme
+            function() {  // Success callback
+              var urlPrefix = 'comgooglemaps://';
+              window.open(urlPrefix+'?daddr='+position.join(','), '_system');
+
+            },
+            function() {  // Error callback
+              var urlPrefix = 'https://maps.google.com';
+              window.open(urlPrefix+'?daddr='+position.join(','), '_system');
+
+            }
+        );
       }
 
       $scope.openTrailHeadInNativeMaps = openTrailHeadInNativeMaps;
