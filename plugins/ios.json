@@ -5,6 +5,30 @@
     },
     "config_munge": {
         "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"CanOpen\"><param name=\"ios-package\" value=\"CanOpen\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ],
+                    "/widget": [
+                        {
+                            "xml": "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
             "framework": {
                 "parents": {
                     "libz.dylib": [
@@ -20,44 +44,20 @@
                         }
                     ]
                 }
-            },
-            "config.xml": {
-                "parents": {
-                    "/widget": [
-                        {
-                            "xml": "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>",
-                            "count": 1
-                        }
-                    ],
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"CanOpen\"><param name=\"ios-package\" value=\"CanOpen\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
             }
         }
     },
     "installed_plugins": {
-        "com.testflightapp.cordova-plugin": {
+        "com.philmerrell.cordova.canopen": {
             "PACKAGE_NAME": "com.trailheadlabs.opentrails"
         },
-        "org.apache.cordova.splashscreen": {
+        "com.testflightapp.cordova-plugin": {
             "PACKAGE_NAME": "com.trailheadlabs.opentrails"
         },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.trailheadlabs.opentrails"
         },
-        "com.philmerrell.cordova.canopen": {
+        "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "com.trailheadlabs.opentrails"
         }
     },

@@ -50,15 +50,20 @@
     <gap:platform name="ios" minVersion="3.2" />
   </gap:platforms>
 
-  <gap:plugin name="org.apache.cordova.file" version="0.2.4" />
-  <gap:plugin name="org.apache.cordova.file-transfer" version="0.3.3" />
-  <gap:plugin name="org.apache.cordova.dialogs" version="0.2.2" />
-  <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
+  <gap:plugin name="org.apache.cordova.file"/>
+  <gap:plugin name="org.apache.cordova.file-transfer"/>
+  <gap:plugin name="org.apache.cordova.dialogs"/>
+  <gap:plugin name="org.apache.cordova.geolocation"/>
   <gap:plugin name="org.apache.cordova.splashscreen" />
+  <gap:plugin name="com.philmerrell.cordova.canopen" />
+  <gap:plugin name="org.apache.cordova.inappbrowser" />
 
   <access origin="*" subdomains="true" />
 
   <feature name="Geolocation">
       <param name="ios-package" value="CDVLocation" />
+  </feature>
+   <feature name="CanOpen">
+      <param name="ios-package" value="CanOpen" />
   </feature>
 </widget>
