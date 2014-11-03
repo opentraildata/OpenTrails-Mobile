@@ -216,7 +216,12 @@
           console.log('Device Ready!');
           navigator.geolocation.getCurrentPosition(
             onGeoPositionSuccess,
-            onGeoPositionError
+            onGeoPositionError,
+            {
+              enableHighAccuracy: false,
+              timeout: 10000,
+              maximumAge: 0
+            }
           );
 
 

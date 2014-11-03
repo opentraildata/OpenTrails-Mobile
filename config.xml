@@ -58,9 +58,7 @@
   <gap:plugin name="org.apache.cordova.inappbrowser" />
   <gap:plugin name="com.ohh2ahh.plugins.appavailability" />
 
-  <feature name="Geolocation">
-      <param name="ios-package" value="CDVLocation" />
-  </feature>
+  
   <gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="false"> 
     <array> 
       <string>Allow GPS at all times</string> 
