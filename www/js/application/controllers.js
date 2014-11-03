@@ -191,9 +191,10 @@
 
       function onGeoPositionSuccess (position) {
         positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
-        GeoPosition.set(position.coords);
+        GeoPosition.set({latitude: position.coords.latitude,longitude: position.coords.longitude});
         console.log('Geolocated user!');
         Map.setView( positionMarker.getPosition(), Map.DEFAULT_ZOOM );
+        clearSearch();
       }
 
       function onGeoPositionError (err) {
@@ -209,7 +210,8 @@
 
 
       function recenter () {
-
+        // this is temporary. we reset the zoom to closer since we launched the map zoomed out for demo 
+        Map.DEFAULT_ZOOM = 9;
         document.addEventListener("deviceready", function(){
           console.log('Device Ready!');
           navigator.geolocation.getCurrentPosition(

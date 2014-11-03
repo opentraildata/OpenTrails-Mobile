@@ -62,8 +62,6 @@
   <gap:plugin name="org.apache.cordova.splashscreen" />
   <gap:plugin name="org.apache.cordova.inappbrowser" />
   <gap:plugin name="com.ohh2ahh.plugins.appavailability" />
-
-
   <feature name="Geolocation">
       <param name="ios-package" value="CDVLocation" />
   </feature>
