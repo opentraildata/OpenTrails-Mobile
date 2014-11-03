@@ -53,7 +53,7 @@
   <gap:plugin name="org.apache.cordova.file"/>
   <gap:plugin name="org.apache.cordova.file-transfer"/>
   <gap:plugin name="org.apache.cordova.dialogs"/>
-  <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+  <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
   <gap:plugin name="org.apache.cordova.splashscreen" />
   <gap:plugin name="org.apache.cordova.inappbrowser" />
   <gap:plugin name="com.ohh2ahh.plugins.appavailability" />
