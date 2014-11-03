@@ -51,7 +51,10 @@
   </gap:platforms>
 
   <gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="false"> 
-  </gap:config-file> 
+    <array> 
+      <string>Allow GPS</string> 
+    </array> 
+  </gap:config-file>
 
   <gap:plugin name="org.apache.cordova.file"/>
   <gap:plugin name="org.apache.cordova.file-transfer"/>
