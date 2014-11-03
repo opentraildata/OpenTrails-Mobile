@@ -59,7 +59,7 @@
   <gap:plugin name="com.ohh2ahh.plugins.appavailability" />
 
   
-  <gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="false"> 
+  <gap:config-file platform="ios" parent="NSLocationWhenInUseUsageDescription" overwrite="false"> 
     <array> 
       <string>Allow GPS at all times</string> 
     </array> 
