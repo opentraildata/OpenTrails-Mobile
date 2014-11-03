@@ -200,7 +200,6 @@
       function onGeoPositionError (err) {
         console.log('Error: Could not geolocate user');
         Map.setView(Map.DEFAULT_CENTER, Map.DEFAULT_ZOOM);
-        alert(err.code + ' : ' + err.message);
         // positionMarker.setPosition([position.coords.latitude,position.coords.longitude]);
         // GeoPosition.set({latitude: Map.getCenter().lat,longitude: Map.getCenter().lng});
       }
