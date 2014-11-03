@@ -13,9 +13,11 @@
     MIN_ZOOM_LEVEL: 1,
     MAX_ZOOM_LEVEL: 18,
     MAX_BOUNDS: [[41.838746, -82.276611],[40.456287,-81.035156]],
-    DEFAULT_ZOOM_LEVEL: 9,
+    DEFAULT_ZOOM_LEVEL: 3,
+    // Center of the United States
+    DEFAULT_MAP_CENTER: [ 39.8282, -98.5795 ],
     // Ohio
-    DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
+    // DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
     // Boulder
     // DEFAULT_MAP_CENTER: [ 40.0293099,-105.2399774 ],
     TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/cached_trails',
@@ -294,7 +296,7 @@
 
     if (params.position) {
       results = results.sort(function (a,b) {
-        return a.distanceFrom(params.position) < b.distanceFrom(params.position);
+        return a.distanceFrom(params.position) - b.distanceFrom(params.position);
       });
     }
 
