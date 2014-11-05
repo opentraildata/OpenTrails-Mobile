@@ -20,10 +20,10 @@
     // DEFAULT_MAP_CENTER: [ 41.082020, -81.518506 ],
     // Boulder
     // DEFAULT_MAP_CENTER: [ 40.0293099,-105.2399774 ],
-    TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/cached_trails',
+    TRAIL_DATA_ENDPOINT: BASE_ENDPOINT + '/cached_trails_csv',
     TRAILHEAD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trailheads",
     TRAILSEGMENT_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_trail_segments",
-    STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_stewards",
+    STEWARD_DATA_ENDPOINT: BASE_ENDPOINT + "/cached_stewards_csv",
     NOTIFICATION_DATA_ENDPOINT: BASE_ENDPOINT + "/notifications?per_page=200",
     PHOTO_DATA_ENDPOINT: BASE_ENDPOINT + "/images?per_page=200",
     TERRAIN_MAP_TILE_ENDPOINT: "http://{s}.tiles.mapbox.com/v3/trailheadlabs.b9b3498e/{z}/{x}/{y}.png",
@@ -1630,9 +1630,9 @@
           $http.get(pageUrl).then(
             function (res) {
               data = res.data;
-              // if (key == "TrailData" || key == "StewardData") {
-              //   data = parseCSV(data);
-              // }
+              if (key == "TrailData" || key == "StewardData") {
+                data = parseCSV(data);
+              }
               // window.localStorage.setItem(key, JSON.stringify(data) );
               if(data.paging) {
 
@@ -1649,6 +1649,10 @@
             }
           );
         }
+      }
+
+      function parseCSV(data){
+        Papa.parse(data);
       }
 
       loadModel(Trail, "TrailData", Configuration.TRAIL_DATA_ENDPOINT);
