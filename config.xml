@@ -50,6 +50,12 @@
     <gap:platform name="ios" minVersion="3.2" />
   </gap:platforms>
 
+  <gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="false"> 
+    <array> 
+      <string>Allow GPS</string> 
+    </array> 
+  </gap:config-file>
+
   <gap:plugin name="org.apache.cordova.file"/>
   <gap:plugin name="org.apache.cordova.file-transfer"/>
   <gap:plugin name="org.apache.cordova.dialogs"/>
@@ -58,13 +64,6 @@
   <gap:plugin name="org.apache.cordova.inappbrowser" />
   <gap:plugin name="com.ohh2ahh.plugins.appavailability" />
 
-  
-  <gap:config-file platform="ios" parent="NSLocationAlwaysUsageDescription" overwrite="false"> 
-    <array> 
-      <string>Allow GPS at all times</string> 
-    </array> 
-  </gap:config-file> 
- 
   <access origin="*" subdomains="true" />
 
 </widget>
