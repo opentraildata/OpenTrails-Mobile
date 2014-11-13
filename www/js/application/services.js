@@ -525,9 +525,11 @@
 
       if (data) {
         ng.forEach(data, function (trail) {
-          if(trail.outerspatial){
-            trail.id = trail.outerspatial.id;
-            trail.segment_ids = trail.outerspatial.segment_ids;
+          if(trail.outerspatial_id){
+            trail.id = trail.outerspatial_id;
+            trail.segment_ids = trail.outerspatial_segment_ids.split(';');
+          } else {
+            trail.segment_ids = trail.segment_ids.split(';')
           }
           if (trail.segment_ids.length) {
             results.push( new Trail(trail) );
@@ -896,8 +898,8 @@
 
       if (data.length) {
         ng.forEach(data, function (steward) {
-          if(steward.outerspatial){
-            steward.id = steward.outerspatial.id;
+          if(steward.outerspatial_id){
+            steward.id = steward.outerspatial_id;
           }
           results.push( new Steward(steward) );
         });
@@ -1578,45 +1580,6 @@
         return loaded;
       };
 
-      function parseCSV(strData, strDelimiter) {
-        strDelimiter = (strDelimiter || ",");
-        var objPattern = new RegExp((
-          "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
-          "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-          "([^\"\\" + strDelimiter + "\\r\\n]*))"), "gi"
-        );
-        var arrData = [[]];
-        var arrMatches = null;
-
-        while (arrMatches = objPattern.exec(strData)) {
-            var strMatchedDelimiter = arrMatches[1];
-            if (strMatchedDelimiter.length && (strMatchedDelimiter != strDelimiter)) {
-              arrData.push([]);
-            }
-            if (arrMatches[2]) {
-              var strMatchedValue = arrMatches[2].replace(
-              new RegExp("\"\"", "g"), "\"");
-            } else {
-              var strMatchedValue = arrMatches[3];
-            }
-            arrData[arrData.length - 1].push(strMatchedValue);
-        }
-
-        var objArray = [];
-        for (var i = 1; i < arrData.length; i++) {
-          objArray[i - 1] = {};
-          for (var k = 0; k < arrData[0].length && k < arrData[i].length; k++) {
-            var key = arrData[0][k];
-            if (key == "segment_ids") {
-              arrData[i][k] = arrData[i][k].split(";");
-            }
-            objArray[i - 1][key] = arrData[i][k]
-          }
-        }
-
-        return objArray;
-      }
-
       function loadModel (model, key, url, page) {
         // var data = window.localStorage.getItem(key);
         var data = false;
@@ -1652,7 +1615,7 @@
       }
 
       function parseCSV(data){
-        Papa.parse(data);
+        return Papa.parse(data,{header:true}).data;
       }
 
       loadModel(Trail, "TrailData", Configuration.TRAIL_DATA_ENDPOINT);
